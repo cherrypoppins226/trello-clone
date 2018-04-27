@@ -1,21 +1,52 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
+import React from "react";
+import Grid from "material-ui/Grid";
+import Paper from "material-ui/Paper";
+import List, { ListItem, ListItemText } from "material-ui/List";
+import ListSubheader from "material-ui/List/List";
+import red from "material-ui/colors/red";
+
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const CardListItem = props => {
+  return (
+    <Paper style={{ background: red[100] }}>
+      <ListItem button={true}>
+        <ListItemText>{props.text}</ListItemText>
+      </ListItem>
+    </Paper>
+  );
+};
+
+const CardList = props => {
+  return (
+    <Paper style={{ background: red[50] }}>
+      <List subheader={<ListSubheader>{props.name}</ListSubheader>}>
+        <Grid container spacing={16} direction="column">
+          {props.cards.map((text, idx) => (
+            <Grid item key={idx}>
+              <CardListItem text={text} />
+            </Grid>
+          ))}
+        </Grid>
+      </List>
+    </Paper>
+  );
+};
+
+const Board = props => {
+  return (
+    <Grid container spacing={16}>
+      {Object.entries(props.lists).map(([k, v]) => {
+        return (
+          <Grid item key={k}>
+            <CardList name={k} cards={v} />
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+};
+
+const App = props => <Board lists={props.lists} />;
 
 export default App;
