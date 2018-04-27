@@ -6,8 +6,6 @@ import List, { ListItem, ListItemText } from "material-ui/List";
 import ListSubheader from "material-ui/List/List";
 import red from "material-ui/colors/red";
 
-import "./App.css";
-
 const CardListItem = withStyles({
   paper: {
     margin: 7,
