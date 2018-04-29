@@ -15,14 +15,11 @@ const CardListItem = withStyles({
     padding: 4,
     paddingLeft: 8
   }
-})(props => {
-  const { classes } = props;
+})(({ classes, text }) => {
   return (
     <Paper elevation={1} className={classes.paper}>
-      <ListItem button={true} className={classes.listItem}>
-        <ListItemText className={classes.listItemText}>
-          {props.text}
-        </ListItemText>
+      <ListItem button className={classes.listItem}>
+        <ListItemText className={classes.listItemText}>{text}</ListItemText>
       </ListItem>
     </Paper>
   );
@@ -44,16 +41,13 @@ const CardList = withStyles({
     maxHeight: "80vh",
     overflowY: "scroll"
   }
-})(props => {
-  const { classes } = props;
+})(({ classes, name, cards }) => {
   return (
     <Paper elevation={1} className={classes.container}>
       <List className={classes.list}>
-        <ListSubheader className={classes.header}>{props.name}</ListSubheader>
+        <ListSubheader className={classes.header}>{name}</ListSubheader>
         <div className={classes.cards}>
-          {props.cards.map((text, idx) => (
-            <CardListItem key={idx} text={text} />
-          ))}
+          {cards.map((text, idx) => <CardListItem key={idx} text={text} />)}
         </div>
       </List>
     </Paper>
@@ -68,11 +62,10 @@ const Board = withStyles({
   gridItem: {
     width: 300
   }
-})(props => {
-  const { classes } = props;
+})(({ classes, lists }) => {
   return (
     <Grid container spacing={16} wrap="nowrap" className={classes.grid}>
-      {Object.entries(props.lists).map(([k, v]) => {
+      {Object.entries(lists).map(([k, v]) => {
         return (
           <Grid item key={k} className={classes.gridItem}>
             <CardList name={k} cards={v} />
@@ -83,6 +76,6 @@ const Board = withStyles({
   );
 });
 
-const App = props => <Board lists={props.lists} />;
+const App = ({ lists }) => <Board lists={lists} />;
 
 export default App;
