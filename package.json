@@ -14,10 +14,13 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "material-icons": "^0.2.1",
     "material-ui": "^1.0.0-beta.43",
     "prettier": "^1.12.1",
+    "prettier-eslint-cli": "^4.7.1",
+    "prop-types": "^15.6.1",
     "typeface-roboto": "^0.0.54"
   }
 }
