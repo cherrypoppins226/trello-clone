@@ -6,48 +6,45 @@ import List, { ListItem, ListItemText } from "material-ui/List";
 import ListSubheader from "material-ui/List/List";
 import red from "material-ui/colors/red";
 
-const CardListItem = withStyles({
-  paper: {
+const CardsListCard = withStyles({
+  container: {
     margin: 7,
     background: red[100]
   },
-  listItem: {
+  card: {
     padding: 4,
     paddingLeft: 8
   }
 })(({ classes, text }) => {
   return (
-    <Paper elevation={1} className={classes.paper}>
-      <ListItem button className={classes.listItem}>
-        <ListItemText className={classes.listItemText}>{text}</ListItemText>
+    <Paper elevation={1} className={classes.container}>
+      <ListItem button className={classes.card}>
+        <ListItemText>{text}</ListItemText>
       </ListItem>
     </Paper>
   );
 });
 
-const CardList = withStyles({
+const CardsList = withStyles({
   container: {
     background: red[50]
   },
-  header: {
+  name: {
     padding: 0,
     margin: 8,
     fontWeight: 700
   },
-  list: {
-    padding: 1
-  },
   cards: {
-    maxHeight: "80vh",
+    maxHeight: "90vh",
     overflowY: "scroll"
   }
 })(({ classes, name, cards }) => {
   return (
     <Paper elevation={1} className={classes.container}>
-      <List className={classes.list}>
-        <ListSubheader className={classes.header}>{name}</ListSubheader>
+      <List style={{ padding: 1 }}>
+        <ListSubheader className={classes.name}>{name}</ListSubheader>
         <div className={classes.cards}>
-          {cards.map((text, idx) => <CardListItem key={idx} text={text} />)}
+          {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
         </div>
       </List>
     </Paper>
@@ -56,19 +53,17 @@ const CardList = withStyles({
 
 const Board = withStyles({
   grid: {
-    margin: 8,
-    wordBreak: "break-word"
-  },
-  gridItem: {
-    width: 300
+    padding: 8,
+    margin: 0,
+    width: "100%"
   }
 })(({ classes, lists }) => {
   return (
     <Grid container spacing={16} wrap="nowrap" className={classes.grid}>
       {Object.entries(lists).map(([k, v]) => {
         return (
-          <Grid item key={k} className={classes.gridItem}>
-            <CardList name={k} cards={v} />
+          <Grid item key={k} style={{ width: 300 }}>
+            <CardsList name={k} cards={v} />
           </Grid>
         );
       })}
