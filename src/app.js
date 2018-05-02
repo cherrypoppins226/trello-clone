@@ -52,27 +52,29 @@ const CardsList = withStyles({
     justifyContent: "left",
     textTransform: "none"
   }
-})(({ classes, name, cards }) => {
-  const addCard = e => {
-    e.preventDefault();
-  };
+})(
+  (() => {
+    const addCard = e => {
+      e.preventDefault();
+    };
 
-  return (
-    <Paper elevation={1} className={classes.container}>
-      <List style={{ padding: 1 }} className={classes.list}>
-        <ListSubheader component="li" className={classes.name}>
-          {name}
-        </ListSubheader>
-        <div className={classes.cards}>
-          {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
-        </div>
-      </List>
-      <Button className={classes.addCard} onClick={addCard}>
-        Add a card...
-      </Button>
-    </Paper>
-  );
-});
+    return ({ classes, name, cards }) => (
+      <Paper elevation={1} className={classes.container}>
+        <List style={{ padding: 1 }} className={classes.list}>
+          <ListSubheader component="li" className={classes.name}>
+            {name}
+          </ListSubheader>
+          <div className={classes.cards}>
+            {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
+          </div>
+        </List>
+        <Button className={classes.addCard} onClick={addCard}>
+          Add a card...
+        </Button>
+      </Paper>
+    );
+  })()
+);
 
 const Board = withStyles({
   grid: {
