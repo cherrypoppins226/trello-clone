@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
+import Button from "material-ui/Button";
 import Paper from "material-ui/Paper";
 import List, { ListItem, ListItemText } from "material-ui/List";
 import ListSubheader from "material-ui/List/List";
@@ -30,6 +31,7 @@ const CardsListCard = withStyles({
 const CardsList = withStyles({
   container: {
     display: "flex",
+    flexDirection: "column",
     maxHeight: "100%",
     background: red[50]
   },
@@ -45,8 +47,16 @@ const CardsList = withStyles({
   },
   cards: {
     overflowY: "scroll"
+  },
+  addCard: {
+    justifyContent: "left",
+    textTransform: "none"
   }
 })(({ classes, name, cards }) => {
+  const addCard = e => {
+    e.preventDefault();
+  };
+
   return (
     <Paper elevation={1} className={classes.container}>
       <List style={{ padding: 1 }} className={classes.list}>
@@ -57,6 +67,9 @@ const CardsList = withStyles({
           {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
         </div>
       </List>
+      <Button className={classes.addCard} onClick={addCard}>
+        Add a card...
+      </Button>
     </Paper>
   );
 });
