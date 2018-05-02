@@ -2,57 +2,22 @@ import "typeface-roboto";
 import React from "react";
 import ReactDOM from "react-dom";
 import CssBaseline from "material-ui/CssBaseline";
+import faker from "faker";
+
 import "./index.css";
 import App from "./app";
 import registerServiceWorker from "./registerServiceWorker";
 
-const lists = {
-  "This is a long text that will hopefully not overflow": [
-    "card1",
-    "card2",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card1",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card2",
-    "card3"
-  ],
-  List2: [
-    "This is a long text that will hopefully not overflow",
-    "card2",
-    "card3"
-  ]
-};
+faker.seed(1);
+
+const lists = {};
+for (let i = 0; i < 6; i++) {
+  const key = faker.lorem.sentence();
+  lists[key] = [];
+  for (let j = 0; j < faker.random.number({ min: 2, max: 50 }); j++) {
+    lists[key].push(faker.lorem.sentence());
+  }
+}
 
 ReactDOM.render(
   <React.Fragment>

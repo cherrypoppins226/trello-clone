@@ -8,7 +8,9 @@ import red from "material-ui/colors/red";
 
 const CardsListCard = withStyles({
   container: {
-    margin: 7,
+    margin: 8,
+    marginTop: 0,
+    marginBottom: 8,
     background: red[100]
   },
   card: {
@@ -17,9 +19,9 @@ const CardsListCard = withStyles({
   }
 })(({ classes, text }) => {
   return (
-    <Paper elevation={1} className={classes.container}>
+    <Paper elevation={1} component="li" className={classes.container}>
       <ListItem button className={classes.card}>
-        <ListItemText>{text}</ListItemText>
+        <ListItemText className={classes.text}>{text}</ListItemText>
       </ListItem>
     </Paper>
   );
@@ -27,22 +29,30 @@ const CardsListCard = withStyles({
 
 const CardsList = withStyles({
   container: {
+    display: "flex",
+    maxHeight: "100%",
     background: red[50]
+  },
+  list: {
+    display: "flex",
+    flexDirection: "column"
   },
   name: {
     padding: 0,
     margin: 8,
+    marginTop: 16,
     fontWeight: 700
   },
   cards: {
-    maxHeight: "90vh",
     overflowY: "scroll"
   }
 })(({ classes, name, cards }) => {
   return (
     <Paper elevation={1} className={classes.container}>
-      <List style={{ padding: 1 }}>
-        <ListSubheader className={classes.name}>{name}</ListSubheader>
+      <List style={{ padding: 1 }} className={classes.list}>
+        <ListSubheader component="li" className={classes.name}>
+          {name}
+        </ListSubheader>
         <div className={classes.cards}>
           {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
         </div>
@@ -55,14 +65,18 @@ const Board = withStyles({
   grid: {
     padding: 8,
     margin: 0,
+    height: "100%",
     width: "100%"
+  },
+  cardListContainer: {
+    width: 300
   }
 })(({ classes, lists }) => {
   return (
     <Grid container spacing={16} wrap="nowrap" className={classes.grid}>
       {Object.entries(lists).map(([k, v]) => {
         return (
-          <Grid item key={k} style={{ width: 300 }}>
+          <Grid item key={k} className={classes.cardListContainer}>
             <CardsList name={k} cards={v} />
           </Grid>
         );
