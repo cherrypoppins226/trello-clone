@@ -1,240 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-<div
-  className="MuiGrid-container-3 MuiGrid-spacing-xs-16-25 MuiGrid-wrap-xs-nowrap-9 Component-grid-1"
+exports[`renders correctly board 1`] = `
+<WithStyles(GridWrapper)
+  className="BoardComponent-grid-1"
+  container={true}
+  spacing={16}
+  wrap="nowrap"
 >
-  <div
-    className="MuiGrid-item-4 Component-cardListContainer-2"
+  <WithStyles(GridWrapper)
+    className="BoardComponent-cardListContainer-2"
+    item={true}
+    key="Repellat quisquam recusandae alias consequuntur corporis."
   >
-    <div
-      className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-93"
-    >
-      <ul
-        className="MuiList-root-125 MuiList-padding-126 Component-list-94"
-        style={
-          Object {
-            "padding": 1,
-          }
-        }
-      >
-        <li
-          className="MuiList-root-125 MuiList-padding-126 Component-name-95"
-        >
-          Repellat quisquam recusandae alias consequuntur corporis.
-        </li>
-        <div
-          className="Component-cards-96"
-        >
-          <li
-            className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-129"
-          >
-            <div
-              className="MuiButtonBase-root-141 MuiListItem-root-131 MuiListItem-default-134 MuiListItem-gutters-138 MuiListItem-button-139 Component-card-130"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex="0"
-            >
-              <div
-                className="MuiListItemText-root-144"
-              >
-                <h3
-                  className="MuiTypography-root-150 MuiTypography-subheading-157 MuiListItemText-primary-147"
-                >
-                  Ratione ut sunt qui amet iure ut libero qui recusandae.
-                </h3>
-              </div>
-              <span
-                className="MuiTouchRipple-root-174"
-              />
-            </div>
-          </li>
-          <li
-            className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-129"
-          >
-            <div
-              className="MuiButtonBase-root-141 MuiListItem-root-131 MuiListItem-default-134 MuiListItem-gutters-138 MuiListItem-button-139 Component-card-130"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex="0"
-            >
-              <div
-                className="MuiListItemText-root-144"
-              >
-                <h3
-                  className="MuiTypography-root-150 MuiTypography-subheading-157 MuiListItemText-primary-147"
-                >
-                  Nulla quam ipsam nobis cupiditate sed dignissimos.
-                </h3>
-              </div>
-              <span
-                className="MuiTouchRipple-root-174"
-              />
-            </div>
-          </li>
-        </div>
-      </ul>
-      <button
-        className="MuiButtonBase-root-141 MuiButton-root-181 Component-addCard-97"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
-        type="button"
-      >
-        <span
-          className="MuiButton-label-182"
-        >
-          Add a card...
-        </span>
-        <span
-          className="MuiTouchRipple-root-174"
-        />
-      </button>
-    </div>
-  </div>
-  <div
-    className="MuiGrid-item-4 Component-cardListContainer-2"
+    <WithStyles(Component)
+      cards={
+        Array [
+          "Ratione ut sunt qui amet iure ut libero qui recusandae.",
+          "Nulla quam ipsam nobis cupiditate sed dignissimos.",
+        ]
+      }
+      name="Repellat quisquam recusandae alias consequuntur corporis."
+    />
+  </WithStyles(GridWrapper)>
+  <WithStyles(GridWrapper)
+    className="BoardComponent-cardListContainer-2"
+    item={true}
+    key="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
   >
-    <div
-      className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-93"
+    <WithStyles(Component)
+      cards={
+        Array [
+          "Velit omnis et porro ut et ipsam explicabo eligendi occaecati.",
+          "Et saepe eum dicta eum eaque enim ipsum inventore debitis.",
+        ]
+      }
+      name="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
+    />
+  </WithStyles(GridWrapper)>
+</WithStyles(GridWrapper)>
+`;
+
+exports[`renders correctly cards-list 1`] = `
+<WithStyles(Paper)
+  className="Component-container-3"
+  elevation={1}
+>
+  <WithStyles(List)
+    className="Component-list-4"
+  >
+    <WithStyles(List)
+      className="Component-name-5"
+      component="li"
     >
-      <ul
-        className="MuiList-root-125 MuiList-padding-126 Component-list-94"
-        style={
-          Object {
-            "padding": 1,
-          }
-        }
-      >
-        <li
-          className="MuiList-root-125 MuiList-padding-126 Component-name-95"
-        >
-          Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos.
-        </li>
-        <div
-          className="Component-cards-96"
-        >
-          <li
-            className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-129"
-          >
-            <div
-              className="MuiButtonBase-root-141 MuiListItem-root-131 MuiListItem-default-134 MuiListItem-gutters-138 MuiListItem-button-139 Component-card-130"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex="0"
-            >
-              <div
-                className="MuiListItemText-root-144"
-              >
-                <h3
-                  className="MuiTypography-root-150 MuiTypography-subheading-157 MuiListItemText-primary-147"
-                >
-                  Velit omnis et porro ut et ipsam explicabo eligendi occaecati.
-                </h3>
-              </div>
-              <span
-                className="MuiTouchRipple-root-174"
-              />
-            </div>
-          </li>
-          <li
-            className="MuiPaper-root-98 MuiPaper-elevation1-101 MuiPaper-rounded-99 Component-container-129"
-          >
-            <div
-              className="MuiButtonBase-root-141 MuiListItem-root-131 MuiListItem-default-134 MuiListItem-gutters-138 MuiListItem-button-139 Component-card-130"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              role="button"
-              tabIndex="0"
-            >
-              <div
-                className="MuiListItemText-root-144"
-              >
-                <h3
-                  className="MuiTypography-root-150 MuiTypography-subheading-157 MuiListItemText-primary-147"
-                >
-                  Et saepe eum dicta eum eaque enim ipsum inventore debitis.
-                </h3>
-              </div>
-              <span
-                className="MuiTouchRipple-root-174"
-              />
-            </div>
-          </li>
-        </div>
-      </ul>
-      <button
-        className="MuiButtonBase-root-141 MuiButton-root-181 Component-addCard-97"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex="0"
-        type="button"
-      >
-        <span
-          className="MuiButton-label-182"
-        >
-          Add a card...
-        </span>
-        <span
-          className="MuiTouchRipple-root-174"
-        />
-      </button>
+      Repellat quisquam recusandae alias consequuntur corporis.
+    </WithStyles(List)>
+    <div
+      className="Component-cards-6"
+    >
+      <WithStyles(CardsListCardComponent)
+        key="0"
+        text="Ratione ut sunt qui amet iure ut libero qui recusandae."
+      />
+      <WithStyles(CardsListCardComponent)
+        key="1"
+        text="Nulla quam ipsam nobis cupiditate sed dignissimos."
+      />
     </div>
-  </div>
-</div>
+  </WithStyles(List)>
+  <WithStyles(Button)
+    className="Component-addCard-7"
+    onClick={[Function]}
+  >
+    Add a card...
+  </WithStyles(Button)>
+</WithStyles(Paper)>
+`;
+
+exports[`renders correctly cards-list card 1`] = `
+<WithStyles(Paper)
+  className="CardsListCardComponent-container-8"
+  component="li"
+  elevation={1}
+>
+  <WithStyles(ListItem)
+    button={true}
+    className="CardsListCardComponent-card-9"
+  >
+    <WithStyles(ListItemText)>
+      Card list card text
+    </WithStyles(ListItemText)>
+  </WithStyles(ListItem)>
+</WithStyles(Paper)>
 `;
