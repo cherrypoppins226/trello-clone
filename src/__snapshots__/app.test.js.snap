@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly board 1`] = `
+exports[`board initial render 1`] = `
 <WithStyles(GridWrapper)
   className="BoardComponent-grid-1"
   container={true}
@@ -40,7 +40,24 @@ exports[`renders correctly board 1`] = `
 </WithStyles(GridWrapper)>
 `;
 
-exports[`renders correctly cards-list 1`] = `
+exports[`cards list card initial render 1`] = `
+<WithStyles(Paper)
+  className="CardsListCardComponent-container-8"
+  component="li"
+  elevation={1}
+>
+  <WithStyles(ListItem)
+    button={true}
+    className="CardsListCardComponent-card-9"
+  >
+    <WithStyles(ListItemText)>
+      Card list card text
+    </WithStyles(ListItemText)>
+  </WithStyles(ListItem)>
+</WithStyles(Paper)>
+`;
+
+exports[`cards list initial render 1`] = `
 <WithStyles(Paper)
   className="Component-container-3"
   elevation={1}
@@ -73,22 +90,5 @@ exports[`renders correctly cards-list 1`] = `
   >
     Add a card...
   </WithStyles(Button)>
-</WithStyles(Paper)>
-`;
-
-exports[`renders correctly cards-list card 1`] = `
-<WithStyles(Paper)
-  className="CardsListCardComponent-container-8"
-  component="li"
-  elevation={1}
->
-  <WithStyles(ListItem)
-    button={true}
-    className="CardsListCardComponent-card-9"
-  >
-    <WithStyles(ListItemText)>
-      Card list card text
-    </WithStyles(ListItemText)>
-  </WithStyles(ListItem)>
 </WithStyles(Paper)>
 `;
