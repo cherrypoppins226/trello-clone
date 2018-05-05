@@ -50,9 +50,18 @@ exports[`cards list card initial render 1`] = `
     button={true}
     className="CardsListCardComponent-card-8"
   >
-    <WithStyles(ListItemText)>
+    <WithStyles(ListItemText)
+      className="CardsListCardComponent-text-9"
+    >
       Card list card text
     </WithStyles(ListItemText)>
+    <a
+      className="CardsListCardComponent-edit-10"
+    >
+      <pure(Create)
+        className="CardsListCardComponent-editIcon-11"
+      />
+    </a>
   </WithStyles(ListItem)>
 </WithStyles(Paper)>
 `;

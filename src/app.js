@@ -6,17 +6,43 @@ import Paper from "material-ui/Paper";
 import List, { ListItem, ListItemText } from "material-ui/List";
 import PropTypes from "prop-types";
 import red from "material-ui/colors/red";
+import grey from "material-ui/colors/grey";
+import Create from "@material-ui/icons/Create";
 
 const CardsListCardStyles = {
   container: {
     margin: 8,
     marginTop: 0,
     marginBottom: 8,
-    background: red[100]
+    background: red[100],
+    display: "flex",
+    flexDirection: "row"
   },
   card: {
     padding: 4,
-    paddingLeft: 8
+    paddingLeft: 8,
+    "&:hover $edit": {
+      visibility: "visible"
+    }
+  },
+  text: {
+    paddingRight: 0
+  },
+  edit: {
+    visibility: "hidden",
+    alignSelf: "flex-start",
+    borderRadius: 4,
+    padding: 2,
+    paddingBottom: 0,
+    "&:hover": {
+      background: red[200]
+    }
+  },
+  editIcon: {
+    padding: 2,
+    width: "0.8em",
+    height: "0.8em",
+    color: grey[800]
   }
 };
 
@@ -24,7 +50,10 @@ const CardsListCardComponent = ({ classes, text = "Title..." }) => {
   return (
     <Paper elevation={1} component="li" className={classes.container}>
       <ListItem button className={classes.card}>
-        <ListItemText>{text}</ListItemText>
+        <ListItemText className={classes.text}>{text}</ListItemText>
+        <a className={classes.edit}>
+          <Create className={classes.editIcon} />
+        </a>
       </ListItem>
     </Paper>
   );
