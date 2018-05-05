@@ -24,21 +24,21 @@ describe("board", () => {
 
 describe("cards list", () => {
   it("initial render", () => {
-    const [name, cards] = Object.entries(lists)[0];
-    const tree = shallow(<CardsList name={name} cards={cards} />);
+    const [title, cards] = Object.entries(lists)[0];
+    const tree = shallow(<CardsList title={title} cards={cards} />);
     expect(tree).toMatchSnapshot();
   });
 });
 
 describe("cards list card", () => {
   it("initial render", () => {
-    const tree = shallow(<CardsListCard text="Card list card text" />);
+    const tree = shallow(<CardsListCard description="Card list card text" />);
     expect(tree).toMatchSnapshot();
   });
 
   it("adds a card", () => {
-    const [name, cards] = Object.entries(lists)[0];
-    const tree = shallow(<CardsList name={name} cards={cards} />);
+    const [title, cards] = Object.entries(lists)[0];
+    const tree = shallow(<CardsList title={title} cards={cards} />);
     const before = findByTestId("cards-list", tree).children();
     findByText("add a card", tree).simulate("click", mockEvent);
     const after = findByTestId("cards-list", tree).children();

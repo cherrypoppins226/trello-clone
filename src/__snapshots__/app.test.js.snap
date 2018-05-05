@@ -19,7 +19,7 @@ exports[`board initial render 1`] = `
           "Nulla quam ipsam nobis cupiditate sed dignissimos.",
         ]
       }
-      name="Repellat quisquam recusandae alias consequuntur corporis."
+      title="Repellat quisquam recusandae alias consequuntur corporis."
     />
   </WithStyles(GridWrapper)>
   <WithStyles(GridWrapper)
@@ -34,7 +34,7 @@ exports[`board initial render 1`] = `
           "Et saepe eum dicta eum eaque enim ipsum inventore debitis.",
         ]
       }
-      name="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
+      title="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
     />
   </WithStyles(GridWrapper)>
 </WithStyles(GridWrapper)>
@@ -51,7 +51,7 @@ exports[`cards list card initial render 1`] = `
     className="CardsListCardComponent-card-8"
   >
     <WithStyles(ListItemText)
-      className="CardsListCardComponent-text-9"
+      className="CardsListCardComponent-description-9"
     >
       Card list card text
     </WithStyles(ListItemText)>
@@ -72,21 +72,21 @@ exports[`cards list initial render 1`] = `
   elevation={1}
 >
   <h4
-    className="CardsListComponent-name-5"
+    className="CardsListComponent-title-4"
   >
     Repellat quisquam recusandae alias consequuntur corporis.
   </h4>
   <WithStyles(List)
-    className="CardsListComponent-list-4"
+    className="CardsListComponent-cardsList-5"
     data-testid="cards-list"
   >
     <WithStyles(CardsListCardComponent)
+      description="Ratione ut sunt qui amet iure ut libero qui recusandae."
       key="0"
-      text="Ratione ut sunt qui amet iure ut libero qui recusandae."
     />
     <WithStyles(CardsListCardComponent)
+      description="Nulla quam ipsam nobis cupiditate sed dignissimos."
       key="1"
-      text="Nulla quam ipsam nobis cupiditate sed dignissimos."
     />
   </WithStyles(List)>
   <WithStyles(Button)

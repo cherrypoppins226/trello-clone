@@ -25,7 +25,7 @@ const CardsListCardStyles = {
       visibility: "visible"
     }
   },
-  text: {
+  description: {
     paddingRight: 0
   },
   edit: {
@@ -46,11 +46,13 @@ const CardsListCardStyles = {
   }
 };
 
-const CardsListCardComponent = ({ classes, text = "Title..." }) => {
+const CardsListCardComponent = ({ classes, description = "Title..." }) => {
   return (
     <Paper elevation={1} component="li" className={classes.container}>
       <ListItem button className={classes.card}>
-        <ListItemText className={classes.text}>{text}</ListItemText>
+        <ListItemText className={classes.description}>
+          {description}
+        </ListItemText>
         <a className={classes.edit}>
           <Create className={classes.editIcon} />
         </a>
@@ -62,7 +64,7 @@ const CardsListCardComponent = ({ classes, text = "Title..." }) => {
 CardsListCardComponent.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  text: PropTypes.string
+  description: PropTypes.string
 };
 
 export const CardsListCard = withStyles(CardsListCardStyles)(
@@ -76,14 +78,14 @@ const CardsListStyles = {
     maxHeight: "100%",
     background: red[50]
   },
-  list: {
-    padding: 1,
-    overflowY: "scroll"
-  },
-  name: {
+  title: {
     padding: 0,
     margin: 8,
     marginTop: 16
+  },
+  cardsList: {
+    padding: 1,
+    overflowY: "scroll"
   },
   addCard: {
     justifyContent: "left",
@@ -95,8 +97,8 @@ class CardsListComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: props.cards.map((text, idx) => (
-        <CardsListCard key={idx} text={text} />
+      cards: props.cards.map((description, idx) => (
+        <CardsListCard key={idx} description={description} />
       ))
     };
   }
@@ -110,11 +112,11 @@ class CardsListComponent extends React.Component {
   }
 
   render() {
-    const { classes, name } = this.props;
+    const { classes, title } = this.props;
     return (
       <Paper elevation={1} className={classes.container}>
-        <h4 className={classes.name}>{name}</h4>
-        <List data-testid="cards-list" className={classes.list}>
+        <h4 className={classes.title}>{title}</h4>
+        <List data-testid="cards-list" className={classes.cardsList}>
           {this.state.cards}
         </List>
         <Button className={classes.addCard} onClick={this.addCard.bind(this)}>
@@ -128,7 +130,7 @@ class CardsListComponent extends React.Component {
 CardsListComponent.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired
 };
 
@@ -152,7 +154,7 @@ const BoardComponent = ({ classes, lists }) => {
       {Object.entries(lists).map(([k, v]) => {
         return (
           <Grid item key={k} className={classes.cardListContainer}>
-            <CardsList name={k} cards={v} />
+            <CardsList title={k} cards={v} />
           </Grid>
         );
       })}
