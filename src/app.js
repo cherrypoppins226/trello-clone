@@ -4,7 +4,6 @@ import Grid from "material-ui/Grid";
 import Button from "material-ui/Button";
 import Paper from "material-ui/Paper";
 import List, { ListItem, ListItemText } from "material-ui/List";
-import ListSubheader from "material-ui/List/List";
 import PropTypes from "prop-types";
 import red from "material-ui/colors/red";
 
@@ -21,7 +20,7 @@ const CardsListCardStyles = {
   }
 };
 
-const CardsListCardComponent = ({ classes, text }) => {
+const CardsListCardComponent = ({ classes, text = "Title..." }) => {
   return (
     <Paper elevation={1} component="li" className={classes.container}>
       <ListItem button className={classes.card}>
@@ -34,7 +33,7 @@ const CardsListCardComponent = ({ classes, text }) => {
 CardsListCardComponent.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string
 };
 
 export const CardsListCard = withStyles(CardsListCardStyles)(
@@ -50,17 +49,12 @@ const CardsListStyles = {
   },
   list: {
     padding: 1,
-    display: "flex",
-    flexDirection: "column"
+    overflowY: "scroll"
   },
   name: {
     padding: 0,
     margin: 8,
-    marginTop: 16,
-    fontWeight: 700
-  },
-  cards: {
-    overflowY: "scroll"
+    marginTop: 16
   },
   addCard: {
     justifyContent: "left",
@@ -68,27 +62,39 @@ const CardsListStyles = {
   }
 };
 
-const CardsListComponent = (() => {
-  const addCard = e => {
-    e.preventDefault();
-  };
+class CardsListComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: props.cards.map((text, idx) => (
+        <CardsListCard key={idx} text={text} />
+      ))
+    };
+  }
 
-  return ({ classes, name, cards }) => (
-    <Paper elevation={1} className={classes.container}>
-      <List className={classes.list}>
-        <ListSubheader component="li" className={classes.name}>
-          {name}
-        </ListSubheader>
-        <div className={classes.cards}>
-          {cards.map((text, idx) => <CardsListCard key={idx} text={text} />)}
-        </div>
-      </List>
-      <Button className={classes.addCard} onClick={addCard}>
-        Add a card...
-      </Button>
-    </Paper>
-  );
-})();
+  addCard(e) {
+    e.preventDefault();
+    this.setState((prevState, props) => {
+      const card = <CardsListCard key={this.state.cards.length + 1} />;
+      return { cards: prevState.cards.concat(card) };
+    });
+  }
+
+  render() {
+    const { classes, name } = this.props;
+    return (
+      <Paper elevation={1} className={classes.container}>
+        <h4 className={classes.name}>{name}</h4>
+        <List data-testid="cards-list" className={classes.list}>
+          {this.state.cards}
+        </List>
+        <Button className={classes.addCard} onClick={this.addCard.bind(this)}>
+          Add a card...
+        </Button>
+      </Paper>
+    );
+  }
+}
 
 CardsListComponent.propTypes = {
   children: PropTypes.node,

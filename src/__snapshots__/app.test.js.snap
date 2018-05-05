@@ -12,7 +12,7 @@ exports[`board initial render 1`] = `
     item={true}
     key="Repellat quisquam recusandae alias consequuntur corporis."
   >
-    <WithStyles(Component)
+    <WithStyles(CardsListComponent)
       cards={
         Array [
           "Ratione ut sunt qui amet iure ut libero qui recusandae.",
@@ -27,7 +27,7 @@ exports[`board initial render 1`] = `
     item={true}
     key="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
   >
-    <WithStyles(Component)
+    <WithStyles(CardsListComponent)
       cards={
         Array [
           "Velit omnis et porro ut et ipsam explicabo eligendi occaecati.",
@@ -42,13 +42,13 @@ exports[`board initial render 1`] = `
 
 exports[`cards list card initial render 1`] = `
 <WithStyles(Paper)
-  className="CardsListCardComponent-container-8"
+  className="CardsListCardComponent-container-7"
   component="li"
   elevation={1}
 >
   <WithStyles(ListItem)
     button={true}
-    className="CardsListCardComponent-card-9"
+    className="CardsListCardComponent-card-8"
   >
     <WithStyles(ListItemText)>
       Card list card text
@@ -59,33 +59,29 @@ exports[`cards list card initial render 1`] = `
 
 exports[`cards list initial render 1`] = `
 <WithStyles(Paper)
-  className="Component-container-3"
+  className="CardsListComponent-container-3"
   elevation={1}
 >
-  <WithStyles(List)
-    className="Component-list-4"
+  <h4
+    className="CardsListComponent-name-5"
   >
-    <WithStyles(List)
-      className="Component-name-5"
-      component="li"
-    >
-      Repellat quisquam recusandae alias consequuntur corporis.
-    </WithStyles(List)>
-    <div
-      className="Component-cards-6"
-    >
-      <WithStyles(CardsListCardComponent)
-        key="0"
-        text="Ratione ut sunt qui amet iure ut libero qui recusandae."
-      />
-      <WithStyles(CardsListCardComponent)
-        key="1"
-        text="Nulla quam ipsam nobis cupiditate sed dignissimos."
-      />
-    </div>
+    Repellat quisquam recusandae alias consequuntur corporis.
+  </h4>
+  <WithStyles(List)
+    className="CardsListComponent-list-4"
+    data-testid="cards-list"
+  >
+    <WithStyles(CardsListCardComponent)
+      key="0"
+      text="Ratione ut sunt qui amet iure ut libero qui recusandae."
+    />
+    <WithStyles(CardsListCardComponent)
+      key="1"
+      text="Nulla quam ipsam nobis cupiditate sed dignissimos."
+    />
   </WithStyles(List)>
   <WithStyles(Button)
-    className="Component-addCard-7"
+    className="CardsListComponent-addCard-6"
     onClick={[Function]}
   >
     Add a card...
