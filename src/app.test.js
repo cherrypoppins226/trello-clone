@@ -4,7 +4,7 @@ import {
   shallow,
   mockEvent,
   findByText,
-  findByTestId
+  testId
 } from "./test/enzymeShallowUtils";
 import { Board, CardsList, CardsListCard } from "./app";
 
@@ -39,9 +39,9 @@ describe("cards list card", () => {
   it("adds a card", () => {
     const [title, cards] = Object.entries(lists)[0];
     const tree = shallow(<CardsList title={title} cards={cards} />);
-    const before = findByTestId("cards-list", tree).children();
+    const before = tree.find(testId("cards-list")).children();
     findByText("add a card", tree).simulate("click", mockEvent);
-    const after = findByTestId("cards-list", tree).children();
+    const after = tree.find(testId("cards-list")).children();
     expect(after).toHaveLength(before.length + 1);
     expect(after.last().is(CardsListCard)).toBe(true);
   });

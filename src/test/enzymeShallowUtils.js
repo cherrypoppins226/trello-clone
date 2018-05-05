@@ -22,6 +22,6 @@ export const findByText = (text, node) => {
     .reduce(shortestText);
 };
 
-export const findByTestId = (id, node) => {
-  return node.find(`[data-testid="${id}"]`);
-};
+export const testId = id => `[data-testid="${id}"]`;
+export const ariaLabel = label => `[aria-label="${label}"]`;
+export const ariaLabelledBy = label => `[aria-labelledby="${label}"]`;
