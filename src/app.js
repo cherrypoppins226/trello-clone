@@ -30,6 +30,9 @@ const CardsListCardStyles = {
   },
   edit: {
     visibility: "hidden",
+    borderWidth: 0,
+    background: "none",
+    cursor: "pointer",
     alignSelf: "flex-start",
     borderRadius: 4,
     padding: 2,
@@ -53,9 +56,12 @@ const CardsListCardComponent = ({ classes, description = "Title..." }) => {
         <ListItemText className={classes.description}>
           {description}
         </ListItemText>
-        <a className={classes.edit}>
+        <div id="edit-card-label" style={{ display: "none" }}>
+          Edit card: change description, archive, etc...
+        </div>
+        <button className={classes.edit} aria-label="edit-card-label">
           <Create className={classes.editIcon} />
-        </a>
+        </button>
       </ListItem>
     </Paper>
   );

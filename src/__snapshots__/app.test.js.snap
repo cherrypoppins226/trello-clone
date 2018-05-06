@@ -55,13 +55,24 @@ exports[`cards list card initial render 1`] = `
     >
       Card list card text
     </WithStyles(ListItemText)>
-    <a
+    <div
+      id="edit-card-label"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Edit card: change description, archive, etc...
+    </div>
+    <button
+      aria-label="edit-card-label"
       className="CardsListCardComponent-edit-10"
     >
       <pure(Create)
         className="CardsListCardComponent-editIcon-11"
       />
-    </a>
+    </button>
   </WithStyles(ListItem)>
 </WithStyles(Paper)>
 `;
