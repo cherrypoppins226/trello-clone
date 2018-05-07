@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`board initial render 1`] = `
+<WithStyles(GridWrapper)
+  className="View-grid-1"
+  container={true}
+  spacing={16}
+  wrap="nowrap"
+>
+  <WithStyles(GridWrapper)
+    className="View-cardListContainer-2"
+    item={true}
+    key="Repellat quisquam recusandae alias consequuntur corporis."
+  >
+    <WithStyles(View)
+      cards={
+        Array [
+          "Ratione ut sunt qui amet iure ut libero qui recusandae.",
+          "Nulla quam ipsam nobis cupiditate sed dignissimos.",
+        ]
+      }
+      title="Repellat quisquam recusandae alias consequuntur corporis."
+    />
+  </WithStyles(GridWrapper)>
+  <WithStyles(GridWrapper)
+    className="View-cardListContainer-2"
+    item={true}
+    key="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
+  >
+    <WithStyles(View)
+      cards={
+        Array [
+          "Velit omnis et porro ut et ipsam explicabo eligendi occaecati.",
+          "Et saepe eum dicta eum eaque enim ipsum inventore debitis.",
+        ]
+      }
+      title="Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos."
+    />
+  </WithStyles(GridWrapper)>
+</WithStyles(GridWrapper)>
+`;

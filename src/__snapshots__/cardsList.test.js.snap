@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cards list initial render 1`] = `
+<WithStyles(Paper)
+  className="View-container-1"
+  elevation={1}
+>
+  <h4
+    className="View-title-2"
+  >
+    List title
+  </h4>
+  <WithStyles(List)
+    className="View-cardsList-3"
+    data-testid="cards-list"
+  >
+    <WithStyles(View)
+      description="card1"
+      key="0"
+    />
+    <WithStyles(View)
+      description="card2"
+      key="1"
+    />
+  </WithStyles(List)>
+  <WithStyles(Button)
+    className="View-addCard-4"
+    onClick={[Function]}
+  >
+    Add a card...
+  </WithStyles(Button)>
+</WithStyles(Paper)>
+`;

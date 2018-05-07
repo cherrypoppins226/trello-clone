@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cards list card initial render 1`] = `
+<WithStyles(Paper)
+  className="View-container-1"
+  component="li"
+  elevation={1}
+>
+  <WithStyles(ListItem)
+    button={true}
+    className="View-card-2"
+  >
+    <WithStyles(ListItemText)
+      className="View-description-3"
+    >
+      Card list card text
+    </WithStyles(ListItemText)>
+    <div
+      id="edit-card-label"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      Edit card: change description, archive, etc...
+    </div>
+    <button
+      aria-label="edit-card-label"
+      className="View-edit-4"
+    >
+      <pure(Create)
+        className="View-editIcon-5"
+      />
+    </button>
+  </WithStyles(ListItem)>
+</WithStyles(Paper)>
+`;
