@@ -19,10 +19,12 @@ for (let i = 0; i < 6; i++) {
 }
 
 ReactDOM.render(
-  <React.Fragment>
-    <CssBaseline />
-    <App lists={lists} />
-  </React.Fragment>,
+  <React.StrictMode>
+    <React.Fragment>
+      <CssBaseline />
+      <App lists={lists} />
+    </React.Fragment>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 registerServiceWorker();
