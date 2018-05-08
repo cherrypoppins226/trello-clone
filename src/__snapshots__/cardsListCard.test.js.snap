@@ -3,18 +3,18 @@
 exports[`initial render 1`] = `
 <div>
   <li
-    class="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 View-container-1"
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
   >
     <div
-      class="MuiButtonBase-root-43 MuiListItem-root-33 MuiListItem-default-36 MuiListItem-gutters-40 MuiListItem-button-41 View-card-2"
+      class="MuiButtonBase-root MuiListItem-root MuiListItem-default MuiListItem-gutters MuiListItem-button View-card-2"
       role="button"
       tabindex="0"
     >
       <div
-        class="MuiListItemText-root-46 View-description-3"
+        class="MuiListItemText-root View-description-3"
       >
         <h3
-          class="MuiTypography-root-52 MuiTypography-subheading-59 MuiListItemText-primary-49"
+          class="MuiTypography-root MuiTypography-subheading MuiListItemText-primary"
         >
           Card list card text
         </h3>
@@ -31,7 +31,7 @@ exports[`initial render 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root-76 View-editIcon-5"
+          class="MuiSvgIcon-root View-editIcon-5"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -43,7 +43,7 @@ exports[`initial render 1`] = `
         </svg>
       </button>
       <span
-        class="MuiTouchRipple-root-82"
+        class="MuiTouchRipple-root"
       />
     </div>
   </li>

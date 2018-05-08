@@ -3,15 +3,15 @@
 exports[`initial render 1`] = `
 <div>
   <div
-    class="MuiGrid-container-3 MuiGrid-spacing-xs-16-25 MuiGrid-wrap-xs-nowrap-9 View-grid-1"
+    class="MuiGrid-container MuiGrid-spacing-xs-16 MuiGrid-wrap-xs-nowrap View-grid-1"
   >
     <div
-      class="MuiGrid-item-4 View-cardListContainer-2"
+      class="MuiGrid-item View-cardListContainer-2"
     >
       CardsList
     </div>
     <div
-      class="MuiGrid-item-4 View-cardListContainer-2"
+      class="MuiGrid-item View-cardListContainer-2"
     >
       CardsList
     </div>

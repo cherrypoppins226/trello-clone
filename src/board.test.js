@@ -1,6 +1,6 @@
 import React from "react";
 import faker from "faker";
-import { render } from "react-testing-library";
+import { render } from "./testHelpers.js";
 import Board from "./board";
 
 jest.mock("./cardsList", () => () => "CardsList");

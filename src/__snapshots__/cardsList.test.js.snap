@@ -3,7 +3,7 @@
 exports[`initial render 1`] = `
 <div>
   <div
-    class="MuiPaper-root-5 MuiPaper-elevation1-8 MuiPaper-rounded-6 View-container-1"
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
   >
     <h4
       class="View-title-2"
@@ -11,24 +11,24 @@ exports[`initial render 1`] = `
       List title
     </h4>
     <ul
-      class="MuiList-root-32 MuiList-padding-33 View-cardsList-3"
+      class="MuiList-root MuiList-padding View-cardsList-3"
       data-testid="cards-list"
     >
       CardsListCard
       CardsListCard
     </ul>
     <button
-      class="MuiButtonBase-root-51 MuiButton-root-36 View-addCard-4"
+      class="MuiButtonBase-root MuiButton-root View-addCard-4"
       tabindex="0"
       type="button"
     >
       <span
-        class="MuiButton-label-37"
+        class="MuiButton-label"
       >
         Add a card...
       </span>
       <span
-        class="MuiTouchRipple-root-54"
+        class="MuiTouchRipple-root"
       />
     </button>
   </div>

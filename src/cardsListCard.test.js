@@ -1,5 +1,6 @@
 import React from "react";
-import { render, Simulate } from "react-testing-library";
+import { Simulate } from "react-testing-library";
+import { render } from "./testHelpers.js";
 import CardsList from "./cardsList";
 import CardsListCard from "./cardsListCard";
 
