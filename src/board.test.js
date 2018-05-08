@@ -1,7 +1,9 @@
 import React from "react";
 import faker from "faker";
-import { shallow } from "./test/enzymeShallowUtils";
+import { render } from "react-testing-library";
 import Board from "./board";
+
+jest.mock("./cardsList", () => () => "CardsList");
 
 faker.seed(1);
 
@@ -11,6 +13,6 @@ const lists = {
 };
 
 it("initial render", () => {
-  const tree = shallow(<Board lists={lists} />);
-  expect(tree).toMatchSnapshot();
+  const { container } = render(<Board lists={lists} />);
+  expect(container).toMatchSnapshot();
 });

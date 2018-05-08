@@ -1,11 +1,13 @@
 import React from "react";
-import { shallow } from "./test/enzymeShallowUtils";
+import { render } from "react-testing-library";
 import CardsList from "./cardsList";
+
+jest.mock("./cardsListCard", () => () => "CardsListCard");
 
 const title = "List title";
 const cards = ["card1", "card2"];
 
 it("initial render", () => {
-  const tree = shallow(<CardsList title={title} cards={cards} />);
-  expect(tree).toMatchSnapshot();
+  const { container } = render(<CardsList title={title} cards={cards} />);
+  expect(container).toMatchSnapshot();
 });

@@ -1,38 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cards list card initial render 1`] = `
-<WithStyles(Paper)
-  className="View-container-1"
-  component="li"
-  elevation={1}
->
-  <WithStyles(ListItem)
-    button={true}
-    className="View-card-2"
+exports[`initial render 1`] = `
+<div>
+  <li
+    class="MuiPaper-root-6 MuiPaper-elevation1-9 MuiPaper-rounded-7 View-container-1"
   >
-    <WithStyles(ListItemText)
-      className="View-description-3"
-    >
-      Card list card text
-    </WithStyles(ListItemText)>
     <div
-      id="edit-card-label"
-      style={
-        Object {
-          "display": "none",
-        }
-      }
+      class="MuiButtonBase-root-43 MuiListItem-root-33 MuiListItem-default-36 MuiListItem-gutters-40 MuiListItem-button-41 View-card-2"
+      role="button"
+      tabindex="0"
     >
-      Edit card: change description, archive, etc...
-    </div>
-    <button
-      aria-label="edit-card-label"
-      className="View-edit-4"
-    >
-      <pure(Create)
-        className="View-editIcon-5"
+      <div
+        class="MuiListItemText-root-46 View-description-3"
+      >
+        <h3
+          class="MuiTypography-root-52 MuiTypography-subheading-59 MuiListItemText-primary-49"
+        >
+          Card list card text
+        </h3>
+      </div>
+      <div
+        id="edit-card-label"
+        style="display: none;"
+      >
+        Edit card: change description, archive, etc...
+      </div>
+      <button
+        aria-label="edit-card-label"
+        class="View-edit-4"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root-76 View-editIcon-5"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g>
+            <path
+              d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+            />
+          </g>
+        </svg>
+      </button>
+      <span
+        class="MuiTouchRipple-root-82"
       />
-    </button>
-  </WithStyles(ListItem)>
-</WithStyles(Paper)>
+    </div>
+  </li>
+</div>
 `;
