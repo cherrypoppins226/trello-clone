@@ -34,7 +34,11 @@ const View = class extends React.Component {
     super(props);
     this.state = {
       cards: props.cards.map((description, idx) => (
-        <CardsListCard key={idx} description={description} />
+        <CardsListCard
+          key={idx}
+          description={description}
+          onEditCard={props.onEditCard}
+        />
       ))
     };
   }
@@ -42,7 +46,12 @@ const View = class extends React.Component {
   addCard(e) {
     e.preventDefault();
     this.setState((prevState, props) => {
-      const card = <CardsListCard key={this.state.cards.length + 1} />;
+      const card = (
+        <CardsListCard
+          key={this.state.cards.length + 1}
+          onEditCard={this.props.onEditCard}
+        />
+      );
       return { cards: prevState.cards.concat(card) };
     });
   }
@@ -67,7 +76,8 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  onEditCard: PropTypes.func.isRequired
 };
 
 const CardsList = withStyles(styles)(View);

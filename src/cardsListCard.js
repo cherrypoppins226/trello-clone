@@ -47,17 +47,35 @@ const styles = {
   }
 };
 
-const View = ({ classes, description = "Title..." }) => {
+export const EDIT_CARD_LABEL = "edit-card-label";
+
+const onClick = (event, onEditCard) => {
+  const button = event.currentTarget.querySelector(
+    `[aria-labelledby="${EDIT_CARD_LABEL}"]`
+  );
+  if (button.contains(event.target)) {
+    onEditCard(event.currentTarget);
+  } else {
+    // Clicked on card description
+    return true;
+  }
+};
+
+const View = ({ classes, description = "Title...", onEditCard }) => {
   return (
     <Paper elevation={1} component="li" className={classes.container}>
-      <ListItem button className={classes.card}>
+      <ListItem
+        button
+        onClick={e => onClick(e, onEditCard)}
+        className={classes.card}
+      >
         <ListItemText className={classes.description}>
           {description}
         </ListItemText>
-        <div id="edit-card-label" style={{ display: "none" }}>
-          Edit card: change description, archive, etc...
+        <div id={EDIT_CARD_LABEL} style={{ display: "none" }}>
+          Edit card
         </div>
-        <button className={classes.edit} aria-label="edit-card-label">
+        <button className={classes.edit} aria-labelledby={EDIT_CARD_LABEL}>
           <Create className={classes.editIcon} />
         </button>
       </ListItem>
@@ -68,7 +86,8 @@ const View = ({ classes, description = "Title..." }) => {
 View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  description: PropTypes.string
+  description: PropTypes.string,
+  onEditCard: PropTypes.func.isRequired
 };
 
 const CardsListCard = withStyles(styles)(View);
