@@ -54,7 +54,7 @@ const View = class extends React.Component {
     e.preventDefault();
     this.setState((prevState, props) => ({
       counter: prevState.counter + 1,
-      cards: [this.newCard(prevState.counter + 1), ...prevState.cards]
+      cards: [...prevState.cards, this.newCard(prevState.counter + 1)]
     }));
   }
 

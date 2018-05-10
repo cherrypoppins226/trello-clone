@@ -22,12 +22,12 @@ it("adds a card", () => {
     />
   );
   const liveList = getByTestId("cards-list");
-  const lengthBefore = liveList.childElementCount;
+  const countBefore = liveList.childElementCount;
+  const lastBefore = liveList.lastElementChild;
   Simulate.click(getByText("Add a card..."));
-  expect(liveList.childElementCount).toBe(lengthBefore + 1);
-  expect(liveList.firstElementChild.tagName).toBe(
-    liveList.lastElementChild.tagName
-  );
+  expect(liveList.childElementCount).toBe(countBefore + 1);
+  expect(liveList.lastElementChild).not.toBe(lastBefore);
+  expect(liveList.lastElementChild.tagName).toBe(lastBefore.tagName);
 });
 
 faker.seed(1);
