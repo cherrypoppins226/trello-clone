@@ -3,7 +3,10 @@ import faker from "faker";
 import { Simulate } from "react-testing-library";
 import { render } from "./testHelpers.js";
 import CardsList from "./cardsList";
-import CardsListCard, { EDIT_CARD_LABEL } from "./cardsListCard";
+import CardsListCard, {
+  EDIT_CARD_LABEL,
+  cardDescription
+} from "./cardsListCard";
 import Board, { EDIT_CARD_DESCRIPTION } from "./board";
 
 it("initial render", () => {
@@ -37,15 +40,19 @@ const lists = {
   [faker.lorem.sentence()]: [faker.lorem.sentence(), faker.lorem.sentence()]
 };
 
-it("opens edit card modal", () => {
+it("opens edit card modal with correct text", () => {
   const { container } = render(<Board lists={lists} />);
-  const button = container.querySelector(
+  const editCard = container.querySelector(
     `[aria-labelledby="${EDIT_CARD_LABEL}"]`
   );
-  Simulate.click(button);
+  Simulate.click(editCard);
   const modal = container.querySelector(
     `[aria-describedby="${EDIT_CARD_DESCRIPTION}"]`
   );
   expect(modal).not.toBeNull();
-  expect(modal.parentElement).toBe(button.parentElement);
+  const modalContainer = editCard.parentElement;
+  expect(modal.parentElement).toBe(modalContainer);
+  expect(modal.querySelector("textarea").textContent).toBe(
+    cardDescription(modalContainer)
+  );
 });

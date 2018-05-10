@@ -10,15 +10,12 @@ exports[`initial render 1`] = `
       role="button"
       tabindex="0"
     >
-      <div
-        class="MuiListItemText-root View-description-3"
+      <p
+        aria-label="card title"
+        class="MuiTypography-root MuiTypography-body1"
       >
-        <h3
-          class="MuiTypography-root MuiTypography-subheading MuiListItemText-primary"
-        >
-          Card list card text
-        </h3>
-      </div>
+        Card list card text
+      </p>
       <div
         id="edit-card-label"
         style="display: none;"
@@ -27,11 +24,11 @@ exports[`initial render 1`] = `
       </div>
       <button
         aria-labelledby="edit-card-label"
-        class="View-edit-4"
+        class="View-edit-3"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root View-editIcon-5"
+          class="MuiSvgIcon-root View-editIcon-4"
           focusable="false"
           viewBox="0 0 24 24"
         >

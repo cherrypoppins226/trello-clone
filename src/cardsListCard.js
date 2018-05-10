@@ -1,7 +1,8 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
-import { ListItem, ListItemText } from "material-ui/List";
+import { ListItem } from "material-ui/List";
+import Typography from "material-ui/Typography";
 import PropTypes from "prop-types";
 import red from "material-ui/colors/red";
 import grey from "material-ui/colors/grey";
@@ -12,19 +13,16 @@ const styles = {
     margin: 8,
     marginTop: 0,
     marginBottom: 8,
-    background: red[100],
-    display: "flex",
-    flexDirection: "row"
+    background: red[100]
   },
   card: {
     padding: 4,
     paddingLeft: 8,
+    flexDirection: "row",
+    justifyContent: "space-between",
     "&:hover $edit": {
       visibility: "visible"
     }
-  },
-  description: {
-    paddingRight: 0
   },
   edit: {
     visibility: "hidden",
@@ -49,6 +47,8 @@ const styles = {
 
 export const EDIT_CARD_LABEL = "edit-card-label";
 
+const CARD_DESCRIPTION_LABEL = "card title";
+
 const onClick = (event, onEditCard) => {
   const button = event.currentTarget.querySelector(
     `[aria-labelledby="${EDIT_CARD_LABEL}"]`
@@ -61,6 +61,11 @@ const onClick = (event, onEditCard) => {
   }
 };
 
+export const cardDescription = cardNode => {
+  return cardNode.querySelector(`[aria-label="${CARD_DESCRIPTION_LABEL}"]`)
+    .textContent;
+};
+
 const View = ({ classes, description = "Title...", onEditCard }) => {
   return (
     <Paper elevation={1} component="li" className={classes.container}>
@@ -69,9 +74,9 @@ const View = ({ classes, description = "Title...", onEditCard }) => {
         onClick={e => onClick(e, onEditCard)}
         className={classes.card}
       >
-        <ListItemText className={classes.description}>
+        <Typography aria-label={CARD_DESCRIPTION_LABEL}>
           {description}
-        </ListItemText>
+        </Typography>
         <div id={EDIT_CARD_LABEL} style={{ display: "none" }}>
           Edit card
         </div>
