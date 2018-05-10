@@ -41,12 +41,14 @@ const View = class extends React.Component {
     const modal = findDOMNode(this).querySelector(
       `[aria-describedby="${EDIT_CARD_DESCRIPTION}"]`
     );
-    const box = modal.parentElement.getBoundingClientRect();
-    modal.style.top = `${box.top}px`;
-    modal.style.left = `${box.left}px`;
+    const cardCoordinates = findDOMNode(
+      this.state.cardBeingEdited
+    ).getBoundingClientRect();
+    modal.style.top = `${cardCoordinates.top}px`;
+    modal.style.left = `${cardCoordinates.left}px`;
     const textarea = modal.querySelector("textarea");
-    textarea.style.width = `${box.width}px`;
-    textarea.style.height = `${box.height + 50}px`;
+    textarea.style.width = `${cardCoordinates.width}px`;
+    textarea.style.height = `${cardCoordinates.height + 50}px`;
     textarea.select();
   }
 
