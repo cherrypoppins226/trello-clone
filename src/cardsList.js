@@ -33,26 +33,28 @@ const View = class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: props.cards.map((description, idx) => (
-        <CardsListCard
-          key={idx}
-          description={description}
-          onEditCard={props.onEditCard}
-        />
-      ))
+      cards: props.cards.map((description, idx) =>
+        this.newCard(idx, description)
+      )
     };
+  }
+
+  newCard(idx, description = undefined) {
+    return (
+      <CardsListCard
+        key={idx}
+        description={description}
+        onEditCard={this.props.onEditCard}
+      />
+    );
   }
 
   addCard(e) {
     e.preventDefault();
     this.setState((prevState, props) => {
-      const card = (
-        <CardsListCard
-          key={this.state.cards.length + 1}
-          onEditCard={this.props.onEditCard}
-        />
-      );
-      return { cards: prevState.cards.concat(card) };
+      return {
+        cards: [this.newCard(prevState.cards.length + 1), ...prevState.cards]
+      };
     });
   }
 
