@@ -2,7 +2,6 @@ import React from "react";
 import faker from "faker";
 import { Simulate } from "react-testing-library";
 import { render } from "./testHelpers.js";
-import CardsList from "./cardsList";
 import CardsListCard, {
   EDIT_CARD_LABEL,
   cardDescription
@@ -14,23 +13,6 @@ it("initial render", () => {
     <CardsListCard description="Card list card text" onEditCard={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
-});
-
-it("adds a card", () => {
-  const { getByText, getByTestId } = render(
-    <CardsList
-      title="Title"
-      cards={["card1", "card2"]}
-      onEditCard={jest.fn()}
-    />
-  );
-  const liveList = getByTestId("cards-list");
-  const countBefore = liveList.childElementCount;
-  const lastBefore = liveList.lastElementChild;
-  Simulate.click(getByText("Add a card..."));
-  expect(liveList.childElementCount).toBe(countBefore + 1);
-  expect(liveList.lastElementChild).not.toBe(lastBefore);
-  expect(liveList.lastElementChild.tagName).toBe(lastBefore.tagName);
 });
 
 faker.seed(1);
