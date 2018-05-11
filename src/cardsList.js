@@ -57,6 +57,11 @@ const View = class extends React.Component {
     }));
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.cards.length < this.state.cards.length)
+      this.endOfCards.scrollIntoView();
+  }
+
   render() {
     const { classes, title } = this.props;
     return (
@@ -64,6 +69,12 @@ const View = class extends React.Component {
         <h4 className={classes.title}>{title}</h4>
         <List data-testid="cards-list" className={classes.cardsList}>
           {this.state.cards}
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={e => {
+              this.endOfCards = e;
+            }}
+          />
         </List>
         <Button className={classes.addCard} onClick={this.addCard.bind(this)}>
           Add a card...
