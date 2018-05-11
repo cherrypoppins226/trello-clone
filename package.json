@@ -18,6 +18,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "faker": "^4.1.0",
+    "husky": "^1.0.0-rc.4",
     "material-ui": "^1.0.0-beta.43",
     "prettier": "^1.12.1",
     "prettier-eslint-cli": "^4.7.1",
@@ -37,5 +38,11 @@
       "Firefox ESR",
       "not ie < 11"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "CI=1 yarn test --ci",
+      "pre-push": "CI=1 yarn test --ci"
+    }
   }
 }
