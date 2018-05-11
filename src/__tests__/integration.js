@@ -1,13 +1,13 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
 import { render } from "../testHelpers.js";
-import appData from "../appData.js";
+import { testData } from "../appData.js";
 import { cardDescription, EDIT_CARD_LABEL } from "../cardsListCard";
 import Board from "../board";
 import { EDIT_CARD_DESCRIPTION } from "../editCard";
 
 it("modal renders correctly", () => {
-  const { container } = render(<Board lists={appData} />);
+  const { container } = render(<Board lists={testData} />);
   const editCard = container.querySelector(
     `[aria-labelledby="${EDIT_CARD_LABEL}"]`
   );
