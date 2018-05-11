@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "./testHelpers.js";
+import { render } from "./__tests__/helpers.js";
 import CardsListCard from "./cardsListCard";
 
 it("initial render", () => {

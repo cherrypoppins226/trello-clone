@@ -1,7 +1,7 @@
 import React from "react";
 import faker from "faker";
 import { Simulate } from "react-testing-library";
-import { render } from "../testHelpers.js";
+import { render } from "./helpers.js";
 import { cardDescription, EDIT_CARD_LABEL } from "../cardsListCard";
 import Board from "../board";
 import { EDIT_CARD_DESCRIPTION } from "../editCard";
