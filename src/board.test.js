@@ -1,18 +1,10 @@
 import React from "react";
-import faker from "faker";
-import { render } from "./__tests__/helpers.js";
+import { render, appData } from "./__tests__/helpers.js";
 import Board from "./board";
 
 jest.mock("./cardsList", () => () => "CardsList");
 
-faker.seed(1);
-
-const lists = {
-  [faker.lorem.sentence()]: [faker.lorem.sentence(), faker.lorem.sentence()],
-  [faker.lorem.sentence()]: [faker.lorem.sentence(), faker.lorem.sentence()]
-};
-
 it("initial render", () => {
-  const { container } = render(<Board lists={lists} />);
+  const { container } = render(<Board lists={appData} />);
   expect(container).toMatchSnapshot();
 });
