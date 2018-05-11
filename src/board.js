@@ -13,7 +13,7 @@ const styles = {
     width: "100%"
   },
   cardListContainer: {
-    width: 300
+    width: 280
   }
 };
 
