@@ -1,5 +1,6 @@
 import React from "react";
-import { render, appData } from "./__tests__/helpers.js";
+import { render } from "./testHelpers.js";
+import appData from "./appData.js";
 import Board from "./board";
 
 jest.mock("./cardsList", () => () => "CardsList");

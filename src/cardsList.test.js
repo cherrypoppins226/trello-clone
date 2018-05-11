@@ -1,6 +1,6 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
-import { render } from "./__tests__/helpers.js";
+import { render } from "./testHelpers.js";
 import CardsList from "./cardsList";
 
 jest.mock("./cardsListCard", () => () => "CardsListCard");

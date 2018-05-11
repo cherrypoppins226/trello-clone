@@ -1,6 +1,7 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
-import { render, appData } from "./helpers.js";
+import { render } from "../testHelpers.js";
+import appData from "../appData.js";
 import { cardDescription, EDIT_CARD_LABEL } from "../cardsListCard";
 import Board from "../board";
 import { EDIT_CARD_DESCRIPTION } from "../editCard";
