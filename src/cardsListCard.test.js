@@ -6,7 +6,8 @@ import CardsListCard, {
   EDIT_CARD_LABEL,
   cardDescription
 } from "./cardsListCard";
-import Board, { EDIT_CARD_DESCRIPTION } from "./board";
+import Board from "./board";
+import { EDIT_CARD_DESCRIPTION } from "./editCard";
 
 it("initial render", () => {
   const { container } = render(
