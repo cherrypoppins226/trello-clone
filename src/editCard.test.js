@@ -1,10 +1,10 @@
 import React from "react";
 import { render } from "./testHelpers.js";
-import CardsListCard from "./cardsListCard";
+import EditCard from "./editCard";
 
 it("initial render", () => {
   const { container } = render(
-    <CardsListCard description="Card list card text" onEditCard={jest.fn()} />
+    <EditCard card={null} parent={{}} onClose={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
 });

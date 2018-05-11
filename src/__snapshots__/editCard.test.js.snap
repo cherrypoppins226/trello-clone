@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial render 1`] = `
+<div>
+  <div
+    id="edit-card-description"
+    style="display: none;"
+  >
+    Edit card: change title, members, archive etc.
+  </div>
+</div>
+`;
