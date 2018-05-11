@@ -59,7 +59,7 @@ const View = class extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.cards.length < this.state.cards.length)
-      this.endOfCards.scrollIntoView();
+      this.cardsListEnd.scrollIntoView();
   }
 
   render() {
@@ -67,13 +67,11 @@ const View = class extends React.Component {
     return (
       <Paper elevation={1} className={classes.container}>
         <Typography className={classes.title}>{title}</Typography>
-        <List data-testid="cards-list" className={classes.cardsList}>
-          {this.state.cards}
+        <List className={classes.cardsList}>
+          <div data-testid="cards-list">{this.state.cards}</div>
           <div
             style={{ float: "left", clear: "both" }}
-            ref={e => {
-              this.endOfCards = e;
-            }}
+            ref={node => (this.cardsListEnd = node)}
           />
         </List>
         <Button className={classes.addCard} onClick={this.addCard.bind(this)}>

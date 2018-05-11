@@ -5,17 +5,23 @@ exports[`initial render 1`] = `
   <div
     class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
   >
-    <h4
-      class="View-title-2"
+    <p
+      class="MuiTypography-root MuiTypography-body1 View-title-2"
     >
       List title
-    </h4>
+    </p>
     <ul
       class="MuiList-root MuiList-padding View-cardsList-3"
-      data-testid="cards-list"
     >
-      CardsListCard
-      CardsListCard
+      <div
+        data-testid="cards-list"
+      >
+        CardsListCard
+        CardsListCard
+      </div>
+      <div
+        style="float: left; clear: both;"
+      />
     </ul>
     <button
       class="MuiButtonBase-root MuiButton-root View-addCard-4"
