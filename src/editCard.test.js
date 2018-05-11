@@ -4,7 +4,7 @@ import EditCard from "./editCard";
 
 it("initial render", () => {
   const { container } = render(
-    <EditCard card={null} parent={{}} onClose={jest.fn()} />
+    <EditCard root={{}} card={null} onClose={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
 });

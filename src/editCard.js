@@ -17,11 +17,11 @@ import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./cardsListCard";
 
 const styles = {
-  editCardGrid: {
+  grid: {
     outline: "none",
     pointerEvents: "none"
   },
-  editCardTextArea: {
+  textarea: {
     pointerEvents: "all",
     border: 0,
     outline: "none",
@@ -30,7 +30,7 @@ const styles = {
     padding: 4,
     paddingLeft: 8
   },
-  editCardSave: {
+  save: {
     pointerEvents: "all",
     color: grey[50],
     backgroundColor: green[500],
@@ -41,7 +41,7 @@ const styles = {
       backgroundColor: green[600]
     }
   },
-  editCardSideButton: {
+  sideButton: {
     pointerEvents: "all",
     background: "rgba(0, 0, 0, .6)",
     color: grey[50],
@@ -54,7 +54,7 @@ const styles = {
       transition: "transform 85ms ease-in"
     }
   },
-  editCardSideButtonIcon: {
+  sideButtonIcon: {
     padding: 1,
     marginRight: 5,
     width: "0.8em",
@@ -79,7 +79,7 @@ const onModalRendered = (board, card) => {
   textarea.select();
 };
 
-const View = ({ parent, card, onClose, classes }) => {
+const View = ({ root, card, onClose, classes }) => {
   return (
     <>
       <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
@@ -90,22 +90,17 @@ const View = ({ parent, card, onClose, classes }) => {
         open={card !== null ? true : false}
         container={card}
         onClose={onClose}
-        onRendered={_ => onModalRendered(parent, card)}
+        onRendered={_ => onModalRendered(root, card)}
       >
-        <Grid
-          container
-          wrap="nowrap"
-          spacing={8}
-          className={classes.editCardGrid}
-        >
+        <Grid container wrap="nowrap" spacing={8} className={classes.grid}>
           <Grid item>
             <Typography
-              className={classes.editCardTextArea}
+              className={classes.textarea}
               component="textarea"
               spellCheck={false}
               defaultValue={card ? cardDescription(card) : ""}
             />
-            <Button variant="raised" className={classes.editCardSave}>
+            <Button variant="raised" className={classes.save}>
               Save
             </Button>
           </Grid>
@@ -124,9 +119,9 @@ const View = ({ parent, card, onClose, classes }) => {
                     <Button
                       size="small"
                       variant="flat"
-                      className={classes.editCardSideButton}
+                      className={classes.sideButton}
                     >
-                      <Icon className={classes.editCardSideButtonIcon} />
+                      <Icon className={classes.sideButtonIcon} />
                       {name}
                     </Button>
                   </Grid>
@@ -143,7 +138,7 @@ const View = ({ parent, card, onClose, classes }) => {
 View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  parent: PropTypes.object.isRequired,
+  root: PropTypes.object.isRequired,
   card: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
