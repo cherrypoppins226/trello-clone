@@ -4,7 +4,6 @@ import Button from "material-ui/Button";
 import Paper from "material-ui/Paper";
 import List from "material-ui/List";
 import PropTypes from "prop-types";
-import red from "material-ui/colors/red";
 import CardsListCard from "./cardsListCard";
 
 const styles = {
@@ -12,7 +11,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     maxHeight: "100%",
-    background: red[50]
+    background: "rgb(226, 228, 230)"
   },
   title: {
     padding: 0,

@@ -4,7 +4,6 @@ import Paper from "material-ui/Paper";
 import { ListItem } from "material-ui/List";
 import Typography from "material-ui/Typography";
 import PropTypes from "prop-types";
-import red from "material-ui/colors/red";
 import grey from "material-ui/colors/grey";
 import Create from "@material-ui/icons/Create";
 
@@ -12,14 +11,16 @@ const styles = {
   container: {
     margin: 8,
     marginTop: 0,
-    marginBottom: 8,
-    background: red[100]
+    marginBottom: 8
   },
   card: {
     padding: 4,
     paddingLeft: 8,
     flexDirection: "row",
     justifyContent: "space-between",
+    "&:hover": {
+      background: grey[200]
+    },
     "&:hover $edit": {
       visibility: "visible"
     }
@@ -34,7 +35,7 @@ const styles = {
     padding: 2,
     paddingBottom: 0,
     "&:hover": {
-      background: red[200]
+      background: grey[300]
     }
   },
   editIcon: {

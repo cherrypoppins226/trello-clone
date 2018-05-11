@@ -10,7 +10,8 @@ const styles = {
     padding: 8,
     margin: 0,
     height: "100%",
-    width: "100%"
+    width: "100%",
+    background: "rgb(0, 121, 191)"
   },
   cardListContainer: {
     width: 300
