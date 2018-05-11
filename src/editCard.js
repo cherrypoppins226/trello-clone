@@ -64,7 +64,7 @@ const styles = {
 
 export const EDIT_CARD_DESCRIPTION = "edit-card-description";
 
-const View = ({ classes, card, onClose }) => {
+const View = ({ classes, onClose, card = null, container = null }) => {
   const modal = React.createRef();
   const textarea = React.createRef();
 
@@ -80,59 +80,57 @@ const View = ({ classes, card, onClose }) => {
   };
 
   return (
-    <>
-      <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
-        Edit card: change title, members, archive etc.
-      </div>
-      <Modal
-        ref={modal}
-        aria-describedby={EDIT_CARD_DESCRIPTION}
-        open={card !== null ? true : false}
-        container={card}
-        onClose={onClose}
-        onRendered={modalDidMount}
-      >
-        <Grid container wrap="nowrap" spacing={8} className={classes.grid}>
-          <Grid item>
-            <Typography
-              ref={textarea}
-              className={classes.textarea}
-              component="textarea"
-              spellCheck={false}
-              defaultValue={card ? cardDescription(card) : ""}
-            />
-            <Button variant="raised" className={classes.save}>
-              Save
-            </Button>
-          </Grid>
-          <Grid item>
-            <Grid container spacing={8} wrap="nowrap" direction="column">
-              {[
-                [Label, "Edit Labels"],
-                [Person, "Change Members"],
-                [ArrowForward, "Move"],
-                [LibraryBooks, "Copy"],
-                [Timer, "Change Due Date"],
-                [Archive, "Archive"]
-              ].map(([Icon, name]) => {
-                return (
-                  <Grid item style={{ paddingBottom: 1 }} key={name}>
-                    <Button
-                      size="small"
-                      variant="flat"
-                      className={classes.sideButton}
-                    >
-                      <Icon className={classes.sideButtonIcon} />
-                      {name}
-                    </Button>
-                  </Grid>
-                );
-              })}
-            </Grid>
+    <Modal
+      ref={modal}
+      aria-describedby={EDIT_CARD_DESCRIPTION}
+      open={card ? true : false}
+      container={container || card}
+      onClose={onClose}
+      onRendered={modalDidMount}
+    >
+      <Grid container wrap="nowrap" spacing={8} className={classes.grid}>
+        <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
+          Edit card: change title, members, archive etc.
+        </div>
+        <Grid item>
+          <Typography
+            ref={textarea}
+            className={classes.textarea}
+            component="textarea"
+            spellCheck={false}
+            defaultValue={card ? cardDescription(card) : ""}
+          />
+          <Button variant="raised" className={classes.save}>
+            Save
+          </Button>
+        </Grid>
+        <Grid item>
+          <Grid container spacing={8} wrap="nowrap" direction="column">
+            {[
+              [Label, "Edit Labels"],
+              [Person, "Change Members"],
+              [ArrowForward, "Move"],
+              [LibraryBooks, "Copy"],
+              [Timer, "Change Due Date"],
+              [Archive, "Archive"]
+            ].map(([Icon, name]) => {
+              return (
+                <Grid item style={{ paddingBottom: 1 }} key={name}>
+                  <Button
+                    size="small"
+                    variant="flat"
+                    className={classes.sideButton}
+                  >
+                    <Icon className={classes.sideButtonIcon} />
+                    {name}
+                  </Button>
+                </Grid>
+              );
+            })}
           </Grid>
         </Grid>
-      </Modal>
-    </>
+      </Grid>
+    </Modal>
   );
 };
 
@@ -140,6 +138,7 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   card: PropTypes.object,
+  container: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
 

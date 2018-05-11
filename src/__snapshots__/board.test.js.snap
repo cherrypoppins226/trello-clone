@@ -16,11 +16,6 @@ exports[`initial render 1`] = `
       CardsList
     </div>
   </div>
-  <div
-    id="edit-card-description"
-    style="display: none;"
-  >
-    Edit card: change title, members, archive etc.
-  </div>
+  EditCard
 </div>
 `;
