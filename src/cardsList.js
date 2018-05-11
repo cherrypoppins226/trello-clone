@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
+import Typography from "material-ui/Typography";
 import Paper from "material-ui/Paper";
 import List from "material-ui/List";
 import PropTypes from "prop-types";
@@ -14,9 +15,8 @@ const styles = {
     background: "rgb(226, 228, 230)"
   },
   title: {
-    padding: 0,
     margin: 8,
-    marginTop: 16
+    fontWeight: 700
   },
   cardsList: {
     padding: 1,
@@ -66,7 +66,7 @@ const View = class extends React.Component {
     const { classes, title } = this.props;
     return (
       <Paper elevation={1} className={classes.container}>
-        <h4 className={classes.title}>{title}</h4>
+        <Typography className={classes.title}>{title}</Typography>
         <List data-testid="cards-list" className={classes.cardsList}>
           {this.state.cards}
           <div
