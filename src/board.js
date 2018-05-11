@@ -38,7 +38,6 @@ const View = class extends React.Component {
           })}
         </Grid>
         <EditCard
-          root={this}
           card={this.state.cardBeingEdited}
           onClose={_ => this.setState({ cardBeingEdited: null })}
         />

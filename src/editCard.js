@@ -64,37 +64,38 @@ const styles = {
 
 export const EDIT_CARD_DESCRIPTION = "edit-card-description";
 
-const onModalRendered = (board, card) => {
-  // Only when we actually render in the DOM can we know the modal's
-  // dimensions.
-  const modal = findDOMNode(board).querySelector(
-    `[aria-describedby="${EDIT_CARD_DESCRIPTION}"]`
-  );
-  const cardCoordinates = findDOMNode(card).getBoundingClientRect();
-  modal.style.top = `${cardCoordinates.top}px`;
-  modal.style.left = `${cardCoordinates.left}px`;
-  const textarea = modal.querySelector("textarea");
-  textarea.style.width = `${cardCoordinates.width}px`;
-  textarea.style.height = `${cardCoordinates.height + 50}px`;
-  textarea.select();
-};
+const View = ({ classes, card, onClose }) => {
+  const modal = React.createRef();
+  const textarea = React.createRef();
 
-const View = ({ root, card, onClose, classes }) => {
+  const modalDidMount = () => {
+    const cardCoordinates = card.getBoundingClientRect();
+    const modalNode = findDOMNode(modal.current);
+    modalNode.style.top = `${cardCoordinates.top}px`;
+    modalNode.style.left = `${cardCoordinates.left}px`;
+    const textareaNode = findDOMNode(textarea.current);
+    textareaNode.style.width = `${cardCoordinates.width}px`;
+    textareaNode.style.height = `${cardCoordinates.height + 50}px`;
+    textareaNode.select();
+  };
+
   return (
     <>
       <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
         Edit card: change title, members, archive etc.
       </div>
       <Modal
+        ref={modal}
         aria-describedby={EDIT_CARD_DESCRIPTION}
         open={card !== null ? true : false}
         container={card}
         onClose={onClose}
-        onRendered={_ => onModalRendered(root, card)}
+        onRendered={modalDidMount}
       >
         <Grid container wrap="nowrap" spacing={8} className={classes.grid}>
           <Grid item>
             <Typography
+              ref={textarea}
               className={classes.textarea}
               component="textarea"
               spellCheck={false}
@@ -138,7 +139,6 @@ const View = ({ root, card, onClose, classes }) => {
 View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  root: PropTypes.object.isRequired,
   card: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
