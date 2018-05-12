@@ -2,6 +2,7 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
+import path from 'path';
 
 const styles = {
   container: {
@@ -24,7 +25,8 @@ const View = class extends React.Component {
   maybeCloseTextArea(event) {
     if (event.target !== this.node) {
       document.removeEventListener("click", this.maybeCloseTextArea);
-      this.props.onClose(event);
+      if (this.props.onClose !== undefined)
+        this.props.onClose(event);
     }
   }
 
@@ -58,7 +60,7 @@ View.propTypes = {
   classes: PropTypes.object.isRequired,
   rows: PropTypes.number,
   value: PropTypes.string,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func
 };
 
 export default withStyles(styles)(View);

@@ -15,6 +15,7 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./cardsListCard";
+import TextArea from "./textarea";
 
 const styles = {
   container: {
@@ -24,12 +25,13 @@ const styles = {
   editCardDescription: {
     "& textarea": {
       pointerEvents: "all",
+      padding: 4,
+      paddingLeft: 8,
+      // Reusable
       border: 0,
       outline: "none",
       resize: "none",
-      borderRadius: 2,
-      padding: 4,
-      paddingLeft: 8
+      borderRadius: 2
     },
     "& button": {
       pointerEvents: "all",
@@ -80,7 +82,6 @@ const View = ({ classes, onClose, card = null, container = null }) => {
     const textareaNode = findDOMNode(textarea.current);
     textareaNode.style.width = `${cardCoordinates.width}px`;
     textareaNode.style.height = `${cardCoordinates.height + 50}px`;
-    textareaNode.select();
   };
 
   return (
@@ -99,8 +100,8 @@ const View = ({ classes, onClose, card = null, container = null }) => {
         <Grid item className={classes.editCardDescription}>
           <Typography
             ref={textarea}
-            component="textarea"
-            defaultValue={card ? cardDescription(card) : ""}
+            component={TextArea}
+            value={card ? cardDescription(card) : ""}
           />
           <Button variant="raised"> Save </Button>
         </Grid>
