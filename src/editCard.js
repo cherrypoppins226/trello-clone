@@ -100,7 +100,6 @@ const View = ({ classes, onClose, card = null, container = null }) => {
           <Typography
             ref={textarea}
             component="textarea"
-            spellCheck={false}
             defaultValue={card ? cardDescription(card) : ""}
           />
           <Button variant="raised"> Save </Button>

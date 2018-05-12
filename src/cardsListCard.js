@@ -9,7 +9,8 @@ import Create from "@material-ui/icons/Create";
 const styles = {
   container: {
     margin: 8,
-    marginTop: 2
+    marginTop: 2,
+    cursor: "pointer"
   },
   card: {
     padding: 4,
