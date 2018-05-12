@@ -150,6 +150,4 @@ View.propTypes = {
   onEditCard: PropTypes.func.isRequired
 };
 
-const CardsList = withStyles(styles)(View);
-
-export default CardsList;
+export default withStyles(styles)(View);

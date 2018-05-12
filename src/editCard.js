@@ -142,6 +142,4 @@ View.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-const EditCard = withStyles(styles)(View);
-
-export default EditCard;
+export default withStyles(styles)(View);

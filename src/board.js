@@ -52,6 +52,4 @@ View.propTypes = {
   lists: PropTypes.object.isRequired
 };
 
-const Board = withStyles(styles)(View);
-
-export default Board;
+export default withStyles(styles)(View);

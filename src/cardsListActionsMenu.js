@@ -84,6 +84,4 @@ View.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 
-const CardsListActionsMenu = withStyles(styles)(View);
-
-export default CardsListActionsMenu;
+export default withStyles(styles)(View);

@@ -98,6 +98,4 @@ View.propTypes = {
   onEditCard: PropTypes.func.isRequired
 };
 
-const CardsListCard = withStyles(styles)(View);
-
-export default CardsListCard;
+export default withStyles(styles)(View);
