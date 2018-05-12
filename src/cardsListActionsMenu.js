@@ -8,27 +8,29 @@ import { MenuList, MenuItem } from "material-ui/Menu";
 import grey from "material-ui/colors/grey";
 
 const styles = {
-  listHeader: {
-    paddingTop: 8,
-    color: grey[700]
-  },
-  list: {
-    width: 300,
-    "& p": {
-      fontWeight: 700
+  container: {
+    "& [role='heading']": {
+      paddingTop: 8,
+      color: grey[700]
     },
-    "& hr": {
-      margin: 5,
-      marginLeft: 10,
-      marginRight: 10
-    },
-    "& li": {
-      padding: 3,
-      paddingLeft: 10,
-      transition: "",
-      "&:hover": {
-        backgroundColor: "rgb(41, 143, 202)",
-        "& p": { color: "white" }
+    "& [role='menu']": {
+      width: 300,
+      "& *": {
+        fontWeight: 700
+      },
+      "& hr": {
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10
+      },
+      "& [role='menuitem']": {
+        padding: 3,
+        paddingLeft: 10,
+        transition: "",
+        "&:hover": {
+          backgroundColor: "rgb(41, 143, 202)",
+          "& p": { color: "white" }
+        }
       }
     }
   }
@@ -37,6 +39,7 @@ const styles = {
 const View = ({ classes, anchor, container, onClose }) => {
   return (
     <Popover
+      className={classes.container}
       anchorEl={anchor}
       open={Boolean(anchor)}
       onClose={onClose}
@@ -46,10 +49,10 @@ const View = ({ classes, anchor, container, onClose }) => {
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       transformOrigin={{ vertical: "top", horizontal: "left" }}
     >
-      <Typography className={classes.listHeader} align="center">
+      <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} className={classes.list} onClick={onClose}>
+      <MenuList dense={true} onClick={onClose}>
         {[
           "",
           "Add Card...",

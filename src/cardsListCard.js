@@ -1,7 +1,6 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
-import { ListItem } from "material-ui/List";
 import Typography from "material-ui/Typography";
 import PropTypes from "prop-types";
 import grey from "material-ui/colors/grey";
@@ -10,41 +9,42 @@ import Create from "@material-ui/icons/Create";
 const styles = {
   container: {
     margin: 8,
-    marginTop: 0,
-    marginBottom: 8
+    marginTop: 2
   },
   card: {
     padding: 4,
     paddingLeft: 8,
+    display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     "&:hover": {
       background: grey[200]
     },
-    "&:hover $edit": {
+    "&:hover button": {
       visibility: "visible"
+    },
+    "& button": {
+      visibility: "hidden",
+      // Reusable styles
+      borderWidth: 0,
+      background: "none",
+      outline: "none",
+      cursor: "pointer",
+      alignSelf: "flex-start",
+      borderRadius: 4,
+      padding: 3,
+      paddingBottom: 0,
+      "&:hover": {
+        background: "#D6DADC"
+      }
+    },
+    "& svg": {
+      // Reusable styles
+      padding: 3,
+      width: "0.8em",
+      height: "0.8em",
+      color: grey[700]
     }
-  },
-  edit: {
-    visibility: "hidden",
-    // Reusable styles
-    borderWidth: 0,
-    background: "none",
-    outline: "none",
-    cursor: "pointer",
-    alignSelf: "flex-start",
-    borderRadius: 4,
-    padding: 3,
-    paddingBottom: 0,
-    "&:hover": {
-      background: "#d6dadc"
-    }
-  },
-  editIcon: {
-    padding: 3,
-    width: "0.8em",
-    height: "0.8em",
-    color: grey[700]
   }
 };
 
@@ -71,9 +71,9 @@ export const cardDescription = cardNode => {
 
 const View = ({ classes, description = "Title...", onEditCard }) => {
   return (
-    <Paper elevation={1} component="li" className={classes.container}>
-      <ListItem
-        button
+    <li className={classes.container}>
+      <Paper
+        elevation={1}
         onClick={e => onClick(e, onEditCard)}
         className={classes.card}
       >
@@ -83,11 +83,11 @@ const View = ({ classes, description = "Title...", onEditCard }) => {
         <div id={EDIT_CARD_LABEL} style={{ display: "none" }}>
           Edit card
         </div>
-        <button className={classes.edit} aria-labelledby={EDIT_CARD_LABEL}>
-          <Create className={classes.editIcon} />
+        <button aria-labelledby={EDIT_CARD_LABEL}>
+          <Create />
         </button>
-      </ListItem>
-    </Paper>
+      </Paper>
+    </li>
   );
 };
 

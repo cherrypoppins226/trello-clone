@@ -2,25 +2,25 @@
 
 exports[`initial render 1`] = `
 <div>
-  <div
+  <section
     class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
   >
     <div
       class="View-listHeader-2"
     >
       <p
-        class="MuiTypography-root MuiTypography-body1 View-title-5"
+        class="MuiTypography-root MuiTypography-body1"
+        role="heading"
       >
         List title
       </p>
       <button
         aria-haspopup="true"
         aria-labelledby="open-list-actions-menu"
-        class="View-openActionMenuButton-3"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root View-openActionMenuIcon-4"
+          class="MuiSvgIcon-root"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -33,21 +33,21 @@ exports[`initial render 1`] = `
       </button>
       CardsListActionMenu
     </div>
-    <ul
-      class="MuiList-root MuiList-padding View-cardsList-6"
+    <div
+      style="overflow-y: scroll;"
     >
-      <div
+      <ul
         data-testid="cards-list"
       >
         CardsListCard
         CardsListCard
-      </div>
+      </ul>
       <div
         style="float: left; clear: both;"
       />
-    </ul>
+    </div>
     <button
-      class="MuiButtonBase-root MuiButton-root View-addCard-7"
+      class="MuiButtonBase-root MuiButton-root"
       tabindex="0"
       type="button"
     >
@@ -60,7 +60,7 @@ exports[`initial render 1`] = `
         class="MuiTouchRipple-root"
       />
     </button>
-  </div>
+  </section>
 </div>
 `;
 
@@ -69,7 +69,7 @@ exports[`opens actions menu 1`] = `
   style="overflow: hidden; padding-right: 0px;"
 >
   <div
-    class="MuiModal-root"
+    class="MuiModal-root View-container-230"
   >
     <div
       aria-hidden="true"
@@ -83,12 +83,13 @@ exports[`opens actions menu 1`] = `
       tabindex="-1"
     >
       <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter View-listHeader-265"
+        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+        role="heading"
       >
         List Actions
       </p>
       <ul
-        class="MuiList-root MuiList-dense MuiList-padding View-list-266"
+        class="MuiList-root MuiList-dense MuiList-padding"
         role="menu"
       >
         <hr

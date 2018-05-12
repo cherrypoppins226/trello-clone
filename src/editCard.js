@@ -17,48 +17,52 @@ import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./cardsListCard";
 
 const styles = {
-  grid: {
+  container: {
     outline: "none",
     pointerEvents: "none"
   },
-  textarea: {
-    pointerEvents: "all",
-    border: 0,
-    outline: "none",
-    resize: "none",
-    borderRadius: 2,
-    padding: 4,
-    paddingLeft: 8
-  },
-  save: {
-    pointerEvents: "all",
-    color: grey[50],
-    backgroundColor: green[500],
-    textTransform: "none",
-    fontWeight: 700,
-    marginTop: 15,
-    "&:hover": {
-      backgroundColor: green[600]
+  editCardDescription: {
+    "& textarea": {
+      pointerEvents: "all",
+      border: 0,
+      outline: "none",
+      resize: "none",
+      borderRadius: 2,
+      padding: 4,
+      paddingLeft: 8
+    },
+    "& button": {
+      pointerEvents: "all",
+      color: grey[50],
+      backgroundColor: green[500],
+      textTransform: "none",
+      fontWeight: 700,
+      marginTop: 15,
+      "&:hover": {
+        backgroundColor: green[600]
+      }
     }
   },
-  sideButton: {
-    pointerEvents: "all",
-    background: "rgba(0, 0, 0, .6)",
-    color: grey[50],
-    fontWeight: 600,
-    textTransform: "none",
-    transition: "transform 85ms ease-in",
-    "&:hover": {
-      background: "rgba(0, 0, 0, .8)",
-      transform: "translateX(5px)",
-      transition: "transform 85ms ease-in"
+  editCardButtons: {
+    "& button": {
+      pointerEvents: "all",
+      background: "rgba(0, 0, 0, .6)",
+      color: grey[50],
+      fontWeight: 600,
+      textTransform: "none",
+      transition: "transform 85ms ease-in",
+      "&:hover": {
+        background: "rgba(0, 0, 0, .8)",
+        transform: "translateX(5px)",
+        transition: "transform 85ms ease-in"
+      },
+      "& svg": {
+        padding: 1,
+        marginRight: 5,
+        width: "0.8em",
+        height: "0.8em"
+      }
     }
-  },
-  sideButtonIcon: {
-    padding: 1,
-    marginRight: 5,
-    width: "0.8em",
-    height: "0.8em"
   }
 };
 
@@ -83,28 +87,25 @@ const View = ({ classes, onClose, card = null, container = null }) => {
     <Modal
       ref={modal}
       aria-describedby={EDIT_CARD_DESCRIPTION}
-      open={card ? true : false}
+      open={Boolean(card)}
       container={container || card}
       onClose={onClose}
       onRendered={modalDidMount}
     >
-      <Grid container wrap="nowrap" spacing={8} className={classes.grid}>
+      <Grid container wrap="nowrap" spacing={8} className={classes.container}>
         <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
           Edit card: change title, members, archive etc.
         </div>
-        <Grid item>
+        <Grid item className={classes.editCardDescription}>
           <Typography
             ref={textarea}
-            className={classes.textarea}
             component="textarea"
             spellCheck={false}
             defaultValue={card ? cardDescription(card) : ""}
           />
-          <Button variant="raised" className={classes.save}>
-            Save
-          </Button>
+          <Button variant="raised"> Save </Button>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.editCardButtons}>
           <Grid container spacing={8} wrap="nowrap" direction="column">
             {[
               [Label, "Edit Labels"],
@@ -113,20 +114,14 @@ const View = ({ classes, onClose, card = null, container = null }) => {
               [LibraryBooks, "Copy"],
               [Timer, "Change Due Date"],
               [Archive, "Archive"]
-            ].map(([Icon, name]) => {
-              return (
-                <Grid item style={{ paddingBottom: 1 }} key={name}>
-                  <Button
-                    size="small"
-                    variant="flat"
-                    className={classes.sideButton}
-                  >
-                    <Icon className={classes.sideButtonIcon} />
-                    {name}
-                  </Button>
-                </Grid>
-              );
-            })}
+            ].map(([Icon, text], idx) => (
+              <Grid item style={{ paddingBottom: 1 }} key={idx}>
+                <Button size="small" variant="flat">
+                  <Icon />
+                  {text}
+                </Button>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </Grid>

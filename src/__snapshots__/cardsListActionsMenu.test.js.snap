@@ -5,7 +5,7 @@ exports[`initial render 1`] = `
   style="overflow: hidden; padding-right: 0px;"
 >
   <div
-    class="MuiModal-root"
+    class="MuiModal-root View-container-1"
   >
     <div
       aria-hidden="true"
@@ -19,12 +19,13 @@ exports[`initial render 1`] = `
       tabindex="-1"
     >
       <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter View-listHeader-1"
+        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
+        role="heading"
       >
         List Actions
       </p>
       <ul
-        class="MuiList-root MuiList-dense MuiList-padding View-list-2"
+        class="MuiList-root MuiList-dense MuiList-padding"
         role="menu"
       >
         <hr

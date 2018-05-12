@@ -3,12 +3,10 @@
 exports[`initial render 1`] = `
 <div>
   <li
-    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
+    class="View-container-1"
   >
     <div
-      class="MuiButtonBase-root MuiListItem-root MuiListItem-default MuiListItem-gutters MuiListItem-button View-card-2"
-      role="button"
-      tabindex="0"
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-card-2"
     >
       <p
         aria-label="card title"
@@ -24,11 +22,10 @@ exports[`initial render 1`] = `
       </div>
       <button
         aria-labelledby="edit-card-label"
-        class="View-edit-3"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root View-editIcon-4"
+          class="MuiSvgIcon-root"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -39,9 +36,6 @@ exports[`initial render 1`] = `
           </g>
         </svg>
       </button>
-      <span
-        class="MuiTouchRipple-root"
-      />
     </div>
   </li>
 </div>
