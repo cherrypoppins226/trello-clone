@@ -73,3 +73,17 @@ describe("", () => {
     expect(document.body).toMatchSnapshot();
   });
 });
+
+it("opens edit title text area", () => {
+  const CardsList = require("./cardsList").default;
+  const { container } = render(
+    <CardsList
+      title="Title"
+      cards={["card1", "card2"]}
+      onEditCard={jest.fn()}
+    />
+  );
+  const getTitle = node => node.querySelector("[role='heading']");
+  Simulate.click(getTitle(container));
+  expect(getTitle(container).tagName).toBe("TEXTAREA");
+});

@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import CardsListCard from "./cardsListCard";
 import CardsListActionsMenu from "./cardsListActionsMenu";
+import TextArea from "./textarea";
 
 const styles = {
   container: {
@@ -29,14 +30,20 @@ const styles = {
     display: "flex",
     flexShrink: 0,
     justifyContent: "space-between",
+    margin: 5,
     "& [role='heading']": {
-      margin: 8,
-      fontWeight: 700
+      flexBasis: "100%",
+      fontWeight: 700,
+      paddingBottom: 0,
+      paddingTop: 3,
+      paddingLeft: 5,
+      marginRight: 8
+    },
+    "& p[role='heading']": {
+      cursor: "pointer"
     },
     "& button": {
       alignSelf: "flex-start",
-      marginTop: 8,
-      marginRight: 8,
       // Reusable styles
       borderWidth: 0,
       background: "none",
@@ -44,7 +51,6 @@ const styles = {
       cursor: "pointer",
       borderRadius: 4,
       padding: 3,
-      paddingBottom: 0,
       "&:hover": {
         background: "#D6D6D6"
       }
@@ -67,6 +73,7 @@ const View = class extends React.Component {
     this.openActionsMenu = this.openActionsMenu.bind(this);
     this.closeActionsMenu = this.closeActionsMenu.bind(this);
     this.state = {
+      titleBeingEdited: false,
       actionsMenuAnchor: null,
       counter: props.cards.length,
       cards: props.cards.map((description, idx) =>
@@ -108,10 +115,20 @@ const View = class extends React.Component {
 
   render() {
     const { classes, title } = this.props;
+    const titleProps = this.state.titleBeingEdited
+      ? {
+          component: TextArea,
+          value: title,
+          onClose: _ => this.setState({ titleBeingEdited: false })
+        }
+      : {
+          onClick: _ => this.setState({ titleBeingEdited: true }),
+          children: title
+        };
     return (
       <Paper component="section" elevation={1} className={classes.container}>
         <div className={classes.listHeader}>
-          <Typography role="heading">{title}</Typography>
+          <Typography role="heading" {...titleProps} />
           <button
             onClick={this.openActionsMenu}
             aria-labelledby={LIST_ACTIONS_MENU_LABEL}

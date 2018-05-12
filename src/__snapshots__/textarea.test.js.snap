@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`initial render 1`] = `
+<div>
+  <textarea
+    class=" View-container-1"
+    rows="1"
+    style="height: 0px;"
+  />
+</div>
+`;
