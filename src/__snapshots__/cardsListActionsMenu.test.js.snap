@@ -1,71 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`initial render 1`] = `
-<div>
-  <div
-    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
-  >
-    <div
-      class="View-listHeader-2"
-    >
-      <p
-        class="MuiTypography-root MuiTypography-body1 View-title-5"
-      >
-        List title
-      </p>
-      <button
-        aria-haspopup="true"
-        aria-labelledby="open-list-actions-menu"
-        class="View-openActionMenuButton-3"
-      >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root View-openActionMenuIcon-4"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <g>
-            <path
-              d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-            />
-          </g>
-        </svg>
-      </button>
-      CardsListActionMenu
-    </div>
-    <ul
-      class="MuiList-root MuiList-padding View-cardsList-6"
-    >
-      <div
-        data-testid="cards-list"
-      >
-        CardsListCard
-        CardsListCard
-      </div>
-      <div
-        style="float: left; clear: both;"
-      />
-    </ul>
-    <button
-      class="MuiButtonBase-root MuiButton-root View-addCard-7"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiButton-label"
-      >
-        Add a card...
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
-  </div>
-</div>
-`;
-
-exports[`opens actions menu 1`] = `
-<body
+<div
   style="overflow: hidden; padding-right: 0px;"
 >
   <div
@@ -83,12 +19,12 @@ exports[`opens actions menu 1`] = `
       tabindex="-1"
     >
       <p
-        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter View-listHeader-265"
+        class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter View-listHeader-1"
       >
         List Actions
       </p>
       <ul
-        class="MuiList-root MuiList-dense MuiList-padding View-list-266"
+        class="MuiList-root MuiList-dense MuiList-padding View-list-2"
         role="menu"
       >
         <hr
@@ -238,5 +174,5 @@ exports[`opens actions menu 1`] = `
       </ul>
     </div>
   </div>
-</body>
+</div>
 `;

@@ -27,22 +27,24 @@ const styles = {
   },
   edit: {
     visibility: "hidden",
+    // Reusable styles
     borderWidth: 0,
     background: "none",
+    outline: "none",
     cursor: "pointer",
     alignSelf: "flex-start",
     borderRadius: 4,
-    padding: 2,
+    padding: 3,
     paddingBottom: 0,
     "&:hover": {
-      background: grey[300]
+      background: "#d6dadc"
     }
   },
   editIcon: {
-    padding: 2,
+    padding: 3,
     width: "0.8em",
     height: "0.8em",
-    color: grey[800]
+    color: grey[700]
   }
 };
 

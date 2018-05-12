@@ -1,9 +1,10 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
 import { render } from "./testHelpers.js";
-import CardsList from "./cardsList";
+import CardsList, { LIST_ACTIONS_MENU_LABEL } from "./cardsList";
 
 jest.mock("./cardsListCard", () => () => "CardsListCard");
+jest.mock("./cardsListActionsMenu", () => () => "CardsListActionMenu");
 
 const title = "List title";
 const cards = ["card1", "card2"];
@@ -15,7 +16,7 @@ it("initial render", () => {
   expect(container).toMatchSnapshot();
 });
 
-describe("adds a card", () => {
+describe("", () => {
   beforeAll(() => {
     jest.unmock("./cardsListCard");
     jest.resetModules();
@@ -26,7 +27,7 @@ describe("adds a card", () => {
     jest.resetModules();
   });
 
-  it("", () => {
+  it("adds a card", () => {
     const CardsList = require("./cardsList").default;
     const { getByText, getByTestId } = render(
       <CardsList
@@ -42,5 +43,33 @@ describe("adds a card", () => {
     expect(liveList.childElementCount).toBe(countBefore + 1);
     expect(liveList.lastElementChild).not.toBe(lastBefore);
     expect(liveList.lastElementChild.tagName).toBe(lastBefore.tagName);
+  });
+});
+
+describe("", () => {
+  beforeAll(() => {
+    jest.unmock("./cardsListActionsMenu");
+    jest.resetModules();
+  });
+
+  afterAll(() => {
+    jest.mock("./cardsListActionsMenu");
+    jest.resetModules();
+  });
+
+  it("opens actions menu", () => {
+    const CardsList = require("./cardsList").default;
+    const { container } = render(
+      <CardsList
+        title="Title"
+        cards={["card1", "card2"]}
+        onEditCard={jest.fn()}
+      />
+    );
+    const actionsMenuButton = container.querySelector(
+      `[aria-labelledby="${LIST_ACTIONS_MENU_LABEL}"]`
+    );
+    Simulate.click(actionsMenuButton);
+    expect(document.body).toMatchSnapshot();
   });
 });
