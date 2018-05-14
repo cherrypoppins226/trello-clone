@@ -77,6 +77,31 @@ const onOutsideClick = (node, handler) => {
   document.body.addEventListener("click", onClick);
 };
 
+const Title = class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { editing: false };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.editing)
+      onOutsideClick(findDOMNode(this), _ => this.setState({ editing: false }));
+  }
+
+  render() {
+    const props = this.state.editing
+      ? {
+          component: TextArea,
+          value: this.props.text
+        }
+      : {
+          onClick: _ => this.setState({ editing: true }),
+          children: this.props.text
+        };
+    return <Typography role="heading" {...props} />;
+  }
+};
+
 export const LIST_ACTIONS_MENU_LABEL = "open-list-actions-menu";
 
 const View = class extends React.Component {
@@ -85,7 +110,6 @@ const View = class extends React.Component {
     this.openActionsMenu = this.openActionsMenu.bind(this);
     this.closeActionsMenu = this.closeActionsMenu.bind(this);
     this.state = {
-      titleBeingEdited: false,
       actionsMenuAnchor: null,
       counter: props.cards.length,
       cards: props.cards.map((description, idx) =>
@@ -113,10 +137,6 @@ const View = class extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.titleBeingEdited)
-      onOutsideClick(findDOMNode(this.title), _ =>
-        this.setState({ titleBeingEdited: false })
-      );
     if (prevState.cards.length < this.state.cards.length)
       this.cardsListEnd.scrollIntoView();
   }
@@ -129,27 +149,12 @@ const View = class extends React.Component {
     this.setState({ actionsMenuAnchor: null });
   }
 
-  titleElem() {
-    const props = this.state.titleBeingEdited
-      ? {
-          component: TextArea,
-          value: this.props.title
-        }
-      : {
-          onClick: _ => this.setState({ titleBeingEdited: true }),
-          children: this.props.title
-        };
-    return (
-      <Typography role="heading" ref={node => (this.title = node)} {...props} />
-    );
-  }
-
   render() {
     const { classes } = this.props;
     return (
       <Paper component="section" elevation={1} className={classes.container}>
         <div className={classes.listHeader}>
-          {this.titleElem()}
+          <Title text={this.props.title} />
           <button
             onClick={this.openActionsMenu}
             aria-labelledby={LIST_ACTIONS_MENU_LABEL}
