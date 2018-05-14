@@ -1,8 +1,11 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
 import { render } from "../testHelpers.js";
-import CardsList, { LIST_ACTIONS_MENU_LABEL } from "./CardsList";
+import { LIST_ACTIONS_MENU_LABEL } from "./CardsList";
 
+let CardsList = require("./CardsList").default;
+
+jest.mock("./TextArea", () => () => "TextArea");
 jest.mock("./CardsListCard", () => () => "CardsListCard");
 jest.mock("./CardsListActionsMenu", () => () => "CardsListActionMenu");
 
@@ -20,15 +23,16 @@ describe("", () => {
   beforeAll(() => {
     jest.unmock("./CardsListCard");
     jest.resetModules();
+    CardsList = require("./CardsList").default;
   });
 
   afterAll(() => {
     jest.mock("./CardsListCard");
     jest.resetModules();
+    CardsList = require("./CardsList").default;
   });
 
   it("adds a card", () => {
-    const CardsList = require("./CardsList").default;
     const { getByText, getByTestId } = render(
       <CardsList
         title="Title"
@@ -50,15 +54,16 @@ describe("", () => {
   beforeAll(() => {
     jest.unmock("./CardsListActionsMenu");
     jest.resetModules();
+    CardsList = require("./CardsList").default;
   });
 
   afterAll(() => {
     jest.mock("./CardsListActionsMenu");
     jest.resetModules();
+    CardsList = require("./CardsList").default;
   });
 
   it("opens actions menu", () => {
-    const CardsList = require("./CardsList").default;
     const { container } = render(
       <CardsList
         title="Title"
@@ -74,16 +79,29 @@ describe("", () => {
   });
 });
 
-it("opens edit title text area", () => {
-  const CardsList = require("./CardsList").default;
-  const { container } = render(
-    <CardsList
-      title="Title"
-      cards={["card1", "card2"]}
-      onEditCard={jest.fn()}
-    />
-  );
-  const getTitle = node => node.querySelector("[role='heading']");
-  Simulate.click(getTitle(container));
-  expect(getTitle(container).tagName).toBe("TEXTAREA");
+describe("", () => {
+  beforeAll(() => {
+    jest.unmock("./TextArea");
+    jest.resetModules();
+    CardsList = require("./CardsList").default;
+  });
+
+  afterAll(() => {
+    jest.mock("./TextArea");
+    jest.resetModules();
+    CardsList = require("./CardsList").default;
+  });
+
+  it("opens edit title text area", () => {
+    const { container } = render(
+      <CardsList
+        title="Title"
+        cards={["card1", "card2"]}
+        onEditCard={jest.fn()}
+      />
+    );
+    const getTitle = node => node.querySelector("[role='heading']");
+    Simulate.click(getTitle(container));
+    expect(getTitle(container).tagName).toBe("TEXTAREA");
+  });
 });

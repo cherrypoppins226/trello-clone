@@ -7,9 +7,9 @@ import Paper from "material-ui/Paper";
 import grey from "material-ui/colors/grey";
 import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
+import TextArea from "./TextArea";
 import CardsListCard from "./CardsListCard";
 import CardsListActionsMenu from "./CardsListActionsMenu";
-import TextArea from "./TextArea";
 
 const styles = {
   container: {
