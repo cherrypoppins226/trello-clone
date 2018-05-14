@@ -102,15 +102,39 @@ const Title = class extends React.Component {
   }
 };
 
+const ActionsMenu = class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { anchor: null };
+  }
+
+  render() {
+    return (
+      <>
+        <button
+          onClick={e => this.setState({ anchor: e.target })}
+          aria-labelledby={LIST_ACTIONS_MENU_LABEL}
+          aria-owns={this.state.anchor ? "cardlist-actions" : null}
+          aria-haspopup={true}
+        >
+          <MoreHoriz />
+        </button>
+        <CardsListActionsMenu
+          id="cardlist-actions"
+          onClose={_ => this.setState({ anchor: null })}
+          anchor={this.state.anchor}
+        />
+      </>
+    );
+  }
+};
+
 export const LIST_ACTIONS_MENU_LABEL = "open-list-actions-menu";
 
 const View = class extends React.Component {
   constructor(props) {
     super(props);
-    this.openActionsMenu = this.openActionsMenu.bind(this);
-    this.closeActionsMenu = this.closeActionsMenu.bind(this);
     this.state = {
-      actionsMenuAnchor: null,
       counter: props.cards.length,
       cards: props.cards.map((description, idx) =>
         this.newCard(idx, description)
@@ -141,33 +165,13 @@ const View = class extends React.Component {
       this.cardsListEnd.scrollIntoView();
   }
 
-  openActionsMenu(event) {
-    this.setState({ actionsMenuAnchor: event.target });
-  }
-
-  closeActionsMenu() {
-    this.setState({ actionsMenuAnchor: null });
-  }
-
   render() {
     const { classes } = this.props;
     return (
       <Paper component="section" elevation={1} className={classes.container}>
         <div className={classes.listHeader}>
           <Title text={this.props.title} />
-          <button
-            onClick={this.openActionsMenu}
-            aria-labelledby={LIST_ACTIONS_MENU_LABEL}
-            aria-owns={this.state.actionsMenuAnchor ? "cardlist-actions" : null}
-            aria-haspopup={true}
-          >
-            <MoreHoriz />
-          </button>
-          <CardsListActionsMenu
-            id="cardlist-actions"
-            onClose={this.closeActionsMenu}
-            anchor={this.state.actionsMenuAnchor}
-          />
+          <ActionsMenu />
         </div>
         <div style={{ overflowY: "scroll" }}>
           <ul data-testid="cards-list">{this.state.cards}</ul>
