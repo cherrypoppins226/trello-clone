@@ -24,7 +24,8 @@
     "prettier-eslint-cli": "^4.7.1",
     "prop-types": "^15.6.1",
     "proxyquire": "^2.0.1",
-    "react-testing-library": "^3.0.1"
+    "react-testing-library": "^3.0.1",
+    "snapshot-diff": "^0.3.0"
   },
   "browserslist": {
     "development": [

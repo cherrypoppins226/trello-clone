@@ -168,13 +168,18 @@ const View = class extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Paper component="section" elevation={1} className={classes.container}>
+      <Paper
+        component="section"
+        elevation={1}
+        className={classes.container}
+        data-testid="CardsList"
+      >
         <div className={classes.listHeader}>
           <Title text={this.props.title} />
           <ActionsMenu />
         </div>
         <div style={{ overflowY: "scroll" }}>
-          <ul data-testid="cards-list">{this.state.cards}</ul>
+          <ul>{this.state.cards}</ul>
           {/* The sole purpose of this div is to allow scrolling to bottom */}
           <div
             style={{ float: "left", clear: "both" }}

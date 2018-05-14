@@ -1,0 +1,482 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app renders correctly 1`] = `
+<div
+  class="MuiGrid-container MuiGrid-spacing-xs-16 MuiGrid-wrap-xs-nowrap Board-grid-1"
+>
+  <div
+    class="MuiGrid-item Board-cardListContainer-2"
+  >
+    <section
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsList-container-93"
+      data-testid="CardsList"
+    >
+      <div
+        class="CardsList-listHeader-94"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+          role="heading"
+        >
+          Repellat quisquam recusandae alias consequuntur corporis.
+        </p>
+        <button
+          aria-haspopup="true"
+          aria-labelledby="open-list-actions-menu"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <g>
+              <path
+                d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div
+        style="overflow-y: scroll;"
+      >
+        <ul>
+          <li
+            class="CardsListCard-container-156"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsListCard-card-157"
+            >
+              <p
+                aria-label="card title"
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Ratione ut sunt qui amet iure ut libero qui recusandae.
+              </p>
+              <div
+                id="edit-card-label"
+                style="display: none;"
+              >
+                Edit card
+              </div>
+              <button
+                aria-labelledby="edit-card-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <g>
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </li>
+          <li
+            class="CardsListCard-container-156"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsListCard-card-157"
+            >
+              <p
+                aria-label="card title"
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Nulla quam ipsam nobis cupiditate sed dignissimos.
+              </p>
+              <div
+                id="edit-card-label"
+                style="display: none;"
+              >
+                Edit card
+              </div>
+              <button
+                aria-labelledby="edit-card-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <g>
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+        <div
+          style="float: left; clear: both;"
+        />
+      </div>
+      <button
+        class="MuiButtonBase-root MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Add a card...
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </section>
+  </div>
+  <div
+    class="MuiGrid-item Board-cardListContainer-2"
+  >
+    <section
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsList-container-93"
+      data-testid="CardsList"
+    >
+      <div
+        class="CardsList-listHeader-94"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1"
+          role="heading"
+        >
+          Incidunt accusantium sed libero repudiandae esse blanditiis natus et eos.
+        </p>
+        <button
+          aria-haspopup="true"
+          aria-labelledby="open-list-actions-menu"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <g>
+              <path
+                d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+              />
+            </g>
+          </svg>
+        </button>
+      </div>
+      <div
+        style="overflow-y: scroll;"
+      >
+        <ul>
+          <li
+            class="CardsListCard-container-156"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsListCard-card-157"
+            >
+              <p
+                aria-label="card title"
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Velit omnis et porro ut et ipsam explicabo eligendi occaecati.
+              </p>
+              <div
+                id="edit-card-label"
+                style="display: none;"
+              >
+                Edit card
+              </div>
+              <button
+                aria-labelledby="edit-card-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <g>
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </li>
+          <li
+            class="CardsListCard-container-156"
+          >
+            <div
+              class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsListCard-card-157"
+            >
+              <p
+                aria-label="card title"
+                class="MuiTypography-root MuiTypography-body1"
+              >
+                Et saepe eum dicta eum eaque enim ipsum inventore debitis.
+              </p>
+              <div
+                id="edit-card-label"
+                style="display: none;"
+              >
+                Edit card
+              </div>
+              <button
+                aria-labelledby="edit-card-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <g>
+                    <path
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+        <div
+          style="float: left; clear: both;"
+        />
+      </div>
+      <button
+        class="MuiButtonBase-root MuiButton-root"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Add a card...
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </section>
+  </div>
+</div>
+`;
+
+exports[`cards list opens list actions menu 1`] = `
+Snapshot Diff:
+- First value
++ Second value
+
+@@ -1,8 +1,12 @@
+- <body>
+-   <div>
++ <body
++   style="overflow: hidden; padding-right: 0px;"
++ >
+    <div
++     aria-hidden="true"
++   >
++     <div
+        class="MuiGrid-container MuiGrid-spacing-xs-16 MuiGrid-wrap-xs-nowrap Board-grid-1"
+      >
+        <div
+          class="MuiGrid-item Board-cardListContainer-2"
+        >
+@@ -20,10 +24,11 @@
+                Repellat quisquam recusandae alias consequuntur corporis.
+              </p>
+              <button
+                aria-haspopup="true"
+                aria-labelledby="open-list-actions-menu"
++               aria-owns="cardlist-actions"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+@@ -265,6 +270,177 @@
+            </button>
+          </section>
+        </div>
+      </div>
+    </div>
++   <div
++     class="MuiModal-root CardsListActionsMenu-container-152"
++   >
++     <div
++       aria-hidden="true"
++       class="MuiBackdrop-root MuiBackdrop-invisible"
++       style="opacity: 1; -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
++     />
++     <div
++       class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded MuiPopover-paper"
++       role="document"
++       style="opacity: 1; top: 16px; left: 16px;"
++       tabindex="-1"
++     >
++       <p
++         class="MuiTypography-root MuiTypography-body1 MuiTypography-alignCenter"
++         role="heading"
++       >
++         List Actions
++       </p>
++       <ul
++         class="MuiList-root MuiList-dense MuiList-padding"
++         role="menu"
++       >
++         <hr
++           class="MuiDivider-root"
++           tabindex="0"
++         />
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Add Card...
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Copy List...
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Move List...
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Watch
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <hr
++           class="MuiDivider-root"
++           tabindex="-1"
++         />
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Sort By
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <hr
++           class="MuiDivider-root"
++           tabindex="-1"
++         />
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Move All Cards in This List...
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Archive All Cards in This List...
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++         <hr
++           class="MuiDivider-root"
++           tabindex="-1"
++         />
++         <li
++           class="MuiButtonBase-root MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-button MuiMenuItem-root"
++           role="menuitem"
++           tabindex="-1"
++         >
++           <p
++             class="MuiTypography-root MuiTypography-body1"
++           >
++              
++             Archive This List
++              
++           </p>
++           <span
++             class="MuiTouchRipple-root"
++           />
++         </li>
++       </ul>
++     </div>
++   </div>
+  </body>
+`;

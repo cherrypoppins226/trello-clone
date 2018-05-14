@@ -18,3 +18,9 @@ export const renderIntoDocument = component => {
     <JssProvider generateClassName={generateClassName}>{component}</JssProvider>
   );
 };
+
+export const NativeEvents = {
+  mouse: {
+    click: new MouseEvent("click", { bubbles: true, cancelable: true })
+  }
+};
