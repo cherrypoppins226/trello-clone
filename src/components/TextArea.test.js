@@ -10,8 +10,3 @@ it("initial render", () => {
   expect(container.firstChild.value).toBe(value);
   expect(container).toMatchSnapshot();
 });
-
-it("resizes on input", () => {
-  // TODO
-  return undefined;
-});
