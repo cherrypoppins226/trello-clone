@@ -129,25 +129,27 @@ const View = class extends React.Component {
     this.setState({ actionsMenuAnchor: null });
   }
 
-  render() {
-    const { classes, title } = this.props;
-    const titleProps = this.state.titleBeingEdited
+  titleElem() {
+    const props = this.state.titleBeingEdited
       ? {
           component: TextArea,
-          value: title
+          value: this.props.title
         }
       : {
           onClick: _ => this.setState({ titleBeingEdited: true }),
-          children: title
+          children: this.props.title
         };
+    return (
+      <Typography role="heading" ref={node => (this.title = node)} {...props} />
+    );
+  }
+
+  render() {
+    const { classes } = this.props;
     return (
       <Paper component="section" elevation={1} className={classes.container}>
         <div className={classes.listHeader}>
-          <Typography
-            role="heading"
-            ref={node => (this.title = node)}
-            {...titleProps}
-          />
+          {this.titleElem()}
           <button
             onClick={this.openActionsMenu}
             aria-labelledby={LIST_ACTIONS_MENU_LABEL}
