@@ -1,70 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`initial render 1`] = `
-<div>
-  <section
-    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsList-container-1"
-  >
-    <div
-      class="CardsList-listHeader-2"
-    >
-      <p
-        class="MuiTypography-root MuiTypography-body1"
-        role="heading"
-      >
-        List title
-      </p>
-      <button
-        aria-haspopup="true"
-        aria-labelledby="open-list-actions-menu"
-      >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root"
-          focusable="false"
-          viewBox="0 0 24 24"
-        >
-          <g>
-            <path
-              d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-            />
-          </g>
-        </svg>
-      </button>
-      CardsListActionMenu
-    </div>
-    <div
-      style="overflow-y: scroll;"
-    >
-      <ul
-        data-testid="cards-list"
-      >
-        CardsListCard
-        CardsListCard
-      </ul>
-      <div
-        style="float: left; clear: both;"
-      />
-    </div>
-    <button
-      class="MuiButtonBase-root MuiButton-root"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiButton-label"
-      >
-        Add a card...
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
-  </section>
-</div>
-`;
-
-exports[`opens actions menu test 1`] = `
+exports[`actions menu opens 1`] = `
 <body
   style="overflow: hidden; padding-right: 0px;"
 >
@@ -240,4 +176,68 @@ exports[`opens actions menu test 1`] = `
     </div>
   </div>
 </body>
+`;
+
+exports[`initial render 1`] = `
+<div>
+  <section
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsList-container-1"
+  >
+    <div
+      class="CardsList-listHeader-2"
+    >
+      <p
+        class="MuiTypography-root MuiTypography-body1"
+        role="heading"
+      >
+        List title
+      </p>
+      <button
+        aria-haspopup="true"
+        aria-labelledby="open-list-actions-menu"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g>
+            <path
+              d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+            />
+          </g>
+        </svg>
+      </button>
+      CardsListActionMenu
+    </div>
+    <div
+      style="overflow-y: scroll;"
+    >
+      <ul
+        data-testid="cards-list"
+      >
+        CardsListCard
+        CardsListCard
+      </ul>
+      <div
+        style="float: left; clear: both;"
+      />
+    </div>
+    <button
+      class="MuiButtonBase-root MuiButton-root"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label"
+      >
+        Add a card...
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+  </section>
+</div>
 `;

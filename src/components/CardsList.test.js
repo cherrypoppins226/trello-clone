@@ -19,7 +19,7 @@ it("initial render", () => {
   expect(container).toMatchSnapshot();
 });
 
-describe("adds a card", () => {
+describe("cards list", () => {
   beforeAll(() => {
     jest.unmock("./CardsListCard");
     jest.resetModules();
@@ -32,7 +32,7 @@ describe("adds a card", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("test", () => {
+  it("adds a card", () => {
     const { getByText, getByTestId } = render(
       <CardsList
         title="Title"
@@ -50,7 +50,7 @@ describe("adds a card", () => {
   });
 });
 
-describe("opens actions menu", () => {
+describe("actions menu", () => {
   beforeAll(() => {
     jest.unmock("./CardsListActionsMenu");
     jest.resetModules();
@@ -63,7 +63,7 @@ describe("opens actions menu", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("test", () => {
+  it("opens", () => {
     const { container } = render(
       <CardsList
         title="Title"
@@ -80,27 +80,30 @@ describe("opens actions menu", () => {
 });
 
 describe("title text area", () => {
-  jest.unmock("./TextArea");
-  jest.resetModules();
-  CardsList = require("./CardsList").default;
+  let container = null,
+    getTitle = null,
+    originalElem = null;
+
+  beforeAll(() => {
+    jest.unmock("./TextArea");
+    jest.resetModules();
+    CardsList = require("./CardsList").default;
+    container = render(
+      <CardsList
+        title="Title"
+        cards={["card1", "card2"]}
+        onEditCard={jest.fn()}
+      />
+    ).container;
+    getTitle = node => node.querySelector("[role='heading']");
+    originalElem = getTitle(container);
+  });
 
   afterAll(() => {
     jest.mock("./TextArea");
     jest.resetModules();
     CardsList = require("./CardsList").default;
   });
-
-  const { container } = render(
-    <CardsList
-      title="Title"
-      cards={["card1", "card2"]}
-      onEditCard={jest.fn()}
-    />
-  );
-
-  const getTitle = node => node.querySelector("[role='heading']");
-
-  const originalElem = getTitle(container);
 
   it("opens on title click", () => {
     Simulate.click(originalElem);
