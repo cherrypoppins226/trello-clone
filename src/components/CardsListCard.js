@@ -1,4 +1,5 @@
 import React from "react";
+import path from "path";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
@@ -98,5 +99,7 @@ View.propTypes = {
   description: PropTypes.string,
   onEditCard: PropTypes.func.isRequired
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

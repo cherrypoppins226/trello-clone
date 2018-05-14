@@ -1,4 +1,5 @@
 import React from "react";
+import path from "path";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
@@ -86,5 +87,7 @@ View.propTypes = {
   container: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

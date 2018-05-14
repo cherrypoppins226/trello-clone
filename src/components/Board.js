@@ -1,9 +1,10 @@
 import React from "react";
+import path from "path";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
 import PropTypes from "prop-types";
-import CardsList from "./cardsList";
-import EditCard from "./editCard";
+import CardsList from "./CardsList";
+import EditCard from "./EditCard";
 
 const styles = {
   grid: {
@@ -51,5 +52,7 @@ View.propTypes = {
   classes: PropTypes.object.isRequired,
   lists: PropTypes.object.isRequired
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

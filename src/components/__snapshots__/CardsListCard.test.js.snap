@@ -3,10 +3,10 @@
 exports[`initial render 1`] = `
 <div>
   <li
-    class="View-container-1"
+    class="CardsListCard-container-1"
   >
     <div
-      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-card-2"
+      class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsListCard-card-2"
     >
       <p
         aria-label="card title"

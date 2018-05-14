@@ -1,8 +1,8 @@
 import React from "react";
+import path from "path";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
-import path from 'path';
 
 const styles = {
   container: {
@@ -62,5 +62,7 @@ View.propTypes = {
   value: PropTypes.string,
   onClose: PropTypes.func
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

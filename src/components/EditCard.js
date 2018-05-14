@@ -1,4 +1,5 @@
 import React from "react";
+import path from "path";
 import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
@@ -14,8 +15,8 @@ import Timer from "@material-ui/icons/Timer";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
-import { cardDescription } from "./cardsListCard";
-import TextArea from "./textarea";
+import { cardDescription } from "./CardsListCard";
+import TextArea from "./TextArea";
 
 const styles = {
   container: {
@@ -136,5 +137,7 @@ View.propTypes = {
   container: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

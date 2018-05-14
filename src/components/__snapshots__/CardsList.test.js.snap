@@ -3,10 +3,10 @@
 exports[`initial render 1`] = `
 <div>
   <section
-    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded View-container-1"
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded CardsList-container-1"
   >
     <div
-      class="View-listHeader-2"
+      class="CardsList-listHeader-2"
     >
       <p
         class="MuiTypography-root MuiTypography-body1"
@@ -69,7 +69,7 @@ exports[`opens actions menu 1`] = `
   style="overflow: hidden; padding-right: 0px;"
 >
   <div
-    class="MuiModal-root View-container-230"
+    class="MuiModal-root CardsListActionsMenu-container-230"
   >
     <div
       aria-hidden="true"

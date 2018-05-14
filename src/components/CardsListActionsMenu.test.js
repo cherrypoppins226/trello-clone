@@ -1,6 +1,6 @@
 import React from "react";
-import { render } from "./testHelpers.js";
-import CardsListActionsMenu from "./cardsListActionsMenu";
+import { render } from "../testHelpers.js";
+import CardsListActionsMenu from "./CardsListActionsMenu";
 
 it("initial render", () => {
   const container = render(<div />).container.firstElementChild;

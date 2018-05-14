@@ -1,7 +1,7 @@
 import React from "react";
 import { fireEvent } from "react-testing-library";
-import { render, renderIntoDocument } from "./testHelpers.js";
-import TextArea from "./textarea";
+import { render, renderIntoDocument } from "../testHelpers.js";
+import TextArea from "./Textarea";
 
 it("initial render", () => {
   const { container } = render(<TextArea onClose={jest.fn()} />);

@@ -1,4 +1,5 @@
 import React from "react";
+import path from "path";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
@@ -6,9 +7,9 @@ import Paper from "material-ui/Paper";
 import grey from "material-ui/colors/grey";
 import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
-import CardsListCard from "./cardsListCard";
-import CardsListActionsMenu from "./cardsListActionsMenu";
-import TextArea from "./textarea";
+import CardsListCard from "./CardsListCard";
+import CardsListActionsMenu from "./CardsListActionsMenu";
+import TextArea from "./TextArea";
 
 const styles = {
   container: {
@@ -164,5 +165,7 @@ View.propTypes = {
   cards: PropTypes.array.isRequired,
   onEditCard: PropTypes.func.isRequired
 };
+
+View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default withStyles(styles)(View);

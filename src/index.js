@@ -4,7 +4,7 @@ import CssBaseline from "material-ui/CssBaseline";
 import ButtonBase from "material-ui/ButtonBase";
 import "./index.css";
 import { appData } from "./appData";
-import App from "./app";
+import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };

@@ -1,10 +1,10 @@
 import React from "react";
 import { Simulate } from "react-testing-library";
-import { render } from "./testHelpers.js";
-import CardsList, { LIST_ACTIONS_MENU_LABEL } from "./cardsList";
+import { render } from "../testHelpers.js";
+import CardsList, { LIST_ACTIONS_MENU_LABEL } from "./CardsList";
 
-jest.mock("./cardsListCard", () => () => "CardsListCard");
-jest.mock("./cardsListActionsMenu", () => () => "CardsListActionMenu");
+jest.mock("./CardsListCard", () => () => "CardsListCard");
+jest.mock("./CardsListActionsMenu", () => () => "CardsListActionMenu");
 
 const title = "List title";
 const cards = ["card1", "card2"];
@@ -18,17 +18,17 @@ it("initial render", () => {
 
 describe("", () => {
   beforeAll(() => {
-    jest.unmock("./cardsListCard");
+    jest.unmock("./CardsListCard");
     jest.resetModules();
   });
 
   afterAll(() => {
-    jest.mock("./cardsListCard");
+    jest.mock("./CardsListCard");
     jest.resetModules();
   });
 
   it("adds a card", () => {
-    const CardsList = require("./cardsList").default;
+    const CardsList = require("./CardsList").default;
     const { getByText, getByTestId } = render(
       <CardsList
         title="Title"
@@ -48,17 +48,17 @@ describe("", () => {
 
 describe("", () => {
   beforeAll(() => {
-    jest.unmock("./cardsListActionsMenu");
+    jest.unmock("./CardsListActionsMenu");
     jest.resetModules();
   });
 
   afterAll(() => {
-    jest.mock("./cardsListActionsMenu");
+    jest.mock("./CardsListActionsMenu");
     jest.resetModules();
   });
 
   it("opens actions menu", () => {
-    const CardsList = require("./cardsList").default;
+    const CardsList = require("./CardsList").default;
     const { container } = render(
       <CardsList
         title="Title"
@@ -75,7 +75,7 @@ describe("", () => {
 });
 
 it("opens edit title text area", () => {
-  const CardsList = require("./cardsList").default;
+  const CardsList = require("./CardsList").default;
   const { container } = render(
     <CardsList
       title="Title"

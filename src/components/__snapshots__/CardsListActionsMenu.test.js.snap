@@ -5,7 +5,7 @@ exports[`initial render 1`] = `
   style="overflow: hidden; padding-right: 0px;"
 >
   <div
-    class="MuiModal-root View-container-1"
+    class="MuiModal-root CardsListActionsMenu-container-1"
   >
     <div
       aria-hidden="true"
