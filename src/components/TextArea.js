@@ -25,8 +25,7 @@ const View = class extends React.Component {
   maybeCloseTextArea(event) {
     if (event.target !== this.node) {
       document.removeEventListener("click", this.maybeCloseTextArea);
-      if (this.props.onClose !== undefined)
-        this.props.onClose(event);
+      if (this.props.onClose !== undefined) this.props.onClose(event);
     }
   }
 

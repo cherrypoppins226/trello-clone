@@ -64,7 +64,7 @@ exports[`initial render 1`] = `
 </div>
 `;
 
-exports[`opens actions menu 1`] = `
+exports[`opens actions menu test 1`] = `
 <body
   style="overflow: hidden; padding-right: 0px;"
 >

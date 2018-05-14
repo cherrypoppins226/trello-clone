@@ -19,7 +19,7 @@ it("initial render", () => {
   expect(container).toMatchSnapshot();
 });
 
-describe("", () => {
+describe("adds a card", () => {
   beforeAll(() => {
     jest.unmock("./CardsListCard");
     jest.resetModules();
@@ -32,7 +32,7 @@ describe("", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("adds a card", () => {
+  it("test", () => {
     const { getByText, getByTestId } = render(
       <CardsList
         title="Title"
@@ -50,7 +50,7 @@ describe("", () => {
   });
 });
 
-describe("", () => {
+describe("opens actions menu", () => {
   beforeAll(() => {
     jest.unmock("./CardsListActionsMenu");
     jest.resetModules();
@@ -63,7 +63,7 @@ describe("", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("opens actions menu", () => {
+  it("test", () => {
     const { container } = render(
       <CardsList
         title="Title"
@@ -79,7 +79,7 @@ describe("", () => {
   });
 });
 
-describe("", () => {
+describe("opens edit title text area", () => {
   beforeAll(() => {
     jest.unmock("./TextArea");
     jest.resetModules();
@@ -92,7 +92,7 @@ describe("", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("opens edit title text area", () => {
+  it("test", () => {
     const { container } = render(
       <CardsList
         title="Title"
