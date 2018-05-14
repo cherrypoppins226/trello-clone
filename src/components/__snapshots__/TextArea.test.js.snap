@@ -4,8 +4,10 @@ exports[`initial render 1`] = `
 <div>
   <textarea
     class=" Textarea-container-1"
-    rows="1"
+    rows="5"
     style="height: 0px;"
-  />
+  >
+    value
+  </textarea>
 </div>
 `;

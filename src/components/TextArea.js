@@ -18,15 +18,7 @@ const styles = {
 const View = class extends React.Component {
   constructor(props) {
     super(props);
-    this.maybeCloseTextArea = this.maybeCloseTextArea.bind(this);
     this.resizeTextArea = this.resizeTextArea.bind(this);
-  }
-
-  maybeCloseTextArea(event) {
-    if (event.target !== this.node) {
-      document.removeEventListener("click", this.maybeCloseTextArea);
-      if (this.props.onClose !== undefined) this.props.onClose(event);
-    }
   }
 
   resizeTextArea() {
@@ -34,7 +26,6 @@ const View = class extends React.Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("click", this.maybeCloseTextArea);
     this.node = findDOMNode(this);
     this.node.select();
     this.resizeTextArea();
@@ -58,8 +49,7 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   rows: PropTypes.number,
-  value: PropTypes.string,
-  onClose: PropTypes.func
+  value: PropTypes.string
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));

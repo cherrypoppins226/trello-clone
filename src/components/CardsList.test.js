@@ -1,5 +1,5 @@
 import React from "react";
-import { Simulate } from "react-testing-library";
+import { Simulate, fireEvent } from "react-testing-library";
 import { render } from "../testHelpers.js";
 import { LIST_ACTIONS_MENU_LABEL } from "./CardsList";
 
@@ -79,12 +79,10 @@ describe("opens actions menu", () => {
   });
 });
 
-describe("opens edit title text area", () => {
-  beforeAll(() => {
-    jest.unmock("./TextArea");
-    jest.resetModules();
-    CardsList = require("./CardsList").default;
-  });
+describe("title text area", () => {
+  jest.unmock("./TextArea");
+  jest.resetModules();
+  CardsList = require("./CardsList").default;
 
   afterAll(() => {
     jest.mock("./TextArea");
@@ -92,16 +90,29 @@ describe("opens edit title text area", () => {
     CardsList = require("./CardsList").default;
   });
 
-  it("test", () => {
-    const { container } = render(
-      <CardsList
-        title="Title"
-        cards={["card1", "card2"]}
-        onEditCard={jest.fn()}
-      />
-    );
-    const getTitle = node => node.querySelector("[role='heading']");
-    Simulate.click(getTitle(container));
+  const { container } = render(
+    <CardsList
+      title="Title"
+      cards={["card1", "card2"]}
+      onEditCard={jest.fn()}
+    />
+  );
+
+  const getTitle = node => node.querySelector("[role='heading']");
+
+  const originalElem = getTitle(container);
+
+  it("opens on title click", () => {
+    Simulate.click(originalElem);
     expect(getTitle(container).tagName).toBe("TEXTAREA");
+  });
+
+  it("closes when clicked outside", () => {
+    const click = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true
+    });
+    fireEvent(document.body, click);
+    expect(getTitle(container)).toEqual(originalElem);
   });
 });

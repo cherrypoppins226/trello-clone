@@ -1,4 +1,5 @@
 import React from "react";
+import { findDOMNode } from "react-dom";
 import path from "path";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
@@ -66,6 +67,16 @@ const styles = {
   }
 };
 
+const onOutsideClick = (node, handler) => {
+  const onClick = event => {
+    if (!node.contains(event.target)) {
+      document.body.removeEventListener("click", onClick);
+      handler(event);
+    }
+  };
+  document.body.addEventListener("click", onClick);
+};
+
 export const LIST_ACTIONS_MENU_LABEL = "open-list-actions-menu";
 
 const View = class extends React.Component {
@@ -102,6 +113,10 @@ const View = class extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (this.state.titleBeingEdited)
+      onOutsideClick(findDOMNode(this.title), _ =>
+        this.setState({ titleBeingEdited: false })
+      );
     if (prevState.cards.length < this.state.cards.length)
       this.cardsListEnd.scrollIntoView();
   }
@@ -119,8 +134,7 @@ const View = class extends React.Component {
     const titleProps = this.state.titleBeingEdited
       ? {
           component: TextArea,
-          value: title,
-          onClose: _ => this.setState({ titleBeingEdited: false })
+          value: title
         }
       : {
           onClick: _ => this.setState({ titleBeingEdited: true }),
@@ -129,7 +143,11 @@ const View = class extends React.Component {
     return (
       <Paper component="section" elevation={1} className={classes.container}>
         <div className={classes.listHeader}>
-          <Typography role="heading" {...titleProps} />
+          <Typography
+            role="heading"
+            ref={node => (this.title = node)}
+            {...titleProps}
+          />
           <button
             onClick={this.openActionsMenu}
             aria-labelledby={LIST_ACTIONS_MENU_LABEL}
