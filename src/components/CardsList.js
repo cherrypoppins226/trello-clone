@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "./TextArea";
 import CardsListCard from "./CardsListCard";
-import CardsListActionsMenu from "./CardsListActionsMenu";
+import * as Labels from "./labels";
 
 const styles = {
   container: {
@@ -102,35 +102,6 @@ const Title = class extends React.Component {
   }
 };
 
-const ActionsMenu = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { anchor: null };
-  }
-
-  render() {
-    return (
-      <>
-        <button
-          onClick={e => this.setState({ anchor: e.target })}
-          aria-labelledby={LIST_ACTIONS_MENU_LABEL}
-          aria-owns={this.state.anchor ? "cardlist-actions" : null}
-          aria-haspopup={true}
-        >
-          <MoreHoriz />
-        </button>
-        <CardsListActionsMenu
-          id="cardlist-actions"
-          onClose={_ => this.setState({ anchor: null })}
-          anchor={this.state.anchor}
-        />
-      </>
-    );
-  }
-};
-
-export const LIST_ACTIONS_MENU_LABEL = "open-list-actions-menu";
-
 const View = class extends React.Component {
   constructor(props) {
     super(props);
@@ -176,7 +147,13 @@ const View = class extends React.Component {
       >
         <div className={classes.listHeader}>
           <Title text={this.props.title} />
-          <ActionsMenu />
+          <button
+            onClick={e => this.props.onEditList(e.currentTarget)}
+            aria-describedby={Labels.cardsListActionsMenu.id}
+            aria-haspopup={true}
+          >
+            <MoreHoriz />
+          </button>
         </div>
         <div style={{ overflowY: "scroll" }}>
           <ul>{this.state.cards}</ul>
@@ -197,6 +174,7 @@ View.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
+  onEditList: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired
 };
 

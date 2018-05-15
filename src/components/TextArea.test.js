@@ -8,5 +8,4 @@ it("initial render", () => {
   const { container } = render(<TextArea rows={rows} value={value} />);
   expect(container.firstChild.rows).toBe(rows);
   expect(container.firstChild.value).toBe(value);
-  expect(container).toMatchSnapshot();
 });

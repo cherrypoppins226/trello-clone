@@ -6,6 +6,7 @@ import Typography from "material-ui/Typography";
 import PropTypes from "prop-types";
 import grey from "material-ui/colors/grey";
 import Create from "@material-ui/icons/Create";
+import * as Labels from "./labels";
 
 const styles = {
   container: {
@@ -50,13 +51,9 @@ const styles = {
   }
 };
 
-export const EDIT_CARD_LABEL = "edit-card-label";
-
-const CARD_DESCRIPTION_LABEL = "card title";
-
 const onClick = (event, onEditCard) => {
   const button = event.currentTarget.querySelector(
-    `[aria-labelledby="${EDIT_CARD_LABEL}"]`
+    `[aria-labelledby="${Labels.editCard.id}"]`
   );
   if (button.contains(event.target)) {
     onEditCard(event.currentTarget);
@@ -67,7 +64,7 @@ const onClick = (event, onEditCard) => {
 };
 
 export const cardDescription = cardNode => {
-  return cardNode.querySelector(`[aria-label="${CARD_DESCRIPTION_LABEL}"]`)
+  return cardNode.querySelector(`[aria-labelledby="${Labels.card.id}"]`)
     .textContent;
 };
 
@@ -79,13 +76,8 @@ const View = ({ classes, description = "Title...", onEditCard }) => {
         onClick={e => onClick(e, onEditCard)}
         className={classes.card}
       >
-        <Typography aria-label={CARD_DESCRIPTION_LABEL}>
-          {description}
-        </Typography>
-        <div id={EDIT_CARD_LABEL} style={{ display: "none" }}>
-          Edit card
-        </div>
-        <button aria-labelledby={EDIT_CARD_LABEL}>
+        <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
+        <button aria-labelledby={Labels.editCard.id}>
           <Create />
         </button>
       </Paper>

@@ -1,22 +1,14 @@
 import React from "react";
-import snapshotDiff from "snapshot-diff";
 import { getByText, getByTestId } from "dom-testing-library";
 import { Simulate, fireEvent } from "react-testing-library";
 import { renderIntoDocument, NativeEvents } from "../../testHelpers.js";
 import { testData } from "../../appData.js";
 import App from "../App";
-import { cardDescription, EDIT_CARD_LABEL } from "../CardsListCard";
-import { LIST_ACTIONS_MENU_LABEL } from "../CardsList";
-import { EDIT_CARD_DESCRIPTION } from "../EditCard";
+import { cardDescription } from "../CardsListCard";
+import * as Labels from "../labels";
 
 const app = renderIntoDocument(<App lists={testData} />).container
   .firstElementChild;
-
-describe("app", () => {
-  it("renders correctly", () => {
-    expect(app).toMatchSnapshot();
-  });
-});
 
 describe("cards list", () => {
   const container = getByTestId(app, "CardsList");
@@ -32,13 +24,9 @@ describe("cards list", () => {
 
   it("opens list actions menu", () => {
     const actionsMenuButton = container.querySelector(
-      `[aria-labelledby="${LIST_ACTIONS_MENU_LABEL}"]`
+      `[aria-describedby="${Labels.cardsListActionsMenu.id}"]`
     );
-    const before = document.body.cloneNode(true);
     Simulate.click(actionsMenuButton);
-    expect(
-      snapshotDiff(before, document.body.cloneNode(true))
-    ).toMatchSnapshot();
   });
 
   it("adds a card", () => {
@@ -55,11 +43,11 @@ describe("cards list", () => {
 describe("cards list card", () => {
   it("edit card modal renders correctly", () => {
     const editCard = app.querySelector(
-      `[aria-labelledby="${EDIT_CARD_LABEL}"]`
+      `[aria-labelledby="${Labels.editCard.id}"]`
     );
     Simulate.click(editCard);
     const modal = app.querySelector(
-      `[aria-describedby="${EDIT_CARD_DESCRIPTION}"]`
+      `[aria-describedby="${Labels.editCardDescription.id}"]`
     );
     expect(modal).not.toBeNull();
     const modalContainer = editCard.parentElement;

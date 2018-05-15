@@ -17,6 +17,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./CardsListCard";
 import TextArea from "./TextArea";
+import * as Labels from "./labels";
 
 const styles = {
   container: {
@@ -69,8 +70,6 @@ const styles = {
   }
 };
 
-export const EDIT_CARD_DESCRIPTION = "edit-card-description";
-
 const View = ({ classes, onClose, card = null, container = null }) => {
   const modal = React.createRef();
   const textarea = React.createRef();
@@ -88,16 +87,13 @@ const View = ({ classes, onClose, card = null, container = null }) => {
   return (
     <Modal
       ref={modal}
-      aria-describedby={EDIT_CARD_DESCRIPTION}
+      aria-describedby={Labels.editCardDescription.id}
       open={Boolean(card)}
       container={container || card}
       onClose={onClose}
       onRendered={modalDidMount}
     >
       <Grid container wrap="nowrap" spacing={8} className={classes.container}>
-        <div id={EDIT_CARD_DESCRIPTION} style={{ display: "none" }}>
-          Edit card: change title, members, archive etc.
-        </div>
         <Grid item className={classes.editCardDescription}>
           <Typography
             ref={textarea}
