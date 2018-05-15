@@ -10,11 +10,6 @@ import * as Labels from "./labels";
 
 const styles = {
   container: {
-    margin: 8,
-    marginTop: 2,
-    cursor: "pointer"
-  },
-  card: {
     padding: 4,
     paddingLeft: 8,
     display: "flex",
@@ -74,19 +69,18 @@ const View = ({
   onEditFullCard
 }) => {
   return (
-    <li data-testid="CardsListCard" className={classes.container}>
-      <Paper
-        elevation={1}
-        onClick={e => onClick(e, onEditCard, onEditFullCard)}
-        className={classes.card}
-        aria-labelledby={Labels.fullyEditCard.id}
-      >
-        <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
-        <button aria-labelledby={Labels.editCard.id}>
-          <Create />
-        </button>
-      </Paper>
-    </li>
+    <Paper
+      data-testid="CardsListCard"
+      elevation={1}
+      onClick={e => onClick(e, onEditCard, onEditFullCard)}
+      className={classes.container}
+      aria-labelledby={Labels.fullyEditCard.id}
+    >
+      <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
+      <button aria-labelledby={Labels.editCard.id}>
+        <Create />
+      </button>
+    </Paper>
   );
 };
 

@@ -25,7 +25,12 @@ const styles = {
     "& ul": {
       padding: 0,
       margin: 0,
-      height: "100%"
+      height: "100%",
+      "& li": {
+        margin: 8,
+        marginTop: 2,
+        cursor: "pointer"
+      }
     }
   },
   listHeader: {
@@ -113,28 +118,21 @@ const View = class extends React.Component {
     super(props);
     this.state = {
       counter: props.cards.length,
-      cards: props.cards.map((description, idx) =>
-        this.newCard(idx, description)
-      )
+      cards: props.cards.map((card, idx) => ({
+        id: idx,
+        description: card
+      }))
     };
-  }
-
-  newCard(id, description = undefined) {
-    return (
-      <CardsListCard
-        key={id}
-        description={description}
-        onEditCard={this.props.onEditCard}
-        onEditFullCard={this.props.onEditFullCard}
-      />
-    );
   }
 
   addCard(e) {
     e.preventDefault();
     this.setState((prevState, props) => ({
       counter: prevState.counter + 1,
-      cards: [...prevState.cards, this.newCard(prevState.counter + 1)]
+      cards: [
+        ...prevState.cards,
+        { id: prevState.counter + 1, description: undefined }
+      ]
     }));
   }
 
@@ -163,7 +161,17 @@ const View = class extends React.Component {
           </button>
         </div>
         <div style={{ overflowY: "scroll" }}>
-          <ul>{this.state.cards}</ul>
+          <ul>
+            {this.state.cards.map(({ id, description }) => (
+              <li key={id} className={classes.container}>
+                <CardsListCard
+                  description={description}
+                  onEditCard={this.props.onEditCard}
+                  onEditFullCard={this.props.onEditFullCard}
+                />
+              </li>
+            ))}
+          </ul>
           {/* The sole purpose of this div is to allow scrolling to bottom */}
           <div
             style={{ float: "left", clear: "both" }}
