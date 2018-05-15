@@ -49,14 +49,17 @@ const View = class extends React.Component {
           })}
         </Grid>
         <CardsListActionsMenu
+          container={this}
           anchor={this.state.listBeingEdited}
           onClose={_ => this.setState({ listBeingEdited: null })}
         />
         <EditCard
+          container={this}
           card={this.state.cardBeingEdited}
           onClose={_ => this.setState({ cardBeingEdited: null })}
         />
         <FullEditCard
+          container={this}
           card={this.state.cardBeingFullyEdited}
           onClose={_ => this.setState({ cardBeingFullyEdited: null })}
         />

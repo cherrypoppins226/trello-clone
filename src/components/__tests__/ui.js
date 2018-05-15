@@ -2,7 +2,6 @@ import React from "react";
 import { getByText, getByTestId } from "dom-testing-library";
 import { Simulate, fireEvent } from "react-testing-library";
 import {
-  renderIntoDocument,
   render,
   NativeEvents,
   getByAriaLabelled,
@@ -32,31 +31,30 @@ const cardsList = (
   />
 );
 
-describe("app smoke test", () => {
-  renderIntoDocument(app);
+it("app smoke test", () => {
+  render(app);
 });
 
 describe("cards list", () => {
   it("edit title", () => {
-    const { container } = renderIntoDocument(cardsList);
+    const { container } = render(cardsList);
     const titleElem = node => getByRole(node, "heading");
     const originalElem = titleElem(container);
     Simulate.click(originalElem);
     expect(titleElem(container).tagName).toBe("TEXTAREA");
+    // We registered the event listener with 'addEventListener', so we have to
+    // trigger a native event instead.
     fireEvent(container, NativeEvents.mouse.click);
     expect(titleElem(container)).toEqual(originalElem);
   });
 
-  it("opens and closes list actions menu", () => {
-    const { container } = renderIntoDocument(board);
+  it("opens list actions menu", () => {
+    const { container } = render(board);
     Simulate.click(
       getByAriaLabelled(container, Labels.cardsListActionsMenu.id)
     );
     expect(
-      getByAriaDescribed(
-        document.body,
-        Labels.cardsListActionsMenuDescription.id
-      )
+      getByAriaDescribed(container, Labels.cardsListActionsMenuDescription.id)
     ).not.toBeNull();
   });
 
@@ -73,26 +71,23 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  it("edit card modal opens correctly", () => {
-    const { container } = renderIntoDocument(board);
+  it("opens edit card", () => {
+    const { container } = render(board);
     const card = getByTestId(container, "CardsListCard");
     Simulate.click(getByAriaLabelled(card, Labels.editCard.id));
-    const modal = getByAriaDescribed(
-      document.body,
-      Labels.editCardDescription.id
-    );
+    const modal = getByAriaDescribed(container, Labels.editCardDescription.id);
     expect(modal).not.toBeNull();
     expect(modal.querySelector("textarea").textContent).toBe(
       cardDescription(card)
     );
   });
 
-  it("edit full card modal opens correctly", () => {
-    const { container } = renderIntoDocument(board);
+  it("opens full edit card", () => {
+    const { container } = render(board);
     const editCard = getByAriaLabelled(container, Labels.fullyEditCard.id);
     Simulate.click(editCard);
     const modal = getByAriaDescribed(
-      document.body,
+      container,
       Labels.fullyEditCardDescription.id
     );
     expect(modal).not.toBeNull();

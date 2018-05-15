@@ -7,11 +7,12 @@ import * as Labels from "./labels";
 
 const styles = {};
 
-const View = ({ classes, card = null }) => {
+const View = ({ classes, container, card = null }) => {
   return (
     <Modal
       aria-describedby={Labels.fullyEditCardDescription.id}
       open={Boolean(card)}
+      container={container}
     >
       <div />
     </Modal>
@@ -21,7 +22,8 @@ const View = ({ classes, card = null }) => {
 View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
-  card: PropTypes.object
+  card: PropTypes.object,
+  container: PropTypes.object.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));

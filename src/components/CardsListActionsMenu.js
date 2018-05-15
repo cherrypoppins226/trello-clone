@@ -38,12 +38,13 @@ const styles = {
   }
 };
 
-const View = ({ classes, anchor, onClose }) => {
+const View = ({ classes, container, anchor, onClose }) => {
   return (
     <Popover
       className={classes.container}
       aria-describedby={Labels.cardsListActionsMenuDescription.id}
       anchorEl={anchor}
+      container={container}
       open={Boolean(anchor)}
       onClose={onClose}
       transitionDuration={0}
@@ -85,6 +86,7 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   anchor: PropTypes.object,
+  container: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired
 };
 

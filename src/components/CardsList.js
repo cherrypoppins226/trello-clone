@@ -67,14 +67,20 @@ const styles = {
   }
 };
 
+const findRoot = node =>
+  !node.parentElement ? node : findRoot(node.parentElement);
+
 const onOutsideClick = (node, handler) => {
+  // It'd be easier to attach to document.body but we might not render into
+  // document in tests.
+  const root = findRoot(node);
   const onClick = event => {
     if (!node.contains(event.target)) {
-      document.body.removeEventListener("click", onClick);
+      root.removeEventListener("click", onClick);
       handler(event);
     }
   };
-  document.body.addEventListener("click", onClick);
+  root.addEventListener("click", onClick);
 };
 
 const Title = class extends React.Component {
