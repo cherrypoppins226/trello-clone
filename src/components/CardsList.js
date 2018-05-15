@@ -149,7 +149,7 @@ const View = class extends React.Component {
           <Title text={this.props.title} />
           <button
             onClick={e => this.props.onEditList(e.currentTarget)}
-            aria-describedby={Labels.cardsListActionsMenu.id}
+            aria-labelledby={Labels.cardsListActionsMenu.id}
             aria-haspopup={true}
           >
             <MoreHoriz />

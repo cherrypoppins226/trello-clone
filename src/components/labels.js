@@ -1,6 +1,12 @@
 export const cardsListActionsMenu = {
   id: "cards-list-actions-menu",
-  text: "Actions to be performed on this list of cards"
+  text: "List Actions"
+};
+
+export const cardsListActionsMenuDescription = {
+  id: "cards-list-actions-menu-description",
+  text:
+    "Actions to be performed on this list of cards. Archive, remove all cards, etc."
 };
 
 export const editCard = {

@@ -22,11 +22,20 @@ describe("cards list", () => {
     expect(titleElem(container)).toEqual(originalElem);
   });
 
-  it("opens list actions menu", () => {
-    const actionsMenuButton = container.querySelector(
-      `[aria-describedby="${Labels.cardsListActionsMenu.id}"]`
-    );
-    Simulate.click(actionsMenuButton);
+  it("opens and closes list actions menu", () => {
+    // prettier-ignore
+    const buttonSelector =
+      `[aria-labelledby="${Labels.cardsListActionsMenu.id}"]`;
+    // prettier-ignore
+    const menuSelector =
+      `[aria-describedby="${Labels.cardsListActionsMenuDescription.id}"]`;
+    Simulate.click(container.querySelector(buttonSelector));
+    expect(document.body.querySelector(menuSelector)).not.toBeNull();
+    // The list actually unmounts itself when anything is clicked in the App.
+    // However, I can't for the life of me, remove it programmatically. Leaving
+    // this here for posterity.
+    // fireEvent(document.body, NativeEvents.mouse.click);
+    // expect(document.body.querySelector(menuSelector)).toBeNull();
   });
 
   it("adds a card", () => {
