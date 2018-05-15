@@ -70,7 +70,7 @@ const styles = {
   }
 };
 
-const View = ({ classes, onClose, card = null, container = null }) => {
+const View = ({ classes, onClose, card = null }) => {
   const modal = React.createRef();
   const textarea = React.createRef();
 
@@ -89,7 +89,6 @@ const View = ({ classes, onClose, card = null, container = null }) => {
       ref={modal}
       aria-describedby={Labels.editCardDescription.id}
       open={Boolean(card)}
-      container={container || card}
       onClose={onClose}
       onRendered={modalDidMount}
     >
@@ -130,7 +129,6 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   card: PropTypes.object,
-  container: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
 

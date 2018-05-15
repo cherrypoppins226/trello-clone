@@ -7,8 +7,11 @@ import App from "../App";
 import { cardDescription } from "../CardsListCard";
 import * as Labels from "../labels";
 
-const app = renderIntoDocument(<App lists={testData} />).container
-  .firstElementChild;
+let app = null;
+
+describe("app smoke test", () => {
+  app = renderIntoDocument(<App lists={testData} />).container;
+});
 
 describe("cards list", () => {
   const container = getByTestId(app, "CardsList");
@@ -50,19 +53,28 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  it("edit card modal renders correctly", () => {
-    const editCard = app.querySelector(
-      `[aria-labelledby="${Labels.editCard.id}"]`
+  it("edit card modal opens correctly", () => {
+    const card = getByTestId(app, "CardsListCard");
+    Simulate.click(
+      card.querySelector(`[aria-labelledby="${Labels.editCard.id}"]`)
     );
-    Simulate.click(editCard);
-    const modal = app.querySelector(
+    const modal = document.body.querySelector(
       `[aria-describedby="${Labels.editCardDescription.id}"]`
     );
     expect(modal).not.toBeNull();
-    const modalContainer = editCard.parentElement;
-    expect(modal.parentElement).toBe(modalContainer);
     expect(modal.querySelector("textarea").textContent).toBe(
-      cardDescription(modalContainer)
+      cardDescription(card)
     );
+  });
+
+  it("edit full card modal opens correctly", () => {
+    const editCard = app.querySelector(
+      `[aria-labelledby="${Labels.fullyEditCard.id}"]`
+    );
+    Simulate.click(editCard);
+    const modal = document.body.querySelector(
+      `[aria-describedby="${Labels.fullyEditCardDescription.id}"]`
+    );
+    expect(modal).not.toBeNull();
   });
 });

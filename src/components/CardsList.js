@@ -119,6 +119,7 @@ const View = class extends React.Component {
         key={id}
         description={description}
         onEditCard={this.props.onEditCard}
+        onEditFullCard={this.props.onEditFullCard}
       />
     );
   }
@@ -175,7 +176,8 @@ View.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   onEditList: PropTypes.func.isRequired,
-  onEditCard: PropTypes.func.isRequired
+  onEditCard: PropTypes.func.isRequired,
+  onEditFullCard: PropTypes.func.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));

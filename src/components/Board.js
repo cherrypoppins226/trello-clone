@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import CardsList from "./CardsList";
 import EditCard from "./EditCard";
 import CardsListActionsMenu from "./CardsListActionsMenu";
+import FullEditCard from "./FullEditCard";
 
 const styles = {
   grid: {
@@ -22,7 +23,8 @@ const styles = {
 const View = class extends React.Component {
   state = {
     listBeingEdited: null,
-    cardBeingEdited: null
+    cardBeingEdited: null,
+    cardBeingFullyEdited: null
   };
 
   render() {
@@ -37,6 +39,9 @@ const View = class extends React.Component {
                   title={k}
                   cards={v}
                   onEditCard={card => this.setState({ cardBeingEdited: card })}
+                  onEditFullCard={card =>
+                    this.setState({ cardBeingFullyEdited: card })
+                  }
                   onEditList={list => this.setState({ listBeingEdited: list })}
                 />
               </Grid>
@@ -50,6 +55,10 @@ const View = class extends React.Component {
         <EditCard
           card={this.state.cardBeingEdited}
           onClose={_ => this.setState({ cardBeingEdited: null })}
+        />
+        <FullEditCard
+          card={this.state.cardBeingFullyEdited}
+          onClose={_ => this.setState({ cardBeingFullyEdited: null })}
         />
       </>
     );

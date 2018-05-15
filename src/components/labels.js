@@ -19,6 +19,17 @@ export const editCardDescription = {
   text: "Edit card: change title, members, archive etc."
 };
 
+export const fullyEditCard = {
+  id: "full-edit-card",
+  text: "Fully edit card"
+};
+
+export const fullyEditCardDescription = {
+  id: "fully-edit-card-description",
+  text:
+    "Fully edit card: Change title, descriptions, labels, attachments. Write comments, etc."
+};
+
 export const card = {
   id: "card-description",
   text: "Card title"

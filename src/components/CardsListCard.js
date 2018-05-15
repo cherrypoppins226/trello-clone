@@ -51,15 +51,14 @@ const styles = {
   }
 };
 
-const onClick = (event, onEditCard) => {
+const onClick = (event, onEditCard, onEditFullCard) => {
   const button = event.currentTarget.querySelector(
     `[aria-labelledby="${Labels.editCard.id}"]`
   );
   if (button.contains(event.target)) {
     onEditCard(event.currentTarget);
   } else {
-    // Clicked on card description
-    return true;
+    onEditFullCard(event.currentTarget);
   }
 };
 
@@ -68,13 +67,19 @@ export const cardDescription = cardNode => {
     .textContent;
 };
 
-const View = ({ classes, description = "Title...", onEditCard }) => {
+const View = ({
+  classes,
+  description = "Title...",
+  onEditCard,
+  onEditFullCard
+}) => {
   return (
-    <li className={classes.container}>
+    <li data-testid="CardsListCard" className={classes.container}>
       <Paper
         elevation={1}
-        onClick={e => onClick(e, onEditCard)}
+        onClick={e => onClick(e, onEditCard, onEditFullCard)}
         className={classes.card}
+        aria-labelledby={Labels.fullyEditCard.id}
       >
         <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
         <button aria-labelledby={Labels.editCard.id}>
@@ -89,7 +94,8 @@ View.propTypes = {
   children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   description: PropTypes.string,
-  onEditCard: PropTypes.func.isRequired
+  onEditCard: PropTypes.func.isRequired,
+  onEditFullCard: PropTypes.func.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));
