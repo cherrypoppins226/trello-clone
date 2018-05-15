@@ -3,6 +3,7 @@ import { getByText, getByTestId } from "dom-testing-library";
 import { Simulate, fireEvent } from "react-testing-library";
 import {
   renderIntoDocument,
+  render,
   NativeEvents,
   getByAriaLabelled,
   getByAriaDescribed,
@@ -10,19 +11,34 @@ import {
 } from "../../testHelpers.js";
 import { testData } from "../../appData.js";
 import App from "../App";
+import Board from "../Board";
+import CardsList from "../CardsList";
 import { cardDescription } from "../CardsListCard";
 import * as Labels from "../labels";
 
-let app = null;
+let fn = () => {};
+
+let app = <App lists={testData} />;
+
+const board = <Board lists={testData} />;
+
+const cardsList = (
+  <CardsList
+    title="title"
+    cards={["card"]}
+    onEditList={fn}
+    onEditCard={fn}
+    onEditFullCard={fn}
+  />
+);
 
 describe("app smoke test", () => {
-  app = renderIntoDocument(<App lists={testData} />).container;
+  renderIntoDocument(app);
 });
 
 describe("cards list", () => {
-  const container = getByTestId(app, "CardsList");
-
   it("edit title", () => {
+    const { container } = renderIntoDocument(cardsList);
     const titleElem = node => getByRole(node, "heading");
     const originalElem = titleElem(container);
     Simulate.click(originalElem);
@@ -32,6 +48,7 @@ describe("cards list", () => {
   });
 
   it("opens and closes list actions menu", () => {
+    const { container } = renderIntoDocument(board);
     Simulate.click(
       getByAriaLabelled(container, Labels.cardsListActionsMenu.id)
     );
@@ -41,14 +58,10 @@ describe("cards list", () => {
         Labels.cardsListActionsMenuDescription.id
       )
     ).not.toBeNull();
-    // The list actually unmounts itself when anything is clicked in the App.
-    // However, I can't for the life of me, remove it programmatically. Leaving
-    // this here for posterity.
-    // fireEvent(document.body, NativeEvents.mouse.click);
-    // expect(document.body.querySelector(menuSelector)).toBeNull();
   });
 
   it("adds a card", () => {
+    const { container } = render(cardsList);
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -61,7 +74,8 @@ describe("cards list", () => {
 
 describe("cards list card", () => {
   it("edit card modal opens correctly", () => {
-    const card = getByTestId(app, "CardsListCard");
+    const { container } = renderIntoDocument(board);
+    const card = getByTestId(container, "CardsListCard");
     Simulate.click(getByAriaLabelled(card, Labels.editCard.id));
     const modal = getByAriaDescribed(
       document.body,
@@ -74,7 +88,8 @@ describe("cards list card", () => {
   });
 
   it("edit full card modal opens correctly", () => {
-    const editCard = getByAriaLabelled(app, Labels.fullyEditCard.id);
+    const { container } = renderIntoDocument(board);
+    const editCard = getByAriaLabelled(container, Labels.fullyEditCard.id);
     Simulate.click(editCard);
     const modal = getByAriaDescribed(
       document.body,
