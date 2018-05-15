@@ -1,7 +1,13 @@
 import React from "react";
 import { getByText, getByTestId } from "dom-testing-library";
 import { Simulate, fireEvent } from "react-testing-library";
-import { renderIntoDocument, NativeEvents } from "../../testHelpers.js";
+import {
+  renderIntoDocument,
+  NativeEvents,
+  getByAriaLabelled,
+  getByAriaDescribed,
+  getByRole
+} from "../../testHelpers.js";
 import { testData } from "../../appData.js";
 import App from "../App";
 import { cardDescription } from "../CardsListCard";
@@ -17,7 +23,7 @@ describe("cards list", () => {
   const container = getByTestId(app, "CardsList");
 
   it("edit title", () => {
-    const titleElem = node => node.querySelector("[role='heading']");
+    const titleElem = node => getByRole(node, "heading");
     const originalElem = titleElem(container);
     Simulate.click(originalElem);
     expect(titleElem(container).tagName).toBe("TEXTAREA");
@@ -26,14 +32,15 @@ describe("cards list", () => {
   });
 
   it("opens and closes list actions menu", () => {
-    // prettier-ignore
-    const buttonSelector =
-      `[aria-labelledby="${Labels.cardsListActionsMenu.id}"]`;
-    // prettier-ignore
-    const menuSelector =
-      `[aria-describedby="${Labels.cardsListActionsMenuDescription.id}"]`;
-    Simulate.click(container.querySelector(buttonSelector));
-    expect(document.body.querySelector(menuSelector)).not.toBeNull();
+    Simulate.click(
+      getByAriaLabelled(container, Labels.cardsListActionsMenu.id)
+    );
+    expect(
+      getByAriaDescribed(
+        document.body,
+        Labels.cardsListActionsMenuDescription.id
+      )
+    ).not.toBeNull();
     // The list actually unmounts itself when anything is clicked in the App.
     // However, I can't for the life of me, remove it programmatically. Leaving
     // this here for posterity.
@@ -55,11 +62,10 @@ describe("cards list", () => {
 describe("cards list card", () => {
   it("edit card modal opens correctly", () => {
     const card = getByTestId(app, "CardsListCard");
-    Simulate.click(
-      card.querySelector(`[aria-labelledby="${Labels.editCard.id}"]`)
-    );
-    const modal = document.body.querySelector(
-      `[aria-describedby="${Labels.editCardDescription.id}"]`
+    Simulate.click(getByAriaLabelled(card, Labels.editCard.id));
+    const modal = getByAriaDescribed(
+      document.body,
+      Labels.editCardDescription.id
     );
     expect(modal).not.toBeNull();
     expect(modal.querySelector("textarea").textContent).toBe(
@@ -68,12 +74,11 @@ describe("cards list card", () => {
   });
 
   it("edit full card modal opens correctly", () => {
-    const editCard = app.querySelector(
-      `[aria-labelledby="${Labels.fullyEditCard.id}"]`
-    );
+    const editCard = getByAriaLabelled(app, Labels.fullyEditCard.id);
     Simulate.click(editCard);
-    const modal = document.body.querySelector(
-      `[aria-describedby="${Labels.fullyEditCardDescription.id}"]`
+    const modal = getByAriaDescribed(
+      document.body,
+      Labels.fullyEditCardDescription.id
     );
     expect(modal).not.toBeNull();
   });
