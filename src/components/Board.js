@@ -2,10 +2,12 @@ import React from "react";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
 import PropTypes from "prop-types";
+import Popover from "material-ui/Popover";
 import CardsList from "./CardsList";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
+import * as Labels from "./labels";
 
 const styles = {
   root: {
@@ -47,11 +49,21 @@ class Board extends React.Component {
             );
           })}
         </Grid>
-        <ActionsMenu
+        <Popover
+          aria-describedby={Labels.cardsListActionsMenuDescription.id}
+          anchorEl={this.state.listBeingEdited}
           container={this}
-          anchor={this.state.listBeingEdited}
+          open={Boolean(this.state.listBeingEdited)}
           onClose={_ => this.setState({ listBeingEdited: null })}
-        />
+          transitionDuration={0}
+          elevation={1}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          transformOrigin={{ vertical: "top", horizontal: "left" }}
+        >
+          <ActionsMenu
+            onMenuItemClick={_ => this.setState({ listBeingEdited: null })}
+          />
+        </Popover>
         <QuickEditCard
           container={this}
           card={this.state.cardBeingQuickEdited}

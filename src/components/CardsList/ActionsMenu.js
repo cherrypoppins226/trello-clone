@@ -2,59 +2,44 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
-import Popover from "material-ui/Popover";
 import Divider from "material-ui/Divider";
 import { MenuList, MenuItem } from "material-ui/Menu";
 import grey from "material-ui/colors/grey";
-import * as Labels from "../labels";
 
 const styles = {
-  root: {
-    "& [role='heading']": {
-      paddingTop: 8,
-      color: grey[700]
+  heading: {
+    paddingTop: 8,
+    color: grey[700]
+  },
+  menu: {
+    width: 300,
+    "& *": {
+      fontWeight: 700
     },
-    "& [role='menu']": {
-      width: 300,
-      "& *": {
-        fontWeight: 700
-      },
-      "& hr": {
-        margin: 5,
-        marginLeft: 10,
-        marginRight: 10
-      },
-      "& [role='menuitem']": {
-        padding: 3,
-        paddingLeft: 10,
-        transition: "",
-        "&:hover": {
-          backgroundColor: "rgb(41, 143, 202)",
-          "& p": { color: "white" }
-        }
+    "& hr": {
+      margin: 5,
+      marginLeft: 10,
+      marginRight: 10
+    },
+    "& [role='menuitem']": {
+      padding: 3,
+      paddingLeft: 10,
+      transition: "",
+      "&:hover": {
+        backgroundColor: "rgb(41, 143, 202)",
+        "& p": { color: "white" }
       }
     }
   }
 };
 
-const ActionsMenu = ({ classes, container, anchor, onClose }) => {
+const ActionsMenu = ({ classes, onMenuItemClick }) => {
   return (
-    <Popover
-      className={classes.root}
-      aria-describedby={Labels.cardsListActionsMenuDescription.id}
-      anchorEl={anchor}
-      container={container}
-      open={Boolean(anchor)}
-      onClose={onClose}
-      transitionDuration={0}
-      elevation={1}
-      anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      transformOrigin={{ vertical: "top", horizontal: "left" }}
-    >
-      <Typography role="heading" align="center">
+    <>
+      <Typography role="heading" align="center" className={classes.heading}>
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={onClose}>
+      <MenuList className={classes.menu} dense={true} onClick={onMenuItemClick}>
         {[
           "",
           "Add Card...",
@@ -77,16 +62,14 @@ const ActionsMenu = ({ classes, container, anchor, onClose }) => {
           );
         })}
       </MenuList>
-    </Popover>
+    </>
   );
 };
 
 const View = withStyles(styles)(ActionsMenu);
 
 View.propTypes = {
-  anchor: PropTypes.object,
-  container: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired
+  onMenuItemClick: PropTypes.func.isRequired
 };
 
 export default View;
