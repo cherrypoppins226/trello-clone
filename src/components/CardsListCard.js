@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import { withStyles } from "material-ui/styles";
 import Paper from "material-ui/Paper";
 import Typography from "material-ui/Typography";
@@ -62,7 +61,7 @@ export const cardDescription = cardNode => {
     .textContent;
 };
 
-let View = ({
+const CardsListCard = ({
   classes,
   description = "Title...",
   onQuickEditCard,
@@ -84,14 +83,12 @@ let View = ({
   );
 };
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(CardsListCard);
 
 View.propTypes = {
   description: PropTypes.string,
   onQuickEditCard: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

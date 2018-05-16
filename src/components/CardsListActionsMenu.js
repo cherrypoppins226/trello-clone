@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Typography from "material-ui/Typography";
@@ -38,7 +37,7 @@ const styles = {
   }
 };
 
-let View = ({ classes, container, anchor, onClose }) => {
+const CardsListActionsMenu = ({ classes, container, anchor, onClose }) => {
   return (
     <Popover
       className={classes.root}
@@ -82,14 +81,12 @@ let View = ({ classes, container, anchor, onClose }) => {
   );
 };
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(CardsListActionsMenu);
 
 View.propTypes = {
   anchor: PropTypes.object,
   container: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

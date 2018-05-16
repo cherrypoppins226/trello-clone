@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
@@ -15,7 +14,7 @@ const styles = {
   }
 };
 
-let View = class extends React.Component {
+class TextArea extends React.Component {
   constructor(props) {
     super(props);
     this.resizeTextArea = this.resizeTextArea.bind(this);
@@ -43,15 +42,13 @@ let View = class extends React.Component {
       />
     );
   }
-};
+}
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(TextArea);
 
 View.propTypes = {
   rows: PropTypes.number,
   value: PropTypes.string
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

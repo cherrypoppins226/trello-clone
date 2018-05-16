@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
@@ -70,7 +69,7 @@ const styles = {
   }
 };
 
-let View = ({ classes, onClose, container, card = null }) => {
+const QuickEditCard = ({ classes, onClose, container, card = null }) => {
   const modal = React.createRef();
   const textarea = React.createRef();
 
@@ -126,14 +125,12 @@ let View = ({ classes, onClose, container, card = null }) => {
   );
 };
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(QuickEditCard);
 
 View.propTypes = {
   card: PropTypes.object,
   container: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

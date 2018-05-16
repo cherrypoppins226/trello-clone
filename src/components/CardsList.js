@@ -1,6 +1,5 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
-import path from "path";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
 import Typography from "material-ui/Typography";
@@ -113,7 +112,7 @@ const Title = class extends React.Component {
   }
 };
 
-let View = class extends React.Component {
+class CardsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -182,9 +181,9 @@ let View = class extends React.Component {
       </Paper>
     );
   }
-};
+}
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(CardsList);
 
 View.propTypes = {
   title: PropTypes.string.isRequired,
@@ -193,7 +192,5 @@ View.propTypes = {
   onQuickEditCard: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

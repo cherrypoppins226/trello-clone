@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
 import PropTypes from "prop-types";
@@ -20,7 +19,7 @@ const styles = {
   }
 };
 
-let View = class extends React.Component {
+class Board extends React.Component {
   state = {
     listBeingEdited: null,
     cardBeingQuickEdited: null,
@@ -66,14 +65,12 @@ let View = class extends React.Component {
       </>
     );
   }
-};
+}
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(Board);
 
 View.propTypes = {
   lists: PropTypes.object.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;

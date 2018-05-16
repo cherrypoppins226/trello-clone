@@ -1,5 +1,4 @@
 import React from "react";
-import path from "path";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import Modal from "material-ui/Modal";
@@ -7,7 +6,7 @@ import * as Labels from "../labels";
 
 const styles = {};
 
-let View = ({ classes, container, card = null }) => {
+let EditCard = ({ classes, container, card = null }) => {
   return (
     <Modal
       aria-describedby={Labels.editCardDescription.id}
@@ -19,13 +18,11 @@ let View = ({ classes, container, card = null }) => {
   );
 };
 
-View = withStyles(styles)(View);
+const View = withStyles(styles)(EditCard);
 
 View.propTypes = {
   card: PropTypes.object,
   container: PropTypes.object.isRequired
 };
-
-View.displayName = path.basename(__filename, path.extname(__filename));
 
 export default View;
