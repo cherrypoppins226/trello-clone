@@ -1,14 +1,12 @@
 import React from "react";
-import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
 import Button from "material-ui/Button";
-import Typography from "material-ui/Typography";
 import Paper from "material-ui/Paper";
 import grey from "material-ui/colors/grey";
 import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
+import Title from "./Title";
 import Card from "./Card";
-import TextArea from "../TextArea";
 import * as Labels from "../labels";
 
 const styles = {
@@ -71,47 +69,6 @@ const styles = {
   }
 };
 
-const findRoot = node =>
-  !node.parentElement ? node : findRoot(node.parentElement);
-
-const onOutsideClick = (node, handler) => {
-  // It'd be easier to attach to document.body but we might not render into
-  // document in tests.
-  const root = findRoot(node);
-  const onClick = event => {
-    if (!node.contains(event.target)) {
-      root.removeEventListener("click", onClick);
-      handler(event);
-    }
-  };
-  root.addEventListener("click", onClick);
-};
-
-const Title = class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { editing: false };
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.editing)
-      onOutsideClick(findDOMNode(this), _ => this.setState({ editing: false }));
-  }
-
-  render() {
-    const props = this.state.editing
-      ? {
-          component: TextArea,
-          value: this.props.text
-        }
-      : {
-          onClick: _ => this.setState({ editing: true }),
-          children: this.props.text
-        };
-    return <Typography role="heading" {...props} />;
-  }
-};
-
 class CardsList extends React.Component {
   constructor(props) {
     super(props);
@@ -150,7 +107,7 @@ class CardsList extends React.Component {
         data-testid="CardsList"
       >
         <div className={classes.listHeader}>
-          <Title text={this.props.title} />
+          <Title role="heading" text={this.props.title} />
           <button
             onClick={e => this.props.onEditList(e.currentTarget)}
             aria-labelledby={Labels.cardsListActionsMenu.id}
