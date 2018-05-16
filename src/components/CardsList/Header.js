@@ -21,9 +21,6 @@ const styles = {
       paddingLeft: 5,
       marginRight: 8
     },
-    "& p[role='heading']": {
-      cursor: "pointer"
-    },
     "& button": {
       alignSelf: "flex-start",
       // Reusable styles

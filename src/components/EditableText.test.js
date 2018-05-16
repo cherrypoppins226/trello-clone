@@ -3,7 +3,7 @@ import { Simulate, fireEvent } from "react-testing-library";
 import { render, NativeEvents } from "../testHelpers.js";
 import EditableText from "./EditableText";
 
-it("switches text for other element", () => {
+it("switches one component for another", () => {
   const { container } = render(<EditableText value="Title" />);
   const originalElem = container.firstElementChild;
 

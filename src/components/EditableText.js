@@ -25,25 +25,55 @@ class EditableText extends React.Component {
     this.state = { editing: false };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.editing)
-      onOutsideClick(findDOMNode(this), _ => this.setState({ editing: false }));
+  setEditing() {
+    this.setState({ editing: true });
+  }
+
+  unsetEditing() {
+    this.setState({ editing: false });
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (this.state.editing) {
+      const computed = window.getComputedStyle(this.node);
+      return {
+        height: computed.height,
+        width: computed.width,
+        padding: computed.padding
+      };
+    }
+    return null;
+  }
+
+  componentDidMount() {
+    this.node = findDOMNode(this);
+    this.node.style.cursor = "pointer";
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.node = findDOMNode(this);
+    if (this.state.editing) {
+      Object.assign(this.node.style, snapshot);
+      onOutsideClick(this.node, this.unsetEditing.bind(this));
+    } else {
+      this.node.style.cursor = "pointer";
+    }
   }
 
   render() {
-    const { value, component = null, ...extra } = this.props;
-    const props = this.state.editing
+    const { value, component = null, ...props } = this.props;
+    const computed = this.state.editing
       ? {
-          ...extra,
+          ...props,
           component: component || "textarea",
           defaultValue: value
         }
       : {
-          ...extra,
-          onClick: _ => this.setState({ editing: true }),
+          ...props,
+          onClick: this.setEditing.bind(this),
           children: value
         };
-    return <Typography {...props} />;
+    return <Typography {...computed} />;
   }
 }
 

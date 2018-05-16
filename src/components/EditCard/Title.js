@@ -6,8 +6,8 @@ import EditableText from "../EditableText";
 
 const styles = {};
 
-const Title = ({ classes, text }) => {
-  return <EditableText component={TextArea} rows={1} value={text} />;
+const Title = ({ classes, text, ...props }) => {
+  return <EditableText component={TextArea} value={text} {...props} />;
 };
 
 const View = withStyles(styles)(Title);
