@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
+import Modal from "material-ui/Modal";
 import PropTypes from "prop-types";
 import Popover from "material-ui/Popover";
 import CardsList from "./CardsList";
@@ -64,11 +65,14 @@ class Board extends React.Component {
             onMenuItemClick={_ => this.setState({ listBeingEdited: null })}
           />
         </Popover>
-        <QuickEditCard
+        <Modal
+          aria-describedby={Labels.quickEditCardDescription.id}
           container={this}
-          card={this.state.cardBeingQuickEdited}
+          open={Boolean(this.state.cardBeingQuickEdited)}
           onClose={_ => this.setState({ cardBeingQuickEdited: null })}
-        />
+        >
+          <QuickEditCard card={this.state.cardBeingQuickEdited} />
+        </Modal>
         <EditCard
           container={this}
           card={this.state.cardBeingEdited}

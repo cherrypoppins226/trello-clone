@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
-import Modal from "material-ui/Modal";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import green from "material-ui/colors/green";
@@ -16,10 +15,10 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./CardsList/Card";
 import TextArea from "./TextArea";
-import * as Labels from "./labels";
 
 const styles = {
   root: {
+    position: "fixed",
     outline: "none",
     pointerEvents: "none"
   },
@@ -69,33 +68,23 @@ const styles = {
   }
 };
 
-const QuickEditCard = ({ classes, onClose, container, card = null }) => {
-  const modal = React.createRef();
-  const textarea = React.createRef();
-
-  const modalDidMount = () => {
-    const cardCoordinates = card.getBoundingClientRect();
-    const modalNode = findDOMNode(modal.current);
+class QuickEditCard extends React.Component {
+  componentDidMount() {
+    const cardCoordinates = this.props.card.getBoundingClientRect();
+    const modalNode = findDOMNode(this);
     modalNode.style.top = `${cardCoordinates.top}px`;
     modalNode.style.left = `${cardCoordinates.left}px`;
-    const textareaNode = findDOMNode(textarea.current);
+    const textareaNode = findDOMNode(this).querySelector("textarea");
     textareaNode.style.width = `${cardCoordinates.width}px`;
     textareaNode.style.height = `${cardCoordinates.height + 50}px`;
-  };
+  }
 
-  return (
-    <Modal
-      ref={modal}
-      aria-describedby={Labels.quickEditCardDescription.id}
-      open={Boolean(card)}
-      container={container}
-      onClose={onClose}
-      onRendered={modalDidMount}
-    >
+  render() {
+    const { classes, card } = this.props;
+    return (
       <Grid container wrap="nowrap" spacing={8} className={classes.root}>
         <Grid item className={classes.description}>
           <Typography
-            ref={textarea}
             component={TextArea}
             value={card ? cardDescription(card) : ""}
           />
@@ -121,16 +110,14 @@ const QuickEditCard = ({ classes, onClose, container, card = null }) => {
           </Grid>
         </Grid>
       </Grid>
-    </Modal>
-  );
-};
+    );
+  }
+}
 
 const View = withStyles(styles)(QuickEditCard);
 
 View.propTypes = {
-  card: PropTypes.object,
-  container: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired
+  card: PropTypes.object
 };
 
 export default View;
