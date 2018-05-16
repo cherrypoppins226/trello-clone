@@ -79,25 +79,28 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  it("opens quick edit card modal", () => {
+  const testModal = (getEditButton, getModal) => {
     const { container } = render(board);
     const card = getByTestId(container, "CardsListCard");
-    const getModal = () =>
-      getByAriaDescribed(container, Labels.quickEditCardDescription.id);
-    expect(getModal()).toBeNull();
-    Simulate.click(getByAriaLabelled(card, Labels.quickEditCard.id));
-    expect(getModal()).not.toBeNull();
-    expect(getModal().querySelector("textarea").textContent).toBe(
+    expect(getModal(container)).toBeNull();
+    Simulate.click(getEditButton(card));
+    expect(getModal(container)).not.toBeNull();
+    expect(getModal(container).querySelector("textarea").textContent).toBe(
       cardDescription(card)
+    );
+  };
+
+  it("opens quick edit card modal", () => {
+    testModal(
+      node => getByAriaLabelled(node, Labels.quickEditCard.id),
+      node => getByAriaDescribed(node, Labels.quickEditCardDescription.id)
     );
   });
 
   it("opens edit card modal", () => {
-    const { container } = render(board);
-    const getModal = () =>
-      getByAriaDescribed(container, Labels.editCardDescription.id);
-    expect(getModal()).toBeNull();
-    Simulate.click(getByAriaLabelled(container, Labels.editCard.id));
-    expect(getModal()).not.toBeNull();
+    testModal(
+      node => node,
+      node => getByAriaDescribed(node, Labels.editCardDescription.id)
+    );
   });
 });
