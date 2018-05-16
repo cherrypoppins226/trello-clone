@@ -1,12 +1,10 @@
 import React from "react";
 import { getByText, getByTestId } from "dom-testing-library";
-import { Simulate, fireEvent } from "react-testing-library";
+import { Simulate } from "react-testing-library";
 import {
   render,
-  NativeEvents,
   getByAriaLabelled,
-  getByAriaDescribed,
-  getByRole
+  getByAriaDescribed
 } from "../../testHelpers.js";
 import { testData } from "../../appData.js";
 import App from "../App";
@@ -36,25 +34,6 @@ it("app smoke test", () => {
 });
 
 describe("cards list", () => {
-  it("edit title", () => {
-    const { container } = render(cardsList);
-    const titleElem = node => getByRole(node, "heading");
-    const originalElem = titleElem(container);
-
-    // Clicking in the title should bring up a textarea
-    Simulate.click(originalElem);
-    const newElem = titleElem(container);
-    expect(newElem.tagName).toBe("TEXTAREA");
-
-    // Clicking inside the textarea shouldn't close it
-    fireEvent(newElem, NativeEvents.mouse.click);
-    expect(titleElem(container)).toEqual(newElem);
-
-    // Clicking outside should close it
-    fireEvent(container, NativeEvents.mouse.click);
-    expect(titleElem(container)).toEqual(originalElem);
-  });
-
   it("opens list actions menu", () => {
     const { container } = render(board);
     const getMenu = () =>

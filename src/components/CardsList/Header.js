@@ -1,28 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import { findDOMNode } from "react-dom";
-import Typography from "material-ui/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import grey from "material-ui/colors/grey";
 import * as Labels from "../labels";
+import EditableText from "../EditableText";
 import TextArea from "../TextArea";
-
-const findRoot = node =>
-  !node.parentElement ? node : findRoot(node.parentElement);
-
-const onOutsideClick = (node, handler) => {
-  // It'd be easier to attach to document.body but we might not render into
-  // document in tests.
-  const root = findRoot(node);
-  const onClick = event => {
-    if (!node.contains(event.target)) {
-      root.removeEventListener("click", onClick);
-      handler(event);
-    }
-  };
-  root.addEventListener("click", onClick);
-};
 
 const styles = {
   root: {
@@ -64,44 +47,20 @@ const styles = {
   }
 };
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { editing: false };
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.editing)
-      onOutsideClick(findDOMNode(this).querySelector("[role='heading']"), _ =>
-        this.setState({ editing: false })
-      );
-  }
-
-  render() {
-    const { classes, text, onEditList } = this.props;
-    const props = this.state.editing
-      ? {
-          component: TextArea,
-          value: text
-        }
-      : {
-          onClick: _ => this.setState({ editing: true }),
-          children: text
-        };
-    return (
-      <div className={classes.root}>
-        <Typography role="heading" {...props} />
-        <button
-          onClick={e => onEditList(e.currentTarget)}
-          aria-labelledby={Labels.cardsListActionsMenu.id}
-          aria-haspopup={true}
-        >
-          <MoreHoriz />
-        </button>
-      </div>
-    );
-  }
-}
+const Header = ({ classes, text, onEditList }) => {
+  return (
+    <div className={classes.root}>
+      <EditableText role="heading" value={text} component={TextArea} />
+      <button
+        onClick={e => onEditList(e.currentTarget)}
+        aria-labelledby={Labels.cardsListActionsMenu.id}
+        aria-haspopup={true}
+      >
+        <MoreHoriz />
+      </button>
+    </div>
+  );
+};
 
 const View = withStyles(styles)(Header);
 
