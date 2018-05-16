@@ -13,7 +13,7 @@ import CardsListCard from "./CardsListCard";
 import * as Labels from "./labels";
 
 const styles = {
-  container: {
+  root: {
     display: "flex",
     flexDirection: "column",
     maxHeight: "100%",
@@ -147,7 +147,7 @@ let View = class extends React.Component {
       <Paper
         component="section"
         elevation={1}
-        className={classes.container}
+        className={classes.root}
         data-testid="CardsList"
       >
         <div className={classes.listHeader}>
@@ -163,7 +163,7 @@ let View = class extends React.Component {
         <div style={{ overflowY: "scroll" }}>
           <ul>
             {this.state.cards.map(({ id, description }) => (
-              <li key={id} className={classes.container}>
+              <li key={id}>
                 <CardsListCard
                   description={description}
                   onEditCard={this.props.onEditCard}

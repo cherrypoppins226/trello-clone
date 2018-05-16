@@ -5,7 +5,7 @@ import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
 
 const styles = {
-  container: {
+  root: {
     border: 0,
     outline: "none",
     resize: "none",
@@ -35,7 +35,7 @@ let View = class extends React.Component {
     const { className, classes, value, rows, ...props } = this.props;
     return (
       <textarea
-        className={[className, classes.container].join(" ")}
+        className={[className, classes.root].join(" ")}
         rows={rows || 1}
         defaultValue={value}
         onInput={this.resizeTextArea}

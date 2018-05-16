@@ -9,7 +9,7 @@ import CardsListActionsMenu from "./CardsListActionsMenu";
 import FullEditCard from "./FullEditCard";
 
 const styles = {
-  grid: {
+  root: {
     padding: 8,
     margin: 0,
     height: "100%",
@@ -31,7 +31,7 @@ let View = class extends React.Component {
     const { classes, lists } = this.props;
     return (
       <>
-        <Grid container spacing={16} wrap="nowrap" className={classes.grid}>
+        <Grid container spacing={16} wrap="nowrap" className={classes.root}>
           {Object.entries(lists).map(([k, v]) => {
             return (
               <Grid item key={k} className={classes.cardListContainer}>

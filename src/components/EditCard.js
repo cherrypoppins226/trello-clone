@@ -20,7 +20,7 @@ import TextArea from "./TextArea";
 import * as Labels from "./labels";
 
 const styles = {
-  container: {
+  root: {
     outline: "none",
     pointerEvents: "none"
   },
@@ -93,7 +93,7 @@ let View = ({ classes, onClose, container, card = null }) => {
       onClose={onClose}
       onRendered={modalDidMount}
     >
-      <Grid container wrap="nowrap" spacing={8} className={classes.container}>
+      <Grid container wrap="nowrap" spacing={8} className={classes.root}>
         <Grid item className={classes.editCardDescription}>
           <Typography
             ref={textarea}

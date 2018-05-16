@@ -10,7 +10,7 @@ import grey from "material-ui/colors/grey";
 import * as Labels from "./labels";
 
 const styles = {
-  container: {
+  root: {
     "& [role='heading']": {
       paddingTop: 8,
       color: grey[700]
@@ -41,7 +41,7 @@ const styles = {
 let View = ({ classes, container, anchor, onClose }) => {
   return (
     <Popover
-      className={classes.container}
+      className={classes.root}
       aria-describedby={Labels.cardsListActionsMenuDescription.id}
       anchorEl={anchor}
       container={container}

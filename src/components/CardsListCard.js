@@ -9,7 +9,7 @@ import Create from "@material-ui/icons/Create";
 import * as Labels from "./labels";
 
 const styles = {
-  container: {
+  root: {
     padding: 4,
     paddingLeft: 8,
     display: "flex",
@@ -73,7 +73,7 @@ let View = ({
       data-testid="CardsListCard"
       elevation={1}
       onClick={e => onClick(e, onEditCard, onEditFullCard)}
-      className={classes.container}
+      className={classes.root}
       aria-labelledby={Labels.fullyEditCard.id}
     >
       <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
