@@ -20,7 +20,7 @@ const styles = {
   }
 };
 
-const View = class extends React.Component {
+let View = class extends React.Component {
   state = {
     listBeingEdited: null,
     cardBeingEdited: null,
@@ -68,12 +68,12 @@ const View = class extends React.Component {
   }
 };
 
+View = withStyles(styles)(View);
+
 View.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   lists: PropTypes.object.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));
 
-export default withStyles(styles)(View);
+export default View;

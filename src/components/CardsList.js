@@ -113,7 +113,7 @@ const Title = class extends React.Component {
   }
 };
 
-const View = class extends React.Component {
+let View = class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -184,9 +184,9 @@ const View = class extends React.Component {
   }
 };
 
+View = withStyles(styles)(View);
+
 View.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   onEditList: PropTypes.func.isRequired,
@@ -196,4 +196,4 @@ View.propTypes = {
 
 View.displayName = path.basename(__filename, path.extname(__filename));
 
-export default withStyles(styles)(View);
+export default View;

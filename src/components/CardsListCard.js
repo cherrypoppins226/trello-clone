@@ -62,7 +62,7 @@ export const cardDescription = cardNode => {
     .textContent;
 };
 
-const View = ({
+let View = ({
   classes,
   description = "Title...",
   onEditCard,
@@ -84,9 +84,9 @@ const View = ({
   );
 };
 
+View = withStyles(styles)(View);
+
 View.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   description: PropTypes.string,
   onEditCard: PropTypes.func.isRequired,
   onEditFullCard: PropTypes.func.isRequired
@@ -94,4 +94,4 @@ View.propTypes = {
 
 View.displayName = path.basename(__filename, path.extname(__filename));
 
-export default withStyles(styles)(View);
+export default View;

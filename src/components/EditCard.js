@@ -70,7 +70,7 @@ const styles = {
   }
 };
 
-const View = ({ classes, onClose, container, card = null }) => {
+let View = ({ classes, onClose, container, card = null }) => {
   const modal = React.createRef();
   const textarea = React.createRef();
 
@@ -126,9 +126,9 @@ const View = ({ classes, onClose, container, card = null }) => {
   );
 };
 
+View = withStyles(styles)(View);
+
 View.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   card: PropTypes.object,
   container: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired
@@ -136,4 +136,4 @@ View.propTypes = {
 
 View.displayName = path.basename(__filename, path.extname(__filename));
 
-export default withStyles(styles)(View);
+export default View;

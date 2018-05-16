@@ -38,7 +38,7 @@ const styles = {
   }
 };
 
-const View = ({ classes, container, anchor, onClose }) => {
+let View = ({ classes, container, anchor, onClose }) => {
   return (
     <Popover
       className={classes.container}
@@ -82,9 +82,9 @@ const View = ({ classes, container, anchor, onClose }) => {
   );
 };
 
+View = withStyles(styles)(View);
+
 View.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   anchor: PropTypes.object,
   container: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired
@@ -92,4 +92,4 @@ View.propTypes = {
 
 View.displayName = path.basename(__filename, path.extname(__filename));
 
-export default withStyles(styles)(View);
+export default View;
