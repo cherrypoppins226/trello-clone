@@ -72,7 +72,9 @@ class Header extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.editing)
-      onOutsideClick(findDOMNode(this), _ => this.setState({ editing: false }));
+      onOutsideClick(findDOMNode(this).querySelector("[role='heading']"), _ =>
+        this.setState({ editing: false })
+      );
   }
 
   render() {
