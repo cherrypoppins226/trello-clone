@@ -73,11 +73,14 @@ class Board extends React.Component {
         >
           <QuickEditCard card={this.state.cardBeingQuickEdited} />
         </Modal>
-        <EditCard
+        <Modal
           container={this}
-          card={this.state.cardBeingEdited}
           onClose={_ => this.setState({ cardBeingEdited: null })}
-        />
+          aria-describedby={Labels.editCardDescription.id}
+          open={Boolean(this.state.cardBeingEdited)}
+        >
+          <EditCard card={this.state.cardBeingEdited} />
+        </Modal>
       </>
     );
   }
