@@ -6,7 +6,7 @@ import Popover from "material-ui/Popover";
 import Divider from "material-ui/Divider";
 import { MenuList, MenuItem } from "material-ui/Menu";
 import grey from "material-ui/colors/grey";
-import * as Labels from "./labels";
+import * as Labels from "../labels";
 
 const styles = {
   root: {
@@ -37,7 +37,7 @@ const styles = {
   }
 };
 
-const CardsListActionsMenu = ({ classes, container, anchor, onClose }) => {
+const ActionsMenu = ({ classes, container, anchor, onClose }) => {
   return (
     <Popover
       className={classes.root}
@@ -81,7 +81,7 @@ const CardsListActionsMenu = ({ classes, container, anchor, onClose }) => {
   );
 };
 
-const View = withStyles(styles)(CardsListActionsMenu);
+const View = withStyles(styles)(ActionsMenu);
 
 View.propTypes = {
   anchor: PropTypes.object,

@@ -5,7 +5,7 @@ import Typography from "material-ui/Typography";
 import PropTypes from "prop-types";
 import grey from "material-ui/colors/grey";
 import Create from "@material-ui/icons/Create";
-import * as Labels from "./labels";
+import * as Labels from "../labels";
 
 const styles = {
   root: {
@@ -61,7 +61,7 @@ export const cardDescription = cardNode => {
     .textContent;
 };
 
-const CardsListCard = ({
+const Card = ({
   classes,
   description = "Title...",
   onQuickEditCard,
@@ -83,7 +83,7 @@ const CardsListCard = ({
   );
 };
 
-const View = withStyles(styles)(CardsListCard);
+const View = withStyles(styles)(Card);
 
 View.propTypes = {
   description: PropTypes.string,

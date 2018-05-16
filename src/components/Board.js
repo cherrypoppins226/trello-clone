@@ -4,7 +4,7 @@ import Grid from "material-ui/Grid";
 import PropTypes from "prop-types";
 import CardsList from "./CardsList";
 import QuickEditCard from "./QuickEditCard";
-import CardsListActionsMenu from "./CardsListActionsMenu";
+import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
 
 const styles = {
@@ -47,7 +47,7 @@ class Board extends React.Component {
             );
           })}
         </Grid>
-        <CardsListActionsMenu
+        <ActionsMenu
           container={this}
           anchor={this.state.listBeingEdited}
           onClose={_ => this.setState({ listBeingEdited: null })}

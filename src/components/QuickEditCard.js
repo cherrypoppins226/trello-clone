@@ -14,7 +14,7 @@ import Timer from "@material-ui/icons/Timer";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
-import { cardDescription } from "./CardsListCard";
+import { cardDescription } from "./CardsList/Card";
 import TextArea from "./TextArea";
 import * as Labels from "./labels";
 

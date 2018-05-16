@@ -7,9 +7,9 @@ import Paper from "material-ui/Paper";
 import grey from "material-ui/colors/grey";
 import PropTypes from "prop-types";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
-import TextArea from "./TextArea";
-import CardsListCard from "./CardsListCard";
-import * as Labels from "./labels";
+import Card from "./Card";
+import TextArea from "../TextArea";
+import * as Labels from "../labels";
 
 const styles = {
   root: {
@@ -163,7 +163,7 @@ class CardsList extends React.Component {
           <ul>
             {this.state.cards.map(({ id, description }) => (
               <li key={id}>
-                <CardsListCard
+                <Card
                   description={description}
                   onQuickEditCard={this.props.onQuickEditCard}
                   onEditCard={this.props.onEditCard}

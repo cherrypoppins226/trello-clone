@@ -12,7 +12,7 @@ import { testData } from "../../appData.js";
 import App from "../App";
 import Board from "../Board";
 import CardsList from "../CardsList";
-import { cardDescription } from "../CardsListCard";
+import { cardDescription } from "../CardsList/Card";
 import * as Labels from "../labels";
 
 let fn = () => {};
