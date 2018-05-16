@@ -40,22 +40,30 @@ describe("cards list", () => {
     const { container } = render(cardsList);
     const titleElem = node => getByRole(node, "heading");
     const originalElem = titleElem(container);
+
+    // Clicking in the title should bring up a textarea
     Simulate.click(originalElem);
-    expect(titleElem(container).tagName).toBe("TEXTAREA");
-    // We registered the event listener with 'addEventListener', so we have to
-    // trigger a native event instead.
+    const newElem = titleElem(container);
+    expect(newElem.tagName).toBe("TEXTAREA");
+
+    // Clicking inside the textarea shouldn't close it
+    fireEvent(newElem, NativeEvents.mouse.click);
+    expect(titleElem(container)).toEqual(newElem);
+
+    // Clicking outside should close it
     fireEvent(container, NativeEvents.mouse.click);
     expect(titleElem(container)).toEqual(originalElem);
   });
 
   it("opens list actions menu", () => {
     const { container } = render(board);
+    const getMenu = () =>
+      getByAriaDescribed(container, Labels.cardsListActionsMenuDescription.id);
+    expect(getMenu()).toBeNull();
     Simulate.click(
       getByAriaLabelled(container, Labels.cardsListActionsMenu.id)
     );
-    expect(
-      getByAriaDescribed(container, Labels.cardsListActionsMenuDescription.id)
-    ).not.toBeNull();
+    expect(getMenu()).not.toBeNull();
   });
 
   it("adds a card", () => {
@@ -74,22 +82,22 @@ describe("cards list card", () => {
   it("opens quick edit card modal", () => {
     const { container } = render(board);
     const card = getByTestId(container, "CardsListCard");
+    const getModal = () =>
+      getByAriaDescribed(container, Labels.quickEditCardDescription.id);
+    expect(getModal()).toBeNull();
     Simulate.click(getByAriaLabelled(card, Labels.quickEditCard.id));
-    const modal = getByAriaDescribed(
-      container,
-      Labels.quickEditCardDescription.id
-    );
-    expect(modal).not.toBeNull();
-    expect(modal.querySelector("textarea").textContent).toBe(
+    expect(getModal()).not.toBeNull();
+    expect(getModal().querySelector("textarea").textContent).toBe(
       cardDescription(card)
     );
   });
 
   it("opens edit card modal", () => {
     const { container } = render(board);
-    const editCard = getByAriaLabelled(container, Labels.editCard.id);
-    Simulate.click(editCard);
-    const modal = getByAriaDescribed(container, Labels.editCardDescription.id);
-    expect(modal).not.toBeNull();
+    const getModal = () =>
+      getByAriaDescribed(container, Labels.editCardDescription.id);
+    expect(getModal()).toBeNull();
+    Simulate.click(getByAriaLabelled(container, Labels.editCard.id));
+    expect(getModal()).not.toBeNull();
   });
 });
