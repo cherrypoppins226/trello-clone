@@ -5,8 +5,8 @@ import * as Labels from "../labels";
 
 const styles = {};
 
-let EditCard = ({ classes, card = null }) => {
-  return <div aria-describedby={Labels.editCardDescription.id} />;
+const EditCard = ({ classes, card = null, ...extra }) => {
+  return <div aria-describedby={Labels.editCardDescription.id} {...extra} />;
 };
 
 const View = withStyles(styles)(EditCard);

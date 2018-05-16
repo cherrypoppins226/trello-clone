@@ -81,7 +81,7 @@ class QuickEditCard extends React.Component {
   }
 
   render() {
-    const { classes, card } = this.props;
+    const { classes, card, ...extra } = this.props;
     return (
       <Grid
         aria-describedby={Labels.quickEditCardDescription.id}
@@ -89,6 +89,7 @@ class QuickEditCard extends React.Component {
         wrap="nowrap"
         spacing={8}
         className={classes.root}
+        {...extra}
       >
         <Grid item className={classes.description}>
           <Typography
