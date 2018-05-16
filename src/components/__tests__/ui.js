@@ -58,13 +58,13 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  const testModal = (getEditButton, getModal) => {
+  const testModal = (getEditButton, getModal, textSelector) => {
     const { container } = render(board);
     const card = getByTestId(container, "CardsListCard");
     expect(getModal(container)).toBeNull();
     Simulate.click(getEditButton(card));
     expect(getModal(container)).not.toBeNull();
-    expect(getModal(container).querySelector("textarea").textContent).toBe(
+    expect(getModal(container).querySelector(textSelector).textContent).toBe(
       cardDescription(card)
     );
   };
@@ -72,14 +72,16 @@ describe("cards list card", () => {
   it("opens quick edit card modal", () => {
     testModal(
       node => getByAriaLabelled(node, Labels.quickEditCard.id),
-      node => getByAriaDescribed(node, Labels.quickEditCardDescription.id)
+      node => getByAriaDescribed(node, Labels.quickEditCardDescription.id),
+      "textarea"
     );
   });
 
   it("opens edit card modal", () => {
     testModal(
       node => node,
-      node => getByAriaDescribed(node, Labels.editCardDescription.id)
+      node => getByAriaDescribed(node, Labels.editCardDescription.id),
+      "p"
     );
   });
 });
