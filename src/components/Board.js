@@ -41,9 +41,7 @@ let View = class extends React.Component {
                   onQuickEditCard={card =>
                     this.setState({ cardBeingQuickEdited: card })
                   }
-                  onEditCard={card =>
-                    this.setState({ cardBeingEdited: card })
-                  }
+                  onEditCard={card => this.setState({ cardBeingEdited: card })}
                   onEditList={list => this.setState({ listBeingEdited: list })}
                 />
               </Grid>
