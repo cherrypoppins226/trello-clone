@@ -4,9 +4,9 @@ import { withStyles } from "material-ui/styles";
 import Grid from "material-ui/Grid";
 import PropTypes from "prop-types";
 import CardsList from "./CardsList";
-import EditCard from "./EditCard";
+import QuickEditCard from "./QuickEditCard";
 import CardsListActionsMenu from "./CardsListActionsMenu";
-import FullEditCard from "./FullEditCard";
+import EditCard from "./EditCard";
 
 const styles = {
   root: {
@@ -23,8 +23,8 @@ const styles = {
 let View = class extends React.Component {
   state = {
     listBeingEdited: null,
-    cardBeingEdited: null,
-    cardBeingFullyEdited: null
+    cardBeingQuickEdited: null,
+    cardBeingEdited: null
   };
 
   render() {
@@ -38,9 +38,11 @@ let View = class extends React.Component {
                 <CardsList
                   title={k}
                   cards={v}
-                  onEditCard={card => this.setState({ cardBeingEdited: card })}
-                  onEditFullCard={card =>
-                    this.setState({ cardBeingFullyEdited: card })
+                  onQuickEditCard={card =>
+                    this.setState({ cardBeingQuickEdited: card })
+                  }
+                  onEditCard={card =>
+                    this.setState({ cardBeingEdited: card })
                   }
                   onEditList={list => this.setState({ listBeingEdited: list })}
                 />
@@ -53,15 +55,15 @@ let View = class extends React.Component {
           anchor={this.state.listBeingEdited}
           onClose={_ => this.setState({ listBeingEdited: null })}
         />
+        <QuickEditCard
+          container={this}
+          card={this.state.cardBeingQuickEdited}
+          onClose={_ => this.setState({ cardBeingQuickEdited: null })}
+        />
         <EditCard
           container={this}
           card={this.state.cardBeingEdited}
           onClose={_ => this.setState({ cardBeingEdited: null })}
-        />
-        <FullEditCard
-          container={this}
-          card={this.state.cardBeingFullyEdited}
-          onClose={_ => this.setState({ cardBeingFullyEdited: null })}
         />
       </>
     );

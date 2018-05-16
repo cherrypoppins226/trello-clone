@@ -46,14 +46,14 @@ const styles = {
   }
 };
 
-const onClick = (event, onEditCard, onEditFullCard) => {
+const onClick = (event, onQuickEditCard, onEditCard) => {
   const button = event.currentTarget.querySelector(
-    `[aria-labelledby="${Labels.editCard.id}"]`
+    `[aria-labelledby="${Labels.quickEditCard.id}"]`
   );
   if (button.contains(event.target)) {
-    onEditCard(event.currentTarget);
+    onQuickEditCard(event.currentTarget);
   } else {
-    onEditFullCard(event.currentTarget);
+    onEditCard(event.currentTarget);
   }
 };
 
@@ -65,19 +65,19 @@ export const cardDescription = cardNode => {
 let View = ({
   classes,
   description = "Title...",
-  onEditCard,
-  onEditFullCard
+  onQuickEditCard,
+  onEditCard
 }) => {
   return (
     <Paper
       data-testid="CardsListCard"
       elevation={1}
-      onClick={e => onClick(e, onEditCard, onEditFullCard)}
+      onClick={e => onClick(e, onQuickEditCard, onEditCard)}
       className={classes.root}
-      aria-labelledby={Labels.fullyEditCard.id}
+      aria-labelledby={Labels.editCard.id}
     >
       <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
-      <button aria-labelledby={Labels.editCard.id}>
+      <button aria-labelledby={Labels.quickEditCard.id}>
         <Create />
       </button>
     </Paper>
@@ -88,8 +88,8 @@ View = withStyles(styles)(View);
 
 View.propTypes = {
   description: PropTypes.string,
-  onEditCard: PropTypes.func.isRequired,
-  onEditFullCard: PropTypes.func.isRequired
+  onQuickEditCard: PropTypes.func.isRequired,
+  onEditCard: PropTypes.func.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));

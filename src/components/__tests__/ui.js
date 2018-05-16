@@ -26,8 +26,8 @@ const cardsList = (
     title="title"
     cards={["card"]}
     onEditList={fn}
+    onQuickEditCard={fn}
     onEditCard={fn}
-    onEditFullCard={fn}
   />
 );
 
@@ -71,25 +71,25 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  it("opens edit card", () => {
+  it("opens quick edit card modal", () => {
     const { container } = render(board);
     const card = getByTestId(container, "CardsListCard");
-    Simulate.click(getByAriaLabelled(card, Labels.editCard.id));
-    const modal = getByAriaDescribed(container, Labels.editCardDescription.id);
+    Simulate.click(getByAriaLabelled(card, Labels.quickEditCard.id));
+    const modal = getByAriaDescribed(
+      container,
+      Labels.quickEditCardDescription.id
+    );
     expect(modal).not.toBeNull();
     expect(modal.querySelector("textarea").textContent).toBe(
       cardDescription(card)
     );
   });
 
-  it("opens full edit card", () => {
+  it("opens edit card modal", () => {
     const { container } = render(board);
-    const editCard = getByAriaLabelled(container, Labels.fullyEditCard.id);
+    const editCard = getByAriaLabelled(container, Labels.editCard.id);
     Simulate.click(editCard);
-    const modal = getByAriaDescribed(
-      container,
-      Labels.fullyEditCardDescription.id
-    );
+    const modal = getByAriaDescribed(container, Labels.editCardDescription.id);
     expect(modal).not.toBeNull();
   });
 });

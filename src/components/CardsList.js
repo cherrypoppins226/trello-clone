@@ -166,8 +166,8 @@ let View = class extends React.Component {
               <li key={id}>
                 <CardsListCard
                   description={description}
+                  onQuickEditCard={this.props.onQuickEditCard}
                   onEditCard={this.props.onEditCard}
-                  onEditFullCard={this.props.onEditFullCard}
                 />
               </li>
             ))}
@@ -190,8 +190,8 @@ View.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   onEditList: PropTypes.func.isRequired,
-  onEditCard: PropTypes.func.isRequired,
-  onEditFullCard: PropTypes.func.isRequired
+  onQuickEditCard: PropTypes.func.isRequired,
+  onEditCard: PropTypes.func.isRequired
 };
 
 View.displayName = path.basename(__filename, path.extname(__filename));
