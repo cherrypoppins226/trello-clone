@@ -15,6 +15,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import { cardDescription } from "./CardsList/Card";
 import TextArea from "./TextArea";
+import * as Labels from "./labels";
 
 const styles = {
   root: {
@@ -82,7 +83,13 @@ class QuickEditCard extends React.Component {
   render() {
     const { classes, card } = this.props;
     return (
-      <Grid container wrap="nowrap" spacing={8} className={classes.root}>
+      <Grid
+        aria-describedby={Labels.quickEditCardDescription.id}
+        container
+        wrap="nowrap"
+        spacing={8}
+        className={classes.root}
+      >
         <Grid item className={classes.description}>
           <Typography
             component={TextArea}

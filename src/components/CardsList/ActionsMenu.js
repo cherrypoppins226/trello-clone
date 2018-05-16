@@ -5,29 +5,32 @@ import Typography from "material-ui/Typography";
 import Divider from "material-ui/Divider";
 import { MenuList, MenuItem } from "material-ui/Menu";
 import grey from "material-ui/colors/grey";
+import * as Labels from "../labels";
 
 const styles = {
-  heading: {
-    paddingTop: 8,
-    color: grey[700]
-  },
-  menu: {
-    width: 300,
-    "& *": {
-      fontWeight: 700
+  root: {
+    "& [role='heading']": {
+      paddingTop: 8,
+      color: grey[700]
     },
-    "& hr": {
-      margin: 5,
-      marginLeft: 10,
-      marginRight: 10
-    },
-    "& [role='menuitem']": {
-      padding: 3,
-      paddingLeft: 10,
-      transition: "",
-      "&:hover": {
-        backgroundColor: "rgb(41, 143, 202)",
-        "& p": { color: "white" }
+    "& [role='menu']": {
+      width: 300,
+      "& *": {
+        fontWeight: 700
+      },
+      "& hr": {
+        margin: 5,
+        marginLeft: 10,
+        marginRight: 10
+      },
+      "& [role='menuitem']": {
+        padding: 3,
+        paddingLeft: 10,
+        transition: "",
+        "&:hover": {
+          backgroundColor: "rgb(41, 143, 202)",
+          "& p": { color: "white" }
+        }
       }
     }
   }
@@ -35,11 +38,14 @@ const styles = {
 
 const ActionsMenu = ({ classes, onMenuItemClick }) => {
   return (
-    <>
-      <Typography role="heading" align="center" className={classes.heading}>
+    <div
+      classes={classes.root}
+      aria-describedby={Labels.cardsListActionsMenuDescription.id}
+    >
+      <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList className={classes.menu} dense={true} onClick={onMenuItemClick}>
+      <MenuList dense={true} onClick={onMenuItemClick}>
         {[
           "",
           "Add Card...",
@@ -62,7 +68,7 @@ const ActionsMenu = ({ classes, onMenuItemClick }) => {
           );
         })}
       </MenuList>
-    </>
+    </div>
   );
 };
 

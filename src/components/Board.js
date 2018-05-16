@@ -8,7 +8,6 @@ import CardsList from "./CardsList";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
-import * as Labels from "./labels";
 
 const styles = {
   root: {
@@ -51,7 +50,6 @@ class Board extends React.Component {
           })}
         </Grid>
         <Popover
-          aria-describedby={Labels.cardsListActionsMenuDescription.id}
           anchorEl={this.state.listBeingEdited}
           container={this}
           open={Boolean(this.state.listBeingEdited)}
@@ -66,7 +64,6 @@ class Board extends React.Component {
           />
         </Popover>
         <Modal
-          aria-describedby={Labels.quickEditCardDescription.id}
           container={this}
           open={Boolean(this.state.cardBeingQuickEdited)}
           onClose={_ => this.setState({ cardBeingQuickEdited: null })}
@@ -75,9 +72,8 @@ class Board extends React.Component {
         </Modal>
         <Modal
           container={this}
-          onClose={_ => this.setState({ cardBeingEdited: null })}
-          aria-describedby={Labels.editCardDescription.id}
           open={Boolean(this.state.cardBeingEdited)}
+          onClose={_ => this.setState({ cardBeingEdited: null })}
         >
           <EditCard card={this.state.cardBeingEdited} />
         </Modal>
