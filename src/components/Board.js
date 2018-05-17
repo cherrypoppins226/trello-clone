@@ -1,9 +1,9 @@
 import React from "react";
-import { withStyles } from "material-ui/styles";
-import Grid from "material-ui/Grid";
-import Modal from "material-ui/Modal";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Modal from "@material-ui/core/Modal";
 import PropTypes from "prop-types";
-import Popover from "material-ui/Popover";
+import Popover from "@material-ui/core/Popover";
 import CardsList from "./CardsList";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";

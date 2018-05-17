@@ -1,7 +1,7 @@
 import React from "react";
 import * as testingLibrary from "react-testing-library";
 import JssProvider from "react-jss/lib/JssProvider";
-import { createGenerateClassName } from "material-ui/styles";
+import { createGenerateClassName } from "@material-ui/core/styles";
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true

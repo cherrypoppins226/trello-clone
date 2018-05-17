@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
-import { withStyles } from "material-ui/styles";
-import Grid from "material-ui/Grid";
-import Typography from "material-ui/Typography";
-import Button from "material-ui/Button";
-import green from "material-ui/colors/green";
-import grey from "material-ui/colors/grey";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import green from "@material-ui/core/colors/green";
+import grey from "@material-ui/core/colors/grey";
 import Archive from "@material-ui/icons/Archive";
 import Label from "@material-ui/icons/Label";
 import Timer from "@material-ui/icons/Timer";

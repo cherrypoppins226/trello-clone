@@ -1,9 +1,9 @@
 import React from "react";
-import { withStyles } from "material-ui/styles";
-import Paper from "material-ui/Paper";
-import Typography from "material-ui/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import grey from "material-ui/colors/grey";
+import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
 import * as Labels from "../labels";
 

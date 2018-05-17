@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CssBaseline from "material-ui/CssBaseline";
-import ButtonBase from "material-ui/ButtonBase";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import "./index.css";
 import { appData } from "./appData";
 import App from "./components/App";

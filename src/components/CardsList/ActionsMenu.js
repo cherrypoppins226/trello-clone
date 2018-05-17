@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import Typography from "material-ui/Typography";
-import Divider from "material-ui/Divider";
-import { MenuList, MenuItem } from "material-ui/Menu";
-import grey from "material-ui/colors/grey";
+import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import MenuList from "@material-ui/core/MenuList";
+import MenuItem from "@material-ui/core/MenuItem";
+import grey from "@material-ui/core/colors/grey";
 import * as Labels from "../labels";
 
 const styles = {
