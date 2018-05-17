@@ -14,7 +14,6 @@ const styles = {
     width: 750,
     backgroundColor: "rgb(237, 239, 240)",
     borderRadius: 2,
-    background: "#DADADA",
     outline: "none"
   },
   title: {

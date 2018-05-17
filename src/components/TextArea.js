@@ -6,38 +6,38 @@ import PropTypes from "prop-types";
 const styles = {
   root: {
     border: 0,
-    outline: "none",
     resize: "none",
     borderRadius: 2,
-    boxSizing: "border-box",
-    boxShadow: "0px 0px 1px 0px"
+    background: "transparent",
+    padding: "0.1em 0.2em",
+    "&:focus": {
+      outlineWidth: 2,
+      background: "white",
+      boxShadow: "0px 0px 2px 0px"
+    }
   }
 };
 
+const resize = (node1, node2) =>
+  (node1.style.height = `${node2.scrollHeight}px`);
+
+const leaveOnEnter = event => event.keyCode === 13 && event.target.blur();
+
 class TextArea extends React.Component {
-  constructor(props) {
-    super(props);
-    this.resizeTextArea = this.resizeTextArea.bind(this);
-  }
-
-  resizeTextArea() {
-    this.node.style.height = `${this.node.scrollHeight}px`;
-  }
-
   componentDidMount() {
     this.node = findDOMNode(this);
-    this.node.select();
-    this.resizeTextArea();
+    resize(this.node, this.node);
   }
 
   render() {
-    const { className, classes, value, rows, ...props } = this.props;
+    const { className, classes, value, ...props } = this.props;
     return (
       <textarea
         className={[className, classes.root].join(" ")}
-        rows={rows || 1}
         defaultValue={value}
-        onInput={this.resizeTextArea}
+        onInput={e => resize(this.node, e.target)}
+        onKeyDown={leaveOnEnter}
+        rows={1}
         {...props}
       />
     );
@@ -47,7 +47,6 @@ class TextArea extends React.Component {
 const View = withStyles(styles)(TextArea);
 
 View.propTypes = {
-  rows: PropTypes.number,
   value: PropTypes.string
 };
 

@@ -81,7 +81,7 @@ describe("cards list card", () => {
     testModal(
       node => node,
       node => getByAriaDescribed(node, Labels.editCardDescription.id),
-      "p"
+      "[role='heading']"
     );
   });
 });
