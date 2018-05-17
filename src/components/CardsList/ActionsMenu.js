@@ -39,7 +39,7 @@ const styles = {
 const ActionsMenu = ({ classes, onMenuItemClick }) => {
   return (
     <div
-      classes={classes.root}
+      className={classes.root}
       aria-describedby={Labels.cardsListActionsMenuDescription.id}
     >
       <Typography role="heading" align="center">
