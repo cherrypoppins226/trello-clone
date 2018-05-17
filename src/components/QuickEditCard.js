@@ -25,14 +25,10 @@ const styles = {
   },
   description: {
     "& textarea": {
+      background: "white",
       pointerEvents: "all",
       padding: 4,
-      paddingLeft: 8,
-      // Reusable
-      border: 0,
-      outline: "none",
-      resize: "none",
-      borderRadius: 2
+      paddingLeft: 8
     },
     "& button": {
       pointerEvents: "all",
@@ -78,6 +74,7 @@ class QuickEditCard extends React.Component {
     const textareaNode = findDOMNode(this).querySelector("textarea");
     textareaNode.style.width = `${cardCoordinates.width}px`;
     textareaNode.style.height = `${cardCoordinates.height + 50}px`;
+    textareaNode.select();
   }
 
   render() {
