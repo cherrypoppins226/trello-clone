@@ -6,7 +6,7 @@ import {
   getByAriaLabelled,
   getByAriaDescribed
 } from "../../testHelpers.js";
-import { testData } from "../../appData.js";
+import fixture from "../App.fixture";
 import App from "../App";
 import Board from "../Board";
 import CardsList from "../CardsList";
@@ -15,9 +15,9 @@ import * as Labels from "../labels";
 
 let fn = () => {};
 
-let app = <App lists={testData} />;
+let app = <App lists={fixture.props.lists} />;
 
-const board = <Board lists={testData} />;
+const board = <Board lists={fixture.props.lists} />;
 
 const cardsList = (
   <CardsList

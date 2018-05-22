@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import "./index.css";
-import { appData } from "./appData";
+import fixture from "./components/App.fixture";
 import App from "./components/App";
 import registerServiceWorker from "./registerServiceWorker";
 
@@ -13,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
       <CssBaseline />
-      <App lists={appData} />
+      <App lists={fixture.props.lists} />
     </React.Fragment>
   </React.StrictMode>,
   document.getElementById("root")

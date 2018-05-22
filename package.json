@@ -11,7 +11,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
-    "test:browser": "jest -c jest/browser/config.js",
+    "test:browser": "jest -c jest/browser/config.js --watch --verbose",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "prop-types": "^15.6.1",
     "proxyquire": "^2.0.1",
     "puppeteer": "^1.4.0",
+    "react-cosmos": "^4.3.0",
     "react-testing-library": "^3.0.1"
   },
   "browserslist": {

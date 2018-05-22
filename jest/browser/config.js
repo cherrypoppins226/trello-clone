@@ -1,3 +1,4 @@
+const { CISet } = require("./common");
 const exec = require("child_process").execSync;
 
 const out = exec("yarn --silent test --showConfig 2> /dev/null");
@@ -26,11 +27,7 @@ module.exports = {
     "**/?(*.)(spec|test).browser.{js,jsx,mjs}"
   ],
   globals: {
-    __APPURL__:
-      process.env.CI !== undefined &&
-      (process.env.CI === "1" || process.env.CI === "true")
-        ? `file://${__dirname}/static`
-        : "http://localhost:3000"
+    __appUrl: "http://localhost:8989"
   },
   globalSetup: "<rootDir>/jest/browser/setup.js",
   globalTeardown: "<rootDir>/jest/browser/teardown.js",
