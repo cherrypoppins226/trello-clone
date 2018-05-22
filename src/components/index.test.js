@@ -1,17 +1,13 @@
 import React from "react";
 import { getByText, getByTestId } from "dom-testing-library";
-import { Simulate } from "react-testing-library";
-import {
-  render,
-  getByAriaLabelled,
-  getByAriaDescribed
-} from "../../testHelpers.js";
-import fixture from "../index.fixture";
-import App from "..";
-import Board from "../Board";
-import CardsList from "../CardsList";
-import { cardDescription } from "../CardsList/Card";
-import * as Labels from "../labels";
+import { render, Simulate } from "react-testing-library";
+import { getByAriaLabelled, getByAriaDescribed } from "../testHelpers.js";
+import fixture from "./index.fixture";
+import App from ".";
+import Board from "./Board";
+import CardsList from "./CardsList";
+import { cardDescription } from "./CardsList/Card";
+import * as Labels from "./labels";
 
 let fn = () => {};
 

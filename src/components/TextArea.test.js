@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "../testHelpers.js";
+import { render } from "react-testing-library";
 import TextArea from "./Textarea";
 
 it("initial render", () => {
