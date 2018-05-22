@@ -1,5 +1,5 @@
 import faker from "faker";
-import App from "./App";
+import App from ".";
 
 faker.seed(1);
 

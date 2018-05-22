@@ -6,8 +6,8 @@ import {
   getByAriaLabelled,
   getByAriaDescribed
 } from "../../testHelpers.js";
-import fixture from "../App.fixture";
-import App from "../App";
+import fixture from "../index.fixture";
+import App from "..";
 import Board from "../Board";
 import CardsList from "../CardsList";
 import { cardDescription } from "../CardsList/Card";
