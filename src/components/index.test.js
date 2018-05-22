@@ -1,48 +1,31 @@
-import React from "react";
 import { getByText, getByTestId } from "dom-testing-library";
-import { render, Simulate } from "react-testing-library";
-import { getByAriaLabelled, getByAriaDescribed } from "../testHelpers.js";
-import fixture from "./index.fixture";
-import App from ".";
-import Board from "./Board";
-import CardsList from "./CardsList";
-import { cardDescription } from "./CardsList/Card";
-import * as Labels from "./labels";
+import { Simulate } from "react-testing-library";
+import {
+  render,
+  getByAriaLabelled,
+  getByAriaDescribed
+} from "../testHelpers.js";
+import * as labels from "./labels";
+import * as fixtures from "./fixtures";
 
-let fn = () => {};
-
-let app = <App lists={fixture.props.lists} />;
-
-const board = <Board lists={fixture.props.lists} />;
-
-const cardsList = (
-  <CardsList
-    title="title"
-    cards={["card"]}
-    onEditList={fn}
-    onQuickEditCard={fn}
-    onEditCard={fn}
-  />
-);
-
-it("app smoke test", () => {
-  render(app);
+it("app smoke test", async () => {
+  await render(fixtures.app);
 });
 
 describe("cards list", () => {
-  it("opens list actions menu", () => {
-    const { container } = render(board);
+  it("opens list actions menu", async () => {
+    const { container } = await render(fixtures.board);
     const getMenu = () =>
-      getByAriaDescribed(container, Labels.cardsListActionsMenuDescription.id);
+      getByAriaDescribed(container, labels.cardsListActionsMenuDescription.id);
     expect(getMenu()).toBeNull();
     Simulate.click(
-      getByAriaLabelled(container, Labels.cardsListActionsMenu.id)
+      getByAriaLabelled(container, labels.cardsListActionsMenu.id)
     );
     expect(getMenu()).not.toBeNull();
   });
 
-  it("adds a card", () => {
-    const { container } = render(cardsList);
+  it("adds a card", async () => {
+    const { container } = await render(fixtures.cardsList);
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -54,12 +37,13 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  const testModal = (getEditButton, getModal, textSelector) => {
-    const { container } = render(board);
+  const testModal = async (getEditButton, getModal, textSelector) => {
+    const { container } = await render(fixtures.board);
     const card = getByTestId(container, "CardsListCard");
     expect(getModal(container)).toBeNull();
     Simulate.click(getEditButton(card));
     expect(getModal(container)).not.toBeNull();
+    const { cardDescription } = require("./CardsList/Card");
     expect(getModal(container).querySelector(textSelector).textContent).toBe(
       cardDescription(card)
     );
@@ -67,8 +51,8 @@ describe("cards list card", () => {
 
   it("opens quick edit card modal", () => {
     testModal(
-      node => getByAriaLabelled(node, Labels.quickEditCard.id),
-      node => getByAriaDescribed(node, Labels.quickEditCardDescription.id),
+      node => getByAriaLabelled(node, labels.quickEditCard.id),
+      node => getByAriaDescribed(node, labels.quickEditCardDescription.id),
       "textarea"
     );
   });
@@ -76,7 +60,7 @@ describe("cards list card", () => {
   it("opens edit card modal", () => {
     testModal(
       node => node,
-      node => getByAriaDescribed(node, Labels.editCardDescription.id),
+      node => getByAriaDescribed(node, labels.editCardDescription.id),
       "[role='heading']"
     );
   });

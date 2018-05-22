@@ -1,3 +1,15 @@
+import { render as renderer } from "react-testing-library";
+import { createContext } from "react-cosmos-loader";
+
+export const render = (fixture, proxies = []) => {
+  const { mount, ...context } = createContext({ renderer, fixture, proxies });
+
+  return (async () => {
+    await mount();
+    return { ...context.getWrapper(), ...context, rerender: mount };
+  })();
+};
+
 export const NativeEvents = {
   mouse: {
     click: new MouseEvent("click", { bubbles: true, cancelable: true })
