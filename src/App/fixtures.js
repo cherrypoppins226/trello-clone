@@ -21,10 +21,10 @@ const componentNameRegex = /(\b\w+\b)(?!\()/i;
 // Fixtures are used for both testing and developing in the Cosmos dev tool.
 // This prepares them for use in the Cosmos UI.
 const useInCosmosUI = ({ name, props, component }) => {
-  component =
+  const wrapped =
     process.env.NODE_ENV === "test" ? component : normalize(component);
-  component.displayName = component.displayName.match(componentNameRegex)[1];
-  const updated = { name, props, component };
+  wrapped.displayName = component.displayName.match(componentNameRegex)[1];
+  const updated = { name, props, component: wrapped };
   fixtures.push(updated);
   return updated;
 };
