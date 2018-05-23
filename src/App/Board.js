@@ -19,6 +19,9 @@ const styles = {
   },
   cardListContainer: {
     width: 280
+  },
+  cardsListActionsPopover: {
+    backgroundColor: "transparent"
   }
 };
 
@@ -62,6 +65,7 @@ class Board extends React.Component {
           elevation={1}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           transformOrigin={{ vertical: "top", horizontal: "left" }}
+          PaperProps={{ classes: { root: classes.cardsListActionsPopover } }}
         >
           <ActionsMenu
             onMenuItemClick={_ => this.setState({ listBeingEdited: null })}

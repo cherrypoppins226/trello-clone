@@ -128,12 +128,4 @@ export const editCard = useInCosmosUI({
   }
 });
 
-export const textArea = useInCosmosUI({
-  component: require("./TextArea").default,
-  name: "Default",
-  props: {
-    value: listsArray[0][1][0]
-  }
-});
-
 export default fixtures;

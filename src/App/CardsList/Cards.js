@@ -8,6 +8,7 @@ const styles = {
     padding: 0,
     margin: 0,
     height: "100%",
+    listStyleType: "none",
     "& li": {
       margin: 8,
       marginTop: 2,

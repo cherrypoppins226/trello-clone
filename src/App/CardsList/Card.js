@@ -67,6 +67,7 @@ const Card = ({
   onQuickEditCard,
   onEditCard
 }) => {
+  // TODO: Use <Card /> from Material UI
   return (
     <Paper
       data-testid="CardsListCard"

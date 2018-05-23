@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -10,12 +11,12 @@ import * as Labels from "../labels";
 
 const styles = {
   root: {
+    width: 300,
     "& [role='heading']": {
       paddingTop: 8,
       color: grey[700]
     },
     "& [role='menu']": {
-      width: 300,
       "& *": {
         fontWeight: 700
       },
@@ -39,7 +40,7 @@ const styles = {
 
 const ActionsMenu = ({ classes, onMenuItemClick }) => {
   return (
-    <div
+    <Paper
       className={classes.root}
       aria-describedby={Labels.cardsListActionsMenuDescription.id}
     >
@@ -69,7 +70,7 @@ const ActionsMenu = ({ classes, onMenuItemClick }) => {
           );
         })}
       </MenuList>
-    </div>
+    </Paper>
   );
 };
 
