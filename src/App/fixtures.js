@@ -49,4 +49,68 @@ export const cardsList = push(fixtures, {
   }
 });
 
+export const cardsListCards = push(fixtures, {
+  component: require("./CardsList/Cards").default,
+  name: "Default",
+  props: {
+    cards: listsArray[0][1].map((title, idx) => ({
+      id: idx,
+      description: title
+    })),
+    onEditCard: nop,
+    onQuickEditCard: nop
+  }
+});
+
+export const cardsListActionsMenu = push(fixtures, {
+  component: require("./CardsList/ActionsMenu").default,
+  name: "Default",
+  props: {
+    onMenuItemClick: nop
+  }
+});
+
+export const cardslistHeader = push(fixtures, {
+  component: require("./CardsList/Header").default,
+  name: "Default",
+  props: {
+    text: listsArray[0][0],
+    onEditList: nop
+  }
+});
+
+export const cardslistCard = push(fixtures, {
+  component: require("./CardsList/Card").default,
+  name: "Default",
+  props: {
+    title: listsArray[0][1][0],
+    onEditCard: nop,
+    onQuickEditCard: nop
+  }
+});
+
+export const quickEditCard = push(fixtures, {
+  component: require("./QuickEditCard").default,
+  name: "Default",
+  props: {
+    title: listsArray[0][1][0]
+  }
+});
+
+export const editCard = push(fixtures, {
+  component: require("./EditCard").default,
+  name: "Default",
+  props: {
+    title: listsArray[0][1][0]
+  }
+});
+
+export const textArea = push(fixtures, {
+  component: require("./TextArea").default,
+  name: "Default",
+  props: {
+    value: listsArray[0][1][0]
+  }
+});
+
 export default fixtures;

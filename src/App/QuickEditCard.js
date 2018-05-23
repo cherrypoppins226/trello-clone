@@ -29,7 +29,7 @@ const styles = {
       padding: 4,
       paddingLeft: 8,
       minHeight: 100,
-      minWidth: 150
+      minWidth: 200
     },
     "& button": {
       pointerEvents: "all",

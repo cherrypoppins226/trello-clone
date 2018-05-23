@@ -49,7 +49,12 @@ class Cards extends React.Component {
 const View = withStyles(styles)(Cards);
 
 View.propTypes = {
-  cards: PropTypes.array.isRequired,
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      description: PropTypes.string
+    })
+  ).isRequired,
   onEditCard: PropTypes.func.isRequired,
   onQuickEditCard: PropTypes.func.isRequired
 };
