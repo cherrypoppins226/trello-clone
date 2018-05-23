@@ -1,6 +1,9 @@
 import React from "react";
+import ButtonBase from "@material-ui/core/ButtonBase";
 import Board from "./Board";
 import * as Labels from "./labels";
+
+ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
 const App = ({ lists }) => {
   return (
