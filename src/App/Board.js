@@ -8,6 +8,7 @@ import CardsList from "./CardsList";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
+import { cardDescription } from "./CardsList/Card";
 
 const styles = {
   root: {
@@ -30,6 +31,9 @@ class Board extends React.Component {
 
   render() {
     const { classes, lists } = this.props;
+    const cardTitle = (v => (v ? cardDescription(v) : ""))(
+      this.state.cardBeingEdited || this.state.cardBeingQuickEdited
+    );
     return (
       <>
         <Grid container spacing={16} wrap="nowrap" className={classes.root}>
@@ -68,14 +72,17 @@ class Board extends React.Component {
           open={Boolean(this.state.cardBeingQuickEdited)}
           onClose={_ => this.setState({ cardBeingQuickEdited: null })}
         >
-          <QuickEditCard card={this.state.cardBeingQuickEdited} />
+          <QuickEditCard
+            title={cardTitle}
+            anchorEl={this.state.cardBeingQuickEdited}
+          />
         </Modal>
         <Modal
           container={this}
           open={Boolean(this.state.cardBeingEdited)}
           onClose={_ => this.setState({ cardBeingEdited: null })}
         >
-          <EditCard card={this.state.cardBeingEdited} />
+          <EditCard title={cardTitle} />
         </Modal>
       </>
     );

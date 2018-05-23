@@ -13,7 +13,6 @@ import Timer from "@material-ui/icons/Timer";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
-import { cardDescription } from "./CardsList/Card";
 import TextArea from "./TextArea";
 import * as Labels from "./labels";
 
@@ -28,7 +27,9 @@ const styles = {
       background: "white",
       pointerEvents: "all",
       padding: 4,
-      paddingLeft: 8
+      paddingLeft: 8,
+      minHeight: 100,
+      minWidth: 150
     },
     "& button": {
       pointerEvents: "all",
@@ -67,18 +68,20 @@ const styles = {
 
 class QuickEditCard extends React.Component {
   componentDidMount() {
-    const cardCoordinates = this.props.card.getBoundingClientRect();
-    const modalNode = findDOMNode(this);
-    modalNode.style.top = `${cardCoordinates.top}px`;
-    modalNode.style.left = `${cardCoordinates.left}px`;
     const textareaNode = findDOMNode(this).querySelector("textarea");
-    textareaNode.style.width = `${cardCoordinates.width}px`;
-    textareaNode.style.height = `${cardCoordinates.height + 50}px`;
+    if (this.props.anchorEl) {
+      const coordinates = this.props.anchorEl.getBoundingClientRect();
+      const modalNode = findDOMNode(this);
+      modalNode.style.top = `${coordinates.top}px`;
+      modalNode.style.left = `${coordinates.left}px`;
+      textareaNode.style.width = `${coordinates.width}px`;
+      textareaNode.style.height = `${coordinates.height + 50}px`;
+    }
     textareaNode.select();
   }
 
   render() {
-    const { classes, card, ...extra } = this.props;
+    const { classes, title, anchorEl, ...extra } = this.props;
     return (
       <Grid
         aria-describedby={Labels.quickEditCardDescription.id}
@@ -89,10 +92,7 @@ class QuickEditCard extends React.Component {
         {...extra}
       >
         <Grid item className={classes.description}>
-          <Typography
-            component={TextArea}
-            value={card ? cardDescription(card) : ""}
-          />
+          <Typography component={TextArea} value={title} />
           <Button variant="raised"> Save </Button>
         </Grid>
         <Grid item className={classes.sideButtons}>
@@ -122,7 +122,8 @@ class QuickEditCard extends React.Component {
 const View = withStyles(styles)(QuickEditCard);
 
 View.propTypes = {
-  card: PropTypes.object
+  title: PropTypes.string.isRequired,
+  anchorEl: PropTypes.object
 };
 
 export default View;
