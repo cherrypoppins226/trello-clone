@@ -8,10 +8,6 @@ import {
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
-it("app smoke test", async () => {
-  await render(fixtures.app);
-});
-
 describe("cards list", () => {
   it("opens list actions menu", async () => {
     const { container } = await render(fixtures.board);
