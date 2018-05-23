@@ -1,8 +1,35 @@
+import React from "react";
 import faker from "faker";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
-const push = (arr, item) => {
-  arr.push(item);
-  return item;
+const normalizeCss = Component => {
+  const ModifiedCSSBaseline = withStyles({
+    "@global": { body: { margin: 10, background: "transparent" } }
+  })(CssBaseline);
+  const wrapped = props => (
+    <React.Fragment>
+      <ModifiedCSSBaseline />
+      <Component {...props} />
+    </React.Fragment>
+  );
+  wrapped.displayName = Component.displayName;
+  return wrapped;
+};
+
+const fixtures = [];
+
+// Fixtures are used for both testing and developing in the Cosmos dev tool.
+// This prepares them for use in the Cosmos UI.
+const useInCosmosUI = ({ component, name, props }) => {
+  const updated = {
+    name,
+    props,
+    component:
+      process.env.NODE_ENV === "test" ? component : normalizeCss(component)
+  };
+  fixtures.push(updated);
+  return updated;
 };
 
 faker.seed(1);
@@ -17,17 +44,13 @@ for (let i = 0; i < 6; i++) {
   }
 }
 
-const fixtures = [];
-
-// Not part of Cosmos exported fixtures. We've got board for now. However, it's
-// still used by index.js to render the app
 export const app = {
   component: require(".").default,
   name: "Default",
   props: { lists }
 };
 
-export const board = push(fixtures, {
+export const board = useInCosmosUI({
   component: require("./Board").default,
   name: "Default",
   props: { lists }
@@ -37,7 +60,7 @@ const nop = () => {};
 
 const listsArray = Object.entries(lists);
 
-export const cardsList = push(fixtures, {
+export const cardsList = useInCosmosUI({
   component: require("./CardsList").default,
   name: "Default",
   props: {
@@ -49,7 +72,7 @@ export const cardsList = push(fixtures, {
   }
 });
 
-export const cardsListCards = push(fixtures, {
+export const cardsListCards = useInCosmosUI({
   component: require("./CardsList/Cards").default,
   name: "Default",
   props: {
@@ -62,7 +85,7 @@ export const cardsListCards = push(fixtures, {
   }
 });
 
-export const cardsListActionsMenu = push(fixtures, {
+export const cardsListActionsMenu = useInCosmosUI({
   component: require("./CardsList/ActionsMenu").default,
   name: "Default",
   props: {
@@ -70,7 +93,7 @@ export const cardsListActionsMenu = push(fixtures, {
   }
 });
 
-export const cardslistHeader = push(fixtures, {
+export const cardsListHeader = useInCosmosUI({
   component: require("./CardsList/Header").default,
   name: "Default",
   props: {
@@ -79,7 +102,7 @@ export const cardslistHeader = push(fixtures, {
   }
 });
 
-export const cardslistCard = push(fixtures, {
+export const cardsListCard = useInCosmosUI({
   component: require("./CardsList/Card").default,
   name: "Default",
   props: {
@@ -89,7 +112,7 @@ export const cardslistCard = push(fixtures, {
   }
 });
 
-export const quickEditCard = push(fixtures, {
+export const quickEditCard = useInCosmosUI({
   component: require("./QuickEditCard").default,
   name: "Default",
   props: {
@@ -97,7 +120,7 @@ export const quickEditCard = push(fixtures, {
   }
 });
 
-export const editCard = push(fixtures, {
+export const editCard = useInCosmosUI({
   component: require("./EditCard").default,
   name: "Default",
   props: {
@@ -105,7 +128,7 @@ export const editCard = push(fixtures, {
   }
 });
 
-export const textArea = push(fixtures, {
+export const textArea = useInCosmosUI({
   component: require("./TextArea").default,
   name: "Default",
   props: {
