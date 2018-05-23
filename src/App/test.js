@@ -1,10 +1,7 @@
 import { getByText, getByTestId } from "dom-testing-library";
 import { Simulate } from "react-testing-library";
-import {
-  render,
-  getByAriaLabelled,
-  getByAriaDescribed
-} from "../testHelpers.js";
+import { render } from "./utils/dom";
+import { getByAriaLabelled, getByAriaDescribed } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
