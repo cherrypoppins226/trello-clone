@@ -1,5 +1,10 @@
 import faker from "faker";
 
+const push = (arr, item) => {
+  arr.push(item);
+  return item;
+};
+
 faker.seed(1);
 
 const lists = {};
@@ -14,27 +19,23 @@ for (let i = 0; i < 6; i++) {
 
 const fixtures = [];
 
-export const app = {
+export const app = push(fixtures, {
   component: require(".").default,
   name: "Default",
   props: { lists }
-};
+});
 
-fixtures.push(app);
-
-export const board = {
+export const board = push(fixtures, {
   component: require("./Board").default,
   name: "Default",
   props: { lists }
-};
-
-fixtures.push(board);
+});
 
 const nop = () => {};
 
 const listsArray = Object.entries(lists);
 
-export const cardsList = {
+export const cardsList = push(fixtures, {
   component: require("./CardsList").default,
   name: "Default",
   props: {
@@ -44,8 +45,6 @@ export const cardsList = {
     onQuickEditCard: nop,
     onEditCard: nop
   }
-};
-
-fixtures.push(cardsList);
+});
 
 export default fixtures;
