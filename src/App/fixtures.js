@@ -19,11 +19,13 @@ for (let i = 0; i < 6; i++) {
 
 const fixtures = [];
 
-export const app = push(fixtures, {
+// Not part of Cosmos exported fixtures. We've got board for now. However, it's
+// still used by index.js to render the app
+export const app = {
   component: require(".").default,
   name: "Default",
   props: { lists }
-});
+};
 
 export const board = push(fixtures, {
   component: require("./Board").default,
