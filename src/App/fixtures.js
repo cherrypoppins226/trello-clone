@@ -3,31 +3,28 @@ import faker from "faker";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const normalizeCss = Component => {
-  const ModifiedCSSBaseline = withStyles({
-    "@global": { body: { margin: 10, background: "transparent" } }
-  })(CssBaseline);
-  const wrapped = props => (
-    <React.Fragment>
-      <ModifiedCSSBaseline />
-      <Component {...props} />
-    </React.Fragment>
-  );
-  wrapped.displayName = Component.displayName;
-  return wrapped;
-};
+const CSSNormalize = withStyles({
+  "@global": { body: { margin: 10, background: "transparent" } }
+})(CssBaseline);
+
+const normalize = Component => props => (
+  <React.Fragment>
+    <CSSNormalize />
+    <Component {...props} />
+  </React.Fragment>
+);
 
 const fixtures = [];
 
+const componentNameRegex = /(\b\w+\b)(?!\()/i;
+
 // Fixtures are used for both testing and developing in the Cosmos dev tool.
 // This prepares them for use in the Cosmos UI.
-const useInCosmosUI = ({ component, name, props }) => {
-  const updated = {
-    name,
-    props,
-    component:
-      process.env.NODE_ENV === "test" ? component : normalizeCss(component)
-  };
+const useInCosmosUI = ({ name, props, component }) => {
+  component =
+    process.env.NODE_ENV === "test" ? component : normalize(component);
+  component.displayName = component.displayName.match(componentNameRegex)[1];
+  const updated = { name, props, component };
   fixtures.push(updated);
   return updated;
 };
