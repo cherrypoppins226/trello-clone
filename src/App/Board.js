@@ -61,7 +61,7 @@ class Board extends React.Component {
           container={this}
           open={Boolean(this.state.listBeingEdited)}
           onClose={_ => this.setState({ listBeingEdited: null })}
-          transitionDuration={0}
+          TransitionProps={{ timeout: 0 }}
           elevation={1}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           transformOrigin={{ vertical: "top", horizontal: "left" }}
@@ -75,6 +75,7 @@ class Board extends React.Component {
           container={this}
           open={Boolean(this.state.cardBeingQuickEdited)}
           onClose={_ => this.setState({ cardBeingQuickEdited: null })}
+          BackdropProps={{ id: "quickEditCardBackdrop" }}
         >
           <QuickEditCard
             title={cardTitle}
@@ -85,6 +86,7 @@ class Board extends React.Component {
           container={this}
           open={Boolean(this.state.cardBeingEdited)}
           onClose={_ => this.setState({ cardBeingEdited: null })}
+          BackdropProps={{ id: "editCardBackdrop" }}
         >
           <EditCard title={cardTitle} />
         </Modal>

@@ -47,17 +47,6 @@ const styles = {
   }
 };
 
-const onClick = (event, onQuickEditCard, onEditCard) => {
-  const button = event.currentTarget.querySelector(
-    `[aria-labelledby="${Labels.quickEditCard.id}"]`
-  );
-  if (button.contains(event.target)) {
-    onQuickEditCard(event.currentTarget);
-  } else {
-    onEditCard(event.currentTarget);
-  }
-};
-
 export const cardDescription = cardNode => {
   return cardNode.querySelector(`[aria-labelledby="${Labels.card.id}"]`)
     .textContent;
@@ -74,12 +63,18 @@ const Card = ({
     <Paper
       data-testid="CardsListCard"
       elevation={1}
-      onClick={e => onClick(e, onQuickEditCard, onEditCard)}
+      onClick={e => onEditCard(e.currentTarget)}
       className={classes.root}
       aria-labelledby={Labels.editCard.id}
     >
       <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
-      <button aria-labelledby={Labels.quickEditCard.id}>
+      <button
+        onClick={e => {
+          e.stopPropagation();
+          onQuickEditCard(e.currentTarget.parentElement);
+        }}
+        aria-labelledby={Labels.quickEditCard.id}
+      >
         <Create />
       </button>
     </Paper>

@@ -5,8 +5,6 @@ import { getByAriaLabelled, getByAriaDescribed } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
-// TODO: Check if modals/popovers are visible
-
 describe("cards list", () => {
   it("opens list actions menu", async () => {
     const { container } = await render(fixtures.Board);

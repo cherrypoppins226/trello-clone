@@ -32,10 +32,15 @@ const snap = async () => {
 export const snapshotTest = (
   testFn,
   fixture,
-  snapshotFn = (frame, snap) => snap()
+  snapshotFn = (frame, snap) => snap(),
+  timeout = 5000
 ) => {
-  testFn(fixture.component.displayName, async () => {
-    await goToComponentUrl(fixture);
-    await snapshotFn(global.__page.mainFrame().childFrames()[0], snap);
-  });
+  testFn(
+    fixture.component.displayName,
+    async () => {
+      await goToComponentUrl(fixture);
+      await snapshotFn(global.__page.mainFrame().childFrames()[0], snap);
+    },
+    timeout
+  );
 };
