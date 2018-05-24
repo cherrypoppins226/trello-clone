@@ -14,11 +14,12 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    cursor: "pointer",
     "&:hover": {
-      background: grey[200]
-    },
-    "&:hover button": {
-      visibility: "visible"
+      background: grey[200],
+      "& button": {
+        visibility: "visible"
+      }
     },
     "& button": {
       visibility: "hidden",
@@ -32,7 +33,8 @@ const styles = {
       padding: 3,
       paddingBottom: 0,
       "&:hover": {
-        background: "#D6DADC"
+        background: "#D6DADC",
+        visibility: "visible"
       }
     },
     "& svg": {

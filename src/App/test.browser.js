@@ -20,10 +20,8 @@ describe("CardsList", () => {
   });
 
   snapshotTest(it, fixture.Card, async (frame, snap) => {
-    await Promise.all([
-      frame.hover(`[aria-labelledby="${labels.editCard.id}"]`),
-      frame.hover(`[aria-labelledby="${labels.quickEditCard.id}"]`)
-    ]);
+    await frame.hover(`[aria-labelledby="${labels.editCard.id}"]`);
+    await frame.hover(`[aria-labelledby="${labels.quickEditCard.id}"]`);
     await snap();
   });
 
