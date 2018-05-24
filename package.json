@@ -11,7 +11,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
-    "test:browser": "jest -c jest/browser/config.js --watch --verbose",
+    "test:browser": "jest -c jest/browser/config.js --verbose",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
