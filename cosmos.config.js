@@ -1,5 +1,6 @@
 const CI = process.env.CI === "1" || process.env.CI === "true";
 
+// TODO: Webpack ignore node_modules folder. We don't need that kind of dynamism
 module.exports = {
   containerQuerySelector: "#root",
   webpackConfigPath: "react-scripts/config/webpack.config.dev",

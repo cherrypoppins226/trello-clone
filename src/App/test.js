@@ -5,9 +5,11 @@ import { getByAriaLabelled, getByAriaDescribed } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
+// TODO: Check if modals/popovers are visible
+
 describe("cards list", () => {
   it("opens list actions menu", async () => {
-    const { container } = await render(fixtures.board);
+    const { container } = await render(fixtures.Board);
     const getMenu = () =>
       getByAriaDescribed(container, labels.cardsListActionsMenuDescription.id);
     expect(getMenu()).toBeNull();
@@ -18,7 +20,7 @@ describe("cards list", () => {
   });
 
   it("adds a card", async () => {
-    const { container } = await render(fixtures.cardsList);
+    const { container } = await render(fixtures.CardsList.CardsList);
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -31,7 +33,7 @@ describe("cards list", () => {
 
 describe("cards list card", () => {
   const testModal = async (getEditButton, getModal, textSelector) => {
-    const { container } = await render(fixtures.board);
+    const { container } = await render(fixtures.Board);
     const card = getByTestId(container, "CardsListCard");
     expect(getModal(container)).toBeNull();
     Simulate.click(getEditButton(card));

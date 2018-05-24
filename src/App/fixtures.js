@@ -16,14 +16,12 @@ const normalize = Component => props => (
 
 const fixtures = [];
 
-const componentNameRegex = /(\b\w+\b)(?!\()/i;
-
 // Fixtures are used for both testing and developing in the Cosmos dev tool.
 // This prepares them for use in the Cosmos UI.
-const useInCosmosUI = ({ name, props, component }) => {
+const useInCosmosUI = ({ name, props, component, displayName }) => {
   const wrapped =
     process.env.NODE_ENV === "test" ? component : normalize(component);
-  wrapped.displayName = component.displayName.match(componentNameRegex)[1];
+  wrapped.displayName = displayName;
   const updated = { name, props, component: wrapped };
   fixtures.push(updated);
   return updated;
@@ -41,88 +39,100 @@ for (let i = 0; i < 6; i++) {
   }
 }
 
-export const app = {
+const nop = () => {};
+
+const listsArray = Object.entries(lists);
+
+export const App = {
   component: require(".").default,
   name: "Default",
   props: { lists }
 };
 
-export const board = useInCosmosUI({
+export const Board = useInCosmosUI({
   component: require("./Board").default,
+  displayName: "Board",
   name: "Default",
   props: { lists }
 });
 
-const nop = () => {};
-
-const listsArray = Object.entries(lists);
-
-export const cardsList = useInCosmosUI({
-  component: require("./CardsList").default,
-  name: "Default",
-  props: {
-    title: listsArray[0][0],
-    cards: listsArray[0][1],
-    onEditList: nop,
-    onQuickEditCard: nop,
-    onEditCard: nop
-  }
-});
-
-export const cardsListCards = useInCosmosUI({
-  component: require("./CardsList/Cards").default,
-  name: "Default",
-  props: {
-    cards: listsArray[0][1].map((title, idx) => ({
-      id: idx,
-      description: title
-    })),
-    onEditCard: nop,
-    onQuickEditCard: nop
-  }
-});
-
-export const cardsListActionsMenu = useInCosmosUI({
-  component: require("./CardsList/ActionsMenu").default,
-  name: "Default",
-  props: {
-    onMenuItemClick: nop
-  }
-});
-
-export const cardsListHeader = useInCosmosUI({
-  component: require("./CardsList/Header").default,
-  name: "Default",
-  props: {
-    text: listsArray[0][0],
-    onEditList: nop
-  }
-});
-
-export const cardsListCard = useInCosmosUI({
-  component: require("./CardsList/Card").default,
-  name: "Default",
-  props: {
-    title: listsArray[0][1][0],
-    onEditCard: nop,
-    onQuickEditCard: nop
-  }
-});
-
-export const quickEditCard = useInCosmosUI({
+export const QuickEditCard = useInCosmosUI({
   component: require("./QuickEditCard").default,
+  displayName: "QuickEditCard",
   name: "Default",
   props: {
     title: listsArray[0][1][0]
   }
 });
 
-export const editCard = useInCosmosUI({
-  component: require("./EditCard").default,
-  name: "Default",
-  props: {
-    title: listsArray[0][1][0]
-  }
-});
+export const CardsList = {
+  CardsList: useInCosmosUI({
+    component: require("./CardsList").default,
+    displayName: "CardsList/CardsList",
+    name: "Default",
+    props: {
+      title: listsArray[0][0],
+      cards: listsArray[0][1],
+      onEditList: nop,
+      onQuickEditCard: nop,
+      onEditCard: nop
+    }
+  }),
+
+  Cards: useInCosmosUI({
+    component: require("./CardsList/Cards").default,
+    displayName: "CardsList/Cards",
+    name: "Default",
+    props: {
+      cards: listsArray[0][1].map((title, idx) => ({
+        id: idx,
+        description: title
+      })),
+      onEditCard: nop,
+      onQuickEditCard: nop
+    }
+  }),
+
+  ActionsMenu: useInCosmosUI({
+    component: require("./CardsList/ActionsMenu").default,
+    displayName: "CardsList/ActionsMenu",
+    name: "Default",
+    props: {
+      onMenuItemClick: nop
+    }
+  }),
+
+  Header: useInCosmosUI({
+    component: require("./CardsList/Header").default,
+    displayName: "CardsList/Header",
+    name: "Default",
+    props: {
+      text: listsArray[0][0],
+      onEditList: nop
+    }
+  }),
+
+  Card: useInCosmosUI({
+    component: require("./CardsList/Card").default,
+    displayName: "CardsList/Card",
+    name: "Default",
+    props: {
+      title: listsArray[0][1][0],
+      onEditCard: nop,
+      onQuickEditCard: nop
+    }
+  })
+};
+
+export const EditCard = {
+  EditCard: useInCosmosUI({
+    component: require("./EditCard").default,
+    displayName: "EditCard/EditCard",
+    name: "Default",
+    props: {
+      title: listsArray[0][1][0]
+    }
+  })
+};
 
 export default fixtures;

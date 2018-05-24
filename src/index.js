@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import "./index.css";
 import App from "./App";
-import { app } from "./App/fixtures";
+import * as fixtures from "./App/fixtures";
 import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
       <CssBaseline />
-      <App {...app.props} />
+      <App {...fixtures.App.props} />
     </React.Fragment>
   </React.StrictMode>,
   document.getElementById("root")
