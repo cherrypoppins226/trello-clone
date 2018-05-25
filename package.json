@@ -12,7 +12,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
     "test:browser": "jest -c jest/browser/config.js --verbose",
-    "test:ci": "CI=1 yarn test && CI=1 yarn test:browser",
+    "test:ci": "CI=1 yarn test --ci && CI=1 yarn test:browser",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -57,8 +57,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "CI=1 yarn test --ci",
-      "pre-push": "CI=1 yarn test --ci"
+      "pre-commit": "yarn test:ci",
+      "pre-push": "yarn test:ci"
     }
   }
 }
