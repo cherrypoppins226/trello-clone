@@ -3,17 +3,6 @@ import faker from "faker";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const CSSNormalize = withStyles({
-  "@global": { body: { margin: 10, background: "transparent" } }
-})(CssBaseline);
-
-const normalize = Component => props => (
-  <React.Fragment>
-    <CSSNormalize />
-    <Component {...props} />
-  </React.Fragment>
-);
-
 let fixtures = [];
 
 const addToDefaultExport = namedFixtures => {
@@ -21,10 +10,18 @@ const addToDefaultExport = namedFixtures => {
   return namedFixtures;
 };
 
+const CSSNormalize = withStyles({
+  "@global": { body: { margin: 10, background: "transparent" } }
+})(CssBaseline);
+
 // Stylize component for use in the Cosmos UI.
-const stylize = (component, displayName) => {
-  const wrapped =
-    process.env.NODE_ENV === "test" ? component : normalize(component);
+const stylize = (Component, displayName) => {
+  const wrapped = props => (
+    <React.Fragment>
+      <CSSNormalize />
+      <Component {...props} />
+    </React.Fragment>
+  );
   wrapped.displayName = displayName;
   return wrapped;
 };
