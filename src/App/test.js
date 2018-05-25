@@ -7,7 +7,7 @@ import * as fixtures from "./fixtures";
 
 describe("cards list", () => {
   it("opens list actions menu", async () => {
-    const { container } = await render(fixtures.Board);
+    const { container } = await render(fixtures.Board.default);
     const getMenu = () =>
       getByAriaDescribed(container, labels.cardsListActionsMenuDescription.id);
     expect(getMenu()).toBeNull();
@@ -18,7 +18,7 @@ describe("cards list", () => {
   });
 
   it("adds a card", async () => {
-    const { container } = await render(fixtures.CardsList.CardsList);
+    const { container } = await render(fixtures.CardsList.CardsList.default);
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -31,7 +31,7 @@ describe("cards list", () => {
 
 describe("cards list card", () => {
   const testModal = async (getEditButton, getModal, textSelector) => {
-    const { container } = await render(fixtures.Board);
+    const { container } = await render(fixtures.Board.default);
     const card = getByTestId(container, "CardsListCard");
     expect(getModal(container)).toBeNull();
     Simulate.click(getEditButton(card));

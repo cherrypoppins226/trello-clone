@@ -14,17 +14,26 @@ const normalize = Component => props => (
   </React.Fragment>
 );
 
-const fixtures = [];
+let fixtures = [];
 
-// Fixtures are used for both testing and developing in the Cosmos dev tool.
-// This prepares them for use in the Cosmos UI.
-const useInCosmosUI = ({ name, props, component, displayName }) => {
+const addToDefaultExport = namedFixtures => {
+  fixtures = fixtures.concat(Object.values(namedFixtures));
+  return namedFixtures;
+};
+
+// Stylize component for use in the Cosmos UI.
+const stylize = (component, displayName) => {
   const wrapped =
     process.env.NODE_ENV === "test" ? component : normalize(component);
   wrapped.displayName = displayName;
-  const updated = { name, props, component: wrapped };
-  fixtures.push(updated);
-  return updated;
+  return wrapped;
+};
+
+const makeFixtures = (component, namedFixtures) => {
+  Object.keys(namedFixtures).forEach(name => {
+    namedFixtures[name] = { component, name, ...namedFixtures[name] };
+  });
+  return namedFixtures;
 };
 
 faker.seed(1);
@@ -43,96 +52,119 @@ const nop = () => {};
 
 const listsArray = Object.entries(lists);
 
-export const App = {
-  component: require(".").default,
-  name: "Default",
-  props: { lists }
-};
-
-export const Board = useInCosmosUI({
-  component: require("./Board").default,
-  displayName: "Board",
-  name: "Default",
-  props: { lists }
-});
-
-export const QuickEditCard = useInCosmosUI({
-  component: require("./QuickEditCard").default,
-  displayName: "QuickEditCard",
-  name: "Default",
-  props: {
-    title: listsArray[0][1][0]
+export const App = makeFixtures(require("./App").default, {
+  default: {
+    props: { lists }
   }
 });
 
-export const CardsList = {
-  CardsList: useInCosmosUI({
-    component: require("./CardsList").default,
-    displayName: "CardsList/CardsList",
-    name: "Default",
-    props: {
-      title: listsArray[0][0],
-      cards: listsArray[0][1],
-      onEditList: nop,
-      onQuickEditCard: nop,
-      onEditCard: nop
-    }
-  }),
-
-  Cards: useInCosmosUI({
-    component: require("./CardsList/Cards").default,
-    displayName: "CardsList/Cards",
-    name: "Default",
-    props: {
-      cards: listsArray[0][1].map((title, idx) => ({
-        id: idx,
-        description: title
-      })),
-      onEditCard: nop,
-      onQuickEditCard: nop
-    }
-  }),
-
-  ActionsMenu: useInCosmosUI({
-    component: require("./CardsList/ActionsMenu").default,
-    displayName: "CardsList/ActionsMenu",
-    name: "Default",
-    props: {
-      onMenuItemClick: nop
-    }
-  }),
-
-  Header: useInCosmosUI({
-    component: require("./CardsList/Header").default,
-    displayName: "CardsList/Header",
-    name: "Default",
-    props: {
-      text: listsArray[0][0],
-      onEditList: nop
-    }
-  }),
-
-  Card: useInCosmosUI({
-    component: require("./CardsList/Card").default,
-    displayName: "CardsList/Card",
-    name: "Default",
-    props: {
-      title: listsArray[0][1][0],
-      onEditCard: nop,
-      onQuickEditCard: nop
+export const Board = addToDefaultExport(
+  makeFixtures(stylize(require("./Board").default, "Board"), {
+    default: {
+      props: { lists }
     }
   })
-};
+);
 
-export const EditCard = {
-  EditCard: useInCosmosUI({
-    component: require("./EditCard").default,
-    displayName: "EditCard/EditCard",
-    name: "Default",
-    props: {
-      title: listsArray[0][1][0]
+export const QuickEditCard = addToDefaultExport(
+  makeFixtures(stylize(require("./QuickEditCard").default, "QuickEditCard"), {
+    default: {
+      props: {
+        title: listsArray[0][1][0]
+      }
     }
   })
-};
+);
+
+export const CardsList = {};
+
+CardsList.CardsList = addToDefaultExport(
+  makeFixtures(stylize(require("./CardsList").default, "CardsList/CardsList"), {
+    default: {
+      props: {
+        title: listsArray[0][0],
+        cards: listsArray[0][1],
+        onEditList: nop,
+        onQuickEditCard: nop,
+        onEditCard: nop
+      }
+    }
+  })
+);
+
+CardsList.Cards = addToDefaultExport(
+  makeFixtures(
+    stylize(require("./CardsList/Cards").default, "CardsList/Cards"),
+    {
+      default: {
+        props: {
+          cards: listsArray[0][1].map((title, idx) => ({
+            id: idx,
+            description: title
+          })),
+          onEditCard: nop,
+          onQuickEditCard: nop
+        }
+      }
+    }
+  )
+);
+
+CardsList.ActionsMenu = addToDefaultExport(
+  makeFixtures(
+    stylize(
+      require("./CardsList/ActionsMenu").default,
+      "CardsList/ActionsMenu"
+    ),
+    {
+      default: {
+        props: {
+          onMenuItemClick: nop
+        }
+      }
+    }
+  )
+);
+
+CardsList.Header = addToDefaultExport(
+  makeFixtures(
+    stylize(require("./CardsList/Header").default, "CardsList/Header"),
+    {
+      default: {
+        props: {
+          text: listsArray[0][0],
+          onEditList: nop
+        }
+      }
+    }
+  )
+);
+
+CardsList.Card = addToDefaultExport(
+  makeFixtures(stylize(require("./CardsList/Card").default, "CardsList/Card"), {
+    default: {
+      props: {
+        title: listsArray[0][1][0],
+        onEditCard: nop,
+        onQuickEditCard: nop
+      }
+    }
+  })
+);
+
+export const EditCard = {};
+
+EditCard.EditCard = addToDefaultExport(
+  makeFixtures(
+    stylize(require("./EditCard/EditCard").default, "EditCard/EditCard"),
+    {
+      default: {
+        props: {
+          title: listsArray[0][1][0]
+        }
+      }
+    }
+  )
+);
 
 export default fixtures;

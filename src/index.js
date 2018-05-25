@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <React.Fragment>
       <CssBaseline />
-      <App {...fixtures.App.props} />
+      <App {...fixtures.App.default.props} />
     </React.Fragment>
   </React.StrictMode>,
   document.getElementById("root")
