@@ -29,7 +29,8 @@
     "proxyquire": "^2.0.1",
     "puppeteer": "^1.4.0",
     "react-cosmos": "^4.3.0",
-    "react-testing-library": "^3.0.1"
+    "react-testing-library": "^3.0.1",
+    "react-textarea-autosize": "^6.1.0"
   },
   "browserslist": {
     "development": [
@@ -50,7 +51,10 @@
       "plugin:prettier/recommended",
       "plugin:jsx-a11y/strict"
     ],
-    "plugins": ["prettier", "jsx-a11y"],
+    "plugins": [
+      "prettier",
+      "jsx-a11y"
+    ],
     "rules": {
       "prettier/prettier": "warn"
     }

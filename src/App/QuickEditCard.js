@@ -13,7 +13,7 @@ import Timer from "@material-ui/icons/Timer";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
-import TextArea from "./TextArea";
+import TextArea from "react-textarea-autosize";
 import * as Labels from "./labels";
 
 const styles = {
@@ -29,7 +29,15 @@ const styles = {
       padding: 4,
       paddingLeft: 8,
       minHeight: 100,
-      minWidth: 200
+      minWidth: 200,
+      border: 0,
+      resize: "none",
+      borderRadius: 2,
+      "&:focus": {
+        outlineWidth: 2,
+        background: "white",
+        boxShadow: "0px 0px 2px 0px"
+      }
     },
     "& button": {
       pointerEvents: "all",

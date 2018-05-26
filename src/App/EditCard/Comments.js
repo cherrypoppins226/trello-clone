@@ -3,7 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Comment from "@material-ui/icons/Comment";
-import TextArea from "../TextArea";
+import TextArea from "react-textarea-autosize";
 
 const styles = {
   root: {
@@ -19,15 +19,18 @@ const styles = {
       marginBottom: 10
     },
     "& textarea": {
+      border: 0,
+      resize: "none",
+      borderRadius: 2,
+      padding: "9px 11px",
       width: "100%",
       minHeight: 75,
-      padding: "9px 11px",
       paddingBottom: 0,
-      background: "white",
       outline: "none",
       boxShadow: "0 1px 2px rgba(0,0,0,.23)",
       marginBottom: 10,
       "&:focus": {
+        outlineWidth: 2,
         boxShadow: "0 1px 3px rgba(0,0,0,.33)"
       }
     }

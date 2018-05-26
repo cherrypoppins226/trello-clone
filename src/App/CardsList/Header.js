@@ -4,8 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import grey from "@material-ui/core/colors/grey";
+import TextArea from "react-textarea-autosize";
 import * as Labels from "../labels";
-import TextArea from "../TextArea";
 
 const styles = {
   root: {
@@ -16,6 +16,8 @@ const styles = {
     "& [role='heading']": {
       flexBasis: "100%",
       fontWeight: 700,
+      marginTop: 3,
+      marginLeft: 4,
       marginRight: 8
     },
     "& button": {
@@ -37,6 +39,18 @@ const styles = {
       width: "0.8em",
       height: "0.8em",
       color: grey[700]
+    },
+    "& textarea": {
+      border: 0,
+      resize: "none",
+      borderRadius: 2,
+      background: "transparent",
+      padding: 0,
+      "&:focus": {
+        outlineWidth: 2,
+        background: "white",
+        boxShadow: "0px 0px 2px 0px"
+      }
     }
   }
 };
@@ -46,7 +60,7 @@ const Header = ({ classes, text, onEditList }) => {
     <div className={classes.root}>
       <Typography
         role="heading"
-        value={text}
+        defaultValue={text}
         component={TextArea}
         spellCheck={false}
       />

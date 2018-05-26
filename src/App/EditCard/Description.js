@@ -2,7 +2,7 @@ import React from "react";
 import ViewHeadline from "@material-ui/icons/ViewHeadline";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import TextArea from "../TextArea";
+import TextArea from "react-textarea-autosize";
 
 // TODO: Reuse styles with Attachment
 const styles = {
@@ -23,6 +23,8 @@ const styles = {
       minHeight: 60,
       marginLeft: 35,
       cursor: "pointer",
+      resize: "none",
+      borderRadius: 2,
       background: "rgba(0, 0, 0, 0.03)",
       borderColor: "rgba(0, 0, 0, .15)",
       border: "1px solid #cdd2d4",
