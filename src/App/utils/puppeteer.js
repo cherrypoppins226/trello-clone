@@ -24,12 +24,14 @@ const goToComponentUrl = async fixture => {
   await global.__page.waitForFunction(componentLoaded);
 };
 
-const snap = async (frame, config = {}) => {
-  let what = global.__page;
-  if (config.selector) {
-    what = await frame.$(config.selector);
+const snap = async (frame, selector, config = {}) => {
+  let element = global.__page;
+  if (typeof selector === "string") {
+    element = await frame.$(selector);
+  } else if (typeof selector === "object") {
+    config = selector;
   }
-  const img = await what.screenshot(config.screenshotOptions || {});
+  const img = await element.screenshot(config.screenshotOptions || {});
   expect(img).toMatchImageSnapshot(config.imageOptions || {});
 };
 

@@ -32,17 +32,15 @@ snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
     frame.focus("[role='heading']"),
     frame.hover(`[aria-labelledby="${labels.cardsListActionsMenu.id}"]`)
   ]);
-  await snap();
+  await snap("[data-testid='CardsList']");
 });
 
 snapshotTest(it, fixtures.CardsList.Card.default, async (frame, snap) => {
   await frame.hover(`[aria-labelledby="${labels.editCard.id}"]`);
   await frame.hover(`[aria-labelledby="${labels.quickEditCard.id}"]`);
-  await snap();
+  await snap(`[aria-labelledby="${labels.editCard.id}"]`);
 });
 
 snapshotTest(it, fixtures.EditCard.EditCard.default, async (frame, snap) => {
-  await snap({
-    selector: `[aria-describedby="${labels.editCardDescription.id}"]`
-  });
+  await snap(`[aria-describedby="${labels.editCardDescription.id}"]`);
 });
