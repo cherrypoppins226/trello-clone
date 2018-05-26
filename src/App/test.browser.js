@@ -1,4 +1,5 @@
 import { snapshotTest } from "./utils/puppeteer";
+import { labelledBy, describedBy, testId, role } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
@@ -14,14 +15,14 @@ snapshotTest(
   it,
   fixtures.Board.default,
   async (frame, snap) => {
-    await frame.click(`[aria-labelledby="${labels.editCard.id}"]`);
+    await frame.click(labelledBy(labels.editCard.id));
     await snap();
     await frame.evaluate(evalClick("#editCardBackdrop"));
-    await frame.click(`[aria-labelledby="${labels.quickEditCard.id}"]`);
+    await frame.click(labelledBy(labels.quickEditCard.id));
     await snap();
     await frame.evaluate(evalClick("#quickEditCardBackdrop"));
-    await frame.click(`[aria-labelledby="${labels.cardsListActionsMenu.id}"]`);
-    await frame.hover("[role='menuitem']");
+    await frame.click(labelledBy(labels.cardsListActionsMenu.id));
+    await frame.hover(role("menuitem"));
     await snap();
   },
   10000
@@ -29,18 +30,18 @@ snapshotTest(
 
 snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
   await Promise.all([
-    frame.focus("[role='heading']"),
-    frame.hover(`[aria-labelledby="${labels.cardsListActionsMenu.id}"]`)
+    frame.focus(role("heading")),
+    frame.hover(labelledBy(labels.cardsListActionsMenu.id))
   ]);
-  await snap("[data-testid='CardsList']");
+  await snap(testId("CardsList"));
 });
 
 snapshotTest(it, fixtures.CardsList.Card.default, async (frame, snap) => {
-  await frame.hover(`[aria-labelledby="${labels.editCard.id}"]`);
-  await frame.hover(`[aria-labelledby="${labels.quickEditCard.id}"]`);
-  await snap(`[aria-labelledby="${labels.editCard.id}"]`);
+  await frame.hover(labelledBy(labels.editCard.id));
+  await frame.hover(labelledBy(labels.quickEditCard.id));
+  await snap(labelledBy(labels.editCard.id));
 });
 
 snapshotTest(it, fixtures.EditCard.EditCard.default, async (frame, snap) => {
-  await snap(`[aria-describedby="${labels.editCardDescription.id}"]`);
+  await snap(describedBy(labels.editCardDescription.id));
 });

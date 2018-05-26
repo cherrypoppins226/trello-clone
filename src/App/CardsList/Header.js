@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import grey from "@material-ui/core/colors/grey";
 import TextArea from "react-textarea-autosize";
-import * as Labels from "../labels";
+import * as labels from "../labels";
 
 const styles = {
   root: {
@@ -66,7 +66,7 @@ const Header = ({ classes, text, onEditList }) => {
       />
       <button
         onClick={e => onEditList(e.currentTarget)}
-        aria-labelledby={Labels.cardsListActionsMenu.id}
+        aria-labelledby={labels.cardsListActionsMenu.id}
         aria-haspopup={true}
       >
         <MoreHoriz />

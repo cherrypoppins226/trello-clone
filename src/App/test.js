@@ -1,7 +1,7 @@
-import { getByText, getByTestId } from "dom-testing-library";
+import { getByText } from "dom-testing-library";
 import { Simulate } from "react-testing-library";
 import { render } from "./utils/dom";
-import { getByAriaLabelled, getByAriaDescribed } from "./utils";
+import { labelledBy, describedBy, testId } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
@@ -9,10 +9,12 @@ describe("cards list", () => {
   it("opens list actions menu", async () => {
     const { container } = await render(fixtures.Board.default);
     const getMenu = () =>
-      getByAriaDescribed(container, labels.cardsListActionsMenuDescription.id);
+      container.querySelector(
+        describedBy(labels.cardsListActionsMenuDescription.id)
+      );
     expect(getMenu()).toBeNull();
     Simulate.click(
-      getByAriaLabelled(container, labels.cardsListActionsMenu.id)
+      container.querySelector(labelledBy(labels.cardsListActionsMenu.id))
     );
     expect(getMenu()).not.toBeNull();
   });
@@ -32,7 +34,7 @@ describe("cards list", () => {
 describe("cards list card", () => {
   const testModal = async (getEditButton, getModal, textSelector) => {
     const { container } = await render(fixtures.Board.default);
-    const card = getByTestId(container, "CardsListCard");
+    const card = container.querySelector(testId("CardsListCard"));
     expect(getModal(container)).toBeNull();
     Simulate.click(getEditButton(card));
     expect(getModal(container)).not.toBeNull();
@@ -42,18 +44,19 @@ describe("cards list card", () => {
     );
   };
 
-  it("opens quick edit card modal", () => {
-    testModal(
-      node => getByAriaLabelled(node, labels.quickEditCard.id),
-      node => getByAriaDescribed(node, labels.quickEditCardDescription.id),
+  it("opens quick edit card modal", async () => {
+    await testModal(
+      node => node.querySelector(labelledBy(labels.quickEditCard.id)),
+      node =>
+        node.querySelector(describedBy(labels.quickEditCardDescription.id)),
       "textarea"
     );
   });
 
-  it("opens edit card modal", () => {
-    testModal(
+  it("opens edit card modal", async () => {
+    await testModal(
       node => node,
-      node => getByAriaDescribed(node, labels.editCardDescription.id),
+      node => node.querySelector(describedBy(labels.editCardDescription.id)),
       "[role='heading']"
     );
   });

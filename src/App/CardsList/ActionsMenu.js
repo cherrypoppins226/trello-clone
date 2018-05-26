@@ -7,7 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
-import * as Labels from "../labels";
+import * as labels from "../labels";
 
 const styles = {
   root: {
@@ -42,7 +42,7 @@ const ActionsMenu = ({ classes, onMenuItemClick }) => {
   return (
     <Paper
       className={classes.root}
-      aria-describedby={Labels.cardsListActionsMenuDescription.id}
+      aria-describedby={labels.cardsListActionsMenuDescription.id}
     >
       <Typography role="heading" align="center">
         List Actions

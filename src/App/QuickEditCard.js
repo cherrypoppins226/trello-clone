@@ -14,7 +14,7 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
-import * as Labels from "./labels";
+import * as labels from "./labels";
 
 const styles = {
   root: {
@@ -92,7 +92,7 @@ class QuickEditCard extends React.Component {
     const { classes, title, anchorEl, ...extra } = this.props;
     return (
       <Grid
-        aria-describedby={Labels.quickEditCardDescription.id}
+        aria-describedby={labels.quickEditCardDescription.id}
         container
         wrap="nowrap"
         spacing={8}

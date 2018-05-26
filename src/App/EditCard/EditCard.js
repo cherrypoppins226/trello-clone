@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
-import * as Labels from "../labels";
+import * as labels from "../labels";
 
 const styles = {
   root: {
@@ -43,7 +43,7 @@ class EditCard extends React.Component {
     const { classes, title, ...props } = this.props;
     return (
       <div
-        aria-describedby={Labels.editCardDescription.id}
+        aria-describedby={labels.editCardDescription.id}
         className={classes.root}
         {...props}
       >

@@ -5,7 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
-import * as Labels from "../labels";
+import { labelledBy } from "../utils";
+import * as labels from "../labels";
 
 const styles = {
   root: {
@@ -47,10 +48,8 @@ const styles = {
   }
 };
 
-export const cardDescription = cardNode => {
-  return cardNode.querySelector(`[aria-labelledby="${Labels.card.id}"]`)
-    .textContent;
-};
+export const cardDescription = cardNode =>
+  cardNode.querySelector(labelledBy(labels.card.id)).textContent;
 
 const Card = ({
   classes,
@@ -65,15 +64,15 @@ const Card = ({
       elevation={1}
       onClick={e => onEditCard(e.currentTarget)}
       className={classes.root}
-      aria-labelledby={Labels.editCard.id}
+      aria-labelledby={labels.editCard.id}
     >
-      <Typography aria-labelledby={Labels.card.id}>{description}</Typography>
+      <Typography aria-labelledby={labels.card.id}>{description}</Typography>
       <button
         onClick={e => {
           e.stopPropagation();
           onQuickEditCard(e.currentTarget.parentElement);
         }}
-        aria-labelledby={Labels.quickEditCard.id}
+        aria-labelledby={labels.quickEditCard.id}
       >
         <Create />
       </button>
