@@ -40,3 +40,9 @@ snapshotTest(it, fixtures.CardsList.Card.default, async (frame, snap) => {
   await frame.hover(`[aria-labelledby="${labels.quickEditCard.id}"]`);
   await snap();
 });
+
+snapshotTest(it, fixtures.EditCard.EditCard.default, async (frame, snap) => {
+  await snap({
+    selector: `[aria-describedby="${labels.editCardDescription.id}"]`
+  });
+});

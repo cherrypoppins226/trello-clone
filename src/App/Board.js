@@ -83,6 +83,7 @@ class Board extends React.Component {
           />
         </Modal>
         <Modal
+          style={{ overflow: "auto" }}
           container={this}
           open={Boolean(this.state.cardBeingEdited)}
           onClose={_ => this.setState({ cardBeingEdited: null })}

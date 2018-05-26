@@ -24,9 +24,13 @@ const goToComponentUrl = async fixture => {
   await global.__page.waitForFunction(componentLoaded);
 };
 
-const snap = async () => {
-  const img = await global.__page.screenshot();
-  expect(img).toMatchImageSnapshot();
+const snap = async (frame, config = {}) => {
+  let what = global.__page;
+  if (config.selector) {
+    what = await frame.$(config.selector);
+  }
+  const img = await what.screenshot(config.screenshotOptions || {});
+  expect(img).toMatchImageSnapshot(config.imageOptions || {});
 };
 
 export const snapshotTest = (
@@ -39,7 +43,8 @@ export const snapshotTest = (
     fixture.component.displayName,
     async () => {
       await goToComponentUrl(fixture);
-      await snapshotFn(global.__page.mainFrame().childFrames()[0], snap);
+      const frame = global.__page.mainFrame().childFrames()[0];
+      await snapshotFn(frame, snap.bind(null, frame));
     },
     timeout
   );

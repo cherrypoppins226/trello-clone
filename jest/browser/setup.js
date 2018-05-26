@@ -6,6 +6,9 @@ const puppeteer = require("puppeteer");
 const { TMPDIR } = require("./common");
 const { exec } = require("child_process");
 
+// TODO: Do not rely on CI to span a new server. Reuse socket if server is running
+// or spin a new one
+
 const startCosmos = new Promise((resolve, reject) => {
   if (process.env.CI !== "1" && process.env.CI !== "true") return resolve();
 

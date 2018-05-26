@@ -2,22 +2,30 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Title from "./Title";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import Content from "./Content";
 import * as Labels from "../labels";
 
 const styles = {
   root: {
-    position: "fixed",
+    position: "absolute",
     top: 60,
-    height: 700,
     width: 750,
     backgroundColor: "rgb(237, 239, 240)",
     borderRadius: 2,
     outline: "none"
   },
-  title: {
-    margin: "8px 32px 8px 46px",
-    fontWeight: 700
+  header: {
+    margin: [[15, 5, 30, 8]]
+  },
+  content: {
+    float: "left",
+    width: "75%"
+  },
+  sidebar: {
+    float: "right",
+    width: "25%"
   }
 };
 
@@ -39,7 +47,13 @@ class EditCard extends React.Component {
         className={classes.root}
         {...props}
       >
-        <Title className={classes.title} text={title} />
+        <Header className={classes.header} text={title} />
+        <div className={classes.content}>
+          <Content />
+        </div>
+        <div className={classes.sidebar}>
+          <Sidebar />
+        </div>
       </div>
     );
   }

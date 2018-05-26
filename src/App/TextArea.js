@@ -3,13 +3,16 @@ import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
+// TODO: Do not make assumptions about styling
+// TODO: Resize on backspace
+
 const styles = {
   root: {
     border: 0,
     resize: "none",
     borderRadius: 2,
     background: "transparent",
-    padding: "0.1em 0.2em",
+    padding: 0,
     "&:focus": {
       outlineWidth: 2,
       background: "white",
@@ -33,7 +36,7 @@ class TextArea extends React.Component {
     const { className, classes, value, ...props } = this.props;
     return (
       <textarea
-        className={[className, classes.root].join(" ")}
+        className={`${classes.root} ${className}`}
         defaultValue={value}
         onInput={e => resize(this.node, e.target)}
         onKeyDown={leaveOnEnter}
