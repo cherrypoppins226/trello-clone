@@ -2,7 +2,6 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import FormatListBulleted from "@material-ui/icons/FormatListBulleted";
-import { textarea3 } from "../styled";
 
 const styles = {
   root: {
@@ -16,8 +15,7 @@ const styles = {
     "& h3": {
       fontWeight: 700,
       marginBottom: 10
-    },
-    "& textarea": textarea3
+    }
   },
   saveComment: {
     textTransform: "none",

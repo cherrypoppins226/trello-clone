@@ -5,16 +5,12 @@ import Typography from "@material-ui/core/Typography";
 import Inbox from "@material-ui/icons/Inbox";
 import Close from "@material-ui/icons/Close";
 import TextArea from "react-textarea-autosize";
-import { textarea6 } from "../styled";
+import { headerTextarea } from "../styled";
 
 const styles = {
   root: {
     display: "flex",
-    "& [role='heading']": {
-      fontWeight: 700,
-      width: "100%"
-    },
-    "& textarea": textarea6
+    "& [role='heading']": headerTextarea
   },
   inbox: {
     color: "rgb(153, 153, 153)",

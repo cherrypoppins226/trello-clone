@@ -3,8 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Comment from "@material-ui/icons/Comment";
+import merge from "deepmerge";
 import TextArea from "react-textarea-autosize";
-import { textarea4 } from "../styled";
+import { textareaCommon } from "../styled";
 
 const styles = {
   root: {
@@ -19,7 +20,14 @@ const styles = {
       fontWeight: 700,
       marginBottom: 10
     },
-    "& textarea": textarea4
+    "& textarea": merge(textareaCommon, {
+      minHeight: 75,
+      marginBottom: 10,
+      outline: "none",
+      padding: "9px 11px",
+      paddingBottom: 0,
+      boxShadow: "0 1px 2px rgba(0,0,0,.23)"
+    })
   },
   saveComment: {
     textTransform: "none",

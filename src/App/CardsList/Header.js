@@ -6,7 +6,7 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import grey from "@material-ui/core/colors/grey";
 import TextArea from "react-textarea-autosize";
 import * as labels from "../labels";
-import { textarea2 } from "../styled";
+import { headerTextarea } from "../styled";
 
 const styles = {
   root: {
@@ -14,13 +14,11 @@ const styles = {
     flexShrink: 0,
     justifyContent: "space-between",
     margin: 5,
-    "& [role='heading']": {
-      flexBasis: "100%",
-      fontWeight: 700,
+    "& [role='heading']": Object.assign({}, headerTextarea, {
       marginTop: 3,
       marginLeft: 4,
       marginRight: 8
-    },
+    }),
     "& button": {
       alignSelf: "flex-start",
       // Reusable styles
@@ -40,8 +38,7 @@ const styles = {
       width: "0.8em",
       height: "0.8em",
       color: grey[700]
-    },
-    "& textarea": textarea2
+    }
   }
 };
 
