@@ -1,6 +1,5 @@
 import React from "react";
 import Board from "./Board";
-import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import Popover from "@material-ui/core/Popover";
@@ -12,12 +11,6 @@ import { cardDescription } from "./CardsList/Card";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
-const styles = {
-  cardsListActionsPopover: {
-    backgroundColor: "transparent"
-  }
-};
-
 class App extends React.Component {
   state = {
     listBeingEdited: null,
@@ -26,14 +19,13 @@ class App extends React.Component {
   };
 
   render() {
-    const { classes, lists } = this.props;
     const cardTitle = (v => (v ? cardDescription(v) : ""))(
       this.state.cardBeingEdited || this.state.cardBeingQuickEdited
     );
     return (
       <>
         <Board
-          lists={lists}
+          lists={this.props.lists}
           onEditList={list => this.setState({ listBeingEdited: list })}
           onEditCard={card => this.setState({ cardBeingEdited: card })}
           onQuickEditCard={card =>
@@ -56,7 +48,6 @@ class App extends React.Component {
           elevation={1}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           transformOrigin={{ vertical: "top", horizontal: "left" }}
-          PaperProps={{ classes: { root: classes.cardsListActionsPopover } }}
         >
           <ActionsMenu
             onMenuItemClick={_ => this.setState({ listBeingEdited: null })}
@@ -87,6 +78,4 @@ class App extends React.Component {
   }
 }
 
-const View = withStyles(styles)(App);
-
-export default View;
+export default App;
