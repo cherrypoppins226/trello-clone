@@ -7,9 +7,9 @@ import * as fixtures from "./fixtures";
 
 describe("cards list", () => {
   it("opens list actions menu", async () => {
-    const { container } = await render(fixtures.Board.default);
+    const { container } = await render(fixtures.App.default);
     const getMenu = () =>
-      container.querySelector(
+      document.querySelector(
         describedBy(labels.cardsListActionsMenuDescription.id)
       );
     expect(getMenu()).toBeNull();
@@ -32,31 +32,33 @@ describe("cards list", () => {
 });
 
 describe("cards list card", () => {
-  const testModal = async (getEditButton, getModal, textSelector) => {
-    const { container } = await render(fixtures.Board.default);
+  const testModal = async (editButtonSelector, modalSelector, textSelector) => {
+    const { container } = await render(fixtures.App.default);
     const card = container.querySelector(testId("CardsListCard"));
-    expect(getModal(container)).toBeNull();
-    Simulate.click(getEditButton(card));
-    expect(getModal(container)).not.toBeNull();
-    const { cardDescription } = require("./CardsList/Card");
-    expect(getModal(container).querySelector(textSelector).textContent).toBe(
-      cardDescription(card)
+    expect(document.querySelector(modalSelector)).toBeNull();
+    Simulate.click(
+      editButtonSelector ? card.querySelector(editButtonSelector) : card
     );
+    expect(document.querySelector(modalSelector)).not.toBeNull();
+    const { cardDescription } = require("./CardsList/Card");
+    expect(
+      document.querySelector(modalSelector).querySelector(textSelector)
+        .textContent
+    ).toBe(cardDescription(card));
   };
 
   it("opens quick edit card modal", async () => {
     await testModal(
-      node => node.querySelector(labelledBy(labels.quickEditCard.id)),
-      node =>
-        node.querySelector(describedBy(labels.quickEditCardDescription.id)),
+      labelledBy(labels.quickEditCard.id),
+      describedBy(labels.quickEditCardDescription.id),
       "textarea"
     );
   });
 
   it("opens edit card modal", async () => {
     await testModal(
-      node => node,
-      node => node.querySelector(describedBy(labels.editCardDescription.id)),
+      null,
+      describedBy(labels.editCardDescription.id),
       "[role='heading']"
     );
   });

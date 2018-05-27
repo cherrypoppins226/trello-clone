@@ -49,19 +49,24 @@ const nop = () => {};
 
 const listsArray = Object.entries(lists);
 
-export const App = makeFixtures(require("./App").default, {
-  default: {
-    props: { lists }
-  }
-});
-
-export const Board = addToDefaultExport(
-  makeFixtures(stylize(require("./Board").default, "Board"), {
+export const App = addToDefaultExport(
+  makeFixtures(stylize(require("./App").default, "App"), {
     default: {
       props: { lists }
     }
   })
 );
+
+export const Board = makeFixtures(require("./Board").default, {
+  default: {
+    props: {
+      lists,
+      onEditList: nop,
+      onQuickEditCard: nop,
+      onEditCard: nop
+    }
+  }
+});
 
 export const QuickEditCard = addToDefaultExport(
   makeFixtures(stylize(require("./QuickEditCard").default, "QuickEditCard"), {

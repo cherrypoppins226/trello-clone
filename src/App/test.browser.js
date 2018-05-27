@@ -13,7 +13,7 @@ const evalClick = selector => `document.querySelector("${selector}").click()`;
 // modals/popovers are actually shown when their triggers are clicked.
 snapshotTest(
   it,
-  fixtures.Board.default,
+  fixtures.App.default,
   async (frame, snap) => {
     await frame.click(labelledBy(labels.editCard.id));
     await snap();
@@ -25,7 +25,7 @@ snapshotTest(
     await frame.hover(role("menuitem"));
     await snap();
   },
-  10000
+  8000
 );
 
 snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
@@ -42,6 +42,11 @@ snapshotTest(it, fixtures.CardsList.Card.default, async (frame, snap) => {
   await snap(labelledBy(labels.editCard.id));
 });
 
-snapshotTest(it, fixtures.EditCard.EditCard.default, async (frame, snap) => {
-  await snap(describedBy(labels.editCardDescription.id));
-});
+snapshotTest(
+  it,
+  fixtures.EditCard.EditCard.default,
+  async (frame, snap) => {
+    await snap(describedBy(labels.editCardDescription.id));
+  },
+  8000
+);

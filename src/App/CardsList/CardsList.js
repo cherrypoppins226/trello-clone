@@ -10,7 +10,6 @@ const styles = {
   root: {
     display: "flex",
     flexDirection: "column",
-    maxHeight: "100%",
     background: "rgb(226, 228, 230)",
     "& > button": {
       justifyContent: "left",
