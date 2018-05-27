@@ -6,6 +6,7 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import grey from "@material-ui/core/colors/grey";
 import TextArea from "react-textarea-autosize";
 import * as labels from "../labels";
+import { textarea2 } from "../styled";
 
 const styles = {
   root: {
@@ -40,18 +41,7 @@ const styles = {
       height: "0.8em",
       color: grey[700]
     },
-    "& textarea": {
-      border: 0,
-      resize: "none",
-      borderRadius: 2,
-      background: "transparent",
-      padding: 0,
-      "&:focus": {
-        outlineWidth: 2,
-        background: "white",
-        boxShadow: "0px 0px 2px 0px"
-      }
-    }
+    "& textarea": textarea2
   }
 };
 

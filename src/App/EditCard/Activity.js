@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import FormatListBulleted from "@material-ui/icons/FormatListBulleted";
+import { textarea3 } from "../styled";
 
 const styles = {
   root: {
@@ -16,19 +17,7 @@ const styles = {
       fontWeight: 700,
       marginBottom: 10
     },
-    "& textarea": {
-      width: "100%",
-      minHeight: 75,
-      padding: "9px 11px",
-      paddingBottom: 0,
-      background: "white",
-      outline: "none",
-      boxShadow: "0 1px 2px rgba(0,0,0,.23)",
-      marginBottom: 10,
-      "&:focus": {
-        boxShadow: "0 1px 3px rgba(0,0,0,.33)"
-      }
-    }
+    "& textarea": textarea3
   },
   saveComment: {
     textTransform: "none",

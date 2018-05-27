@@ -15,6 +15,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import * as labels from "./labels";
+import { textarea1 } from "./styled";
 
 const styles = {
   root: {
@@ -23,22 +24,7 @@ const styles = {
     pointerEvents: "none"
   },
   description: {
-    "& textarea": {
-      background: "white",
-      pointerEvents: "all",
-      padding: 4,
-      paddingLeft: 8,
-      minHeight: 100,
-      minWidth: 200,
-      border: 0,
-      resize: "none",
-      borderRadius: 2,
-      "&:focus": {
-        outlineWidth: 2,
-        background: "white",
-        boxShadow: "0px 0px 2px 0px"
-      }
-    },
+    "& textarea": textarea1,
     "& button": {
       pointerEvents: "all",
       color: grey[50],
