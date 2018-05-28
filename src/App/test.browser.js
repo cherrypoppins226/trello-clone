@@ -25,7 +25,7 @@ snapshotTest(
     await frame.hover(role("menuitem"));
     await snap();
   },
-  8000
+  10000
 );
 
 snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
