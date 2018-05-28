@@ -1,7 +1,7 @@
 import { getByText } from "dom-testing-library";
 import { Simulate } from "react-testing-library";
 import { render } from "./utils/dom";
-import { labelledBy, describedBy, testId } from "./utils";
+import { labelledBy, describedBy } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
@@ -9,7 +9,7 @@ describe("cards list", () => {
   it("opens list actions menu", async () => {
     const { container } = await render(fixtures.App.default);
     const getMenu = () =>
-      document.querySelector(
+      container.querySelector(
         describedBy(labels.cardsListActionsMenuDescription.id)
       );
     expect(getMenu()).toBeNull();
@@ -34,15 +34,16 @@ describe("cards list", () => {
 describe("cards list card", () => {
   const testModal = async (editButtonSelector, modalSelector, textSelector) => {
     const { container } = await render(fixtures.App.default);
-    const card = container.querySelector(testId("CardsListCard"));
-    expect(document.querySelector(modalSelector)).toBeNull();
+    const card = container.querySelector("[data-cardid='1']");
+    expect(container.querySelector(modalSelector)).toBeNull();
     Simulate.click(
       editButtonSelector ? card.querySelector(editButtonSelector) : card
     );
-    expect(document.querySelector(modalSelector)).not.toBeNull();
-    const { cardDescription } = require("./CardsList/Card");
+    expect(container.querySelector(modalSelector)).not.toBeNull();
+    const cardDescription = node =>
+      node.querySelector(labelledBy(labels.card.id)).textContent;
     expect(
-      document.querySelector(modalSelector).querySelector(textSelector)
+      container.querySelector(modalSelector).querySelector(textSelector)
         .textContent
     ).toBe(cardDescription(card));
   };

@@ -23,40 +23,36 @@ const styles = {
   }
 };
 
+const nextCardId = cards =>
+  cards.reduce((max, card) => Math.max(max, card.id), 0) + 1;
+
 class CardsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      counter: props.cards.length,
-      cards: props.cards.map((card, idx) => ({
-        id: idx,
-        description: card
-      }))
+      cards: props.cards
     };
   }
 
-  addCard(e) {
-    e.preventDefault();
-    this.setState((prevState, props) => ({
-      counter: prevState.counter + 1,
+  addCard() {
+    this.setState(prevState => ({
       cards: [
         ...prevState.cards,
-        { id: prevState.counter + 1, description: undefined }
+        { id: nextCardId(prevState.cards), title: "Title..." }
       ]
     }));
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <Paper
         component="section"
         elevation={1}
-        className={classes.root}
+        className={this.props.classes.root}
         data-testid="CardsList"
       >
         <Header
-          className={classes.header}
+          className={this.props.classes.header}
           text={this.props.title}
           onEditList={this.props.onEditList}
         />

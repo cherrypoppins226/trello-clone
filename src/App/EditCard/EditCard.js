@@ -1,10 +1,10 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
+import { cardType } from "../CardsList/Card";
 import * as labels from "../labels";
 
 const styles = {
@@ -41,14 +41,14 @@ class EditCard extends React.Component {
   }
 
   render() {
-    const { classes, title, ...props } = this.props;
+    const { classes, card, ...props } = this.props;
     return (
       <div
         aria-describedby={labels.editCardDescription.id}
         className={classes.root}
         {...props}
       >
-        <Header className={classes.header} text={title} />
+        <Header className={classes.header} text={card.title} />
         <Content className={classes.content} />
         <Sidebar className={classes.sidebar} />
       </div>
@@ -59,7 +59,7 @@ class EditCard extends React.Component {
 const View = withStyles(styles)(EditCard);
 
 View.propTypes = {
-  title: PropTypes.string.isRequired
+  card: cardType.isRequired
 };
 
 export default View;

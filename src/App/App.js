@@ -7,7 +7,6 @@ import * as Labels from "./labels";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
-import { cardDescription } from "./CardsList/Card";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
@@ -19,11 +18,8 @@ class App extends React.Component {
   };
 
   render() {
-    const cardTitle = (v => (v ? cardDescription(v) : ""))(
-      this.state.cardBeingEdited || this.state.cardBeingQuickEdited
-    );
     return (
-      <>
+      <div style={{ height: "100%" }}>
         <Board
           lists={this.props.lists}
           onEditList={list => this.setState({ listBeingEdited: list })}
@@ -41,7 +37,7 @@ class App extends React.Component {
         </div>
         <Popover
           anchorEl={this.state.listBeingEdited}
-          container={this.parent}
+          container={this}
           open={Boolean(this.state.listBeingEdited)}
           onClose={_ => this.setState({ listBeingEdited: null })}
           TransitionProps={{ timeout: 0 }}
@@ -54,26 +50,27 @@ class App extends React.Component {
           />
         </Popover>
         <Modal
-          container={this.parent}
+          container={this}
           open={Boolean(this.state.cardBeingQuickEdited)}
           onClose={_ => this.setState({ cardBeingQuickEdited: null })}
           BackdropProps={{ id: "quickEditCardBackdrop" }}
         >
-          <QuickEditCard
-            title={cardTitle}
-            anchorEl={this.state.cardBeingQuickEdited}
-          />
+          {this.state.cardBeingQuickEdited ? (
+            <QuickEditCard card={this.state.cardBeingQuickEdited} />
+          ) : null}
         </Modal>
         <Modal
           style={{ overflow: "auto" }}
-          container={this.parent}
+          container={this}
           open={Boolean(this.state.cardBeingEdited)}
           onClose={_ => this.setState({ cardBeingEdited: null })}
           BackdropProps={{ id: "editCardBackdrop" }}
         >
-          <EditCard title={cardTitle} />
+          {this.state.cardBeingEdited ? (
+            <EditCard card={this.state.cardBeingEdited} />
+          ) : null}
         </Modal>
-      </>
+      </div>
     );
   }
 }

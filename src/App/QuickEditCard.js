@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -13,6 +12,7 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
+import { cardType } from "./CardsList/Card";
 import * as labels from "./labels";
 import { button, textarea, smallIcon } from "./styles";
 
@@ -67,22 +67,26 @@ const styles = {
   }
 };
 
+const rootNode = node =>
+  node.parentElement ? rootNode(node.parentElement) : node;
+
 class QuickEditCard extends React.Component {
   componentDidMount() {
+    const modalNode = findDOMNode(this);
+    const cardNode = rootNode(modalNode).querySelector(
+      `[data-cardid="${this.props.card.id}"]`
+    );
+    const coordinates = cardNode.getBoundingClientRect();
+    modalNode.style.top = `${coordinates.top}px`;
+    modalNode.style.left = `${coordinates.left}px`;
     const textareaNode = findDOMNode(this).querySelector("textarea");
-    if (this.props.anchorEl) {
-      const coordinates = this.props.anchorEl.getBoundingClientRect();
-      const modalNode = findDOMNode(this);
-      modalNode.style.top = `${coordinates.top}px`;
-      modalNode.style.left = `${coordinates.left}px`;
-      textareaNode.style.width = `${coordinates.width}px`;
-      textareaNode.style.height = `${coordinates.height + 50}px`;
-    }
+    textareaNode.style.width = `${coordinates.width}px`;
+    textareaNode.style.height = `${coordinates.height + 50}px`;
     textareaNode.select();
   }
 
   render() {
-    const { classes, title, anchorEl, ...props } = this.props;
+    const { classes, card, ...props } = this.props;
     return (
       <div
         aria-describedby={labels.quickEditCardDescription.id}
@@ -90,7 +94,7 @@ class QuickEditCard extends React.Component {
         {...props}
       >
         <div className={classes.description}>
-          <Typography component={TextArea} value={title} />
+          <Typography component={TextArea} value={card.title} />
           <Button variant="raised"> Save </Button>
         </div>
         <div className={classes.sideButtons}>
@@ -116,8 +120,7 @@ class QuickEditCard extends React.Component {
 const View = withStyles(styles)(QuickEditCard);
 
 View.propTypes = {
-  title: PropTypes.string.isRequired,
-  anchorEl: PropTypes.object
+  card: cardType.isRequired
 };
 
 export default View;

@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
-import { labelledBy } from "../utils";
 import * as labels from "../labels";
 import { buttonIconSmall } from "../styles";
 import merge from "deepmerge";
@@ -34,30 +33,22 @@ const styles = {
   }
 };
 
-export const cardDescription = cardNode =>
-  cardNode.querySelector(labelledBy(labels.card.id)).textContent;
-
-const Card = ({
-  classes,
-  description = "Title...",
-  onQuickEditCard,
-  onEditCard
-}) => {
+const Card = ({ classes, card, onQuickEditCard, onEditCard }) => {
   // TODO: Use <Card /> from Material UI
   return (
     <Paper
-      data-testid="CardsListCard"
+      data-cardid={card.id}
       elevation={1}
-      onClick={e => onEditCard(e.currentTarget)}
+      onClick={e => onEditCard(card)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
-      <Typography aria-labelledby={labels.card.id}>{description}</Typography>
+      <Typography aria-labelledby={labels.card.id}>{card.title}</Typography>
       <button
         aria-labelledby={labels.quickEditCard.id}
         onClick={e => {
           e.stopPropagation();
-          onQuickEditCard(e.currentTarget.parentElement);
+          onQuickEditCard(card);
         }}
       >
         <Create />
@@ -68,8 +59,13 @@ const Card = ({
 
 const View = withStyles(styles)(Card);
 
+export const cardType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
+});
+
 View.propTypes = {
-  description: PropTypes.string,
+  card: cardType.isRequired,
   onQuickEditCard: PropTypes.func.isRequired,
   onEditCard: PropTypes.func.isRequired
 };

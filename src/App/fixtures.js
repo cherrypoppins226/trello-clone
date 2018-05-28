@@ -39,12 +39,13 @@ const makeFixtures = (component, namedFixtures) => {
 faker.seed(1);
 
 const lists = {};
+let nextCardId = 0;
 
 for (let i = 0; i < 6; i++) {
   const key = faker.lorem.sentence();
   lists[key] = [];
   for (let j = 0; j < faker.random.number({ min: 2, max: 50 }); j++) {
-    lists[key].push(faker.lorem.sentence());
+    lists[key].push({ id: nextCardId++, title: faker.lorem.sentence() });
   }
 }
 
@@ -100,10 +101,7 @@ addToDefaultExport(CardsList.CardsList, "CardsList/CardsList");
 CardsList.Cards = makeFixtures(wrap(require("./CardsList/Cards").default), {
   default: {
     props: {
-      cards: listsArray[0][1].map((title, idx) => ({
-        id: idx,
-        description: title
-      })),
+      cards: listsArray[0][1],
       onEditCard: nop,
       onQuickEditCard: nop
     }
@@ -136,7 +134,7 @@ addToDefaultExport(CardsList.Header, "CardsList/Header");
 CardsList.Card = makeFixtures(wrap(require("./CardsList/Card").default), {
   default: {
     props: {
-      title: listsArray[0][1][0],
+      card: listsArray[0][1][0],
       onEditCard: nop,
       onQuickEditCard: nop
     }
@@ -149,7 +147,7 @@ export const EditCard = {};
 EditCard.EditCard = makeFixtures(wrap(require("./EditCard/EditCard").default), {
   default: {
     props: {
-      title: listsArray[0][1][0]
+      card: listsArray[0][1][0]
     }
   }
 });

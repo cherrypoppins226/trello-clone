@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import Card from "./Card";
+import Card, { cardType } from "./Card";
 
 const styles = {
   root: {
@@ -27,10 +27,10 @@ class Cards extends React.Component {
     return (
       <>
         <ul className={this.props.classes.root}>
-          {this.props.cards.map(({ id, description }) => (
-            <li key={id}>
+          {this.props.cards.map(card => (
+            <li key={card.id}>
               <Card
-                description={description}
+                card={card}
                 onQuickEditCard={this.props.onQuickEditCard}
                 onEditCard={this.props.onEditCard}
               />
@@ -50,12 +50,7 @@ class Cards extends React.Component {
 const View = withStyles(styles)(Cards);
 
 View.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      description: PropTypes.string
-    })
-  ).isRequired,
+  cards: PropTypes.arrayOf(cardType).isRequired,
   onEditCard: PropTypes.func.isRequired,
   onQuickEditCard: PropTypes.func.isRequired
 };
