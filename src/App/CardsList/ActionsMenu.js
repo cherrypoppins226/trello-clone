@@ -21,14 +21,11 @@ const styles = {
         fontWeight: 700
       },
       "& hr": {
-        margin: 5,
-        marginLeft: 10,
-        marginRight: 10
+        margin: "5px 10px"
       },
       "& [role='menuitem']": {
         padding: 3,
         paddingLeft: 10,
-        transition: "",
         "&:hover": {
           backgroundColor: "rgb(41, 143, 202)",
           "& p": { color: "white" }

@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import Header from "./Header";
 import Cards from "./Cards";
+import { button } from "../styles";
 
 const styles = {
   root: {
@@ -12,8 +13,9 @@ const styles = {
     flexDirection: "column",
     background: "rgb(226, 228, 230)",
     "& > button": {
+      ...button,
       justifyContent: "left",
-      textTransform: "none"
+      fontWeight: 400
     }
   },
   header: {

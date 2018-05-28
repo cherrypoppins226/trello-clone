@@ -9,14 +9,19 @@ import Attachment from "@material-ui/icons/Attachment";
 import CheckBox from "@material-ui/icons/CheckBox";
 import Comment from "@material-ui/icons/Comment";
 import FormatListBulleted from "@material-ui/icons/FormatListBulleted";
-import IconAndText from "./IconAndText";
+import Typography from "@material-ui/core/Typography";
+import { icon, lightColor } from "../styles";
 
 const styles = {
   section: {
     marginBottom: 25
   },
   subheading: {
-    marginBottom: 10
+    marginBottom: 10,
+    display: "flex",
+    alignItems: "flex-start",
+    fontWeight: 700,
+    "& svg": { ...icon, ...lightColor }
   },
   content: {
     marginLeft: 35
@@ -36,12 +41,14 @@ const View = ({ classes, className = "" }) => {
         ["Activity", Activity, FormatListBulleted]
       ].map(([title, Component, Icon], idx) => (
         <section key={idx} className={classes.section}>
-          <IconAndText
+          <Typography
             className={classes.subheading}
             variant="subheading"
-            Icon={Icon}
             children={title}
-          />
+          >
+            <Icon />
+            {title}
+          </Typography>
           <div className={classes.content}>
             <Component />
           </div>

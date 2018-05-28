@@ -5,16 +5,17 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
-import IconButton from "./IconButton";
 import { labelledBy } from "../utils";
 import * as labels from "../labels";
+import { buttonIconSmall } from "../styles";
+import merge from "deepmerge";
 
 const styles = {
   root: {
     padding: 4,
     paddingLeft: 8,
     display: "flex",
-    flexDirection: "row",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     cursor: "pointer",
     "&:hover": {
@@ -23,14 +24,13 @@ const styles = {
         visibility: "visible"
       }
     },
-    "& button": {
+    "& button": merge(buttonIconSmall, {
       visibility: "hidden",
-      alignSelf: "flex-start",
       paddingBottom: 0,
       "&:hover": {
         visibility: "visible"
       }
-    }
+    })
   }
 };
 
@@ -53,14 +53,15 @@ const Card = ({
       aria-labelledby={labels.editCard.id}
     >
       <Typography aria-labelledby={labels.card.id}>{description}</Typography>
-      <IconButton
-        Icon={Create}
+      <button
+        aria-labelledby={labels.quickEditCard.id}
         onClick={e => {
           e.stopPropagation();
           onQuickEditCard(e.currentTarget.parentElement);
         }}
-        aria-labelledby={labels.quickEditCard.id}
-      />
+      >
+        <Create />
+      </button>
     </Paper>
   );
 };

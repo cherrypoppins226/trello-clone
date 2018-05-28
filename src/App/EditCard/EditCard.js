@@ -17,8 +17,7 @@ const styles = {
     outline: "none"
   },
   header: {
-    margin: "20px 10px 30px 10px",
-    marginRight: 50
+    margin: "20px 20px 30px 15px"
   },
   content: {
     float: "left",

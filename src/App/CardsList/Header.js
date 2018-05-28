@@ -4,39 +4,41 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
-import IconButton from "./IconButton";
 import * as labels from "../labels";
-import { headerTextarea } from "../styled";
+import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {
   root: {
     display: "flex",
     flexShrink: 0,
-    "& [role='heading']": Object.assign({}, headerTextarea, {
+    "& [role='heading']": {
+      ...headerTextarea,
       margin: 3,
       marginRight: 8
-    }),
+    },
     "& button": {
+      ...buttonIconSmall,
       alignSelf: "flex-start"
     }
   }
 };
 
-const Header = ({ classes, className, text, onEditList }) => {
+const Header = ({ classes, className = "", text, onEditList }) => {
   return (
-    <div className={`${classes.root} ${className || ""}`}>
+    <div className={`${classes.root} ${className}`}>
       <Typography
         role="heading"
         defaultValue={text}
         component={TextArea}
         spellCheck={false}
       />
-      <IconButton
-        Icon={MoreHoriz}
-        onClick={e => onEditList(e.currentTarget)}
-        aria-labelledby={labels.cardsListActionsMenu.id}
+      <button
         aria-haspopup={true}
-      />
+        aria-labelledby={labels.cardsListActionsMenu.id}
+        onClick={e => onEditList(e.currentTarget)}
+      >
+        <MoreHoriz />
+      </button>
     </div>
   );
 };

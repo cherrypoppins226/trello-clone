@@ -11,7 +11,7 @@ import RemoveRedEye from "@material-ui/icons/RemoveRedEye";
 import Archive from "@material-ui/icons/Archive";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import IconAndText from "./IconAndText";
+import { button, smallIcon, lightColor } from "../styles";
 
 const styles = {
   root: {
@@ -29,19 +29,16 @@ const styles = {
         marginTop: 8
       },
       "& button": {
+        ...button,
         width: "100%",
         justifyContent: "left",
         background: "rgb(226, 228, 230)",
         boxShadow: "0 1px 0 0 #c4c9cc",
-        textTransform: "none",
         "&:hover": {
           background: "#cdd2d4",
           boxShadow: "0 1px 0 0 #a5acb0"
         },
-        "& svg": {
-          width: "0.8em",
-          height: "0.8em"
-        }
+        "& svg": { ...smallIcon, ...lightColor }
       }
     }
   }
@@ -53,7 +50,8 @@ const buttonsList = buttons => {
       {buttons.map(([Icon, text], idx) => (
         <li key={idx}>
           <Button size="small">
-            <IconAndText Icon={Icon} children={text} />
+            <Icon />
+            {text}
           </Button>
         </li>
       ))}

@@ -1,23 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Close from "@material-ui/icons/Close";
 import Inbox from "@material-ui/icons/Inbox";
+import Close from "@material-ui/icons/Close";
 import TextArea from "react-textarea-autosize";
-import IconAndText from "./IconAndText";
-import { headerTextarea } from "../styled";
+import Typography from "@material-ui/core/Typography";
+import { buttonIcon, headerTextarea } from "../styles";
 
 const styles = {
-  iconAndText: {
-    width: "100%"
+  root: {
+    display: "flex",
+    alignItems: "flex-start",
+    "& svg": { color: "rgb(153, 153, 153)" },
+    "& h2": { width: "100%" },
+    "& textarea": {
+      ...headerTextarea,
+      marginRight: 15
+    }
   },
-  textarea: headerTextarea,
   close: {
-    position: "absolute",
-    top: 15,
-    right: 15,
-    color: "rgb(153, 153, 153)",
-    cursor: "pointer",
+    ...buttonIcon,
+    margin: 0,
     "&:hover": {
       color: "black"
     }
@@ -26,18 +29,18 @@ const styles = {
 
 const Header = ({ classes, className = "", text }) => {
   return (
-    <div className={className}>
-      <IconAndText
+    <div className={`${classes.root} ${className}`}>
+      <Inbox />
+      <Typography
         role="heading"
-        className={classes.iconAndText}
-        Icon={Inbox}
         variant="title"
         component={TextArea}
-        textClassName={classes.textarea}
         defaultValue={text}
         spellCheck={false}
       />
-      <Close className={classes.close} />
+      <button className={classes.close}>
+        <Close />
+      </button>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import green from "@material-ui/core/colors/green";
@@ -15,7 +14,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import * as labels from "./labels";
-import { textareaCommon } from "./styled";
+import { button, textarea, smallIcon } from "./styles";
 
 const styles = {
   root: {
@@ -24,19 +23,21 @@ const styles = {
     pointerEvents: "none"
   },
   description: {
-    "& textarea": Object.assign({}, textareaCommon, {
+    float: "left",
+    marginRight: 8,
+    "& textarea": {
+      ...textarea,
+      pointerEvents: "all",
       padding: 4,
       paddingLeft: 8,
-      pointerEvents: "all",
       minHeight: 100,
       minWidth: 200
-    }),
+    },
     "& button": {
+      ...button,
       pointerEvents: "all",
       color: grey[50],
       backgroundColor: green[500],
-      textTransform: "none",
-      fontWeight: 700,
       marginTop: 15,
       "&:hover": {
         backgroundColor: green[600]
@@ -44,24 +45,24 @@ const styles = {
     }
   },
   sideButtons: {
+    float: "right",
+    width: 160,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
     "& button": {
+      ...button,
       pointerEvents: "all",
+      marginBottom: 4,
       background: "rgba(0, 0, 0, .6)",
       color: grey[50],
-      fontWeight: 600,
-      textTransform: "none",
       transition: "transform 85ms ease-in",
       "&:hover": {
         background: "rgba(0, 0, 0, .8)",
         transform: "translateX(5px)",
         transition: "transform 85ms ease-in"
       },
-      "& svg": {
-        padding: 1,
-        marginRight: 5,
-        width: "0.8em",
-        height: "0.8em"
-      }
+      "& svg": smallIcon
     }
   }
 };
@@ -81,40 +82,33 @@ class QuickEditCard extends React.Component {
   }
 
   render() {
-    const { classes, title, anchorEl, ...extra } = this.props;
+    const { classes, title, anchorEl, ...props } = this.props;
     return (
-      <Grid
+      <div
         aria-describedby={labels.quickEditCardDescription.id}
-        container
-        wrap="nowrap"
-        spacing={8}
         className={classes.root}
-        {...extra}
+        {...props}
       >
-        <Grid item className={classes.description}>
+        <div className={classes.description}>
           <Typography component={TextArea} value={title} />
           <Button variant="raised"> Save </Button>
-        </Grid>
-        <Grid item className={classes.sideButtons}>
-          <Grid container spacing={8} wrap="nowrap" direction="column">
-            {[
-              [Label, "Edit Labels"],
-              [Person, "Change Members"],
-              [ArrowForward, "Move"],
-              [LibraryBooks, "Copy"],
-              [Timer, "Change Due Date"],
-              [Archive, "Archive"]
-            ].map(([Icon, text], idx) => (
-              <Grid item style={{ paddingBottom: 1 }} key={idx}>
-                <Button size="small" variant="flat">
-                  <Icon />
-                  {text}
-                </Button>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
+        </div>
+        <div className={classes.sideButtons}>
+          {[
+            [Label, "Edit Labels"],
+            [Person, "Change Members"],
+            [ArrowForward, "Move"],
+            [LibraryBooks, "Copy"],
+            [Timer, "Change Due Date"],
+            [Archive, "Archive"]
+          ].map(([Icon, text], idx) => (
+            <Button key={idx} size="small">
+              <Icon />
+              {text}
+            </Button>
+          ))}
+        </div>
+      </div>
     );
   }
 }
