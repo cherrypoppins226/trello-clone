@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
-import grey from "@material-ui/core/colors/grey";
 import TextArea from "react-textarea-autosize";
+import IconButton from "./IconButton";
 import * as labels from "../labels";
 import { headerTextarea } from "../styled";
 
@@ -12,52 +12,31 @@ const styles = {
   root: {
     display: "flex",
     flexShrink: 0,
-    justifyContent: "space-between",
-    margin: 5,
     "& [role='heading']": Object.assign({}, headerTextarea, {
-      marginTop: 3,
-      marginLeft: 4,
+      margin: 3,
       marginRight: 8
     }),
     "& button": {
-      alignSelf: "flex-start",
-      // Reusable styles
-      borderWidth: 0,
-      background: "none",
-      outline: "none",
-      cursor: "pointer",
-      borderRadius: 4,
-      padding: 3,
-      "&:hover": {
-        background: "#D6D6D6"
-      }
-    },
-    "& svg": {
-      // Reusable styles
-      padding: 3,
-      width: "0.8em",
-      height: "0.8em",
-      color: grey[700]
+      alignSelf: "flex-start"
     }
   }
 };
 
-const Header = ({ classes, text, onEditList }) => {
+const Header = ({ classes, className, text, onEditList }) => {
   return (
-    <div className={classes.root}>
+    <div className={`${classes.root} ${className || ""}`}>
       <Typography
         role="heading"
         defaultValue={text}
         component={TextArea}
         spellCheck={false}
       />
-      <button
+      <IconButton
+        Icon={MoreHoriz}
         onClick={e => onEditList(e.currentTarget)}
         aria-labelledby={labels.cardsListActionsMenu.id}
         aria-haspopup={true}
-      >
-        <MoreHoriz />
-      </button>
+      />
     </div>
   );
 };

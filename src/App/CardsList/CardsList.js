@@ -15,6 +15,9 @@ const styles = {
       justifyContent: "left",
       textTransform: "none"
     }
+  },
+  header: {
+    margin: 5
   }
 };
 
@@ -50,7 +53,11 @@ class CardsList extends React.Component {
         className={classes.root}
         data-testid="CardsList"
       >
-        <Header text={this.props.title} onEditList={this.props.onEditList} />
+        <Header
+          className={classes.header}
+          text={this.props.title}
+          onEditList={this.props.onEditList}
+        />
         <div style={{ overflowY: "scroll" }}>
           <Cards
             cards={this.state.cards}

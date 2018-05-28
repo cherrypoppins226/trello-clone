@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
+import IconButton from "./IconButton";
 import { labelledBy } from "../utils";
 import * as labels from "../labels";
 
@@ -24,26 +25,11 @@ const styles = {
     },
     "& button": {
       visibility: "hidden",
-      // Reusable styles
-      borderWidth: 0,
-      background: "none",
-      outline: "none",
-      cursor: "pointer",
       alignSelf: "flex-start",
-      borderRadius: 4,
-      padding: 3,
       paddingBottom: 0,
       "&:hover": {
-        background: "#D6DADC",
         visibility: "visible"
       }
-    },
-    "& svg": {
-      // Reusable styles
-      padding: 3,
-      width: "0.8em",
-      height: "0.8em",
-      color: grey[700]
     }
   }
 };
@@ -67,15 +53,14 @@ const Card = ({
       aria-labelledby={labels.editCard.id}
     >
       <Typography aria-labelledby={labels.card.id}>{description}</Typography>
-      <button
+      <IconButton
+        Icon={Create}
         onClick={e => {
           e.stopPropagation();
           onQuickEditCard(e.currentTarget.parentElement);
         }}
         aria-labelledby={labels.quickEditCard.id}
-      >
-        <Create />
-      </button>
+      />
     </Paper>
   );
 };

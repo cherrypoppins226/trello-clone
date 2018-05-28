@@ -13,6 +13,7 @@ export const textareaCommon = {
 
 export const headerTextarea = merge(textareaCommon, {
   padding: 0,
+  paddingLeft: 4,
   background: "transparent",
   fontWeight: 700,
   "&:focus": {
