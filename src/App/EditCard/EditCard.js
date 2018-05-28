@@ -17,12 +17,13 @@ const styles = {
     outline: "none"
   },
   header: {
-    margin: [[15, 5, 30, 8]]
+    margin: "20px 10px 30px 10px",
+    marginRight: 50
   },
   content: {
     float: "left",
     width: "75%",
-    padding: [[0, 10]]
+    padding: "0px 10px"
   },
   sidebar: {
     float: "right",
@@ -49,12 +50,8 @@ class EditCard extends React.Component {
         {...props}
       >
         <Header className={classes.header} text={title} />
-        <div className={classes.content}>
-          <Content />
-        </div>
-        <div className={classes.sidebar}>
-          <Sidebar />
-        </div>
+        <Content className={classes.content} />
+        <Sidebar className={classes.sidebar} />
       </div>
     );
   }
