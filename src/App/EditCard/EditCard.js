@@ -21,7 +21,8 @@ const styles = {
   },
   content: {
     float: "left",
-    width: "75%"
+    width: "75%",
+    padding: [[0, 10]]
   },
   sidebar: {
     float: "right",

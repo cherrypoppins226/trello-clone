@@ -14,7 +14,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   root: {
-    padding: 8,
+    paddingLeft: 8,
     paddingRight: 16,
     "& h3": {
       fontWeight: 700
