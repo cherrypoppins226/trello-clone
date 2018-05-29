@@ -1,8 +1,13 @@
 import React from "react";
-import Board from "./Board";
+import PropTypes from "prop-types";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import Popover from "@material-ui/core/Popover";
+import { connect } from "react-redux";
+import _ from "lodash";
+
+import Board from "./Board";
+import { finishQuickEditCard, finishEditCard } from "./actions";
 import * as Labels from "./labels";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
@@ -12,21 +17,23 @@ ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
 class App extends React.Component {
   state = {
-    listBeingEdited: null,
-    cardBeingEdited: null,
-    cardBeingQuickEdited: null
+    listBeingEdited: null
   };
 
   render() {
+    // TODO: Remove when the list of cards is in the redux store
+    const allCards = _.flatten(Object.values(this.props.lists));
+    const cardBeingEdited = allCards.find(
+      card => card.id === this.props.cardBeingEdited
+    );
+    const cardBeingQuickEdited = allCards.find(
+      card => card.id === this.props.cardBeingQuickEdited
+    );
     return (
       <div style={{ height: "100%" }}>
         <Board
           lists={this.props.lists}
           onEditList={list => this.setState({ listBeingEdited: list })}
-          onEditCard={card => this.setState({ cardBeingEdited: card })}
-          onQuickEditCard={card =>
-            this.setState({ cardBeingQuickEdited: card })
-          }
         />
         <div style={{ display: "none" }}>
           {Object.values(Labels).map((obj, idx) => (
@@ -51,28 +58,39 @@ class App extends React.Component {
         </Popover>
         <Modal
           container={this}
-          open={Boolean(this.state.cardBeingQuickEdited)}
-          onClose={_ => this.setState({ cardBeingQuickEdited: null })}
+          open={Boolean(cardBeingQuickEdited)}
+          onClose={this.props.finishQuickEditCard}
           BackdropProps={{ id: "quickEditCardBackdrop" }}
         >
-          {this.state.cardBeingQuickEdited ? (
-            <QuickEditCard card={this.state.cardBeingQuickEdited} />
-          ) : null}
+          {cardBeingQuickEdited && (
+            <QuickEditCard card={cardBeingQuickEdited} />
+          )}
         </Modal>
         <Modal
           style={{ overflow: "auto" }}
           container={this}
-          open={Boolean(this.state.cardBeingEdited)}
-          onClose={_ => this.setState({ cardBeingEdited: null })}
+          open={Boolean(cardBeingEdited)}
+          onClose={this.props.finishEditCard}
           BackdropProps={{ id: "editCardBackdrop" }}
         >
-          {this.state.cardBeingEdited ? (
-            <EditCard card={this.state.cardBeingEdited} />
-          ) : null}
+          {cardBeingEdited && <EditCard card={cardBeingEdited} />}
         </Modal>
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  lists: PropTypes.object.isRequired,
+  cardBeingEdited: PropTypes.number,
+  cardBeingQuickEdited: PropTypes.number
+};
+
+const mapStateToProps = state => state;
+
+const mapDispatchToProps = dispatch => ({
+  finishEditCard: () => dispatch(finishEditCard()),
+  finishQuickEditCard: () => dispatch(finishQuickEditCard())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -29,6 +29,8 @@
     "proxyquire": "^2.0.1",
     "puppeteer": "^1.4.0",
     "react-cosmos": "^4.3.0",
+    "react-cosmos-redux-proxy": "^4.4.0",
+    "react-redux": "^5.0.7",
     "react-testing-library": "^3.0.1",
     "react-textarea-autosize": "^6.1.0"
   },

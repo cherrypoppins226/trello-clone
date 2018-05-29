@@ -9,6 +9,7 @@ module.exports = {
   containerQuerySelector: "#root",
   webpackConfigPath: "react-scripts/config/webpack.config.dev",
   publicPath: "public",
+  proxiesPath: "src/cosmos.proxies",
   hot: !CI,
   webpack: (config, { env }) => {
     config.entry = config.entry.filter(entry => {

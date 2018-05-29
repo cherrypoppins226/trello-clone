@@ -10,14 +10,12 @@ const jss = create({ plugins: [...jssPreset().plugins] });
 const generateClassName = createGenerateClassName();
 
 const wrap = Component => props => (
-  <React.StrictMode>
-    <React.Fragment>
-      <CssBaseline />
-      <JssProvider jss={jss} generateClassName={generateClassName}>
-        <Component {...props} />
-      </JssProvider>
-    </React.Fragment>
-  </React.StrictMode>
+  <React.Fragment>
+    <CssBaseline />
+    <JssProvider jss={jss} generateClassName={generateClassName}>
+      <Component {...props} />
+    </JssProvider>
+  </React.Fragment>
 );
 
 const fixtures = [];
@@ -39,7 +37,7 @@ const makeFixtures = (component, namedFixtures) => {
 faker.seed(1);
 
 const lists = {};
-let nextCardId = 0;
+let nextCardId = 1;
 
 for (let i = 0; i < 6; i++) {
   const key = faker.lorem.sentence();
@@ -53,9 +51,15 @@ const nop = () => {};
 
 const listsArray = Object.entries(lists);
 
+const mockReduxState = {
+  cardBeingEdited: null,
+  cardBeingQuickEdited: null
+};
+
 export const App = makeFixtures(wrap(require("./App").default), {
   default: {
-    props: { lists }
+    props: { lists },
+    reduxState: mockReduxState
   }
 });
 addToDefaultExport(App, "App");
@@ -64,9 +68,7 @@ export const Board = makeFixtures(wrap(require("./Board").default), {
   default: {
     props: {
       lists,
-      onEditList: nop,
-      onQuickEditCard: nop,
-      onEditCard: nop
+      onEditList: nop
     }
   }
 });
@@ -76,7 +78,7 @@ export const QuickEditCard = makeFixtures(
   {
     default: {
       props: {
-        title: listsArray[0][1][0]
+        card: listsArray[0][1][0]
       }
     }
   }
@@ -90,10 +92,9 @@ CardsList.CardsList = makeFixtures(wrap(require("./CardsList").default), {
     props: {
       title: listsArray[0][0],
       cards: listsArray[0][1],
-      onEditList: nop,
-      onQuickEditCard: nop,
-      onEditCard: nop
-    }
+      onEditList: nop
+    },
+    reduxState: mockReduxState
   }
 });
 addToDefaultExport(CardsList.CardsList, "CardsList/CardsList");
@@ -101,10 +102,9 @@ addToDefaultExport(CardsList.CardsList, "CardsList/CardsList");
 CardsList.Cards = makeFixtures(wrap(require("./CardsList/Cards").default), {
   default: {
     props: {
-      cards: listsArray[0][1],
-      onEditCard: nop,
-      onQuickEditCard: nop
-    }
+      cards: listsArray[0][1]
+    },
+    reduxState: mockReduxState
   }
 });
 addToDefaultExport(CardsList.Cards, "CardsList/Cards");
@@ -134,10 +134,9 @@ addToDefaultExport(CardsList.Header, "CardsList/Header");
 CardsList.Card = makeFixtures(wrap(require("./CardsList/Card").default), {
   default: {
     props: {
-      card: listsArray[0][1][0],
-      onEditCard: nop,
-      onQuickEditCard: nop
-    }
+      card: listsArray[0][1][0]
+    },
+    reduxState: mockReduxState
   }
 });
 addToDefaultExport(CardsList.Card, "CardsList/Card");

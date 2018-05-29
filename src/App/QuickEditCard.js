@@ -67,21 +67,21 @@ const styles = {
   }
 };
 
-const rootNode = node =>
-  node.parentElement ? rootNode(node.parentElement) : node;
-
 class QuickEditCard extends React.Component {
   componentDidMount() {
     const modalNode = findDOMNode(this);
-    const cardNode = rootNode(modalNode).querySelector(
+    const textareaNode = modalNode.querySelector("textarea");
+    const cardNode = modalNode.ownerDocument.querySelector(
       `[data-cardid="${this.props.card.id}"]`
     );
-    const coordinates = cardNode.getBoundingClientRect();
-    modalNode.style.top = `${coordinates.top}px`;
-    modalNode.style.left = `${coordinates.left}px`;
-    const textareaNode = findDOMNode(this).querySelector("textarea");
-    textareaNode.style.width = `${coordinates.width}px`;
-    textareaNode.style.height = `${coordinates.height + 50}px`;
+    // When developing in isolation, a card won't be available
+    if (cardNode) {
+      const coordinates = cardNode.getBoundingClientRect();
+      modalNode.style.top = `${coordinates.top}px`;
+      modalNode.style.left = `${coordinates.left}px`;
+      textareaNode.style.width = `${coordinates.width}px`;
+      textareaNode.style.height = `${coordinates.height + 50}px`;
+    }
     textareaNode.select();
   }
 

@@ -29,11 +29,7 @@ class Cards extends React.Component {
         <ul className={this.props.classes.root}>
           {this.props.cards.map(card => (
             <li key={card.id}>
-              <Card
-                card={card}
-                onQuickEditCard={this.props.onQuickEditCard}
-                onEditCard={this.props.onEditCard}
-              />
+              <Card card={card} />
             </li>
           ))}
         </ul>
@@ -50,9 +46,7 @@ class Cards extends React.Component {
 const View = withStyles(styles)(Cards);
 
 View.propTypes = {
-  cards: PropTypes.arrayOf(cardType).isRequired,
-  onEditCard: PropTypes.func.isRequired,
-  onQuickEditCard: PropTypes.func.isRequired
+  cards: PropTypes.arrayOf(cardType).isRequired
 };
 
 export default View;

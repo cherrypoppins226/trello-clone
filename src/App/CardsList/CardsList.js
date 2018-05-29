@@ -57,11 +57,7 @@ class CardsList extends React.Component {
           onEditList={this.props.onEditList}
         />
         <div style={{ overflowY: "scroll" }}>
-          <Cards
-            cards={this.state.cards}
-            onEditCard={this.props.onEditCard}
-            onQuickEditCard={this.props.onQuickEditCard}
-          />
+          <Cards cards={this.state.cards} />
         </div>
         <Button onClick={this.addCard.bind(this)}>Add a card...</Button>
       </Paper>
@@ -74,9 +70,7 @@ const View = withStyles(styles)(CardsList);
 View.propTypes = {
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
-  onEditList: PropTypes.func.isRequired,
-  onQuickEditCard: PropTypes.func.isRequired,
-  onEditCard: PropTypes.func.isRequired
+  onEditList: PropTypes.func.isRequired
 };
 
 export default View;

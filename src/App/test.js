@@ -1,13 +1,15 @@
 import { getByText } from "dom-testing-library";
 import { Simulate } from "react-testing-library";
+
 import { render } from "./utils/dom";
 import { labelledBy, describedBy } from "./utils";
+import proxies from "../cosmos.proxies";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
 describe("cards list", () => {
   it("opens list actions menu", async () => {
-    const { container } = await render(fixtures.App.default);
+    const { container } = await render(fixtures.App.default, proxies);
     const getMenu = () =>
       container.querySelector(
         describedBy(labels.cardsListActionsMenuDescription.id)
@@ -20,7 +22,10 @@ describe("cards list", () => {
   });
 
   it("adds a card", async () => {
-    const { container } = await render(fixtures.CardsList.CardsList.default);
+    const { container } = await render(
+      fixtures.CardsList.CardsList.default,
+      proxies
+    );
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -33,7 +38,7 @@ describe("cards list", () => {
 
 describe("cards list card", () => {
   const testModal = async (editButtonSelector, modalSelector, textSelector) => {
-    const { container } = await render(fixtures.App.default);
+    const { container } = await render(fixtures.App.default, proxies);
     const card = container.querySelector("[data-cardid='1']");
     expect(container.querySelector(modalSelector)).toBeNull();
     Simulate.click(

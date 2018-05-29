@@ -19,18 +19,11 @@ const styles = {
   }
 };
 
-const Board = ({ classes, lists, onQuickEditCard, onEditCard, onEditList }) => {
+const Board = ({ classes, lists, onEditList }) => {
   return (
     <div className={classes.root}>
       {Object.entries(lists).map(([k, v], idx) => (
-        <CardsList
-          key={idx}
-          title={k}
-          cards={v}
-          onEditList={onEditList}
-          onEditCard={onEditCard}
-          onQuickEditCard={onQuickEditCard}
-        />
+        <CardsList key={idx} title={k} cards={v} onEditList={onEditList} />
       ))}
     </div>
   );
@@ -40,9 +33,7 @@ const View = withStyles(styles)(Board);
 
 View.propTypes = {
   lists: PropTypes.object.isRequired,
-  onEditList: PropTypes.func.isRequired,
-  onEditCard: PropTypes.func.isRequired,
-  onQuickEditCard: PropTypes.func.isRequired
+  onEditList: PropTypes.func.isRequired
 };
 
 export default View;
