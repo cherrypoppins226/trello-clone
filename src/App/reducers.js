@@ -18,7 +18,7 @@ const rootReducer = (state, action) => {
           return list;
         })
       };
-    case "EDIT_LIST":
+    case "START_EDIT_LIST":
       return {
         ...state,
         listBeingEdited: {
@@ -28,11 +28,11 @@ const rootReducer = (state, action) => {
       };
     case "FINISH_EDIT_LIST":
       return { ...state, listBeingEdited: null };
-    case "EDIT_CARD":
+    case "START_EDIT_CARD":
       return { ...state, cardBeingEdited: action.id };
     case "FINISH_EDIT_CARD":
       return { ...state, cardBeingEdited: null };
-    case "QUICK_EDIT_CARD":
+    case "START_QUICK_EDIT_CARD":
       return { ...state, cardBeingQuickEdited: action.id };
     case "FINISH_QUICK_EDIT_CARD":
       return { ...state, cardBeingQuickEdited: null };

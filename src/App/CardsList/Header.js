@@ -7,8 +7,8 @@ import TextArea from "react-textarea-autosize";
 import { connect } from "react-redux";
 
 import * as labels from "../labels";
-import { buttonIconSmall, headerTextarea } from "../styles";
 import * as actions from "../actions";
+import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {
   root: {
@@ -40,7 +40,7 @@ const Header = props => {
         aria-labelledby={labels.cardsListActionsMenu.id}
         onClick={event => {
           const { top, left } = event.target.getBoundingClientRect();
-          props.startEditList(props.listId, { top, left });
+          props.startEdit(props.listId, { top, left });
         }}
       >
         <MoreHoriz />
@@ -52,11 +52,11 @@ const Header = props => {
 Header.propTypes = {
   listId: PropTypes.number.isRequired,
   listTitle: PropTypes.string.isRequired,
-  startEditList: PropTypes.func.isRequired
+  startEdit: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
-  startEditList: (...args) => dispatch(actions.editList(...args))
+  startEdit: (...args) => dispatch(actions.startEditList(...args))
 });
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Header));

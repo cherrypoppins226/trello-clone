@@ -9,8 +9,8 @@ import merge from "deepmerge";
 import { connect } from "react-redux";
 
 import * as labels from "../labels";
+import * as actions from "../actions";
 import { buttonIconSmall } from "../styles";
-import { editCard, quickEditCard } from "../actions";
 
 const styles = {
   root: {
@@ -36,13 +36,13 @@ const styles = {
   }
 };
 
-const Card = ({ classes, card, onQuickEditCard, onEditCard }) => {
+const Card = ({ classes, card, startQuickEdit, startEdit }) => {
   // TODO: Use <Card /> from Material UI
   return (
     <Paper
       data-cardid={card.id}
       elevation={1}
-      onClick={e => onEditCard(card.id)}
+      onClick={e => startEdit(card.id)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
@@ -51,7 +51,7 @@ const Card = ({ classes, card, onQuickEditCard, onEditCard }) => {
         aria-labelledby={labels.quickEditCard.id}
         onClick={e => {
           e.stopPropagation();
-          onQuickEditCard(card.id);
+          startQuickEdit(card.id);
         }}
       >
         <Create />
@@ -67,13 +67,13 @@ export const cardType = PropTypes.shape({
 
 Card.propTypes = {
   card: cardType.isRequired,
-  onQuickEditCard: PropTypes.func.isRequired,
-  onEditCard: PropTypes.func.isRequired
+  startQuickEdit: PropTypes.func.isRequired,
+  startEdit: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
-  onQuickEditCard: id => dispatch(quickEditCard(id)),
-  onEditCard: id => dispatch(editCard(id))
+  startQuickEdit: id => dispatch(actions.startQuickEditCard(id)),
+  startEdit: id => dispatch(actions.startEditCard(id))
 });
 
 export default connect(null, mapDispatchToProps)(withStyles(styles)(Card));
