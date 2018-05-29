@@ -5,6 +5,8 @@ import JssProvider from "react-jss/lib/JssProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
 
+// TODO: Log mocked callback functions arguments to console
+
 const jss = create({ plugins: [...jssPreset().plugins] });
 
 const generateClassName = createGenerateClassName();
@@ -39,7 +41,7 @@ faker.seed(1);
 const lists = [];
 let nextCardId = 1;
 
-for (let i = 0; i < 6; i++) {
+for (let i = 1; i < 7; i++) {
   const list = {
     id: i,
     title: faker.lorem.sentence(),
@@ -54,9 +56,8 @@ for (let i = 0; i < 6; i++) {
   lists.push(list);
 }
 
-const nop = () => {};
-
 const mockReduxState = {
+  listBeingEdited: null,
   cardBeingEdited: null,
   cardBeingQuickEdited: null
 };
@@ -72,8 +73,7 @@ addToDefaultExport(App, "App");
 export const Board = makeFixtures(wrap(require("./Board").default), {
   default: {
     props: {
-      lists,
-      onEditList: nop
+      lists
     }
   }
 });
@@ -95,8 +95,7 @@ export const CardsList = {};
 CardsList.CardsList = makeFixtures(wrap(require("./CardsList").default), {
   default: {
     props: {
-      list: lists[0],
-      onEditList: nop
+      list: lists[0]
     },
     reduxState: mockReduxState
   }
@@ -117,9 +116,8 @@ CardsList.ActionsMenu = makeFixtures(
   wrap(require("./CardsList/ActionsMenu").default),
   {
     default: {
-      props: {
-        onMenuItemClick: nop
-      }
+      props: {},
+      reduxState: mockReduxState
     }
   }
 );
@@ -128,9 +126,10 @@ addToDefaultExport(CardsList.ActionsMenu, "CardsList/ActionsMenu");
 CardsList.Header = makeFixtures(wrap(require("./CardsList/Header").default), {
   default: {
     props: {
-      text: lists[0].title,
-      onEditList: nop
-    }
+      listId: lists[0].id,
+      listTitle: lists[0].title
+    },
+    reduxState: mockReduxState
   }
 });
 addToDefaultExport(CardsList.Header, "CardsList/Header");

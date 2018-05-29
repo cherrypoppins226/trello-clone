@@ -1,5 +1,5 @@
 import { snapshotTest } from "./utils/puppeteer";
-import { labelledBy, describedBy, testId, role } from "./utils";
+import { labelledBy, describedBy, role } from "./utils";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
@@ -33,7 +33,9 @@ snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
     frame.focus(role("heading")),
     frame.hover(labelledBy(labels.cardsListActionsMenu.id))
   ]);
-  await snap(testId("CardsList"));
+  await snap(
+    `[data-listid="${fixtures.CardsList.CardsList.default.props.list.id}"]`
+  );
 });
 
 snapshotTest(it, fixtures.CardsList.Card.default, async (frame, snap) => {

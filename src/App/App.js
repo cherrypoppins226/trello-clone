@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import Board from "./Board";
-import { finishQuickEditCard, finishEditCard } from "./actions";
-import * as Labels from "./labels";
+import * as actions from "./actions";
+import * as labels from "./labels";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
@@ -16,64 +16,58 @@ import EditCard from "./EditCard";
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
 class App extends React.Component {
-  state = {
-    listBeingEdited: null
-  };
-
   render() {
     // TODO: Remove when the list of cards is in the redux store
     const allCards = _.flatten(this.props.lists.map(list => list.cards));
-    const cardBeingEdited = allCards.find(
+    const cardBeingEditedObj = allCards.find(
       card => card.id === this.props.cardBeingEdited
     );
-    const cardBeingQuickEdited = allCards.find(
+    const cardBeingQuickEditedObj = allCards.find(
       card => card.id === this.props.cardBeingQuickEdited
     );
     return (
       <div style={{ height: "100%" }}>
-        <Board
-          lists={this.props.lists}
-          onEditList={list => this.setState({ listBeingEdited: list })}
-        />
+        <Board lists={this.props.lists} />
         <div style={{ display: "none" }}>
-          {Object.values(Labels).map((obj, idx) => (
+          {Object.values(labels).map((obj, idx) => (
             <div id={obj.id} key={idx}>
               {obj.text}
             </div>
           ))}
         </div>
         <Popover
-          anchorEl={this.state.listBeingEdited}
+          anchorReference="anchorPosition"
+          anchorPosition={
+            this.props.listBeingEdited && this.props.listBeingEdited.topLeft
+          }
           container={this}
-          open={Boolean(this.state.listBeingEdited)}
-          onClose={_ => this.setState({ listBeingEdited: null })}
+          open={Boolean(this.props.listBeingEdited)}
+          onClose={this.props.finishEditList}
           TransitionProps={{ timeout: 0 }}
           elevation={1}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           transformOrigin={{ vertical: "top", horizontal: "left" }}
         >
-          <ActionsMenu
-            onMenuItemClick={_ => this.setState({ listBeingEdited: null })}
-          />
+          <ActionsMenu />
         </Popover>
         <Modal
           container={this}
-          open={Boolean(cardBeingQuickEdited)}
+          open={Boolean(cardBeingQuickEditedObj)}
           onClose={this.props.finishQuickEditCard}
           BackdropProps={{ id: "quickEditCardBackdrop" }}
         >
-          {cardBeingQuickEdited && (
-            <QuickEditCard card={cardBeingQuickEdited} />
+          {cardBeingQuickEditedObj && (
+            <QuickEditCard card={cardBeingQuickEditedObj} />
           )}
         </Modal>
         <Modal
           style={{ overflow: "auto" }}
           container={this}
-          open={Boolean(cardBeingEdited)}
+          open={Boolean(cardBeingEditedObj)}
           onClose={this.props.finishEditCard}
           BackdropProps={{ id: "editCardBackdrop" }}
         >
-          {cardBeingEdited && <EditCard card={cardBeingEdited} />}
+          {cardBeingEditedObj && <EditCard card={cardBeingEditedObj} />}
         </Modal>
       </div>
     );
@@ -82,15 +76,26 @@ class App extends React.Component {
 
 App.propTypes = {
   lists: PropTypes.array.isRequired,
+  listBeingEdited: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    topLeft: PropTypes.shape({
+      top: PropTypes.number.isRequired,
+      left: PropTypes.number.isRequired
+    }).isRequired
+  }),
+  finishEditList: PropTypes.func.isRequired,
   cardBeingEdited: PropTypes.number,
-  cardBeingQuickEdited: PropTypes.number
+  finishEditCard: PropTypes.func.isRequired,
+  cardBeingQuickEdited: PropTypes.number,
+  finishQuickEditCard: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
-  finishEditCard: () => dispatch(finishEditCard()),
-  finishQuickEditCard: () => dispatch(finishQuickEditCard())
+  finishEditList: () => dispatch(actions.finishEditList()),
+  finishEditCard: () => dispatch(actions.finishEditCard()),
+  finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

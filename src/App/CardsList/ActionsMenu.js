@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -7,6 +6,9 @@ import Divider from "@material-ui/core/Divider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
+import { connect } from "react-redux";
+
+import * as actions from "../actions";
 import * as labels from "../labels";
 
 const styles = {
@@ -35,16 +37,16 @@ const styles = {
   }
 };
 
-const ActionsMenu = ({ classes, onMenuItemClick }) => {
+const ActionsMenu = props => {
   return (
     <Paper
-      className={classes.root}
+      className={props.classes.root}
       aria-describedby={labels.cardsListActionsMenuDescription.id}
     >
       <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={onMenuItemClick}>
+      <MenuList dense={true} onClick={() => props.finishEditList()}>
         {[
           "",
           "Add Card...",
@@ -71,10 +73,10 @@ const ActionsMenu = ({ classes, onMenuItemClick }) => {
   );
 };
 
-const View = withStyles(styles)(ActionsMenu);
+const mapDispatchToProps = dispatch => ({
+  finishEditList: () => dispatch(actions.finishEditList())
+});
 
-View.propTypes = {
-  onMenuItemClick: PropTypes.func.isRequired
-};
-
-export default View;
+export default connect(null, mapDispatchToProps)(
+  withStyles(styles)(ActionsMenu)
+);

@@ -4,8 +4,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
+import { connect } from "react-redux";
+
 import * as labels from "../labels";
 import { buttonIconSmall, headerTextarea } from "../styles";
+import * as actions from "../actions";
 
 const styles = {
   root: {
@@ -23,19 +26,22 @@ const styles = {
   }
 };
 
-const Header = ({ classes, className = "", text, onEditList }) => {
+const Header = props => {
   return (
-    <div className={`${classes.root} ${className}`}>
+    <div className={`${props.classes.root} ${props.className || ""}`}>
       <Typography
         role="heading"
-        defaultValue={text}
+        defaultValue={props.listTitle}
         component={TextArea}
         spellCheck={false}
       />
       <button
         aria-haspopup={true}
         aria-labelledby={labels.cardsListActionsMenu.id}
-        onClick={e => onEditList(e.currentTarget)}
+        onClick={event => {
+          const { top, left } = event.target.getBoundingClientRect();
+          props.startEditList(props.listId, { top, left });
+        }}
       >
         <MoreHoriz />
       </button>
@@ -43,11 +49,14 @@ const Header = ({ classes, className = "", text, onEditList }) => {
   );
 };
 
-const View = withStyles(styles)(Header);
-
 Header.propTypes = {
-  text: PropTypes.string.isRequired,
-  onEditList: PropTypes.func.isRequired
+  listId: PropTypes.number.isRequired,
+  listTitle: PropTypes.string.isRequired,
+  startEditList: PropTypes.func.isRequired
 };
 
-export default View;
+const mapDispatchToProps = dispatch => ({
+  startEditList: (...args) => dispatch(actions.editList(...args))
+});
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(Header));

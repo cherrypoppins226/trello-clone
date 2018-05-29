@@ -19,12 +19,10 @@ const styles = {
   }
 };
 
-const Board = ({ classes, lists, onEditList }) => {
+const Board = ({ classes, lists }) => {
   return (
     <div className={classes.root}>
-      {lists.map(list => (
-        <CardsList key={list.id} list={list} onEditList={onEditList} />
-      ))}
+      {lists.map(list => <CardsList key={list.id} list={list} />)}
     </div>
   );
 };
@@ -32,8 +30,7 @@ const Board = ({ classes, lists, onEditList }) => {
 const View = withStyles(styles)(Board);
 
 View.propTypes = {
-  lists: PropTypes.arrayOf(listType).isRequired,
-  onEditList: PropTypes.func.isRequired
+  lists: PropTypes.arrayOf(listType).isRequired
 };
 
 export default View;

@@ -46,15 +46,15 @@ class CardsList extends React.Component {
   render() {
     return (
       <Paper
+        data-listid={this.props.list.id}
         component="section"
         elevation={1}
         className={this.props.classes.root}
-        data-testid="CardsList"
       >
         <Header
           className={this.props.classes.header}
-          text={this.props.list.title}
-          onEditList={this.props.onEditList}
+          listId={this.props.list.id}
+          listTitle={this.props.list.title}
         />
         <div style={{ overflowY: "scroll" }}>
           <Cards cards={this.state.cards} />
@@ -74,8 +74,7 @@ export const listType = PropTypes.shape({
 });
 
 View.propTypes = {
-  list: listType,
-  onEditList: PropTypes.func.isRequired
+  list: listType
 };
 
 export default View;

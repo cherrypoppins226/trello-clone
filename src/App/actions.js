@@ -1,3 +1,13 @@
+export const editList = (id, topLeft) => ({
+  type: "EDIT_LIST",
+  id,
+  topLeft
+});
+
+export const finishEditList = () => ({
+  type: "FINISH_EDIT_LIST"
+});
+
 export const editCard = id => ({
   type: "EDIT_CARD",
   id
