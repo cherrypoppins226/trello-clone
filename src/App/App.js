@@ -22,7 +22,7 @@ class App extends React.Component {
 
   render() {
     // TODO: Remove when the list of cards is in the redux store
-    const allCards = _.flatten(Object.values(this.props.lists));
+    const allCards = _.flatten(this.props.lists.map(list => list.cards));
     const cardBeingEdited = allCards.find(
       card => card.id === this.props.cardBeingEdited
     );
@@ -81,7 +81,7 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  lists: PropTypes.object.isRequired,
+  lists: PropTypes.array.isRequired,
   cardBeingEdited: PropTypes.number,
   cardBeingQuickEdited: PropTypes.number
 };

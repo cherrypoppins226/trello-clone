@@ -36,20 +36,25 @@ const makeFixtures = (component, namedFixtures) => {
 
 faker.seed(1);
 
-const lists = {};
+const lists = [];
 let nextCardId = 1;
 
 for (let i = 0; i < 6; i++) {
-  const key = faker.lorem.sentence();
-  lists[key] = [];
+  const list = {
+    id: i,
+    title: faker.lorem.sentence(),
+    cards: []
+  };
   for (let j = 0; j < faker.random.number({ min: 2, max: 50 }); j++) {
-    lists[key].push({ id: nextCardId++, title: faker.lorem.sentence() });
+    list.cards.push({
+      id: nextCardId++,
+      title: faker.lorem.sentence()
+    });
   }
+  lists.push(list);
 }
 
 const nop = () => {};
-
-const listsArray = Object.entries(lists);
 
 const mockReduxState = {
   cardBeingEdited: null,
@@ -78,7 +83,7 @@ export const QuickEditCard = makeFixtures(
   {
     default: {
       props: {
-        card: listsArray[0][1][0]
+        card: lists[0].cards[0]
       }
     }
   }
@@ -90,8 +95,7 @@ export const CardsList = {};
 CardsList.CardsList = makeFixtures(wrap(require("./CardsList").default), {
   default: {
     props: {
-      title: listsArray[0][0],
-      cards: listsArray[0][1],
+      list: lists[0],
       onEditList: nop
     },
     reduxState: mockReduxState
@@ -102,7 +106,7 @@ addToDefaultExport(CardsList.CardsList, "CardsList/CardsList");
 CardsList.Cards = makeFixtures(wrap(require("./CardsList/Cards").default), {
   default: {
     props: {
-      cards: listsArray[0][1]
+      cards: lists[0].cards
     },
     reduxState: mockReduxState
   }
@@ -124,7 +128,7 @@ addToDefaultExport(CardsList.ActionsMenu, "CardsList/ActionsMenu");
 CardsList.Header = makeFixtures(wrap(require("./CardsList/Header").default), {
   default: {
     props: {
-      text: listsArray[0][0],
+      text: lists[0].title,
       onEditList: nop
     }
   }
@@ -134,7 +138,7 @@ addToDefaultExport(CardsList.Header, "CardsList/Header");
 CardsList.Card = makeFixtures(wrap(require("./CardsList/Card").default), {
   default: {
     props: {
-      card: listsArray[0][1][0]
+      card: lists[0].cards[0]
     },
     reduxState: mockReduxState
   }
@@ -146,7 +150,7 @@ export const EditCard = {};
 EditCard.EditCard = makeFixtures(wrap(require("./EditCard/EditCard").default), {
   default: {
     props: {
-      card: listsArray[0][1][0]
+      card: lists[0].cards[0]
     }
   }
 });

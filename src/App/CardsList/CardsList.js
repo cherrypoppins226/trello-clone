@@ -30,7 +30,7 @@ class CardsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: props.cards
+      cards: props.list.cards
     };
   }
 
@@ -53,7 +53,7 @@ class CardsList extends React.Component {
       >
         <Header
           className={this.props.classes.header}
-          text={this.props.title}
+          text={this.props.list.title}
           onEditList={this.props.onEditList}
         />
         <div style={{ overflowY: "scroll" }}>
@@ -67,9 +67,14 @@ class CardsList extends React.Component {
 
 const View = withStyles(styles)(CardsList);
 
-View.propTypes = {
+export const listType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  cards: PropTypes.array.isRequired,
+  cards: PropTypes.array.isRequired
+});
+
+View.propTypes = {
+  list: listType,
   onEditList: PropTypes.func.isRequired
 };
 

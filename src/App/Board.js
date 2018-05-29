@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import CardsList from "./CardsList";
+import CardsList, { listType } from "./CardsList";
 
 const styles = {
   root: {
@@ -22,8 +22,8 @@ const styles = {
 const Board = ({ classes, lists, onEditList }) => {
   return (
     <div className={classes.root}>
-      {Object.entries(lists).map(([k, v], idx) => (
-        <CardsList key={idx} title={k} cards={v} onEditList={onEditList} />
+      {lists.map(list => (
+        <CardsList key={list.id} list={list} onEditList={onEditList} />
       ))}
     </div>
   );
@@ -32,7 +32,7 @@ const Board = ({ classes, lists, onEditList }) => {
 const View = withStyles(styles)(Board);
 
 View.propTypes = {
-  lists: PropTypes.object.isRequired,
+  lists: PropTypes.arrayOf(listType).isRequired,
   onEditList: PropTypes.func.isRequired
 };
 
