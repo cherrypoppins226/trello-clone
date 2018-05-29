@@ -1,5 +1,23 @@
+const nextCardId = cards =>
+  cards.reduce((max, card) => Math.max(max, card.id), 0) + 1;
+
 const rootReducer = (state, action) => {
   switch (action.type) {
+    case "ADD_CARD":
+      return {
+        ...state,
+        lists: state.lists.map(list => {
+          if (list.id === action.listId)
+            return {
+              ...list,
+              cards: [
+                ...list.cards,
+                { id: nextCardId(list.cards), title: "Title..." }
+              ]
+            };
+          return list;
+        })
+      };
     case "EDIT_LIST":
       return {
         ...state,

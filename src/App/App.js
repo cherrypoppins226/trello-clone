@@ -1,19 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import Popover from "@material-ui/core/Popover";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import Board from "./Board";
 import * as actions from "./actions";
 import * as labels from "./labels";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
+import CardsList from "./CardsList";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
+
+const styles = {
+  root: {
+    padding: 8,
+    height: "100%",
+    flexWrap: "nowrap",
+    display: "flex",
+    alignItems: "flex-start",
+    "& > *": {
+      margin: 8,
+      flex: "0 0 auto",
+      width: 270,
+      maxHeight: "calc(100% - 16px)"
+    }
+  }
+};
 
 class App extends React.Component {
   render() {
@@ -27,7 +44,11 @@ class App extends React.Component {
     );
     return (
       <div style={{ height: "100%" }}>
-        <Board lists={this.props.lists} />
+        <div className={this.props.classes.root}>
+          {this.props.lists.map(list => (
+            <CardsList key={list.id} list={list} />
+          ))}
+        </div>
         <div style={{ display: "none" }}>
           {Object.values(labels).map((obj, idx) => (
             <div id={obj.id} key={idx}>
@@ -90,7 +111,11 @@ App.propTypes = {
   finishQuickEditCard: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+  listBeingEdited: state.listBeingEdited,
+  cardBeingEdited: state.cardBeingEdited,
+  cardBeingQuickEdited: state.cardBeingQuickEdited
+});
 
 const mapDispatchToProps = dispatch => ({
   finishEditList: () => dispatch(actions.finishEditList()),
@@ -98,4 +123,6 @@ const mapDispatchToProps = dispatch => ({
   finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(App)
+);

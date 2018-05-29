@@ -1,3 +1,8 @@
+export const addCard = listId => ({
+  type: "ADD_CARD",
+  listId
+});
+
 export const editList = (id, topLeft) => ({
   type: "EDIT_LIST",
   id,

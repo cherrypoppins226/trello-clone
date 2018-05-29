@@ -57,6 +57,7 @@ for (let i = 1; i < 7; i++) {
 }
 
 const mockReduxState = {
+  lists,
   listBeingEdited: null,
   cardBeingEdited: null,
   cardBeingQuickEdited: null
@@ -69,14 +70,6 @@ export const App = makeFixtures(wrap(require("./App").default), {
   }
 });
 addToDefaultExport(App, "App");
-
-export const Board = makeFixtures(wrap(require("./Board").default), {
-  default: {
-    props: {
-      lists
-    }
-  }
-});
 
 export const QuickEditCard = makeFixtures(
   wrap(require("./QuickEditCard").default),
