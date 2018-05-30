@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
-import Popover from "@material-ui/core/Popover";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
@@ -24,27 +24,21 @@ const ActionsMenuPopover = connect(
   dispatch => ({
     finishEditList: () => dispatch(actions.finishEditList())
   })
-)(props => {
-  if (!props.listBeingEdited) return null;
-  return (
-    <Popover
-      disableAutoFocus
-      anchorReference="anchorPosition"
-      anchorPosition={{
-        top: props.listBeingEdited.anchorElementBox.bottom,
-        left: props.listBeingEdited.anchorElementBox.left
-      }}
-      open={true}
-      onClose={props.finishEditList}
-      TransitionProps={{ timeout: 0 }}
-      elevation={1}
-      anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      transformOrigin={{ vertical: "top", horizontal: "left" }}
-    >
-      <ActionsMenu />
-    </Popover>
-  );
-});
+)(
+  props =>
+    !props.listBeingEdited ? null : (
+      <ClickAwayListener onClickAway={props.finishEditList}>
+        <ActionsMenu
+          {...props}
+          style={{
+            position: "absolute",
+            top: `${props.listBeingEdited.anchorElementBox.bottom}px`,
+            left: `${props.listBeingEdited.anchorElementBox.left}px`
+          }}
+        />
+      </ClickAwayListener>
+    )
+);
 
 const EditCardModal = connect(
   state => ({
@@ -62,7 +56,13 @@ const EditCardModal = connect(
         onClose={props.finishEditCard}
         BackdropProps={{ id: "editCardBackdrop" }}
       >
-        <EditCard {...props.cardBeingEdited} />
+        <EditCard
+          {...props}
+          style={{
+            position: "absolute",
+            top: "60px"
+          }}
+        />
       </Modal>
     )
 );
@@ -82,7 +82,14 @@ const QuickEditCardModal = connect(
         onClose={props.finishQuickEditCard}
         BackdropProps={{ id: "quickEditCardBackdrop" }}
       >
-        <QuickEditCard {...props.cardBeingQuickEdited} />
+        <QuickEditCard
+          {...props}
+          style={{
+            position: "absolute",
+            top: `${props.cardBeingQuickEdited.anchorElementBox.top}px`,
+            left: `${props.cardBeingQuickEdited.anchorElementBox.left}px`
+          }}
+        />
       </Modal>
     )
 );

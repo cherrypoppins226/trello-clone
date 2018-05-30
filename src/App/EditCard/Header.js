@@ -12,6 +12,7 @@ import { buttonIcon, headerTextarea } from "../styles";
 
 const styles = {
   root: {
+    padding: "20px 20px 30px 15px",
     display: "flex",
     alignItems: "flex-start",
     "& svg": { color: "rgb(153, 153, 153)" },

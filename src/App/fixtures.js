@@ -79,9 +79,12 @@ export const QuickEditCard = makeFixturesAndExport(
   {
     default: {
       props: {
-        id: 1,
-        title: lists[0].cards[0].title,
-        anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
+        cardBeingQuickEdited: {
+          id: 1,
+          title: lists[0].cards[0].title,
+          anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
+        },
+        finishQuickEditCard: () => {}
       }
     }
   }
@@ -111,8 +114,13 @@ CardsList.ActionsMenu = makeFixturesAndExport(
   require("./CardsList/ActionsMenu").default,
   {
     default: {
-      props: {},
-      reduxState: mockReduxState
+      props: {
+        listBeingEdited: {
+          id: 1,
+          anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
+        },
+        finishEditList: () => {}
+      }
     }
   }
 );
@@ -146,7 +154,8 @@ EditCard.EditCard = makeFixturesAndExport(
   {
     default: {
       props: {
-        ...lists[0].cards[0]
+        cardBeingEdited: { ...lists[0].cards[0] },
+        finishEditCard: () => {}
       }
     }
   }

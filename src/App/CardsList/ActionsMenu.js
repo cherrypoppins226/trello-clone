@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -6,11 +7,9 @@ import Divider from "@material-ui/core/Divider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
-import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
-import * as actions from "../actions";
 import * as labels from "../labels";
 
 const styles = {
@@ -39,16 +38,17 @@ const styles = {
   }
 };
 
-const View = props => {
+const View = ({ classes, listBeingEdited, finishEditList, ...rest }) => {
   return (
     <Paper
-      className={props.classes.root}
+      className={classes.root}
       aria-describedby={labels.cardsListActionsMenuDescription.id}
+      {...rest}
     >
       <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={() => props.finishEditList()}>
+      <MenuList dense={true} onClick={() => finishEditList()}>
         {[
           "",
           "Add Card...",
@@ -75,12 +75,16 @@ const View = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  finishEditList: () => dispatch(actions.finishEditList())
-});
+const Styled = withStyles(styles)(View);
 
-const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+Styled.displayName = moduleName(fileAbsolute);
 
-Container.displayName = moduleName(fileAbsolute);
+Styled.propTypes = {
+  listBeingEdited: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    anchorElementBox: PropTypes.object.isRequired
+  }).isRequired,
+  finishEditList: PropTypes.func.isRequired
+};
 
-export default Container;
+export default Styled;

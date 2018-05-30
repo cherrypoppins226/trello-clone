@@ -12,27 +12,24 @@ import * as labels from "../labels";
 
 const styles = {
   root: {
-    position: "absolute",
-    top: 60,
     width: 750,
     backgroundColor: "rgb(237, 239, 240)",
     borderRadius: 2,
     outline: "none"
   },
-  header: {
-    margin: "20px 20px 30px 15px"
+  flex: {
+    display: "flex"
   },
   content: {
-    float: "left",
-    width: "75%",
+    width: "100%",
     padding: "0px 10px"
   },
   sidebar: {
-    float: "right",
-    width: "25%"
+    flexBasis: 220
   }
 };
 
+// TODO: Shouldn't be a concern here
 const centerInPage = node => {
   node.style.left = `${(window.innerWidth - node.offsetWidth) / 2}px`;
 };
@@ -44,16 +41,19 @@ class View extends React.Component {
   }
 
   render() {
-    const { classes, title } = this.props;
+    const { classes, cardBeingEdited, finishEditCard, ...rest } = this.props;
     return (
       <div
         aria-describedby={labels.editCardDescription.id}
         className={classes.root}
         tabIndex={-1}
+        {...rest}
       >
-        <Header className={classes.header} text={title} />
-        <Content className={classes.content} />
-        <Sidebar className={classes.sidebar} />
+        <Header className={classes.header} text={cardBeingEdited.title} />
+        <div className={classes.flex}>
+          <Content className={classes.content} />
+          <Sidebar className={classes.sidebar} />
+        </div>
       </div>
     );
   }
@@ -64,8 +64,11 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired
+  cardBeingEdited: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired
+  }),
+  finishEditCard: PropTypes.func.isRequired
 };
 
 export default Styled;

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -21,12 +20,11 @@ import { button, textarea, smallIcon } from "./styles";
 
 const styles = {
   root: {
-    position: "fixed",
+    display: "flex",
     outline: "none",
     pointerEvents: "none"
   },
   description: {
-    float: "left",
     marginRight: 8,
     "& textarea": {
       ...textarea,
@@ -47,8 +45,7 @@ const styles = {
     }
   },
   sideButtons: {
-    float: "right",
-    width: 160,
+    flexBasis: 160,
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
@@ -69,70 +66,69 @@ const styles = {
   }
 };
 
-class View extends React.Component {
-  componentDidMount() {
-    // Perhaps if https://github.com/mui-org/material-ui/issues/7633 is done, we
-    // can move this to styles above...
-    const modalNode = findDOMNode(this);
-    const box = this.props.anchorElementBox;
-    modalNode.style.top = `${box.top}px`;
-    modalNode.style.left = `${box.left}px`;
-    const textareaNode = modalNode.querySelector("textarea");
-    textareaNode.style.height = `${box.bottom - box.top}px`;
-    textareaNode.style.width = `${box.right - box.left}px`;
-  }
-
-  render() {
-    return (
-      <div
-        aria-describedby={labels.quickEditCardDescription.id}
-        className={this.props.classes.root}
-        tabIndex={-1}
-      >
-        <div className={this.props.classes.description}>
-          {/* eslint-disable jsx-a11y/no-autofocus */}
-          <Typography
-            autoFocus
-            component={TextArea}
-            value={this.props.title}
-            onFocus={e => e.target.select()}
-          />
-          {/* eslint-enable jsx-a11y/no-autofocus */}
-          <Button variant="raised"> Save </Button>
-        </div>
-        <div className={this.props.classes.sideButtons}>
-          {[
-            [Label, "Edit Labels"],
-            [Person, "Change Members"],
-            [ArrowForward, "Move"],
-            [LibraryBooks, "Copy"],
-            [Timer, "Change Due Date"],
-            [Archive, "Archive"]
-          ].map(([Icon, text], idx) => (
-            <Button key={idx} size="small">
-              <Icon />
-              {text}
-            </Button>
-          ))}
-        </div>
+const View = ({
+  classes,
+  cardBeingQuickEdited,
+  finishQuickEditCard,
+  ...rest
+}) => {
+  const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
+  return (
+    <div
+      aria-describedby={labels.quickEditCardDescription.id}
+      className={classes.root}
+      {...rest}
+    >
+      <div className={classes.description}>
+        {/* eslint-disable jsx-a11y/no-autofocus */}
+        <Typography
+          style={{
+            height: `${bottom - top}px`,
+            width: `${right - left}px`
+          }}
+          autoFocus
+          component={TextArea}
+          value={cardBeingQuickEdited.title}
+          onFocus={e => e.target.select()}
+        />
+        {/* eslint-enable jsx-a11y/no-autofocus */}
+        <Button variant="raised"> Save </Button>
       </div>
-    );
-  }
-}
+      <div className={classes.sideButtons}>
+        {[
+          [Label, "Edit Labels"],
+          [Person, "Change Members"],
+          [ArrowForward, "Move"],
+          [LibraryBooks, "Copy"],
+          [Timer, "Change Due Date"],
+          [Archive, "Archive"]
+        ].map(([Icon, text], idx) => (
+          <Button key={idx} size="small">
+            <Icon />
+            {text}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Styled = withStyles(styles)(View);
 
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  anchorElementBox: PropTypes.shape({
-    top: PropTypes.number.isRequired,
-    left: PropTypes.number.isRequired,
-    bottom: PropTypes.number.isRequired,
-    right: PropTypes.number.isRequired
-  }).isRequired
+  cardBeingQuickEdited: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    anchorElementBox: PropTypes.shape({
+      top: PropTypes.number.isRequired,
+      left: PropTypes.number.isRequired,
+      bottom: PropTypes.number.isRequired,
+      right: PropTypes.number.isRequired
+    }).isRequired
+  }),
+  finishQuickEditCard: PropTypes.func.isRequired
 };
 
 export default Styled;
