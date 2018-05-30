@@ -41,7 +41,7 @@ class View extends React.Component {
   }
 
   render() {
-    const { classes, cardBeingEdited, finishEditCard, ...rest } = this.props;
+    const { classes, actions, cardBeingEdited, ...rest } = this.props;
     return (
       <div
         aria-describedby={labels.editCardDescription.id}
@@ -64,11 +64,11 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   cardBeingEdited: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired
-  }),
-  finishEditCard: PropTypes.func.isRequired
+  })
 };
 
 export default Styled;

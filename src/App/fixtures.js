@@ -84,7 +84,9 @@ export const QuickEditCard = makeFixturesAndExport(
           title: lists[0].cards[0].title,
           anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
         },
-        finishQuickEditCard: () => {}
+        actions: {
+          finishQuickEditCard: () => {}
+        }
       }
     }
   }
@@ -119,7 +121,9 @@ CardsList.ActionsMenu = makeFixturesAndExport(
           id: 1,
           anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
         },
-        finishEditList: () => {}
+        actions: {
+          finishEditList: () => {}
+        }
       }
     }
   }
@@ -154,7 +158,9 @@ EditCard.EditCard = makeFixturesAndExport(
   {
     default: {
       props: {
-        cardBeingEdited: { ...lists[0].cards[0] },
+        cardBeingEdited: { ...lists[0].cards[0] }
+      },
+      actions: {
         finishEditCard: () => {}
       }
     }

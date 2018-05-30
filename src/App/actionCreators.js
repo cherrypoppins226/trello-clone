@@ -1,35 +1,43 @@
-export const addCard = listId => ({
+const { bindActionCreators } = require("redux");
+
+module.exports.addCard = listId => ({
   type: "ADD_CARD",
   listId
 });
 
-export const startEditList = (id, anchorElementBox) => ({
+module.exports.startEditList = (id, anchorElementBox) => ({
   type: "START_EDIT_LIST",
   id,
   anchorElementBox
 });
 
-export const finishEditList = () => ({
+module.exports.finishEditList = () => ({
   type: "FINISH_EDIT_LIST"
 });
 
-export const startEditCard = (id, title) => ({
+module.exports.startEditCard = (id, title) => ({
   type: "START_EDIT_CARD",
   id,
   title
 });
 
-export const finishEditCard = () => ({
+module.exports.finishEditCard = () => ({
   type: "FINISH_EDIT_CARD"
 });
 
-export const startQuickEditCard = (id, title, anchorElementBox) => ({
+module.exports.startQuickEditCard = (id, title, anchorElementBox) => ({
   type: "START_QUICK_EDIT_CARD",
   id,
   title,
   anchorElementBox
 });
 
-export const finishQuickEditCard = () => ({
+module.exports.finishQuickEditCard = () => ({
   type: "FINISH_QUICK_EDIT_CARD"
+});
+
+// Convenient default that makes all actionCreators available under
+// props.actions
+module.exports.mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(module.exports, dispatch)
 });

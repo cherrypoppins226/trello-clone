@@ -38,7 +38,7 @@ const styles = {
   }
 };
 
-const View = ({ classes, listBeingEdited, finishEditList, ...rest }) => {
+const View = ({ classes, actions, listBeingEdited, ...rest }) => {
   return (
     <Paper
       className={classes.root}
@@ -48,7 +48,7 @@ const View = ({ classes, listBeingEdited, finishEditList, ...rest }) => {
       <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={() => finishEditList()}>
+      <MenuList dense={true} onClick={() => actions.finishEditList()}>
         {[
           "",
           "Add Card...",
@@ -80,11 +80,16 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   listBeingEdited: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    anchorElementBox: PropTypes.object.isRequired
-  }).isRequired,
-  finishEditList: PropTypes.func.isRequired
+    anchorElementBox: PropTypes.shape({
+      top: PropTypes.number.isRequired,
+      left: PropTypes.number.isRequired,
+      bottom: PropTypes.number.isRequired,
+      right: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default Styled;

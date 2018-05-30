@@ -10,7 +10,7 @@ import Header from "./Header";
 import Cards from "./Cards";
 import { button } from "../styles";
 import { moduleName } from "../utils";
-import * as actionCreators from "../actionCreators";
+import { mapDispatchToProps } from "../actionCreators";
 
 const styles = {
   root: {
@@ -44,7 +44,7 @@ const View = props => {
       <div style={{ overflowY: "scroll" }}>
         <Cards cards={props.list.cards} />
       </div>
-      <Button onClick={() => props.addCard(props.list.id)}>
+      <Button onClick={() => props.actions.addCard(props.list.id)}>
         Add a card...
       </Button>
     </Paper>
@@ -53,10 +53,6 @@ const View = props => {
 
 const mapStateToProps = (state, ownProps) => ({
   list: state.lists.find(list => list.id === ownProps.list.id)
-});
-
-const mapDispatchToProps = dispatch => ({
-  addCard: id => dispatch(actionCreators.addCard(id))
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(

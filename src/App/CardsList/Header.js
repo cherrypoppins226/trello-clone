@@ -9,7 +9,7 @@ import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import * as actionCreators from "../actionCreators";
+import { mapDispatchToProps } from "../actionCreators";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {
@@ -28,12 +28,12 @@ const styles = {
   }
 };
 
-const View = props => {
+const View = ({ classes, className = "", actions, listId, listTitle }) => {
   return (
-    <div className={`${props.classes.root} ${props.className || ""}`}>
+    <div className={`${classes.root} ${className}`}>
       <Typography
         role="heading"
-        defaultValue={props.listTitle}
+        defaultValue={listTitle}
         component={TextArea}
         spellCheck={false}
       />
@@ -43,7 +43,7 @@ const View = props => {
         onClick={e => {
           const box = e.currentTarget.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          props.startEdit(props.listId, { top, left, bottom, right });
+          actions.startEditList(listId, { top, left, bottom, right });
         }}
       >
         <MoreHoriz />
@@ -51,10 +51,6 @@ const View = props => {
     </div>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  startEdit: (...args) => dispatch(actionCreators.startEditList(...args))
-});
 
 const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
 

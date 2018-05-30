@@ -66,12 +66,7 @@ const styles = {
   }
 };
 
-const View = ({
-  classes,
-  cardBeingQuickEdited,
-  finishQuickEditCard,
-  ...rest
-}) => {
+const View = ({ classes, actions, cardBeingQuickEdited, ...rest }) => {
   const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
   return (
     <div
@@ -118,6 +113,7 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   cardBeingQuickEdited: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -127,8 +123,7 @@ Styled.propTypes = {
       bottom: PropTypes.number.isRequired,
       right: PropTypes.number.isRequired
     }).isRequired
-  }),
-  finishQuickEditCard: PropTypes.func.isRequired
+  })
 };
 
 export default Styled;

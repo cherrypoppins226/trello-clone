@@ -7,7 +7,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
-import * as actionCreators from "./actionCreators";
+import { mapDispatchToProps } from "./actionCreators";
 import * as labels from "./labels";
 import { moduleName } from "./utils";
 import QuickEditCard from "./QuickEditCard";
@@ -18,16 +18,12 @@ import CardsList from "./CardsList";
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
 const ActionsMenuPopover = connect(
-  state => ({
-    listBeingEdited: state.listBeingEdited
-  }),
-  dispatch => ({
-    finishEditList: () => dispatch(actionCreators.finishEditList())
-  })
+  state => ({ listBeingEdited: state.listBeingEdited }),
+  mapDispatchToProps
 )(
   props =>
     !props.listBeingEdited ? null : (
-      <ClickAwayListener onClickAway={props.finishEditList}>
+      <ClickAwayListener onClickAway={props.actions.finishEditList}>
         <ActionsMenu
           {...props}
           style={{
@@ -41,19 +37,15 @@ const ActionsMenuPopover = connect(
 );
 
 const EditCardModal = connect(
-  state => ({
-    cardBeingEdited: state.cardBeingEdited
-  }),
-  dispatch => ({
-    finishEditCard: () => dispatch(actionCreators.finishEditCard())
-  })
+  state => ({ cardBeingEdited: state.cardBeingEdited }),
+  mapDispatchToProps
 )(
   props =>
     !props.cardBeingEdited ? null : (
       <Modal
         style={{ overflow: "auto" }}
         open={true}
-        onClose={props.finishEditCard}
+        onClose={props.actions.finishEditCard}
         BackdropProps={{ id: "editCardBackdrop" }}
       >
         <EditCard
@@ -68,18 +60,14 @@ const EditCardModal = connect(
 );
 
 const QuickEditCardModal = connect(
-  state => ({
-    cardBeingQuickEdited: state.cardBeingQuickEdited
-  }),
-  dispatch => ({
-    finishQuickEditCard: () => dispatch(actionCreators.finishQuickEditCard())
-  })
+  state => ({ cardBeingQuickEdited: state.cardBeingQuickEdited }),
+  mapDispatchToProps
 )(
   props =>
     !props.cardBeingQuickEdited ? null : (
       <Modal
         open={true}
-        onClose={props.finishQuickEditCard}
+        onClose={props.actions.finishQuickEditCard}
         BackdropProps={{ id: "quickEditCardBackdrop" }}
       >
         <QuickEditCard

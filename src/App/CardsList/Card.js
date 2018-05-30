@@ -11,7 +11,7 @@ import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import * as actionCreators from "../actionCreators";
+import { mapDispatchToProps } from "../actionCreators";
 import { buttonIconSmall } from "../styles";
 
 const styles = {
@@ -38,13 +38,13 @@ const styles = {
   }
 };
 
-const View = ({ classes, card, startQuickEdit, startEdit }) => {
+const View = ({ classes, actions, card }) => {
   // TODO: Use <Card /> from Material UI
   return (
     <Paper
       data-cardid={card.id}
       elevation={1}
-      onClick={e => startEdit(card.id, card.title)}
+      onClick={e => actions.startEditCard(card.id, card.title)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
@@ -55,7 +55,12 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
           e.stopPropagation();
           const box = e.currentTarget.parentElement.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          startQuickEdit(card.id, card.title, { top, left, bottom, right });
+          actions.startQuickEditCard(card.id, card.title, {
+            top,
+            left,
+            bottom,
+            right
+          });
         }}
       >
         <Create />
@@ -63,11 +68,6 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
     </Paper>
   );
 };
-
-const mapDispatchToProps = dispatch => ({
-  startQuickEdit: (...args) => dispatch(actionCreators.startQuickEditCard(...args)),
-  startEdit: (...args) => dispatch(actionCreators.startEditCard(...args))
-});
 
 const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
 
