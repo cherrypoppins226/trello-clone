@@ -9,7 +9,7 @@ import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import * as actions from "../actions";
+import * as actionCreators from "../actionCreators";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {
@@ -53,7 +53,7 @@ const View = props => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startEdit: (...args) => dispatch(actions.startEditList(...args))
+  startEdit: (...args) => dispatch(actionCreators.startEditList(...args))
 });
 
 const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));

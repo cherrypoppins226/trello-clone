@@ -10,7 +10,7 @@ import Header from "./Header";
 import Cards from "./Cards";
 import { button } from "../styles";
 import { moduleName } from "../utils";
-import * as actions from "../actions";
+import * as actionCreators from "../actionCreators";
 
 const styles = {
   root: {
@@ -56,7 +56,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCard: id => dispatch(actions.addCard(id))
+  addCard: id => dispatch(actionCreators.addCard(id))
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(

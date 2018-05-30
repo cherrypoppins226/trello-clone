@@ -11,7 +11,7 @@ import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import * as actions from "../actions";
+import * as actionCreators from "../actionCreators";
 import { buttonIconSmall } from "../styles";
 
 const styles = {
@@ -65,8 +65,8 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startQuickEdit: (...args) => dispatch(actions.startQuickEditCard(...args)),
-  startEdit: (...args) => dispatch(actions.startEditCard(...args))
+  startQuickEdit: (...args) => dispatch(actionCreators.startQuickEditCard(...args)),
+  startEdit: (...args) => dispatch(actionCreators.startEditCard(...args))
 });
 
 const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));

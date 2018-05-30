@@ -7,7 +7,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
-import * as actions from "./actions";
+import * as actionCreators from "./actionCreators";
 import * as labels from "./labels";
 import { moduleName } from "./utils";
 import QuickEditCard from "./QuickEditCard";
@@ -22,7 +22,7 @@ const ActionsMenuPopover = connect(
     listBeingEdited: state.listBeingEdited
   }),
   dispatch => ({
-    finishEditList: () => dispatch(actions.finishEditList())
+    finishEditList: () => dispatch(actionCreators.finishEditList())
   })
 )(
   props =>
@@ -45,7 +45,7 @@ const EditCardModal = connect(
     cardBeingEdited: state.cardBeingEdited
   }),
   dispatch => ({
-    finishEditCard: () => dispatch(actions.finishEditCard())
+    finishEditCard: () => dispatch(actionCreators.finishEditCard())
   })
 )(
   props =>
@@ -72,7 +72,7 @@ const QuickEditCardModal = connect(
     cardBeingQuickEdited: state.cardBeingQuickEdited
   }),
   dispatch => ({
-    finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
+    finishQuickEditCard: () => dispatch(actionCreators.finishQuickEditCard())
   })
 )(
   props =>
