@@ -44,7 +44,7 @@ const View = props => {
       <div style={{ overflowY: "scroll" }}>
         <Cards cards={props.list.cards} />
       </div>
-      <Button onClick={() => props.actions.addCard(props.list.id)}>
+      <Button onClick={() => props.actions.addCard({ listId: props.list.id })}>
         Add a card...
       </Button>
     </Paper>

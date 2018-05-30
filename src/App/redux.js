@@ -1,33 +1,23 @@
 import { bindActionCreators } from "redux";
 import { handleActions, createActions } from "redux-actions";
 
-const nop = () => {};
+const identity = args => args;
 
-const actions = createActions({
-  ADD_CARD: listId => ({ listId }),
+const makeActions = actionNames => {
+  const obj = {};
+  actionNames.forEach(name => (obj[name] = identity));
+  return createActions(obj);
+};
 
-  START_EDIT_LIST: (id, anchorElementBox) => ({
-    id,
-    anchorElementBox
-  }),
-
-  FINISH_EDIT_LIST: nop,
-
-  START_EDIT_CARD: (id, title) => ({
-    id,
-    title
-  }),
-
-  FINISH_EDIT_CARD: nop,
-
-  START_QUICK_EDIT_CARD: (id, title, anchorElementBox) => ({
-    id,
-    title,
-    anchorElementBox
-  }),
-
-  FINISH_QUICK_EDIT_CARD: nop
-});
+const actions = makeActions([
+  "ADD_CARD",
+  "START_EDIT_LIST",
+  "FINISH_EDIT_LIST",
+  "START_EDIT_CARD",
+  "FINISH_EDIT_CARD",
+  "START_QUICK_EDIT_CARD",
+  "FINISH_QUICK_EDIT_CARD"
+]);
 
 // Convenient default that makes all actionCreators available under
 // props.actions
@@ -57,7 +47,7 @@ const reducersMap = {
   },
 
   [actions.startEditList]: (state, { payload }) => {
-    return { ...state, listBeingEdited: { ...payload } };
+    return { ...state, listBeingEdited: payload };
   },
 
   [actions.finishEditList]: state => {
@@ -65,7 +55,7 @@ const reducersMap = {
   },
 
   [actions.startEditCard]: (state, { payload }) => {
-    return { ...state, cardBeingEdited: { ...payload } };
+    return { ...state, cardBeingEdited: payload };
   },
 
   [actions.finishEditCard]: state => {
@@ -73,7 +63,7 @@ const reducersMap = {
   },
 
   [actions.startQuickEditCard]: (state, { payload }) => {
-    return { ...state, cardBeingQuickEdited: { ...payload } };
+    return { ...state, cardBeingQuickEdited: payload };
   },
 
   [actions.finishQuickEditCard]: state => {
