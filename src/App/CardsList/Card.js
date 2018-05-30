@@ -44,7 +44,7 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
     <Paper
       data-cardid={card.id}
       elevation={1}
-      onClick={e => startEdit(card.id)}
+      onClick={e => startEdit(card.id, card.title)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
@@ -66,7 +66,7 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
 
 const mapDispatchToProps = dispatch => ({
   startQuickEdit: (...args) => dispatch(actions.startQuickEditCard(...args)),
-  startEdit: id => dispatch(actions.startEditCard(id))
+  startEdit: (...args) => dispatch(actions.startEditCard(...args))
 });
 
 const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));

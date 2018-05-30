@@ -3,19 +3,20 @@ export const addCard = listId => ({
   listId
 });
 
-export const startEditList = (id, topLeft) => ({
+export const startEditList = (id, anchorElementBox) => ({
   type: "START_EDIT_LIST",
   id,
-  topLeft
+  anchorElementBox
 });
 
 export const finishEditList = () => ({
   type: "FINISH_EDIT_LIST"
 });
 
-export const startEditCard = id => ({
+export const startEditCard = (id, title) => ({
   type: "START_EDIT_CARD",
-  id
+  id,
+  title
 });
 
 export const finishEditCard = () => ({

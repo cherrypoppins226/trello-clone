@@ -40,9 +40,10 @@ const View = props => {
       <button
         aria-haspopup={true}
         aria-labelledby={labels.cardsListActionsMenu.id}
-        onClick={event => {
-          const { top, left } = event.target.getBoundingClientRect();
-          props.startEdit(props.listId, { top, left });
+        onClick={e => {
+          const box = e.currentTarget.getBoundingClientRect();
+          const { top, left, bottom, right } = box;
+          props.startEdit(props.listId, { top, left, bottom, right });
         }}
       >
         <MoreHoriz />

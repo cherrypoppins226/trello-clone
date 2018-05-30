@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
@@ -7,7 +8,6 @@ import { moduleName } from "../utils";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
-import { cardType } from "../CardsList/Card";
 import * as labels from "../labels";
 
 const styles = {
@@ -44,14 +44,14 @@ class View extends React.Component {
   }
 
   render() {
-    const { classes, card, ...props } = this.props;
+    const { classes, title } = this.props;
     return (
       <div
         aria-describedby={labels.editCardDescription.id}
         className={classes.root}
-        {...props}
+        tabIndex={-1}
       >
-        <Header className={classes.header} text={card.title} />
+        <Header className={classes.header} text={title} />
         <Content className={classes.content} />
         <Sidebar className={classes.sidebar} />
       </div>
@@ -64,7 +64,8 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  card: cardType.isRequired
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Styled;

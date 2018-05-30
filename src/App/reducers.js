@@ -24,7 +24,7 @@ const rootReducer = (state, action) => {
     case "FINISH_EDIT_LIST":
       return { ...state, listBeingEdited: null };
     case "START_EDIT_CARD":
-      return { ...state, cardBeingEdited: action.id };
+      return { ...state, cardBeingEdited: { ...payload } };
     case "FINISH_EDIT_CARD":
       return { ...state, cardBeingEdited: null };
     case "START_QUICK_EDIT_CARD":

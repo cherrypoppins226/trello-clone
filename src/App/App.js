@@ -5,7 +5,6 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import Popover from "@material-ui/core/Popover";
 import { connect } from "react-redux";
-import _ from "lodash";
 import { fileAbsolute } from "paths.macro";
 
 import * as actions from "./actions";
@@ -17,6 +16,76 @@ import EditCard from "./EditCard";
 import CardsList from "./CardsList";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
+
+const ActionsMenuPopover = connect(
+  state => ({
+    listBeingEdited: state.listBeingEdited
+  }),
+  dispatch => ({
+    finishEditList: () => dispatch(actions.finishEditList())
+  })
+)(props => {
+  if (!props.listBeingEdited) return null;
+  return (
+    <Popover
+      disableAutoFocus
+      anchorReference="anchorPosition"
+      anchorPosition={{
+        top: props.listBeingEdited.anchorElementBox.bottom,
+        left: props.listBeingEdited.anchorElementBox.left
+      }}
+      open={true}
+      onClose={props.finishEditList}
+      TransitionProps={{ timeout: 0 }}
+      elevation={1}
+      anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      transformOrigin={{ vertical: "top", horizontal: "left" }}
+    >
+      <ActionsMenu />
+    </Popover>
+  );
+});
+
+const EditCardModal = connect(
+  state => ({
+    cardBeingEdited: state.cardBeingEdited
+  }),
+  dispatch => ({
+    finishEditCard: () => dispatch(actions.finishEditCard())
+  })
+)(
+  props =>
+    !props.cardBeingEdited ? null : (
+      <Modal
+        style={{ overflow: "auto" }}
+        open={true}
+        onClose={props.finishEditCard}
+        BackdropProps={{ id: "editCardBackdrop" }}
+      >
+        <EditCard {...props.cardBeingEdited} />
+      </Modal>
+    )
+);
+
+const QuickEditCardModal = connect(
+  state => ({
+    cardBeingQuickEdited: state.cardBeingQuickEdited
+  }),
+  dispatch => ({
+    finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
+  })
+)(
+  props =>
+    !props.cardBeingQuickEdited ? null : (
+      <Modal
+        open={true}
+        onClose={props.finishQuickEditCard}
+        BackdropProps={{ id: "quickEditCardBackdrop" }}
+      >
+        <QuickEditCard {...props.cardBeingQuickEdited} />
+      </Modal>
+    )
+);
 
 const styles = {
   root: {
@@ -35,11 +104,6 @@ const styles = {
 };
 
 const View = props => {
-  // TODO: Remove when the list of cards is in the redux store
-  const allCards = _.flatten(props.lists.map(list => list.cards));
-  const cardBeingEditedObj = allCards.find(
-    card => card.id === props.cardBeingEdited
-  );
   return (
     <>
       <div className={props.classes.root}>
@@ -52,59 +116,19 @@ const View = props => {
           </div>
         ))}
       </div>
-      <Popover
-        anchorReference="anchorPosition"
-        anchorPosition={props.listBeingEdited && props.listBeingEdited.topLeft}
-        open={Boolean(props.listBeingEdited)}
-        onClose={props.finishEditList}
-        TransitionProps={{ timeout: 0 }}
-        elevation={1}
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-        transformOrigin={{ vertical: "top", horizontal: "left" }}
-      >
-        <ActionsMenu />
-      </Popover>
-      <Modal
-        open={Boolean(props.cardBeingQuickEdited)}
-        onClose={props.finishQuickEditCard}
-        BackdropProps={{ id: "quickEditCardBackdrop" }}
-      >
-        {props.cardBeingQuickEdited && (
-          <QuickEditCard cardBeingQuickEdited={props.cardBeingQuickEdited} />
-        )}
-      </Modal>
-      <Modal
-        style={{ overflow: "auto" }}
-        open={Boolean(cardBeingEditedObj)}
-        onClose={props.finishEditCard}
-        BackdropProps={{ id: "editCardBackdrop" }}
-      >
-        {cardBeingEditedObj && <EditCard card={cardBeingEditedObj} />}
-      </Modal>
+      <ActionsMenuPopover />
+      <EditCardModal />
+      <QuickEditCardModal />
     </>
   );
 };
 
-const mapStateToProps = state => ({
-  listBeingEdited: state.listBeingEdited,
-  cardBeingEdited: state.cardBeingEdited,
-  cardBeingQuickEdited: state.cardBeingQuickEdited
-});
+const Styled = withStyles(styles)(View);
 
-const mapDispatchToProps = dispatch => ({
-  finishEditList: () => dispatch(actions.finishEditList()),
-  finishEditCard: () => dispatch(actions.finishEditCard()),
-  finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
-});
+Styled.displayName = moduleName(fileAbsolute);
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(View)
-);
-
-Container.displayName = moduleName(fileAbsolute);
-
-Container.propTypes = {
+Styled.propTypes = {
   lists: PropTypes.array.isRequired
 };
 
-export default Container;
+export default Styled;

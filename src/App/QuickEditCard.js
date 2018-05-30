@@ -74,7 +74,7 @@ class View extends React.Component {
     // Perhaps if https://github.com/mui-org/material-ui/issues/7633 is done, we
     // can move this to styles above...
     const modalNode = findDOMNode(this);
-    const box = this.props.cardBeingQuickEdited.anchorElementBox;
+    const box = this.props.anchorElementBox;
     modalNode.style.top = `${box.top}px`;
     modalNode.style.left = `${box.left}px`;
     const textareaNode = modalNode.querySelector("textarea");
@@ -94,7 +94,7 @@ class View extends React.Component {
           <Typography
             autoFocus
             component={TextArea}
-            value={this.props.cardBeingQuickEdited.title}
+            value={this.props.title}
             onFocus={e => e.target.select()}
           />
           {/* eslint-enable jsx-a11y/no-autofocus */}
@@ -125,16 +125,14 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  cardBeingEdited: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    anchorElementBox: PropTypes.shape({
-      top: PropTypes.number.isRequired,
-      left: PropTypes.number.isRequired,
-      bottom: PropTypes.number.isRequired,
-      right: PropTypes.number.isRequired
-    }).isRequired
-  })
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  anchorElementBox: PropTypes.shape({
+    top: PropTypes.number.isRequired,
+    left: PropTypes.number.isRequired,
+    bottom: PropTypes.number.isRequired,
+    right: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default Styled;
