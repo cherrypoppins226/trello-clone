@@ -40,9 +40,6 @@ const View = props => {
   const cardBeingEditedObj = allCards.find(
     card => card.id === props.cardBeingEdited
   );
-  const cardBeingQuickEditedObj = allCards.find(
-    card => card.id === props.cardBeingQuickEdited
-  );
   return (
     <>
       <div className={props.classes.root}>
@@ -68,12 +65,12 @@ const View = props => {
         <ActionsMenu />
       </Popover>
       <Modal
-        open={Boolean(cardBeingQuickEditedObj)}
+        open={Boolean(props.cardBeingQuickEdited)}
         onClose={props.finishQuickEditCard}
         BackdropProps={{ id: "quickEditCardBackdrop" }}
       >
-        {cardBeingQuickEditedObj && (
-          <QuickEditCard card={cardBeingQuickEditedObj} />
+        {props.cardBeingQuickEdited && (
+          <QuickEditCard cardBeingQuickEdited={props.cardBeingQuickEdited} />
         )}
       </Modal>
       <Modal

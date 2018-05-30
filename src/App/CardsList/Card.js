@@ -53,7 +53,9 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
         aria-labelledby={labels.quickEditCard.id}
         onClick={e => {
           e.stopPropagation();
-          startQuickEdit(card.id);
+          const box = e.currentTarget.parentElement.getBoundingClientRect();
+          const { top, left, bottom, right } = box;
+          startQuickEdit(card.id, card.title, { top, left, bottom, right });
         }}
       >
         <Create />
@@ -63,7 +65,7 @@ const View = ({ classes, card, startQuickEdit, startEdit }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  startQuickEdit: id => dispatch(actions.startQuickEditCard(id)),
+  startQuickEdit: (...args) => dispatch(actions.startQuickEditCard(...args)),
   startEdit: id => dispatch(actions.startEditCard(id))
 });
 

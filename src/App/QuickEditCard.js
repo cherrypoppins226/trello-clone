@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -15,7 +16,6 @@ import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "./utils";
-import { cardType } from "./CardsList/Card";
 import * as labels from "./labels";
 import { button, textarea, smallIcon } from "./styles";
 
@@ -33,8 +33,7 @@ const styles = {
       pointerEvents: "all",
       padding: 4,
       paddingLeft: 8,
-      minHeight: 100,
-      minWidth: 200
+      minHeight: 100
     },
     "& button": {
       ...button,
@@ -72,35 +71,36 @@ const styles = {
 
 class View extends React.Component {
   componentDidMount() {
+    // Perhaps if https://github.com/mui-org/material-ui/issues/7633 is done, we
+    // can move this to styles above...
     const modalNode = findDOMNode(this);
+    const box = this.props.cardBeingQuickEdited.anchorElementBox;
+    modalNode.style.top = `${box.top}px`;
+    modalNode.style.left = `${box.left}px`;
     const textareaNode = modalNode.querySelector("textarea");
-    const cardNode = modalNode.ownerDocument.querySelector(
-      `[data-cardid="${this.props.card.id}"]`
-    );
-    // When developing in isolation, a card won't be available
-    if (cardNode) {
-      const coordinates = cardNode.getBoundingClientRect();
-      modalNode.style.top = `${coordinates.top}px`;
-      modalNode.style.left = `${coordinates.left}px`;
-      textareaNode.style.width = `${coordinates.width}px`;
-      textareaNode.style.height = `${coordinates.height + 50}px`;
-    }
-    textareaNode.select();
+    textareaNode.style.height = `${box.bottom - box.top}px`;
+    textareaNode.style.width = `${box.right - box.left}px`;
   }
 
   render() {
-    const { classes, card, ...props } = this.props;
     return (
       <div
         aria-describedby={labels.quickEditCardDescription.id}
-        className={classes.root}
-        {...props}
+        className={this.props.classes.root}
+        tabIndex={-1}
       >
-        <div className={classes.description}>
-          <Typography component={TextArea} value={card.title} />
+        <div className={this.props.classes.description}>
+          {/* eslint-disable jsx-a11y/no-autofocus */}
+          <Typography
+            autoFocus
+            component={TextArea}
+            value={this.props.cardBeingQuickEdited.title}
+            onFocus={e => e.target.select()}
+          />
+          {/* eslint-enable jsx-a11y/no-autofocus */}
           <Button variant="raised"> Save </Button>
         </div>
-        <div className={classes.sideButtons}>
+        <div className={this.props.classes.sideButtons}>
           {[
             [Label, "Edit Labels"],
             [Person, "Change Members"],
@@ -125,7 +125,16 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  card: cardType.isRequired
+  cardBeingEdited: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    anchorElementBox: PropTypes.shape({
+      top: PropTypes.number.isRequired,
+      left: PropTypes.number.isRequired,
+      bottom: PropTypes.number.isRequired,
+      right: PropTypes.number.isRequired
+    }).isRequired
+  })
 };
 
 export default Styled;

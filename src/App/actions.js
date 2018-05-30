@@ -22,9 +22,11 @@ export const finishEditCard = () => ({
   type: "FINISH_EDIT_CARD"
 });
 
-export const startQuickEditCard = id => ({
+export const startQuickEditCard = (id, title, anchorElementBox) => ({
   type: "START_QUICK_EDIT_CARD",
-  id
+  id,
+  title,
+  anchorElementBox
 });
 
 export const finishQuickEditCard = () => ({
