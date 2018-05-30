@@ -34,68 +34,59 @@ const styles = {
   }
 };
 
-class View extends React.Component {
-  render() {
-    // TODO: Remove when the list of cards is in the redux store
-    const allCards = _.flatten(this.props.lists.map(list => list.cards));
-    const cardBeingEditedObj = allCards.find(
-      card => card.id === this.props.cardBeingEdited
-    );
-    const cardBeingQuickEditedObj = allCards.find(
-      card => card.id === this.props.cardBeingQuickEdited
-    );
-    return (
-      <div style={{ height: "100%" }}>
-        <div className={this.props.classes.root}>
-          {this.props.lists.map(list => (
-            <CardsList key={list.id} list={list} />
-          ))}
-        </div>
-        <div style={{ display: "none" }}>
-          {Object.values(labels).map((obj, idx) => (
-            <div id={obj.id} key={idx}>
-              {obj.text}
-            </div>
-          ))}
-        </div>
-        <Popover
-          anchorReference="anchorPosition"
-          anchorPosition={
-            this.props.listBeingEdited && this.props.listBeingEdited.topLeft
-          }
-          container={this}
-          open={Boolean(this.props.listBeingEdited)}
-          onClose={this.props.finishEditList}
-          TransitionProps={{ timeout: 0 }}
-          elevation={1}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          transformOrigin={{ vertical: "top", horizontal: "left" }}
-        >
-          <ActionsMenu />
-        </Popover>
-        <Modal
-          container={this}
-          open={Boolean(cardBeingQuickEditedObj)}
-          onClose={this.props.finishQuickEditCard}
-          BackdropProps={{ id: "quickEditCardBackdrop" }}
-        >
-          {cardBeingQuickEditedObj && (
-            <QuickEditCard card={cardBeingQuickEditedObj} />
-          )}
-        </Modal>
-        <Modal
-          style={{ overflow: "auto" }}
-          container={this}
-          open={Boolean(cardBeingEditedObj)}
-          onClose={this.props.finishEditCard}
-          BackdropProps={{ id: "editCardBackdrop" }}
-        >
-          {cardBeingEditedObj && <EditCard card={cardBeingEditedObj} />}
-        </Modal>
+const View = props => {
+  // TODO: Remove when the list of cards is in the redux store
+  const allCards = _.flatten(props.lists.map(list => list.cards));
+  const cardBeingEditedObj = allCards.find(
+    card => card.id === props.cardBeingEdited
+  );
+  const cardBeingQuickEditedObj = allCards.find(
+    card => card.id === props.cardBeingQuickEdited
+  );
+  return (
+    <>
+      <div className={props.classes.root}>
+        {props.lists.map(list => <CardsList key={list.id} list={list} />)}
       </div>
-    );
-  }
-}
+      <div style={{ display: "none" }}>
+        {Object.values(labels).map((obj, idx) => (
+          <div id={obj.id} key={idx}>
+            {obj.text}
+          </div>
+        ))}
+      </div>
+      <Popover
+        anchorReference="anchorPosition"
+        anchorPosition={props.listBeingEdited && props.listBeingEdited.topLeft}
+        open={Boolean(props.listBeingEdited)}
+        onClose={props.finishEditList}
+        TransitionProps={{ timeout: 0 }}
+        elevation={1}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "left" }}
+      >
+        <ActionsMenu />
+      </Popover>
+      <Modal
+        open={Boolean(cardBeingQuickEditedObj)}
+        onClose={props.finishQuickEditCard}
+        BackdropProps={{ id: "quickEditCardBackdrop" }}
+      >
+        {cardBeingQuickEditedObj && (
+          <QuickEditCard card={cardBeingQuickEditedObj} />
+        )}
+      </Modal>
+      <Modal
+        style={{ overflow: "auto" }}
+        open={Boolean(cardBeingEditedObj)}
+        onClose={props.finishEditCard}
+        BackdropProps={{ id: "editCardBackdrop" }}
+      >
+        {cardBeingEditedObj && <EditCard card={cardBeingEditedObj} />}
+      </Modal>
+    </>
+  );
+};
 
 const mapStateToProps = state => ({
   listBeingEdited: state.listBeingEdited,

@@ -3,10 +3,12 @@
  * E.g. window, document, ...
  */
 
-import { render as renderer } from "react-testing-library";
+import * as testingLibrary from "react-testing-library";
 import { createContext } from "react-cosmos-loader";
 
-export const render = (fixture, proxies = []) => {
+import proxies from "../../cosmos.proxies";
+
+const customRender = (renderer, fixture) => {
   const { mount, ...context } = createContext({ renderer, fixture, proxies });
 
   return (async () => {
@@ -14,3 +16,8 @@ export const render = (fixture, proxies = []) => {
     return { ...context.getWrapper(), ...context, rerender: mount };
   })();
 };
+
+export const render = fixture => customRender(testingLibrary.render, fixture);
+
+export const renderIntoDocument = fixture =>
+  customRender(testingLibrary.renderIntoDocument, fixture);

@@ -1,31 +1,27 @@
 import { getByText } from "dom-testing-library";
 import { Simulate } from "react-testing-library";
 
-import { render } from "./utils/dom";
+import { render, renderIntoDocument } from "./utils/dom";
 import { labelledBy, describedBy } from "./utils";
-import proxies from "../cosmos.proxies";
 import * as labels from "./labels";
 import * as fixtures from "./fixtures";
 
 describe("cards list", () => {
   it("opens list actions menu", async () => {
-    const { container } = await render(fixtures.App.default, proxies);
+    await renderIntoDocument(fixtures.App.default);
     const getMenu = () =>
-      container.querySelector(
+      document.querySelector(
         describedBy(labels.cardsListActionsMenuDescription.id)
       );
     expect(getMenu()).toBeNull();
     Simulate.click(
-      container.querySelector(labelledBy(labels.cardsListActionsMenu.id))
+      document.querySelector(labelledBy(labels.cardsListActionsMenu.id))
     );
     expect(getMenu()).not.toBeNull();
   });
 
   it("adds a card", async () => {
-    const { container } = await render(
-      fixtures.CardsList.CardsList.default,
-      proxies
-    );
+    const { container } = await render(fixtures.CardsList.CardsList.default);
     const liveList = container.querySelector("ul");
     const countBefore = liveList.childElementCount;
     const lastBefore = liveList.lastElementChild;
@@ -38,17 +34,17 @@ describe("cards list", () => {
 
 describe("cards list card", () => {
   const testModal = async (editButtonSelector, modalSelector, textSelector) => {
-    const { container } = await render(fixtures.App.default, proxies);
-    const card = container.querySelector("[data-cardid='1']");
-    expect(container.querySelector(modalSelector)).toBeNull();
+    await renderIntoDocument(fixtures.App.default);
+    const card = document.querySelector("[data-cardid='1']");
+    expect(document.querySelector(modalSelector)).toBeNull();
     Simulate.click(
       editButtonSelector ? card.querySelector(editButtonSelector) : card
     );
-    expect(container.querySelector(modalSelector)).not.toBeNull();
+    expect(document.querySelector(modalSelector)).not.toBeNull();
     const cardDescription = node =>
       node.querySelector(labelledBy(labels.card.id)).textContent;
     expect(
-      container.querySelector(modalSelector).querySelector(textSelector)
+      document.querySelector(modalSelector).querySelector(textSelector)
         .textContent
     ).toBe(cardDescription(card));
   };
