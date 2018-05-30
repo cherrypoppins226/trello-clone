@@ -7,7 +7,9 @@ import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
 import { connect } from "react-redux";
+import { fileAbsolute } from "paths.macro";
 
+import { moduleName } from "../utils";
 import * as labels from "../labels";
 import * as actions from "../actions";
 import { buttonIconSmall } from "../styles";
@@ -36,7 +38,7 @@ const styles = {
   }
 };
 
-const Card = ({ classes, card, startQuickEdit, startEdit }) => {
+const View = ({ classes, card, startQuickEdit, startEdit }) => {
   // TODO: Use <Card /> from Material UI
   return (
     <Paper
@@ -60,20 +62,22 @@ const Card = ({ classes, card, startQuickEdit, startEdit }) => {
   );
 };
 
-export const cardType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired
-});
-
-Card.propTypes = {
-  card: cardType.isRequired,
-  startQuickEdit: PropTypes.func.isRequired,
-  startEdit: PropTypes.func.isRequired
-};
-
 const mapDispatchToProps = dispatch => ({
   startQuickEdit: id => dispatch(actions.startQuickEditCard(id)),
   startEdit: id => dispatch(actions.startEditCard(id))
 });
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Card));
+const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+
+Container.displayName = moduleName(fileAbsolute);
+
+export const cardType = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired
+});
+
+Container.propTypes = {
+  card: cardType.isRequired
+};
+
+export default Container;

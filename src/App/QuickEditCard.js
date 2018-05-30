@@ -12,6 +12,9 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "./utils";
 import { cardType } from "./CardsList/Card";
 import * as labels from "./labels";
 import { button, textarea, smallIcon } from "./styles";
@@ -67,7 +70,7 @@ const styles = {
   }
 };
 
-class QuickEditCard extends React.Component {
+class View extends React.Component {
   componentDidMount() {
     const modalNode = findDOMNode(this);
     const textareaNode = modalNode.querySelector("textarea");
@@ -117,10 +120,12 @@ class QuickEditCard extends React.Component {
   }
 }
 
-const View = withStyles(styles)(QuickEditCard);
+const Styled = withStyles(styles)(View);
 
-View.propTypes = {
+Styled.displayName = moduleName(fileAbsolute);
+
+Styled.propTypes = {
   card: cardType.isRequired
 };
 
-export default View;
+export default Styled;

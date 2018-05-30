@@ -5,7 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
 import { connect } from "react-redux";
+import { fileAbsolute } from "paths.macro";
 
+import { moduleName } from "../utils";
 import * as labels from "../labels";
 import * as actions from "../actions";
 import { buttonIconSmall, headerTextarea } from "../styles";
@@ -26,7 +28,7 @@ const styles = {
   }
 };
 
-const Header = props => {
+const View = props => {
   return (
     <div className={`${props.classes.root} ${props.className || ""}`}>
       <Typography
@@ -49,14 +51,17 @@ const Header = props => {
   );
 };
 
-Header.propTypes = {
-  listId: PropTypes.number.isRequired,
-  listTitle: PropTypes.string.isRequired,
-  startEdit: PropTypes.func.isRequired
-};
-
 const mapDispatchToProps = dispatch => ({
   startEdit: (...args) => dispatch(actions.startEditList(...args))
 });
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Header));
+const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+
+Container.displayName = moduleName(fileAbsolute);
+
+Container.propTypes = {
+  listId: PropTypes.number.isRequired,
+  listTitle: PropTypes.string.isRequired
+};
+
+export default Container;

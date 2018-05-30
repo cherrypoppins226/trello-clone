@@ -3,6 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 
 const styles = {
   checklist: {
@@ -22,7 +25,7 @@ const styles = {
   }
 };
 
-const Checklist = ({ classes }) => (
+const View = ({ classes }) => (
   <>
     <div className={classes.checklist}>
       <Typography variant="caption">0%</Typography>
@@ -43,6 +46,8 @@ const Checklist = ({ classes }) => (
   </>
 );
 
-const View = withStyles(styles)(Checklist);
+const Styled = withStyles(styles)(View);
 
-export default View;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;

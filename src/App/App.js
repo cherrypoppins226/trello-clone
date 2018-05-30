@@ -6,9 +6,11 @@ import Modal from "@material-ui/core/Modal";
 import Popover from "@material-ui/core/Popover";
 import { connect } from "react-redux";
 import _ from "lodash";
+import { fileAbsolute } from "paths.macro";
 
 import * as actions from "./actions";
 import * as labels from "./labels";
+import { moduleName } from "./utils";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
@@ -32,7 +34,7 @@ const styles = {
   }
 };
 
-class App extends React.Component {
+class View extends React.Component {
   render() {
     // TODO: Remove when the list of cards is in the redux store
     const allCards = _.flatten(this.props.lists.map(list => list.cards));
@@ -95,22 +97,6 @@ class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  lists: PropTypes.array.isRequired,
-  listBeingEdited: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    topLeft: PropTypes.shape({
-      top: PropTypes.number.isRequired,
-      left: PropTypes.number.isRequired
-    }).isRequired
-  }),
-  finishEditList: PropTypes.func.isRequired,
-  cardBeingEdited: PropTypes.number,
-  finishEditCard: PropTypes.func.isRequired,
-  cardBeingQuickEdited: PropTypes.number,
-  finishQuickEditCard: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
   listBeingEdited: state.listBeingEdited,
   cardBeingEdited: state.cardBeingEdited,
@@ -123,6 +109,14 @@ const mapDispatchToProps = dispatch => ({
   finishQuickEditCard: () => dispatch(actions.finishQuickEditCard())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(App)
+const Container = connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(View)
 );
+
+Container.displayName = moduleName(fileAbsolute);
+
+Container.propTypes = {
+  lists: PropTypes.array.isRequired
+};
+
+export default Container;

@@ -1,6 +1,9 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
@@ -34,7 +37,7 @@ const centerInPage = node => {
   node.style.left = `${(window.innerWidth - node.offsetWidth) / 2}px`;
 };
 
-class EditCard extends React.Component {
+class View extends React.Component {
   componentDidMount() {
     this.node = findDOMNode(this);
     centerInPage(this.node);
@@ -56,10 +59,12 @@ class EditCard extends React.Component {
   }
 }
 
-const View = withStyles(styles)(EditCard);
+const Styled = withStyles(styles)(View);
 
-View.propTypes = {
+Styled.displayName = moduleName(fileAbsolute);
+
+Styled.propTypes = {
   card: cardType.isRequired
 };
 
-export default View;
+export default Styled;

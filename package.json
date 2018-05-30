@@ -23,6 +23,7 @@
     "faker": "^4.1.0",
     "husky": "^1.0.0-rc.4",
     "jest-image-snapshot": "^2.4.1",
+    "paths.macro": "^2.0.2",
     "prettier": "^1.12.1",
     "prettier-eslint-cli": "^4.7.1",
     "prop-types": "^15.6.1",

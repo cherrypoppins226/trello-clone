@@ -10,6 +10,9 @@ import CheckBox from "@material-ui/icons/CheckBox";
 import Comment from "@material-ui/icons/Comment";
 import FormatListBulleted from "@material-ui/icons/FormatListBulleted";
 import Typography from "@material-ui/core/Typography";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import { icon, lightColor } from "../styles";
 
 const styles = {
@@ -58,6 +61,8 @@ const View = ({ classes, className = "" }) => {
   );
 };
 
-const Content = withStyles(styles)(View);
+const Styled = withStyles(styles)(View);
 
-export default Content;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;

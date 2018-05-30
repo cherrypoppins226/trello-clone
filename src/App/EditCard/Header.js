@@ -5,6 +5,9 @@ import Inbox from "@material-ui/icons/Inbox";
 import Close from "@material-ui/icons/Close";
 import TextArea from "react-textarea-autosize";
 import Typography from "@material-ui/core/Typography";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import { buttonIcon, headerTextarea } from "../styles";
 
 const styles = {
@@ -27,7 +30,7 @@ const styles = {
   }
 };
 
-const Header = ({ classes, className = "", text }) => {
+const View = ({ classes, className = "", text }) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <Inbox />
@@ -45,10 +48,12 @@ const Header = ({ classes, className = "", text }) => {
   );
 };
 
-const View = withStyles(styles)(Header);
+const Styled = withStyles(styles)(View);
 
-View.propTypes = {
+Styled.displayName = moduleName(fileAbsolute);
+
+Styled.propTypes = {
   text: PropTypes.string.isRequired
 };
 
-export default View;
+export default Styled;

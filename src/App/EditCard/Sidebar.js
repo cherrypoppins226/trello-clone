@@ -11,6 +11,9 @@ import RemoveRedEye from "@material-ui/icons/RemoveRedEye";
 import Archive from "@material-ui/icons/Archive";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import { button, smallIcon, lightColor } from "../styles";
 
 const styles = {
@@ -59,7 +62,7 @@ const buttonsList = buttons => {
   );
 };
 
-const Sidebar = ({ classes, className = "" }) => {
+const View = ({ classes, className = "" }) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <Typography variant="subheading"> Add </Typography>
@@ -81,6 +84,8 @@ const Sidebar = ({ classes, className = "" }) => {
   );
 };
 
-const View = withStyles(styles)(Sidebar);
+const Styled = withStyles(styles)(View);
 
-export default View;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;

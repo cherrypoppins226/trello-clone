@@ -7,7 +7,9 @@ import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { connect } from "react-redux";
+import { fileAbsolute } from "paths.macro";
 
+import { moduleName } from "../utils";
 import * as actions from "../actions";
 import * as labels from "../labels";
 
@@ -37,7 +39,7 @@ const styles = {
   }
 };
 
-const ActionsMenu = props => {
+const View = props => {
   return (
     <Paper
       className={props.classes.root}
@@ -77,6 +79,8 @@ const mapDispatchToProps = dispatch => ({
   finishEditList: () => dispatch(actions.finishEditList())
 });
 
-export default connect(null, mapDispatchToProps)(
-  withStyles(styles)(ActionsMenu)
-);
+const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+
+Container.displayName = moduleName(fileAbsolute);
+
+export default Container;

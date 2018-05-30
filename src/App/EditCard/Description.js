@@ -2,6 +2,9 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextArea from "react-textarea-autosize";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 
 const styles = {
   root: {
@@ -26,7 +29,7 @@ const styles = {
   }
 };
 
-const Description = ({ classes }) => (
+const View = ({ classes }) => (
   <Typography
     className={classes.root}
     component={TextArea}
@@ -34,6 +37,8 @@ const Description = ({ classes }) => (
   />
 );
 
-const View = withStyles(styles)(Description);
+const Styled = withStyles(styles)(View);
 
-export default View;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;

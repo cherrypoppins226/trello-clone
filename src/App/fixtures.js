@@ -11,30 +11,34 @@ const jss = create({ plugins: [...jssPreset().plugins] });
 
 const generateClassName = createGenerateClassName();
 
-const wrap = Component => props => (
-  <React.Fragment>
-    <CssBaseline />
-    <JssProvider jss={jss} generateClassName={generateClassName}>
-      <Component {...props} />
-    </JssProvider>
-  </React.Fragment>
-);
+let fixtures = [];
 
-const fixtures = [];
-
-const addToDefaultExport = (namedFixtures, displayName) => {
-  Object.values(namedFixtures).forEach(fixture => {
-    fixture.component.displayName = displayName;
-    fixtures.push(fixture);
-  });
+const addToDefaultExport = namedFixtures => {
+  fixtures = fixtures.concat(Object.values(namedFixtures));
+  return namedFixtures;
 };
 
-const makeFixtures = (component, namedFixtures) => {
+const makeFixtures = (Component, namedFixtures) => {
   Object.keys(namedFixtures).forEach(name => {
-    namedFixtures[name] = { component, name, ...namedFixtures[name] };
+    const wrapped = props => (
+      <CssBaseline>
+        <JssProvider jss={jss} generateClassName={generateClassName}>
+          <Component {...props} />
+        </JssProvider>
+      </CssBaseline>
+    );
+    wrapped.displayName = Component.displayName;
+    namedFixtures[name] = {
+      name,
+      component: wrapped,
+      ...namedFixtures[name]
+    };
   });
   return namedFixtures;
 };
+
+const makeFixturesAndExport = (...args) =>
+  addToDefaultExport(makeFixtures(...args));
 
 faker.seed(1);
 
@@ -63,16 +67,15 @@ const mockReduxState = {
   cardBeingQuickEdited: null
 };
 
-export const App = makeFixtures(wrap(require("./App").default), {
+export const App = makeFixturesAndExport(require("./App").default, {
   default: {
     props: { lists },
     reduxState: mockReduxState
   }
 });
-addToDefaultExport(App, "App");
 
-export const QuickEditCard = makeFixtures(
-  wrap(require("./QuickEditCard").default),
+export const QuickEditCard = makeFixturesAndExport(
+  require("./QuickEditCard").default,
   {
     default: {
       props: {
@@ -81,11 +84,10 @@ export const QuickEditCard = makeFixtures(
     }
   }
 );
-addToDefaultExport(QuickEditCard, "QuickEditCard");
 
 export const CardsList = {};
 
-CardsList.CardsList = makeFixtures(wrap(require("./CardsList").default), {
+CardsList.CardsList = makeFixturesAndExport(require("./CardsList").default, {
   default: {
     props: {
       list: lists[0]
@@ -93,9 +95,8 @@ CardsList.CardsList = makeFixtures(wrap(require("./CardsList").default), {
     reduxState: mockReduxState
   }
 });
-addToDefaultExport(CardsList.CardsList, "CardsList/CardsList");
 
-CardsList.Cards = makeFixtures(wrap(require("./CardsList/Cards").default), {
+CardsList.Cards = makeFixturesAndExport(require("./CardsList/Cards").default, {
   default: {
     props: {
       cards: lists[0].cards
@@ -103,10 +104,9 @@ CardsList.Cards = makeFixtures(wrap(require("./CardsList/Cards").default), {
     reduxState: mockReduxState
   }
 });
-addToDefaultExport(CardsList.Cards, "CardsList/Cards");
 
-CardsList.ActionsMenu = makeFixtures(
-  wrap(require("./CardsList/ActionsMenu").default),
+CardsList.ActionsMenu = makeFixturesAndExport(
+  require("./CardsList/ActionsMenu").default,
   {
     default: {
       props: {},
@@ -114,20 +114,21 @@ CardsList.ActionsMenu = makeFixtures(
     }
   }
 );
-addToDefaultExport(CardsList.ActionsMenu, "CardsList/ActionsMenu");
 
-CardsList.Header = makeFixtures(wrap(require("./CardsList/Header").default), {
-  default: {
-    props: {
-      listId: lists[0].id,
-      listTitle: lists[0].title
-    },
-    reduxState: mockReduxState
+CardsList.Header = makeFixturesAndExport(
+  require("./CardsList/Header").default,
+  {
+    default: {
+      props: {
+        listId: lists[0].id,
+        listTitle: lists[0].title
+      },
+      reduxState: mockReduxState
+    }
   }
-});
-addToDefaultExport(CardsList.Header, "CardsList/Header");
+);
 
-CardsList.Card = makeFixtures(wrap(require("./CardsList/Card").default), {
+CardsList.Card = makeFixturesAndExport(require("./CardsList/Card").default, {
   default: {
     props: {
       card: lists[0].cards[0]
@@ -135,17 +136,18 @@ CardsList.Card = makeFixtures(wrap(require("./CardsList/Card").default), {
     reduxState: mockReduxState
   }
 });
-addToDefaultExport(CardsList.Card, "CardsList/Card");
 
 export const EditCard = {};
 
-EditCard.EditCard = makeFixtures(wrap(require("./EditCard/EditCard").default), {
-  default: {
-    props: {
-      card: lists[0].cards[0]
+EditCard.EditCard = makeFixturesAndExport(
+  require("./EditCard/EditCard").default,
+  {
+    default: {
+      props: {
+        card: lists[0].cards[0]
+      }
     }
   }
-});
-addToDefaultExport(EditCard.EditCard, "EditCard/EditCard");
+);
 
 export default fixtures;

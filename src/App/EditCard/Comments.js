@@ -3,6 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextArea from "react-textarea-autosize";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import { button, textarea } from "../styles";
 
 const styles = {
@@ -18,7 +21,7 @@ const styles = {
   saveComment: button
 };
 
-const Comments = ({ classes }) => (
+const View = ({ classes }) => (
   <>
     <Typography
       className={classes.commentArea}
@@ -38,6 +41,8 @@ const Comments = ({ classes }) => (
   </>
 );
 
-const View = withStyles(styles)(Comments);
+const Styled = withStyles(styles)(View);
 
-export default View;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;

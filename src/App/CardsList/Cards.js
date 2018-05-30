@@ -1,6 +1,9 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 import Card, { cardType } from "./Card";
 
 const styles = {
@@ -17,7 +20,7 @@ const styles = {
   }
 };
 
-class Cards extends React.Component {
+class View extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.cards.length > prevProps.cards.length)
       this.cardsListEnd.scrollIntoView();
@@ -43,10 +46,12 @@ class Cards extends React.Component {
   }
 }
 
-const View = withStyles(styles)(Cards);
+const Styled = withStyles(styles)(View);
 
-View.propTypes = {
+Styled.displayName = moduleName(fileAbsolute);
+
+Styled.propTypes = {
   cards: PropTypes.arrayOf(cardType).isRequired
 };
 
-export default View;
+export default Styled;

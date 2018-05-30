@@ -1,6 +1,9 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
+import { fileAbsolute } from "paths.macro";
+
+import { moduleName } from "../utils";
 
 const styles = {
   root: {
@@ -13,12 +16,14 @@ const styles = {
   }
 };
 
-const Attachments = ({ classes }) => (
+const View = ({ classes }) => (
   <Typography className={classes.root} align="center">
     Drag and drop or choose your files
   </Typography>
 );
 
-const View = withStyles(styles)(Attachments);
+const Styled = withStyles(styles)(View);
 
-export default View;
+Styled.displayName = moduleName(fileAbsolute);
+
+export default Styled;
