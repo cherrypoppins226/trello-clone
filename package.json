@@ -32,7 +32,8 @@
     "react-cosmos-redux-proxy": "^4.4.0",
     "react-redux": "^5.0.7",
     "react-testing-library": "^3.0.1",
-    "react-textarea-autosize": "^6.1.0"
+    "react-textarea-autosize": "^6.1.0",
+    "redux-actions": "^2.4.0"
   },
   "browserslist": {
     "development": [

@@ -60,17 +60,10 @@ for (let i = 1; i < 7; i++) {
   lists.push(list);
 }
 
-const mockReduxState = {
-  lists,
-  listBeingEdited: null,
-  cardBeingEdited: null,
-  cardBeingQuickEdited: null
-};
-
 export const App = makeFixturesAndExport(require("./App").default, {
   default: {
-    props: { lists },
-    reduxState: mockReduxState
+    props: {},
+    reduxState: { lists }
   }
 });
 
@@ -99,7 +92,9 @@ CardsList.CardsList = makeFixturesAndExport(require("./CardsList").default, {
     props: {
       list: lists[0]
     },
-    reduxState: mockReduxState
+    reduxState: {
+      lists
+    }
   }
 });
 
@@ -108,7 +103,7 @@ CardsList.Cards = makeFixturesAndExport(require("./CardsList/Cards").default, {
     props: {
       cards: lists[0].cards
     },
-    reduxState: mockReduxState
+    reduxState: {}
   }
 });
 
@@ -137,7 +132,7 @@ CardsList.Header = makeFixturesAndExport(
         listId: lists[0].id,
         listTitle: lists[0].title
       },
-      reduxState: mockReduxState
+      reduxState: {}
     }
   }
 );
@@ -147,7 +142,7 @@ CardsList.Card = makeFixturesAndExport(require("./CardsList/Card").default, {
     props: {
       card: lists[0].cards[0]
     },
-    reduxState: mockReduxState
+    reduxState: {}
   }
 });
 

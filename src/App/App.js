@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
@@ -7,7 +6,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
-import { mapDispatchToProps } from "./actionCreators";
+import { mapDispatchToProps } from "./redux";
 import * as labels from "./labels";
 import { moduleName } from "./utils";
 import QuickEditCard from "./QuickEditCard";
@@ -98,11 +97,11 @@ const styles = {
   }
 };
 
-const View = props => {
+const View = ({ classes, lists }) => {
   return (
     <>
-      <div className={props.classes.root}>
-        {props.lists.map(list => <CardsList key={list.id} list={list} />)}
+      <div className={classes.root}>
+        {lists.map(list => <CardsList key={list.id} list={list} />)}
       </div>
       <div style={{ display: "none" }}>
         {Object.values(labels).map((obj, idx) => (
@@ -118,12 +117,12 @@ const View = props => {
   );
 };
 
-const Styled = withStyles(styles)(View);
+const mapStateToProps = state => ({
+  lists: state.lists
+});
 
-Styled.displayName = moduleName(fileAbsolute);
+const Container = connect(mapStateToProps)(withStyles(styles)(View));
 
-Styled.propTypes = {
-  lists: PropTypes.array.isRequired
-};
+Container.displayName = moduleName(fileAbsolute);
 
-export default Styled;
+export default Container;

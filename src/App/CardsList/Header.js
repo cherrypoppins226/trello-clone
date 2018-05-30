@@ -9,7 +9,7 @@ import { fileAbsolute } from "paths.macro";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import { mapDispatchToProps } from "../actionCreators";
+import { mapDispatchToProps } from "../redux";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {

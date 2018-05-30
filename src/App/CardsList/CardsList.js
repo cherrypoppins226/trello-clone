@@ -10,7 +10,7 @@ import Header from "./Header";
 import Cards from "./Cards";
 import { button } from "../styles";
 import { moduleName } from "../utils";
-import { mapDispatchToProps } from "../actionCreators";
+import { mapDispatchToProps } from "../redux";
 
 const styles = {
   root: {

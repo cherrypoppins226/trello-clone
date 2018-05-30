@@ -20,3 +20,10 @@ export const moduleName = filename => {
   const p = path.relative(path.join(npmRoot, "src", "App"), filename);
   return path.join(path.dirname(p), path.basename(p, path.extname(p)));
 };
+
+export const isObjectEmpty = obj => {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+};
