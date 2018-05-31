@@ -64,7 +64,9 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  ).isRequired,
   cardBeingEdited: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired

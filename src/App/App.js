@@ -22,7 +22,7 @@ const ActionsMenuPopover = connect(
 )(
   props =>
     !props.listBeingEdited ? null : (
-      <ClickAwayListener onClickAway={props.actions.finishEditList}>
+      <ClickAwayListener onClickAway={props.actions.cardsList.finishEdit}>
         <ActionsMenu
           {...props}
           style={{
@@ -44,7 +44,7 @@ const EditCardModal = connect(
       <Modal
         style={{ overflow: "auto" }}
         open={true}
-        onClose={props.actions.finishEditCard}
+        onClose={props.actions.card.finishEdit}
         BackdropProps={{ id: "editCardBackdrop" }}
       >
         <EditCard
@@ -66,7 +66,7 @@ const QuickEditCardModal = connect(
     !props.cardBeingQuickEdited ? null : (
       <Modal
         open={true}
-        onClose={props.actions.finishQuickEditCard}
+        onClose={props.actions.card.finishQuickEdit}
         BackdropProps={{ id: "quickEditCardBackdrop" }}
       >
         <QuickEditCard

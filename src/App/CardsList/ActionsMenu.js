@@ -48,7 +48,7 @@ const View = ({ classes, actions, listBeingEdited, ...rest }) => {
       <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={() => actions.finishEditList()}>
+      <MenuList dense={true} onClick={() => actions.cardsList.finishEdit()}>
         {[
           "",
           "Add Card...",
@@ -80,7 +80,9 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  actions: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.func, PropTypes.object])
+  ).isRequired,
   listBeingEdited: PropTypes.shape({
     id: PropTypes.number.isRequired,
     anchorElementBox: PropTypes.shape({

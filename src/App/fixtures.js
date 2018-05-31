@@ -78,7 +78,9 @@ export const QuickEditCard = makeFixturesAndExport(
           anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
         },
         actions: {
-          finishQuickEditCard: () => {}
+          card: {
+            finishQuickEdit: () => {}
+          }
         }
       }
     }
@@ -117,7 +119,9 @@ CardsList.ActionsMenu = makeFixturesAndExport(
           anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
         },
         actions: {
-          finishEditList: () => {}
+          cardsList: {
+            finishEdit: () => {}
+          }
         }
       }
     }
@@ -156,7 +160,9 @@ EditCard.EditCard = makeFixturesAndExport(
         cardBeingEdited: { ...lists[0].cards[0] }
       },
       actions: {
-        finishEditCard: () => {}
+        card: {
+          finishEdit: () => {}
+        }
       }
     }
   }

@@ -1,35 +1,56 @@
 import { bindActionCreators } from "redux";
 import { handleActions, createActions } from "redux-actions";
 
-const identity = args => args;
+const actions = createActions({
+  CARDS_LIST: {
+    START_EDIT: undefined,
+    FINISH_EDIT: undefined
+  },
+  CARD: {
+    ADD: undefined,
+    START_EDIT: undefined,
+    FINISH_EDIT: undefined,
+    START_QUICK_EDIT: undefined,
+    FINISH_QUICK_EDIT: undefined
+  }
+});
 
-const makeActions = actionNames => {
-  const obj = {};
-  actionNames.forEach(name => (obj[name] = identity));
-  return createActions(obj);
+const recursiveBindActionCreators = (actionCreators, dispatch) => {
+  const bound = {};
+
+  Object.keys(actionCreators).forEach(key => {
+    const creator = actionCreators[key];
+    if (creator && typeof creator === "object") {
+      bound[key] = recursiveBindActionCreators(creator, dispatch);
+    } else if (typeof creator === "function") {
+      bound[key] = bindActionCreators({ [key]: creator }, dispatch)[key];
+    } else {
+      throw Error(`Cannot bind to value of type: ${typeof creator}`);
+    }
+  });
+
+  return bound;
 };
-
-const actions = makeActions([
-  "ADD_CARD",
-  "START_EDIT_LIST",
-  "FINISH_EDIT_LIST",
-  "START_EDIT_CARD",
-  "FINISH_EDIT_CARD",
-  "START_QUICK_EDIT_CARD",
-  "FINISH_QUICK_EDIT_CARD"
-]);
 
 // Convenient default that makes all actionCreators available under
 // props.actions
-export const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-});
+export const mapDispatchToProps = dispatch => {
+  return { actions: recursiveBindActionCreators(actions, dispatch) };
+};
 
 const nextCardId = cards =>
   cards.reduce((max, card) => Math.max(max, card.id), 0) + 1;
 
 const reducersMap = {
-  [actions.addCard]: (state, { payload }) => {
+  [actions.cardsList.startEdit]: (state, { payload }) => {
+    return { ...state, listBeingEdited: payload };
+  },
+
+  [actions.cardsList.finishEdit]: state => {
+    return { ...state, listBeingEdited: null };
+  },
+
+  [actions.card.add]: (state, { payload }) => {
     return {
       ...state,
       lists: state.lists.map(list => {
@@ -46,27 +67,19 @@ const reducersMap = {
     };
   },
 
-  [actions.startEditList]: (state, { payload }) => {
-    return { ...state, listBeingEdited: payload };
-  },
-
-  [actions.finishEditList]: state => {
-    return { ...state, listBeingEdited: null };
-  },
-
-  [actions.startEditCard]: (state, { payload }) => {
+  [actions.card.startEdit]: (state, { payload }) => {
     return { ...state, cardBeingEdited: payload };
   },
 
-  [actions.finishEditCard]: state => {
+  [actions.card.finishEdit]: state => {
     return { ...state, cardBeingEdited: null };
   },
 
-  [actions.startQuickEditCard]: (state, { payload }) => {
+  [actions.card.startQuickEdit]: (state, { payload }) => {
     return { ...state, cardBeingQuickEdited: payload };
   },
 
-  [actions.finishQuickEditCard]: state => {
+  [actions.card.finishQuickEdit]: state => {
     return { ...state, cardBeingQuickEdited: null };
   }
 };

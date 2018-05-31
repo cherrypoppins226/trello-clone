@@ -43,7 +43,7 @@ const View = ({ classes, className = "", actions, listId, listTitle }) => {
         onClick={e => {
           const box = e.currentTarget.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          actions.startEditList({
+          actions.cardsList.startEdit({
             id: listId,
             anchorElementBox: { top, left, bottom, right }
           });

@@ -44,7 +44,7 @@ const View = ({ classes, actions, card }) => {
     <Paper
       data-cardid={card.id}
       elevation={1}
-      onClick={e => actions.startEditCard(card)}
+      onClick={e => actions.card.startEdit(card)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
@@ -55,7 +55,7 @@ const View = ({ classes, actions, card }) => {
           e.stopPropagation();
           const box = e.currentTarget.parentElement.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          actions.startQuickEditCard({
+          actions.card.startQuickEdit({
             ...card,
             anchorElementBox: { top, left, bottom, right }
           });

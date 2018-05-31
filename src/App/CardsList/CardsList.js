@@ -28,23 +28,23 @@ const styles = {
   }
 };
 
-const View = props => {
+const View = ({ classes, actions, list }) => {
   return (
     <Paper
-      data-listid={props.list.id}
+      data-listid={list.id}
       component="section"
       elevation={1}
-      className={props.classes.root}
+      className={classes.root}
     >
       <Header
-        className={props.classes.header}
-        listId={props.list.id}
-        listTitle={props.list.title}
+        className={classes.header}
+        listId={list.id}
+        listTitle={list.title}
       />
       <div style={{ overflowY: "scroll" }}>
-        <Cards cards={props.list.cards} />
+        <Cards cards={list.cards} />
       </div>
-      <Button onClick={() => props.actions.addCard({ listId: props.list.id })}>
+      <Button onClick={() => actions.card.add({ listId: list.id })}>
         Add a card...
       </Button>
     </Paper>
