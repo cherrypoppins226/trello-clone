@@ -83,6 +83,16 @@ const QuickEditCardModal = connect(
 
 const styles = {
   root: {
+    background: "rgb(0, 121, 191)",
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: "100%",
+    overflowY: "hidden"
+  },
+  lists: {
     padding: 8,
     height: "100%",
     flexWrap: "nowrap",
@@ -99,8 +109,8 @@ const styles = {
 
 const View = ({ classes, lists }) => {
   return (
-    <>
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <div className={classes.lists}>
         {lists.map(list => <CardsList key={list.id} list={list} />)}
       </div>
       <div style={{ display: "none" }}>
@@ -113,7 +123,7 @@ const View = ({ classes, lists }) => {
       <ActionsMenuPopover />
       <EditCardModal />
       <QuickEditCardModal />
-    </>
+    </div>
   );
 };
 
