@@ -3,14 +3,12 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
 
 import Header from "./Header";
 import Cards from "./Cards";
 import { button } from "../styles";
 import { moduleName } from "../utils";
-import { mapDispatchToProps } from "../redux";
 
 const styles = {
   root: {
@@ -28,38 +26,51 @@ const styles = {
   }
 };
 
-const View = ({ classes, actions, list }) => {
-  return (
-    <Paper
-      data-listid={list.id}
-      component="section"
-      elevation={1}
-      className={classes.root}
-    >
-      <Header
-        className={classes.header}
-        listId={list.id}
-        listTitle={list.title}
-      />
-      <div style={{ overflowY: "scroll" }}>
-        <Cards cards={list.cards} />
-      </div>
-      <Button onClick={() => actions.card.add({ listId: list.id })}>
-        Add a card...
-      </Button>
-    </Paper>
-  );
-};
+const nextCardId = cards =>
+  cards.reduce((max, card) => Math.max(max, card.id), 0) + 1;
 
-const mapStateToProps = (state, ownProps) => ({
-  list: state.lists.find(list => list.id === ownProps.list.id)
-});
+class View extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cards: props.list.cards
+    };
+  }
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(View)
-);
+  addCard() {
+    this.setState(prevState => ({
+      cards: [
+        ...prevState.cards,
+        { id: nextCardId(prevState.cards), title: "Title..." }
+      ]
+    }));
+  }
 
-Container.displayName = moduleName(fileAbsolute);
+  render() {
+    return (
+      <Paper
+        data-listid={this.props.list.id}
+        component="section"
+        elevation={1}
+        className={this.props.classes.root}
+      >
+        <Header
+          className={this.props.classes.header}
+          listId={this.props.list.id}
+          listTitle={this.props.list.title}
+        />
+        <div style={{ overflowY: "scroll" }}>
+          <Cards cards={this.state.cards} />
+        </div>
+        <Button onClick={this.addCard.bind(this)}>Add a card...</Button>
+      </Paper>
+    );
+  }
+}
+
+const Styled = withStyles(styles)(View);
+
+Styled.displayName = moduleName(fileAbsolute);
 
 export const listType = PropTypes.shape({
   id: PropTypes.number.isRequired,
@@ -67,8 +78,8 @@ export const listType = PropTypes.shape({
   cards: PropTypes.array.isRequired
 });
 
-Container.propTypes = {
+Styled.propTypes = {
   list: listType
 };
 
-export default Container;
+export default Styled;

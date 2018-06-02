@@ -4,6 +4,7 @@ import { create } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
+import { AppState } from "./App";
 
 // TODO: Log mocked callback functions arguments to console
 
@@ -62,8 +63,7 @@ for (let i = 1; i < 7; i++) {
 
 export const App = makeFixturesAndExport(require("./App").default, {
   default: {
-    props: {},
-    reduxState: { lists }
+    props: { lists }
   }
 });
 
@@ -72,15 +72,13 @@ export const QuickEditCard = makeFixturesAndExport(
   {
     default: {
       props: {
-        cardBeingQuickEdited: {
-          id: 1,
-          title: lists[0].cards[0].title,
-          anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
-        },
-        actions: {
-          card: {
-            finishQuickEdit: () => {}
-          }
+        appState: {
+          cardBeingQuickEdited: {
+            id: 1,
+            title: lists[0].cards[0].title,
+            anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
+          },
+          finishQuickEdit: () => {}
         }
       }
     }
@@ -94,8 +92,8 @@ CardsList.CardsList = makeFixturesAndExport(require("./CardsList").default, {
     props: {
       list: lists[0]
     },
-    reduxState: {
-      lists
+    stores: {
+      appState: new AppState()
     }
   }
 });
@@ -105,7 +103,9 @@ CardsList.Cards = makeFixturesAndExport(require("./CardsList/Cards").default, {
     props: {
       cards: lists[0].cards
     },
-    reduxState: {}
+    stores: {
+      appState: new AppState()
+    }
   }
 });
 
@@ -114,14 +114,12 @@ CardsList.ActionsMenu = makeFixturesAndExport(
   {
     default: {
       props: {
-        listBeingEdited: {
-          id: 1,
-          anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
-        },
-        actions: {
-          cardsList: {
-            finishEdit: () => {}
-          }
+        appState: {
+          listBeingEdited: {
+            id: 1,
+            anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
+          },
+          finishListEdit: () => {}
         }
       }
     }
@@ -136,7 +134,9 @@ CardsList.Header = makeFixturesAndExport(
         listId: lists[0].id,
         listTitle: lists[0].title
       },
-      reduxState: {}
+      stores: {
+        appState: new AppState()
+      }
     }
   }
 );
@@ -146,7 +146,9 @@ CardsList.Card = makeFixturesAndExport(require("./CardsList/Card").default, {
     props: {
       card: lists[0].cards[0]
     },
-    reduxState: {}
+    stores: {
+      appState: new AppState()
+    }
   }
 });
 
@@ -157,11 +159,9 @@ EditCard.EditCard = makeFixturesAndExport(
   {
     default: {
       props: {
-        cardBeingEdited: { ...lists[0].cards[0] }
-      },
-      actions: {
-        card: {
-          finishEdit: () => {}
+        appState: {
+          cardBeingEdited: { ...lists[0].cards[0] },
+          finishQuickCardEdit: () => {}
         }
       }
     }

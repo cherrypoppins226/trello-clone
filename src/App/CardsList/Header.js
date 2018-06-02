@@ -4,12 +4,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
-import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
+import { inject } from "mobx-react";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import { mapDispatchToProps } from "../redux";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const styles = {
@@ -28,7 +27,7 @@ const styles = {
   }
 };
 
-const View = ({ classes, className = "", actions, listId, listTitle }) => {
+const View = ({ classes, className = "", appState, listId, listTitle }) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <Typography
@@ -43,7 +42,7 @@ const View = ({ classes, className = "", actions, listId, listTitle }) => {
         onClick={e => {
           const box = e.currentTarget.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          actions.cardsList.startEdit({
+          appState.startListEdit({
             id: listId,
             anchorElementBox: { top, left, bottom, right }
           });
@@ -55,13 +54,13 @@ const View = ({ classes, className = "", actions, listId, listTitle }) => {
   );
 };
 
-const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+const Styled = withStyles(styles)(inject("appState")(View));
 
-Container.displayName = moduleName(fileAbsolute);
+Styled.displayName = moduleName(fileAbsolute);
 
-Container.propTypes = {
+Styled.propTypes = {
   listId: PropTypes.number.isRequired,
   listTitle: PropTypes.string.isRequired
 };
 
-export default Container;
+export default Styled;

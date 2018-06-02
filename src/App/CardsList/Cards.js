@@ -28,7 +28,7 @@ class View extends React.Component {
 
   render() {
     return (
-      <>
+      <React.Fragment>
         <ul className={this.props.classes.root}>
           {this.props.cards.map(card => (
             <li key={card.id}>
@@ -41,7 +41,7 @@ class View extends React.Component {
           style={{ float: "left", clear: "both" }}
           ref={node => (this.cardsListEnd = node)}
         />
-      </>
+      </React.Fragment>
     );
   }
 }

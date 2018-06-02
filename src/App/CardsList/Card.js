@@ -6,12 +6,11 @@ import PropTypes from "prop-types";
 import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
-import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
+import { inject } from "mobx-react";
 
 import { moduleName } from "../utils";
 import * as labels from "../labels";
-import { mapDispatchToProps } from "../redux";
 import { buttonIconSmall } from "../styles";
 
 const styles = {
@@ -38,13 +37,13 @@ const styles = {
   }
 };
 
-const View = ({ classes, actions, card }) => {
+const View = ({ classes, appState, card }) => {
   // TODO: Use <Card /> from Material UI
   return (
     <Paper
       data-cardid={card.id}
       elevation={1}
-      onClick={e => actions.card.startEdit(card)}
+      onClick={e => appState.startCardEdit(card)}
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
@@ -55,7 +54,7 @@ const View = ({ classes, actions, card }) => {
           e.stopPropagation();
           const box = e.currentTarget.parentElement.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          actions.card.startQuickEdit({
+          appState.startQuickCardEdit({
             ...card,
             anchorElementBox: { top, left, bottom, right }
           });
@@ -67,17 +66,17 @@ const View = ({ classes, actions, card }) => {
   );
 };
 
-const Container = connect(null, mapDispatchToProps)(withStyles(styles)(View));
+const Styled = withStyles(styles)(inject("appState")(View));
 
-Container.displayName = moduleName(fileAbsolute);
+Styled.displayName = moduleName(fileAbsolute);
 
 export const cardType = PropTypes.shape({
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired
 });
 
-Container.propTypes = {
+Styled.propTypes = {
   card: cardType.isRequired
 };
 
-export default Container;
+export default Styled;

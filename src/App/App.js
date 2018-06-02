@@ -3,10 +3,10 @@ import { withStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import { connect } from "react-redux";
 import { fileAbsolute } from "paths.macro";
+import { observable, action, decorate } from "mobx";
+import { Provider, observer, inject } from "mobx-react";
 
-import { mapDispatchToProps } from "./redux";
 import * as labels from "./labels";
 import { moduleName } from "./utils";
 import QuickEditCard from "./QuickEditCard";
@@ -16,69 +16,101 @@ import CardsList from "./CardsList";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
-const ActionsMenuPopover = connect(
-  state => ({ listBeingEdited: state.listBeingEdited }),
-  mapDispatchToProps
-)(
-  props =>
-    !props.listBeingEdited ? null : (
-      <ClickAwayListener onClickAway={props.actions.cardsList.finishEdit}>
-        <ActionsMenu
-          {...props}
-          style={{
-            position: "absolute",
-            top: `${props.listBeingEdited.anchorElementBox.bottom}px`,
-            left: `${props.listBeingEdited.anchorElementBox.left}px`
-          }}
-        />
-      </ClickAwayListener>
-    )
+export class AppState {
+  listBeingEdited = null;
+
+  startListEdit = payload => (this.listBeingEdited = payload);
+
+  finishListEdit = () => (this.listBeingEdited = null);
+
+  cardBeingEdited = null;
+
+  startCardEdit = payload => (this.cardBeingEdited = payload);
+
+  finishCardEdit = () => (this.cardBeingEdited = null);
+
+  cardBeingQuickEdited = null;
+
+  startQuickCardEdit = payload => (this.cardBeingQuickEdited = payload);
+
+  finishQuickCardEdit = () => (this.cardBeingQuickEdited = null);
+}
+
+decorate(AppState, {
+  listBeingEdited: observable,
+  startListEdit: action,
+  finishListEdit: action,
+  cardBeingEdited: observable,
+  startCardEdit: action,
+  finishCardEdit: action,
+  cardBeingQuickEdited: observable,
+  startQuickCardEdit: action,
+  finishQuickCardEdit: action
+});
+
+const ActionsMenuPopover = inject("appState")(
+  observer(
+    props =>
+      !props.appState.listBeingEdited ? null : (
+        <ClickAwayListener onClickAway={props.appState.finishListEdit}>
+          <ActionsMenu
+            {...props}
+            style={{
+              position: "absolute",
+              // prettier-ignore
+              top: `${props.appState.listBeingEdited.anchorElementBox.bottom}px`,
+              left: `${props.appState.listBeingEdited.anchorElementBox.left}px`
+            }}
+          />
+        </ClickAwayListener>
+      )
+  )
 );
 
-const EditCardModal = connect(
-  state => ({ cardBeingEdited: state.cardBeingEdited }),
-  mapDispatchToProps
-)(
-  props =>
-    !props.cardBeingEdited ? null : (
-      <Modal
-        style={{ overflow: "auto" }}
-        open={true}
-        onClose={props.actions.card.finishEdit}
-        BackdropProps={{ id: "editCardBackdrop" }}
-      >
-        <EditCard
-          {...props}
-          style={{
-            position: "absolute",
-            top: "60px"
-          }}
-        />
-      </Modal>
-    )
+const EditCardModal = inject("appState")(
+  observer(
+    props =>
+      !props.appState.cardBeingEdited ? null : (
+        <Modal
+          style={{ overflow: "auto" }}
+          open={true}
+          onClose={props.appState.finishCardEdit}
+          BackdropProps={{ id: "editCardBackdrop" }}
+        >
+          <EditCard
+            {...props}
+            style={{
+              position: "absolute",
+              top: "60px"
+            }}
+          />
+        </Modal>
+      )
+  )
 );
 
-const QuickEditCardModal = connect(
-  state => ({ cardBeingQuickEdited: state.cardBeingQuickEdited }),
-  mapDispatchToProps
-)(
-  props =>
-    !props.cardBeingQuickEdited ? null : (
-      <Modal
-        open={true}
-        onClose={props.actions.card.finishQuickEdit}
-        BackdropProps={{ id: "quickEditCardBackdrop" }}
-      >
-        <QuickEditCard
-          {...props}
-          style={{
-            position: "absolute",
-            top: `${props.cardBeingQuickEdited.anchorElementBox.top}px`,
-            left: `${props.cardBeingQuickEdited.anchorElementBox.left}px`
-          }}
-        />
-      </Modal>
-    )
+const QuickEditCardModal = inject("appState")(
+  observer(
+    props =>
+      !props.appState.cardBeingQuickEdited ? null : (
+        <Modal
+          open={true}
+          onClose={props.appState.finishQuickCardEdit}
+          BackdropProps={{ id: "quickEditCardBackdrop" }}
+        >
+          <QuickEditCard
+            {...props}
+            style={{
+              position: "absolute",
+              // prettier-ignore
+              top: `${props.appState.cardBeingQuickEdited.anchorElementBox.top}px`,
+              // prettier-ignore
+              left: `${props.appState.cardBeingQuickEdited.anchorElementBox.left}px`
+            }}
+          />
+        </Modal>
+      )
+  )
 );
 
 const styles = {
@@ -107,32 +139,32 @@ const styles = {
   }
 };
 
+const appState = new AppState();
+
 const View = ({ classes, lists }) => {
   return (
-    <div className={classes.root}>
-      <div className={classes.lists}>
-        {lists.map(list => <CardsList key={list.id} list={list} />)}
+    <Provider appState={appState}>
+      <div className={classes.root}>
+        <div className={classes.lists}>
+          {lists.map(list => <CardsList key={list.id} list={list} />)}
+        </div>
+        <div style={{ display: "none" }}>
+          {Object.values(labels).map((obj, idx) => (
+            <div id={obj.id} key={idx}>
+              {obj.text}
+            </div>
+          ))}
+        </div>
+        <ActionsMenuPopover />
+        <EditCardModal />
+        <QuickEditCardModal />
       </div>
-      <div style={{ display: "none" }}>
-        {Object.values(labels).map((obj, idx) => (
-          <div id={obj.id} key={idx}>
-            {obj.text}
-          </div>
-        ))}
-      </div>
-      <ActionsMenuPopover />
-      <EditCardModal />
-      <QuickEditCardModal />
-    </div>
+    </Provider>
   );
 };
 
-const mapStateToProps = state => ({
-  lists: state.lists
-});
+const Styled = withStyles(styles)(View);
 
-const Container = connect(mapStateToProps)(withStyles(styles)(View));
+Styled.displayName = moduleName(fileAbsolute);
 
-Container.displayName = moduleName(fileAbsolute);
-
-export default Container;
+export default Styled;

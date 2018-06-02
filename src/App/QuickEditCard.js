@@ -66,8 +66,13 @@ const styles = {
   }
 };
 
-const View = ({ classes, actions, cardBeingQuickEdited, ...rest }) => {
-  const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
+const View = ({ classes, appState, ...rest }) => {
+  const {
+    top,
+    left,
+    bottom,
+    right
+  } = appState.cardBeingQuickEdited.anchorElementBox;
   return (
     <div
       aria-describedby={labels.quickEditCardDescription.id}
@@ -83,7 +88,7 @@ const View = ({ classes, actions, cardBeingQuickEdited, ...rest }) => {
           }}
           autoFocus
           component={TextArea}
-          value={cardBeingQuickEdited.title}
+          value={appState.cardBeingQuickEdited.title}
           onFocus={e => e.target.select()}
         />
         {/* eslint-enable jsx-a11y/no-autofocus */}
@@ -113,19 +118,7 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  actions: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  ).isRequired,
-  cardBeingQuickEdited: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    anchorElementBox: PropTypes.shape({
-      top: PropTypes.number.isRequired,
-      left: PropTypes.number.isRequired,
-      bottom: PropTypes.number.isRequired,
-      right: PropTypes.number.isRequired
-    }).isRequired
-  })
+  appState: PropTypes.object.isRequired
 };
 
 export default Styled;

@@ -26,7 +26,7 @@ const styles = {
 };
 
 const View = ({ classes }) => (
-  <>
+  <React.Fragment>
     <div className={classes.checklist}>
       <Typography variant="caption">0%</Typography>
       <LinearProgress
@@ -43,7 +43,7 @@ const View = ({ classes }) => (
     >
       Add an item...
     </Typography>
-  </>
+  </React.Fragment>
 );
 
 const Styled = withStyles(styles)(View);

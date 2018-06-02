@@ -41,7 +41,7 @@ class View extends React.Component {
   }
 
   render() {
-    const { classes, actions, cardBeingEdited, ...rest } = this.props;
+    const { classes, appState, ...rest } = this.props;
     return (
       <div
         aria-describedby={labels.editCardDescription.id}
@@ -49,7 +49,10 @@ class View extends React.Component {
         tabIndex={-1}
         {...rest}
       >
-        <Header className={classes.header} text={cardBeingEdited.title} />
+        <Header
+          className={classes.header}
+          text={appState.cardBeingEdited.title}
+        />
         <div className={classes.flex}>
           <Content className={classes.content} />
           <Sidebar className={classes.sidebar} />
@@ -64,13 +67,7 @@ const Styled = withStyles(styles)(View);
 Styled.displayName = moduleName(fileAbsolute);
 
 Styled.propTypes = {
-  actions: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.func, PropTypes.object])
-  ).isRequired,
-  cardBeingEdited: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
-  })
+  appState: PropTypes.object.isRequired
 };
 
 export default Styled;

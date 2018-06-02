@@ -22,7 +22,7 @@ const styles = {
 };
 
 const View = ({ classes }) => (
-  <>
+  <React.Fragment>
     <Typography
       className={classes.commentArea}
       component={TextArea}
@@ -38,7 +38,7 @@ const View = ({ classes }) => (
         Save
       </Button>
     </Typography>
-  </>
+  </React.Fragment>
 );
 
 const Styled = withStyles(styles)(View);

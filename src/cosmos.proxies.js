@@ -1,19 +1,25 @@
 /*
  * Cosmos proxies (https://github.com/react-cosmos/react-cosmos#proxies)
  */
-import { createStore } from "redux";
-import createReduxProxy from "react-cosmos-redux-proxy";
-import { reducer } from "./App/redux";
-import { isObjectEmpty } from "./App/utils";
 
-// react-cosmos passes an empty object to the root reducer to get back the
-// default state, but redux-actions will only return the default state if
-// `undefined` is passed
-const compatibleReducer = (state, action) =>
-  reducer(isObjectEmpty(state) ? undefined : state, action);
+import React from "react";
+import PropTypes from "prop-types";
 
-export default [
-  createReduxProxy({
-    createStore: mockState => createStore(compatibleReducer, mockState)
-  })
-];
+class MobxProxy extends React.Component {
+  static childContextTypes = {
+    mobxStores: PropTypes.object.isRequired
+  };
+
+  getChildContext() {
+    return { mobxStores: this.props.fixture["stores"] || {} };
+  }
+
+  render() {
+    // Boilerplate. Always the same.
+    const { nextProxy, ...rest } = this.props;
+    const { value: NextProxy, next } = nextProxy;
+    return <NextProxy {...rest} nextProxy={next()} />;
+  }
+}
+
+export default [MobxProxy];
