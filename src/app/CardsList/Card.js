@@ -12,10 +12,6 @@ import { inject } from "mobx-react";
 import { buttonIconSmall } from "../styles";
 
 export const labels = {
-  card: {
-    id: "card-description",
-    text: "Card title"
-  },
   editCard: {
     id: "edit-card",
     text: "Edit card"
@@ -60,7 +56,7 @@ const Card = ({ classes, appState, card }) => {
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
-      <Typography aria-labelledby={labels.card.id}>{card.title}</Typography>
+      <Typography data-testid="card-title">{card.title}</Typography>
       <button
         aria-labelledby={labels.quickEditCard.id}
         onClick={e => {

@@ -22,7 +22,7 @@ snapshotTest(
     await frame.click(labelledBy(cardLabels.quickEditCard.id));
     await snap();
     await frame.evaluate(evalClick("#quickEditCardBackdrop"));
-    await frame.click(labelledBy(headerLabels.actionsMenuButton.id));
+    await frame.click(labelledBy(headerLabels.editList.id));
     await frame.hover(role("menuitem"));
     await snap();
   },

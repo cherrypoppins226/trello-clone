@@ -10,10 +10,9 @@ import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
 
 export const labels = {
-  menuDescription: {
+  description: {
     id: "cards-list-actions-menu-description",
-    text:
-      "Actions to be performed on this list of cards. Archive, remove all cards, etc."
+    text: "Perform actions such as deleting, copying, and moving this list."
   }
 };
 
@@ -47,7 +46,7 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
   return (
     <Paper
       className={classes.root}
-      aria-describedby={labels.menuDescription.id}
+      aria-describedby={labels.description.id}
       {...rest}
     >
       <Typography role="heading" align="center">

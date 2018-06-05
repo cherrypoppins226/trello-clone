@@ -3,53 +3,49 @@ import { Simulate } from "react-testing-library";
 import { App } from "./fixtures";
 import { labelledBy, describedBy } from "./utils";
 import { renderIntoDocument } from "./utils/dom";
-
-const headerLabels = require("./app/cardsList/Header").labels;
-const actionsMenuLabels = require("./app/cardsList/ActionsMenu").labels;
+import { labels as cardLabels } from "./app/cardsList/Card";
 
 it("cards list actions menu opens", async () => {
+  const headerLabels = require("./app/cardsList/Header").labels;
+  const actionsMenuLabels = require("./app/cardsList/ActionsMenu").labels;
   await renderIntoDocument(App.default);
   const getMenu = () =>
-    document.querySelector(describedBy(actionsMenuLabels.menuDescription.id));
+    document.querySelector(describedBy(actionsMenuLabels.description.id));
   expect(getMenu()).toBeNull();
-  Simulate.click(
-    document.querySelector(labelledBy(headerLabels.actionsMenuButton.id))
-  );
+  Simulate.click(document.querySelector(labelledBy(headerLabels.editList.id)));
   expect(getMenu()).not.toBeNull();
 });
 
-const cardLabels = require("./app/cardsList/Card").labels;
-const editCardLabels = require("./app/EditCard").labels;
-const quickEditCardLabels = require("./app/QuickEditCard").labels;
-
-const testModal = async (editButtonSelector, modalSelector, textSelector) => {
+const testModal = async ({
+  getClickable,
+  modalSelector,
+  modalTextSelector
+}) => {
   await renderIntoDocument(App.default);
   const card = document.querySelector("[data-cardid='1']");
-  expect(document.querySelector(modalSelector)).toBeNull();
-  Simulate.click(
-    editButtonSelector ? card.querySelector(editButtonSelector) : card
-  );
-  expect(document.querySelector(modalSelector)).not.toBeNull();
-  const cardDescription = node =>
-    node.querySelector(labelledBy(cardLabels.card.id)).textContent;
-  expect(
-    document.querySelector(modalSelector).querySelector(textSelector)
-      .textContent
-  ).toBe(cardDescription(card));
+  const getModal = () => document.querySelector(modalSelector);
+  const getModalText = () => getModal().querySelector(modalTextSelector);
+  expect(getModal()).toBeNull();
+  Simulate.click(getClickable(card));
+  expect(getModal()).not.toBeNull();
+  expect(getModalText().textContent).toBe(card.textContent);
 };
 
 it("edit card modal opens", async () => {
-  await testModal(
-    null,
-    describedBy(editCardLabels.description.id),
-    "[role='heading']"
-  );
+  const editCardLabels = require("./app/EditCard").labels;
+  await testModal({
+    getClickable: card => card,
+    modalSelector: describedBy(editCardLabels.description.id),
+    modalTextSelector: "[role='heading']"
+  });
 });
 
 it("quick edit card modal opens", async () => {
-  await testModal(
-    labelledBy(cardLabels.quickEditCard.id),
-    describedBy(quickEditCardLabels.description.id),
-    "textarea"
-  );
+  const quickEditCardLabels = require("./app/QuickEditCard").labels;
+  await testModal({
+    getClickable: card =>
+      card.querySelector(labelledBy(cardLabels.quickEditCard.id)),
+    modalSelector: describedBy(quickEditCardLabels.description.id),
+    modalTextSelector: "textarea"
+  });
 });

@@ -10,9 +10,9 @@ import { inject } from "mobx-react";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 export const labels = {
-  actionsMenuButton: {
-    id: "cards-list-actions-menu",
-    text: "List Actions"
+  editList: {
+    id: "cards-list-edit",
+    text: "Edit List"
   }
 };
 
@@ -43,7 +43,7 @@ const Header = ({ classes, className = "", appState, listId, listTitle }) => {
       />
       <button
         aria-haspopup={true}
-        aria-labelledby={labels.actionsMenuButton.id}
+        aria-labelledby={labels.editList.id}
         onClick={e => {
           const box = e.currentTarget.getBoundingClientRect();
           const { top, left, bottom, right } = box;
