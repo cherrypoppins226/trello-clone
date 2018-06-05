@@ -6,9 +6,11 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { fileAbsolute } from "paths.macro";
 import { observable, action, decorate } from "mobx";
 import { Provider, observer, inject } from "mobx-react";
+import { graphql, compose } from "react-apollo";
+import gql from "graphql-tag";
 
 import * as labels from "./labels";
-import { moduleName } from "./utils";
+import { moduleName, handleGraphQLResponse } from "./utils";
 import QuickEditCard from "./QuickEditCard";
 import ActionsMenu from "./CardsList/ActionsMenu";
 import EditCard from "./EditCard";
@@ -141,12 +143,20 @@ const styles = {
 
 const appState = new AppState();
 
-const View = ({ classes, lists }) => {
+const LIST_IDS = gql`
+  query ListIds {
+    lists {
+      id
+    }
+  }
+`;
+
+const View = ({ classes, data: { lists } }) => {
   return (
     <Provider appState={appState}>
       <div className={classes.root}>
         <div className={classes.lists}>
-          {lists.map(list => <CardsList key={list.id} list={list} />)}
+          {lists.map(list => <CardsList key={list.id} id={list.id} />)}
         </div>
         <div style={{ display: "none" }}>
           {Object.values(labels).map((obj, idx) => (
@@ -163,8 +173,12 @@ const View = ({ classes, lists }) => {
   );
 };
 
-const Styled = withStyles(styles)(View);
+const Component = compose(
+  graphql(LIST_IDS),
+  handleGraphQLResponse(),
+  withStyles(styles)
+)(View);
 
-Styled.displayName = moduleName(fileAbsolute);
+Component.displayName = moduleName(fileAbsolute);
 
-export default Styled;
+export default Component;

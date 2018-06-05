@@ -1,16 +1,8 @@
-import React from "react";
-import faker from "faker";
-import { create } from "jss";
-import JssProvider from "react-jss/lib/JssProvider";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { createGenerateClassName, jssPreset } from "@material-ui/core/styles";
 import { AppState } from "./App";
+// Temporary, just to appease visual snapshot tests
+import { store as lists } from "../mockGraphqlSchema";
 
-// TODO: Log mocked callback functions arguments to console
-
-const jss = create({ plugins: [...jssPreset().plugins] });
-
-const generateClassName = createGenerateClassName();
+// TODO: Log mocked mobx callback functions arguments to console
 
 let fixtures = [];
 
@@ -19,19 +11,11 @@ const addToDefaultExport = namedFixtures => {
   return namedFixtures;
 };
 
-const makeFixtures = (Component, namedFixtures) => {
+const makeFixtures = (component, namedFixtures) => {
   Object.keys(namedFixtures).forEach(name => {
-    const wrapped = props => (
-      <CssBaseline>
-        <JssProvider jss={jss} generateClassName={generateClassName}>
-          <Component {...props} />
-        </JssProvider>
-      </CssBaseline>
-    );
-    wrapped.displayName = Component.displayName;
     namedFixtures[name] = {
       name,
-      component: wrapped,
+      component,
       ...namedFixtures[name]
     };
   });
@@ -41,30 +25,8 @@ const makeFixtures = (Component, namedFixtures) => {
 const makeFixturesAndExport = (...args) =>
   addToDefaultExport(makeFixtures(...args));
 
-faker.seed(1);
-
-const lists = [];
-let nextCardId = 1;
-
-for (let i = 1; i < 7; i++) {
-  const list = {
-    id: i,
-    title: faker.lorem.sentence(),
-    cards: []
-  };
-  for (let j = 0; j < faker.random.number({ min: 2, max: 50 }); j++) {
-    list.cards.push({
-      id: nextCardId++,
-      title: faker.lorem.sentence()
-    });
-  }
-  lists.push(list);
-}
-
 export const App = makeFixturesAndExport(require("./App").default, {
-  default: {
-    props: { lists }
-  }
+  default: {}
 });
 
 export const QuickEditCard = makeFixturesAndExport(
@@ -74,11 +36,10 @@ export const QuickEditCard = makeFixturesAndExport(
       props: {
         appState: {
           cardBeingQuickEdited: {
-            id: 1,
-            title: lists[0].cards[0].title,
+            ...lists[0].cards[0],
             anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
           },
-          finishQuickEdit: () => {}
+          finishQuickCardEdit: () => {}
         }
       }
     }
@@ -90,7 +51,7 @@ export const CardsList = {};
 CardsList.CardsList = makeFixturesAndExport(require("./CardsList").default, {
   default: {
     props: {
-      list: lists[0]
+      id: 1
     },
     stores: {
       appState: new AppState()
@@ -161,7 +122,7 @@ EditCard.EditCard = makeFixturesAndExport(
       props: {
         appState: {
           cardBeingEdited: { ...lists[0].cards[0] },
-          finishQuickCardEdit: () => {}
+          finishCardEdit: () => {}
         }
       }
     }

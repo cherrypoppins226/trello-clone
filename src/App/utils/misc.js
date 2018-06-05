@@ -1,6 +1,7 @@
 /*
  * Generic utilities with no implicit assumptions about their environment
  */
+import React from "react";
 import path from "path";
 import { npmRoot } from "paths.macro";
 
@@ -26,4 +27,15 @@ export const isObjectEmpty = obj => {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
+};
+
+/* A HOC which handles error and loading status from a GraphQL resposne */
+export const handleGraphQLResponse = responseKey => WrappedComponent => props => {
+  const response = props[responseKey || "data"];
+  if (response.loading) return null;
+  if (response.error) {
+    console.error(response.error);
+    return null;
+  }
+  return <WrappedComponent {...props} />;
 };

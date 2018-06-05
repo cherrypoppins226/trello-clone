@@ -1,1 +1,1 @@
-export { default, listType } from "./CardsList";
+export { default } from "./CardsList";

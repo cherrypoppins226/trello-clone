@@ -34,7 +34,7 @@ snapshotTest(it, fixtures.CardsList.CardsList.default, async (frame, snap) => {
     frame.hover(labelledBy(labels.cardsListActionsMenu.id))
   ]);
   await snap(
-    `[data-listid="${fixtures.CardsList.CardsList.default.props.list.id}"]`
+    `[data-listid="${fixtures.CardsList.CardsList.default.props.id}"]`
   );
 });
 

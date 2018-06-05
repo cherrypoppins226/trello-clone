@@ -4,6 +4,10 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import createApolloProxy from "react-cosmos-apollo-proxy";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import apolloClient from "./apollo";
 
 class MobxProxy extends React.Component {
   static childContextTypes = {
@@ -22,4 +26,20 @@ class MobxProxy extends React.Component {
   }
 }
 
-export default [MobxProxy];
+class StylesProxy extends React.Component {
+  render() {
+    const { nextProxy, ...rest } = this.props;
+    const { value: NextProxy, next } = nextProxy;
+    return (
+      <CssBaseline>
+        <NextProxy {...rest} nextProxy={next()} />
+      </CssBaseline>
+    );
+  }
+}
+
+export default [
+  StylesProxy,
+  MobxProxy,
+  createApolloProxy({ client: apolloClient })
+];
