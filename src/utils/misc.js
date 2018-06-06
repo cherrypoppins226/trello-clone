@@ -22,13 +22,6 @@ export const moduleName = filename => {
   return path.join(path.dirname(p), path.basename(p, path.extname(p)));
 };
 
-export const isObjectEmpty = obj => {
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
-  }
-  return true;
-};
-
 /* A HOC which handles error and loading status from a GraphQL resposne */
 export const handleGraphQLResponse = responseKey => WrappedComponent => props => {
   const response = props[responseKey || "data"];
