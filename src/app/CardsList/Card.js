@@ -11,16 +11,18 @@ import { inject } from "mobx-react";
 
 import AppState from "../../App.state";
 import appData from "../../mockData.js";
-import { makeFixtures } from "../../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
+
+const modulePath = moduleName(fileAbsolute);
 
 export const labels = {
   editCard: {
-    id: "edit-card",
+    id: labelId(modulePath, "edit-card"),
     text: "Edit card"
   },
   quickEditCard: {
-    id: "quick-edit-card",
+    id: labelId(modulePath, "quick-edit-card"),
     text: "Quickly edit card"
   }
 };
@@ -59,6 +61,7 @@ const Card = ({ classes, appState, card }) => {
       className={classes.root}
       aria-labelledby={labels.editCard.id}
     >
+      {renderLabels(labels)}
       <Typography data-testid="card-title">{card.title}</Typography>
       <button
         aria-labelledby={labels.quickEditCard.id}
@@ -80,7 +83,7 @@ const Card = ({ classes, appState, card }) => {
 
 const Component = withStyles(styles)(inject("appState")(Card));
 
-Component.displayName = require("../../utils").moduleName(fileAbsolute);
+Component.displayName = modulePath;
 
 export const types = {
   card: PropTypes.shape({

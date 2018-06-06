@@ -1,7 +1,7 @@
 import { Simulate } from "react-testing-library";
 
 import { fixtures } from "./App";
-import { labelledBy, describedBy } from "./utils";
+import { labelledBy, describedBy, testId } from "./utils";
 import { renderIntoDocument } from "./utils/cosmos";
 import { labels as cardLabels } from "./app/cardsList/Card";
 
@@ -28,7 +28,9 @@ const testModal = async ({
   expect(getModal()).toBeNull();
   Simulate.click(getClickable(card));
   expect(getModal()).not.toBeNull();
-  expect(getModalText().textContent).toBe(card.textContent);
+  expect(getModalText().textContent).toBe(
+    card.querySelector(testId("card-title")).textContent
+  );
 };
 
 it("edit card modal opens", async () => {

@@ -9,11 +9,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
 
-import { makeFixtures } from "../../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
+
+const modulePath = moduleName(fileAbsolute);
 
 export const labels = {
   description: {
-    id: "cards-list-actions-menu-description",
+    id: labelId(modulePath, "description"),
     text: "Perform actions such as deleting, copying, and moving this list."
   }
 };
@@ -51,6 +53,7 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
       aria-describedby={labels.description.id}
       {...rest}
     >
+      {renderLabels(labels)}
       <Typography role="heading" align="center">
         List Actions
       </Typography>
@@ -83,7 +86,7 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
 
 const Component = withStyles(styles)(ActionsMenu);
 
-Component.displayName = require("../../utils").moduleName(fileAbsolute);
+Component.displayName = modulePath;
 
 Component.propTypes = {
   appState: PropTypes.object.isRequired

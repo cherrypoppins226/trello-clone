@@ -50,3 +50,18 @@ export const makeFixtures = (component, namedFixtures) => {
   });
   return namedFixtures;
 };
+
+export const renderLabels = labelsObj => {
+  return (
+    <React.Fragment>
+      {Object.values(labelsObj).map((label, idx) => (
+        <div key={idx} style={{ display: "none" }} id={label.id}>
+          {label.text}
+        </div>
+      ))}
+    </React.Fragment>
+  );
+};
+
+export const labelId = (modulePath, id) =>
+  `${modulePath.toLowerCase().replace(/\//g, "-")}-${id}`;

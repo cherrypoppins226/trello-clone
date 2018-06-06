@@ -5,14 +5,16 @@ import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
 
 import appData from "../mockData.js";
-import { makeFixtures } from "../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
 import Sidebar from "./editCard/Sidebar";
 import Content from "./editCard/Content";
 
+const modulePath = moduleName(fileAbsolute);
+
 export const labels = {
   description: {
-    id: "edit-card-description",
+    id: labelId(modulePath, "description"),
     text: "Edit card: Change title, descriptions, labels, attachments, and more"
   }
 };
@@ -56,6 +58,7 @@ class EditCard extends React.Component {
         tabIndex={-1}
         {...rest}
       >
+        {renderLabels(labels)}
         <Header
           className={classes.header}
           text={appState.cardBeingEdited.title}
@@ -71,7 +74,7 @@ class EditCard extends React.Component {
 
 const Component = withStyles(styles)(EditCard);
 
-Component.displayName = require("../utils").moduleName(fileAbsolute);
+Component.displayName = modulePath;
 
 Component.propTypes = {
   appState: PropTypes.object.isRequired

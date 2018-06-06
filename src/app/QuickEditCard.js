@@ -15,12 +15,14 @@ import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 
 import appData from "../mockData.js";
-import { makeFixtures } from "../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
+
+const modulePath = moduleName(fileAbsolute);
 
 export const labels = {
   description: {
-    id: "quick-edit-card-description",
+    id: labelId(modulePath, "description"),
     text: "Quickly edit card: Change title, members, archive, and more"
   }
 };
@@ -86,6 +88,7 @@ const QuickEditCard = ({ classes, appState, ...rest }) => {
       className={classes.root}
       {...rest}
     >
+      {renderLabels(labels)}
       <div className={classes.description}>
         {/* eslint-disable jsx-a11y/no-autofocus */}
         <Typography
@@ -122,7 +125,7 @@ const QuickEditCard = ({ classes, appState, ...rest }) => {
 
 const Component = withStyles(styles)(QuickEditCard);
 
-Component.displayName = require("../utils").moduleName(fileAbsolute);
+Component.displayName = modulePath;
 
 Component.propTypes = {
   appState: PropTypes.object.isRequired

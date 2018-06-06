@@ -9,12 +9,14 @@ import { inject } from "mobx-react";
 
 import appData from "../../mockData.js";
 import AppState from "../../App.state";
-import { makeFixtures } from "../../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
+
+const modulePath = moduleName(fileAbsolute);
 
 export const labels = {
   editList: {
-    id: "cards-list-edit",
+    id: labelId(modulePath, "edit-list"),
     text: "Edit List"
   }
 };
@@ -38,6 +40,7 @@ const styles = {
 const Header = ({ classes, className = "", appState, listId, listTitle }) => {
   return (
     <div className={`${classes.root} ${className}`}>
+      {renderLabels(labels)}
       <Typography
         role="heading"
         defaultValue={listTitle}
@@ -64,7 +67,7 @@ const Header = ({ classes, className = "", appState, listId, listTitle }) => {
 
 const Component = withStyles(styles)(inject("appState")(Header));
 
-Component.displayName = require("../../utils").moduleName(fileAbsolute);
+Component.displayName = modulePath;
 
 Component.propTypes = {
   listId: PropTypes.number.isRequired,
