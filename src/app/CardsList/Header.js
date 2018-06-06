@@ -46,6 +46,7 @@ const Header = ({ classes, className = "", appState, listId, listTitle }) => {
         defaultValue={listTitle}
         component={TextArea}
         spellCheck={false}
+        onFocus={e => e.target.select()}
       />
       <button
         aria-haspopup={true}

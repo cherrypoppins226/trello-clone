@@ -12,7 +12,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
     "test:browser": "jest -c jest/browser/config.js --verbose",
-    "test:ci": "CI=1 yarn test --ci --bail && CI=1 yarn test:browser --ci --bail",
+    "test:ci": "CI=1 yarn test --ci && CI=1 yarn test:browser --ci",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

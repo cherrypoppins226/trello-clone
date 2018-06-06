@@ -25,12 +25,7 @@ const goToComponentUrl = async fixture => {
 };
 
 const snap = async (frame, selector, config = {}) => {
-  let element = global.__page;
-  if (typeof selector === "string") {
-    element = await frame.$(selector);
-  } else if (typeof selector === "object") {
-    config = selector;
-  }
+  const element = await (selector ? frame.$(selector) : global.__page);
   const img = await element.screenshot(config.screenshotOptions || {});
   expect(img).toMatchImageSnapshot(config.imageOptions || {});
 };
