@@ -1,7 +1,6 @@
 import gql from "graphql-tag";
+import merge from "deepmerge";
 import { makeExecutableSchema } from "graphql-tools";
-
-import mockData from "./mockData";
 
 const typeDefs = gql`
   type Card {
@@ -25,31 +24,40 @@ const typeDefs = gql`
   }
 `;
 
-let lastCardId = mockData.lists
-  .map(list => list.cards)
-  .reduce((acc, cards) => acc.concat(cards), [])
-  .map(card => card.id)
-  .reduce((x, y) => Math.max(x, y), 0);
+const makeResolvers = (initialStore = { lists: [] }) => {
+  const store = merge({}, initialStore);
 
-const findList = id => mockData.lists.find(list => list.id === id);
+  let lastCardId = store.lists
+    .map(list => list.cards)
+    .reduce((acc, cards) => acc.concat(cards), [])
+    .map(card => card.id)
+    .reduce((x, y) => Math.max(x, y), 0);
 
-const resolvers = {
-  Query: {
-    lists: () => mockData.lists,
-    list: (obj, args, context) => {
-      return findList(args.id);
+  const findList = id => store.lists.find(list => list.id === id);
+
+  return {
+    Query: {
+      lists: () => store.lists,
+      list: (obj, args, context) => {
+        return findList(args.id);
+      }
+    },
+    Mutation: {
+      addCard: (obj, args, context) => {
+        const newCard = { id: ++lastCardId, title: args.title };
+        const list = findList(args.listId);
+        list.cards.push(newCard);
+        return newCard;
+      }
     }
-  },
-  Mutation: {
-    addCard: (obj, args, context) => {
-      const newCard = { id: ++lastCardId, title: args.title };
-      const list = findList(args.listId);
-      list.cards.push(newCard);
-      return newCard;
-    }
-  }
+  };
 };
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const makeSchema = (initialStore, options = {}) =>
+  makeExecutableSchema({
+    ...options,
+    typeDefs,
+    resolvers: makeResolvers(initialStore)
+  });
 
-export default schema;
+export default makeSchema;
