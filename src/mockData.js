@@ -21,6 +21,6 @@ for (let i = 1; i < 7; i++) {
   lists.push(list);
 }
 
-const appData = { lists };
+const mockData = { lists };
 
-export default appData;
+export default mockData;

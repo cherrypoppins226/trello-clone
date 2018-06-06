@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import { makeExecutableSchema } from "graphql-tools";
 
-import appData from "./mockData";
+import mockData from "./mockData";
 
 const typeDefs = gql`
   type Card {
@@ -25,17 +25,17 @@ const typeDefs = gql`
   }
 `;
 
-let lastCardId = appData.lists
+let lastCardId = mockData.lists
   .map(list => list.cards)
   .reduce((acc, cards) => acc.concat(cards), [])
   .map(card => card.id)
   .reduce((x, y) => Math.max(x, y), 0);
 
-const findList = id => appData.lists.find(list => list.id === id);
+const findList = id => mockData.lists.find(list => list.id === id);
 
 const resolvers = {
   Query: {
-    lists: () => appData.lists,
+    lists: () => mockData.lists,
     list: (obj, args, context) => {
       return findList(args.id);
     }

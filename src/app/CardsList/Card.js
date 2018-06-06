@@ -10,7 +10,7 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 
 import AppState from "../../App.state";
-import appData from "../../mockData.js";
+import mockData from "../../mockData.js";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
 
@@ -99,7 +99,7 @@ Component.propTypes = {
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
-      card: appData.lists[0].cards[0]
+      card: mockData.lists[0].cards[0]
     },
     stores: {
       appState: new AppState()

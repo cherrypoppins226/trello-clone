@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 
 import AppState from "../../App.state";
-import appData from "../../mockData.js";
+import mockData from "../../mockData.js";
 import { makeFixtures } from "../../utils";
 import Card, { types as cardTypes } from "./Card";
 
@@ -59,7 +59,7 @@ Component.propTypes = {
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
-      cards: appData.lists[0].cards
+      cards: mockData.lists[0].cards
     },
     stores: {
       appState: new AppState()

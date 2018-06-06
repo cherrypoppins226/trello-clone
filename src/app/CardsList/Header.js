@@ -7,7 +7,7 @@ import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 
-import appData from "../../mockData.js";
+import mockData from "../../mockData.js";
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
@@ -78,8 +78,8 @@ Component.propTypes = {
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
-      listId: appData.lists[0].id,
-      listTitle: appData.lists[0].title
+      listId: mockData.lists[0].id,
+      listTitle: mockData.lists[0].title
     },
     stores: {
       appState: new AppState()
