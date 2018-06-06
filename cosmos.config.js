@@ -1,15 +1,19 @@
 const webpack = require("webpack");
 const WatchMissingNodeModulesPlugin = require("react-dev-utils/WatchMissingNodeModulesPlugin");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
+const path = require("path");
 
 const CI = process.env.CI === "1" || process.env.CI === "true";
 
-// TODO: Webpack ignore node_modules folder. We don't need that kind of dynamism
 module.exports = {
+  rootPath: __dirname,
+  fileMatch: path.join(__dirname, "src", "cosmos", "fixtures.js"),
+  publicPath: "public",
+  proxiesPath: "src/cosmos/proxies",
+  outputPath: "src/cosmos/export",
+  watchDirs: ["src"],
   containerQuerySelector: "#root",
   webpackConfigPath: "react-scripts/config/webpack.config.dev",
-  publicPath: "public",
-  proxiesPath: "src/cosmosProxies",
   hot: !CI,
   webpack: (config, { env }) => {
     config.entry = config.entry.filter(entry => {

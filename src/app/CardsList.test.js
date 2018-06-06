@@ -1,11 +1,11 @@
 import { Simulate } from "react-testing-library";
 import { getByText } from "dom-testing-library";
 
-import { CardsList } from "../fixtures";
-import { render } from "../utils/dom";
+import { fixtures } from "./CardsList";
+import { render } from "../utils/cosmos";
 
 it("adds a card", async () => {
-  const { container } = await render(CardsList.CardsList.default);
+  const { container } = await render(fixtures.default);
   const liveList = container.querySelector("ul");
   const countBefore = liveList.childElementCount;
   const lastBefore = liveList.lastElementChild;

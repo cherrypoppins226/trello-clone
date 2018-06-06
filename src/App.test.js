@@ -1,14 +1,14 @@
 import { Simulate } from "react-testing-library";
 
-import { App } from "./fixtures";
+import { fixtures } from "./App";
 import { labelledBy, describedBy } from "./utils";
-import { renderIntoDocument } from "./utils/dom";
+import { renderIntoDocument } from "./utils/cosmos";
 import { labels as cardLabels } from "./app/cardsList/Card";
 
 it("cards list actions menu opens", async () => {
   const headerLabels = require("./app/cardsList/Header").labels;
   const actionsMenuLabels = require("./app/cardsList/ActionsMenu").labels;
-  await renderIntoDocument(App.default);
+  await renderIntoDocument(fixtures.default);
   const getMenu = () =>
     document.querySelector(describedBy(actionsMenuLabels.description.id));
   expect(getMenu()).toBeNull();
@@ -21,7 +21,7 @@ const testModal = async ({
   modalSelector,
   modalTextSelector
 }) => {
-  await renderIntoDocument(App.default);
+  await renderIntoDocument(fixtures.default);
   const card = document.querySelector("[data-cardid='1']");
   const getModal = () => document.querySelector(modalSelector);
   const getModalText = () => getModal().querySelector(modalTextSelector);

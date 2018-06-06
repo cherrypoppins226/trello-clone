@@ -9,6 +9,9 @@ import merge from "deepmerge";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 
+import AppState from "../../App.state";
+import appData from "../../mockData.js";
+import { makeFixtures } from "../../utils";
 import { buttonIconSmall } from "../styles";
 
 export const labels = {
@@ -89,5 +92,16 @@ export const types = {
 Component.propTypes = {
   card: types.card.isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      card: appData.lists[0].cards[0]
+    },
+    stores: {
+      appState: new AppState()
+    }
+  }
+});
 
 export default Component;

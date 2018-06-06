@@ -3,6 +3,9 @@ import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 
+import AppState from "../../App.state";
+import appData from "../../mockData.js";
+import { makeFixtures } from "../../utils";
 import Card, { types as cardTypes } from "./Card";
 
 const styles = {
@@ -52,5 +55,16 @@ Component.displayName = require("../../utils").moduleName(fileAbsolute);
 Component.propTypes = {
   cards: PropTypes.arrayOf(cardTypes.card).isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      cards: appData.lists[0].cards
+    },
+    stores: {
+      appState: new AppState()
+    }
+  }
+});
 
 export default Component;

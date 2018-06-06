@@ -4,6 +4,8 @@ import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
 
+import appData from "../mockData.js";
+import { makeFixtures } from "../utils";
 import Header from "./editCard/Header";
 import Sidebar from "./editCard/Sidebar";
 import Content from "./editCard/Content";
@@ -74,5 +76,16 @@ Component.displayName = require("../utils").moduleName(fileAbsolute);
 Component.propTypes = {
   appState: PropTypes.object.isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      appState: {
+        cardBeingEdited: { ...appData.lists[0].cards[0] },
+        finishCardEdit: () => {}
+      }
+    }
+  }
+});
 
 export default Component;

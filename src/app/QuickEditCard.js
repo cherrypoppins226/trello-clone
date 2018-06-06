@@ -14,6 +14,8 @@ import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 
+import appData from "../mockData.js";
+import { makeFixtures } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
 
 export const labels = {
@@ -125,5 +127,19 @@ Component.displayName = require("../utils").moduleName(fileAbsolute);
 Component.propTypes = {
   appState: PropTypes.object.isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      appState: {
+        cardBeingQuickEdited: {
+          ...appData.lists[0].cards[0],
+          anchorElementBox: { top: 0, left: 0, bottom: 20, right: 200 }
+        },
+        finishQuickCardEdit: () => {}
+      }
+    }
+  }
+});
 
 export default Component;

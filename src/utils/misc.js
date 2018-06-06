@@ -39,3 +39,14 @@ export const handleGraphQLResponse = responseKey => WrappedComponent => props =>
   }
   return <WrappedComponent {...props} />;
 };
+
+export const makeFixtures = (component, namedFixtures) => {
+  Object.keys(namedFixtures).forEach(name => {
+    namedFixtures[name] = {
+      name,
+      component,
+      ...namedFixtures[name]
+    };
+  });
+  return namedFixtures;
+};

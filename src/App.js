@@ -4,50 +4,18 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Modal from "@material-ui/core/Modal";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { fileAbsolute } from "paths.macro";
-import { observable, action, decorate } from "mobx";
 import { Provider, observer, inject } from "mobx-react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
-import { handleGraphQLResponse } from "./utils";
+import { makeFixtures, handleGraphQLResponse } from "./utils";
+import State from "./App.state.js";
 import CardsList from "./app/CardsList";
 import ActionsMenu from "./app/cardsList/ActionsMenu";
 import EditCard from "./app/EditCard";
 import QuickEditCard from "./app/QuickEditCard";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
-
-export class AppState {
-  listBeingEdited = null;
-
-  startListEdit = payload => (this.listBeingEdited = payload);
-
-  finishListEdit = () => (this.listBeingEdited = null);
-
-  cardBeingEdited = null;
-
-  startCardEdit = payload => (this.cardBeingEdited = payload);
-
-  finishCardEdit = () => (this.cardBeingEdited = null);
-
-  cardBeingQuickEdited = null;
-
-  startQuickCardEdit = payload => (this.cardBeingQuickEdited = payload);
-
-  finishQuickCardEdit = () => (this.cardBeingQuickEdited = null);
-}
-
-decorate(AppState, {
-  listBeingEdited: observable,
-  startListEdit: action,
-  finishListEdit: action,
-  cardBeingEdited: observable,
-  startCardEdit: action,
-  finishCardEdit: action,
-  cardBeingQuickEdited: observable,
-  startQuickCardEdit: action,
-  finishQuickCardEdit: action
-});
 
 const ActionsMenuPopover = inject("appState")(
   observer(
@@ -140,7 +108,7 @@ const styles = {
   }
 };
 
-const appState = new AppState();
+const state = new State();
 
 const LIST_IDS = gql`
   query ListIds {
@@ -152,7 +120,7 @@ const LIST_IDS = gql`
 
 const App = ({ classes, data: { lists } }) => {
   return (
-    <Provider appState={appState}>
+    <Provider appState={state}>
       <div className={classes.root}>
         <div className={classes.lists}>
           {lists.map(list => <CardsList key={list.id} id={list.id} />)}
@@ -172,5 +140,9 @@ const Component = compose(
 )(App);
 
 Component.displayName = require("./utils").moduleName(fileAbsolute);
+
+export const fixtures = makeFixtures(Component, {
+  default: {}
+});
 
 export default Component;

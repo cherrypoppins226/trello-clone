@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import createApolloProxy from "react-cosmos-apollo-proxy";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import apolloClient from "./apollo";
+import apolloClient from "../apollo";
 
 class MobxProxy extends React.Component {
   static childContextTypes = {

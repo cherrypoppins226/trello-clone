@@ -1,6 +1,6 @@
 import { snapshotTest } from "./utils/puppeteer";
 import { labelledBy, role } from "./utils";
-import { App } from "./fixtures";
+import { fixtures } from "./App";
 import { labels as cardLabels } from "./app/cardsList/Card";
 import { labels as headerLabels } from "./app/cardsList/Header";
 
@@ -14,7 +14,7 @@ const evalClick = selector => `document.querySelector("${selector}").click()`;
 // modals/popovers are actually shown when their triggers are clicked.
 snapshotTest(
   it,
-  App.default,
+  fixtures.default,
   async (frame, snap) => {
     await frame.click(labelledBy(cardLabels.editCard.id));
     await snap();

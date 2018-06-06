@@ -6,7 +6,7 @@
 import * as testingLibrary from "react-testing-library";
 import { createContext } from "react-cosmos-loader";
 
-import proxies from "../cosmosProxies";
+import proxies from "../cosmos/proxies";
 
 const customRender = (renderer, fixture) => {
   const { mount, ...context } = createContext({ renderer, fixture, proxies });

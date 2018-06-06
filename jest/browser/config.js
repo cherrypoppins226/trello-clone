@@ -1,4 +1,3 @@
-const { CISet } = require("./common");
 const exec = require("child_process").execSync;
 
 const out = exec("yarn --silent test --showConfig 2> /dev/null");

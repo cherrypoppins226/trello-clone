@@ -7,10 +7,11 @@ import { fileAbsolute } from "paths.macro";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 
+import AppState from "../App.state";
 import Header from "./cardsList/Header";
 import Cards from "./cardsList/Cards";
 import { button } from "./styles";
-import { handleGraphQLResponse } from "../utils";
+import { makeFixtures, handleGraphQLResponse } from "../utils";
 
 const styles = {
   root: {
@@ -111,5 +112,16 @@ Component.displayName = require("../utils").moduleName(fileAbsolute);
 Component.propTypes = {
   id: PropTypes.number.isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      id: 1
+    },
+    stores: {
+      appState: new AppState()
+    }
+  }
+});
 
 export default Component;

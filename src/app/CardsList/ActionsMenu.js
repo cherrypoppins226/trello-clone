@@ -9,6 +9,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
 
+import { makeFixtures } from "../../utils";
+
 export const labels = {
   description: {
     id: "cards-list-actions-menu-description",
@@ -86,5 +88,19 @@ Component.displayName = require("../../utils").moduleName(fileAbsolute);
 Component.propTypes = {
   appState: PropTypes.object.isRequired
 };
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      appState: {
+        listBeingEdited: {
+          id: 1,
+          anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }
+        },
+        finishListEdit: () => {}
+      }
+    }
+  }
+});
 
 export default Component;
