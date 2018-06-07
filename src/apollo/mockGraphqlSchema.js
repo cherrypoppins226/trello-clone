@@ -1,8 +1,7 @@
-import gql from "graphql-tag";
 import merge from "deepmerge";
-import { makeExecutableSchema } from "graphql-tools";
+import { buildSchema } from "graphql";
 
-const typeDefs = gql`
+export const schema = buildSchema(`
   type Card {
     id: Int!
     title: String!
@@ -22,9 +21,9 @@ const typeDefs = gql`
   type Mutation {
     addCard(listId: Int!, title: String!): Card!
   }
-`;
+`);
 
-const makeResolvers = (initialStore = { lists: [] }) => {
+export const makeRootValue = (initialStore = { lists: [] }) => {
   const store = merge({}, initialStore);
 
   let lastCardId = store.lists
@@ -36,28 +35,13 @@ const makeResolvers = (initialStore = { lists: [] }) => {
   const findList = id => store.lists.find(list => list.id === id);
 
   return {
-    Query: {
-      lists: () => store.lists,
-      list: (obj, args, context) => {
-        return findList(args.id);
-      }
-    },
-    Mutation: {
-      addCard: (obj, args, context) => {
-        const newCard = { id: ++lastCardId, title: args.title };
-        const list = findList(args.listId);
-        list.cards.push(newCard);
-        return newCard;
-      }
+    lists: () => store.lists,
+    list: ({ id }) => findList(id),
+    addCard: ({ listId, title }) => {
+      const newCard = { id: ++lastCardId, title };
+      const list = findList(listId);
+      list.cards.push(newCard);
+      return newCard;
     }
   };
 };
-
-const makeSchema = (initialStore, options = {}) =>
-  makeExecutableSchema({
-    ...options,
-    typeDefs,
-    resolvers: makeResolvers(initialStore)
-  });
-
-export default makeSchema;

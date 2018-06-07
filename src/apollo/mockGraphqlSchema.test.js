@@ -1,5 +1,5 @@
 import { graphql as importedGraphql } from "graphql";
-import makeSchema from "./mockGraphqlSchema";
+import { schema, makeRootValue } from "./mockGraphqlSchema";
 
 // Query helpers
 
@@ -28,8 +28,8 @@ const graphql = async (...args) => {
   return result;
 };
 
-it("schema doesn't throw with empty data", () => {
-  expect(() => makeSchema()).not.toThrow();
+it("makeRootValue doesn't throw with empty data", () => {
+  expect(() => makeRootValue()).not.toThrow();
 });
 
 // Fixtures
@@ -39,19 +39,23 @@ const lists = [list];
 const store = { lists };
 
 it("gets lists", async () => {
-  const result = await graphql(makeSchema(store), listsQueries.get);
+  const result = await graphql(schema, listsQueries.get, makeRootValue(store));
   expect(result.data.lists).toEqual(lists);
 });
 
 it("gets list", async () => {
-  const result = await graphql(makeSchema(store), listQueries.get(list.id));
+  const result = await graphql(
+    schema,
+    listQueries.get(list.id),
+    makeRootValue(store)
+  );
   expect(result.data.list).toEqual(list);
 });
 
 it("adds a card", async () => {
-  const schema = makeSchema(store);
-  await graphql(schema, listQueries.addCard(list.id, "Card2"));
-  const result = await graphql(schema, listQueries.get(list.id));
+  const rootValue = makeRootValue(store);
+  await graphql(schema, listQueries.addCard(list.id, "Card2"), rootValue);
+  const result = await graphql(schema, listQueries.get(list.id), rootValue);
 
   expect(result.data.list.cards).toHaveLength(list.cards.length + 1);
   expect(result.data.list.cards[0]).toEqual(card);
