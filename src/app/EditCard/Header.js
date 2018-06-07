@@ -6,8 +6,11 @@ import Close from "@material-ui/icons/Close";
 import TextArea from "react-textarea-autosize";
 import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
+import { compose, setDisplayName, setPropTypes } from "recompose";
 
+import { inject } from "mobx-react";
 import { buttonIcon, headerTextarea } from "../styles";
+import { moduleName } from "../../utils";
 
 const styles = {
   root: {
@@ -30,7 +33,7 @@ const styles = {
   }
 };
 
-const Header = ({ classes, className = "", text }) => {
+const Header = ({ classes, className = "", appState, text }) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <Inbox />
@@ -41,19 +44,20 @@ const Header = ({ classes, className = "", text }) => {
         defaultValue={text}
         spellCheck={false}
       />
-      <button className={classes.close}>
+      <button className={classes.close} onClick={appState.finishCardEdit}>
         <Close />
       </button>
     </div>
   );
 };
 
-const Component = withStyles(styles)(Header);
-
-Component.displayName = require("../../utils").moduleName(fileAbsolute);
-
-Component.propTypes = {
-  text: PropTypes.string.isRequired
-};
+const Component = compose(
+  setDisplayName(moduleName(fileAbsolute)),
+  setPropTypes({
+    text: PropTypes.string.isRequired
+  }),
+  inject("appState"),
+  withStyles(styles)
+)(Header);
 
 export default Component;

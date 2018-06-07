@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import { compose, setDisplayName } from "recompose";
+import { inject } from "mobx-react";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
@@ -74,15 +74,14 @@ class EditCard extends React.Component {
 
 const Component = compose(
   setDisplayName(modulePath),
-  setPropTypes({
-    appState: PropTypes.object.isRequired
-  }),
+  inject("appState"),
   withStyles(styles)
 )(EditCard);
 
 export const fixtures = makeFixtures(Component, {
   default: {
-    props: {
+    props: {},
+    stores: {
       appState: {
         cardBeingEdited: { id: 1, title: "Ut sunt qui amet." },
         finishCardEdit: () => {}
