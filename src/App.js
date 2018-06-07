@@ -5,10 +5,11 @@ import Modal from "@material-ui/core/Modal";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { fileAbsolute } from "paths.macro";
 import { Provider, observer, inject } from "mobx-react";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
+import { compose, setDisplayName } from "recompose";
 import gql from "graphql-tag";
 
-import { makeFixtures, handleGraphQLResponse } from "./utils";
+import { makeFixtures, handleGraphQLResponse, moduleName } from "./utils";
 import State from "./App.state.js";
 import CardsList from "./app/CardsList";
 import ActionsMenu from "./app/cardsList/ActionsMenu";
@@ -134,12 +135,11 @@ const App = ({ classes, data: { lists } }) => {
 };
 
 const Component = compose(
+  setDisplayName(moduleName(fileAbsolute)),
+  withStyles(styles),
   graphql(LIST_IDS),
-  handleGraphQLResponse(),
-  withStyles(styles)
+  handleGraphQLResponse()
 )(App);
-
-Component.displayName = require("./utils").moduleName(fileAbsolute);
 
 export const fixtures = makeFixtures(Component, {
   default: {}

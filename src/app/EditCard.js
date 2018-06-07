@@ -4,7 +4,7 @@ import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
 
-import mockData from "../mockData.js";
+import mockData from "../apollo/mockData";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
 import Sidebar from "./editCard/Sidebar";

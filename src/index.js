@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 
 import "./index.css";
 import App from "./App";
-import apolloClient from "./apollo";
+import client from "./apollo/mockClient";
 import registerServiceWorker from "./registerServiceWorker";
 
 const ALL_DATA = gql`
@@ -46,7 +46,7 @@ class PopulateCache extends React.Component {
 }
 
 ReactDOM.render(
-  <ApolloProvider client={apolloClient}>
+  <ApolloProvider client={client}>
     <PopulateCache>
       <CssBaseline />
       <App />

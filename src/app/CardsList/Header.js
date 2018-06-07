@@ -6,8 +6,9 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
-import mockData from "../../mockData.js";
+import mockData from "../../apollo/mockData";
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
@@ -66,14 +67,15 @@ const Header = ({ classes, className = "", appState, listId, listTitle }) => {
   );
 };
 
-const Component = withStyles(styles)(inject("appState")(Header));
-
-Component.displayName = modulePath;
-
-Component.propTypes = {
-  listId: PropTypes.number.isRequired,
-  listTitle: PropTypes.string.isRequired
-};
+const Component = compose(
+  setDisplayName(modulePath),
+  setPropTypes({
+    listId: PropTypes.number.isRequired,
+    listTitle: PropTypes.string.isRequired
+  }),
+  inject("appState"),
+  withStyles(styles)
+)(Header);
 
 export const fixtures = makeFixtures(Component, {
   default: {

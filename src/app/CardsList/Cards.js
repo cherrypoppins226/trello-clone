@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 
 import AppState from "../../App.state";
-import mockData from "../../mockData.js";
+import mockData from "../../apollo/mockData";
 import { makeFixtures } from "../../utils";
 import Card, { types as cardTypes } from "./Card";
 

@@ -14,7 +14,7 @@ import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 
-import mockData from "../mockData.js";
+import mockData from "../apollo/mockData";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
 
