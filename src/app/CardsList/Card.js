@@ -10,7 +10,7 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 
 import AppState from "../../App.state";
-import mockData from "../../apollo/mockData";
+import mockData from "../../mockData";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
 

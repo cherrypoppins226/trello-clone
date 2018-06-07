@@ -8,7 +8,7 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 import { compose, setPropTypes, setDisplayName } from "recompose";
 
-import mockData from "../../apollo/mockData";
+import mockData from "../../mockData";
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
