@@ -136,9 +136,9 @@ const App = ({ classes, data: { lists } }) => {
 
 const Component = compose(
   setDisplayName(moduleName(fileAbsolute)),
-  withStyles(styles),
   graphql(LIST_IDS),
-  handleGraphQLResponse()
+  handleGraphQLResponse(),
+  withStyles(styles)
 )(App);
 
 export const fixtures = makeFixtures(Component, {

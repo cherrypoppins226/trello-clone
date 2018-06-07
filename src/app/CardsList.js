@@ -4,14 +4,15 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
+import { compose, setDisplayName, setPropTypes } from "recompose";
 import gql from "graphql-tag";
 
 import AppState from "../App.state";
 import Header from "./cardsList/Header";
 import Cards from "./cardsList/Cards";
 import { button } from "./styles";
-import { makeFixtures, handleGraphQLResponse } from "../utils";
+import { makeFixtures, handleGraphQLResponse, moduleName } from "../utils";
 
 const styles = {
   root: {
@@ -86,6 +87,10 @@ const CardsList = ({ classes, id, addCard, data: { list, variables } }) => {
 };
 
 const Component = compose(
+  setDisplayName(moduleName(fileAbsolute)),
+  setPropTypes({
+    id: PropTypes.number.isRequired
+  }),
   graphql(LIST, {
     options: props => ({ variables: { id: props.id } })
   }),
@@ -106,12 +111,6 @@ const Component = compose(
   }),
   withStyles(styles)
 )(CardsList);
-
-Component.displayName = require("../utils").moduleName(fileAbsolute);
-
-Component.propTypes = {
-  id: PropTypes.number.isRequired
-};
 
 export const fixtures = makeFixtures(Component, {
   default: {

@@ -8,6 +8,7 @@ import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
@@ -80,10 +81,6 @@ const Card = ({ classes, appState, card }) => {
   );
 };
 
-const Component = withStyles(styles)(inject("appState")(Card));
-
-Component.displayName = modulePath;
-
 export const types = {
   card: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -91,9 +88,14 @@ export const types = {
   })
 };
 
-Component.propTypes = {
-  card: types.card.isRequired
-};
+const Component = compose(
+  setDisplayName(modulePath),
+  setPropTypes({
+    card: types.card.isRequired
+  }),
+  inject("appState"),
+  withStyles(styles)
+)(Card);
 
 export const fixtures = makeFixtures(Component, {
   default: {

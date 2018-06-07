@@ -8,6 +8,7 @@ import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 
@@ -84,13 +85,13 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
   );
 };
 
-const Component = withStyles(styles)(ActionsMenu);
-
-Component.displayName = modulePath;
-
-Component.propTypes = {
-  appState: PropTypes.object.isRequired
-};
+const Component = compose(
+  setDisplayName(modulePath),
+  setPropTypes({
+    appState: PropTypes.object.isRequired
+  }),
+  withStyles(styles)
+)(ActionsMenu);
 
 export const fixtures = makeFixtures(Component, {
   default: {

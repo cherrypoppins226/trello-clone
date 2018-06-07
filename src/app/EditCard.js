@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
@@ -71,13 +72,13 @@ class EditCard extends React.Component {
   }
 }
 
-const Component = withStyles(styles)(EditCard);
-
-Component.displayName = modulePath;
-
-Component.propTypes = {
-  appState: PropTypes.object.isRequired
-};
+const Component = compose(
+  setDisplayName(modulePath),
+  setPropTypes({
+    appState: PropTypes.object.isRequired
+  }),
+  withStyles(styles)
+)(EditCard);
 
 export const fixtures = makeFixtures(Component, {
   default: {

@@ -2,8 +2,10 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import Card, { types as cardTypes } from "./Card";
+import { moduleName } from "../../utils";
 
 const styles = {
   root: {
@@ -45,12 +47,12 @@ class Cards extends React.Component {
   }
 }
 
-const Component = withStyles(styles)(Cards);
-
-Component.displayName = require("../../utils").moduleName(fileAbsolute);
-
-Component.propTypes = {
-  cards: PropTypes.arrayOf(cardTypes.card).isRequired
-};
+const Component = compose(
+  setDisplayName(moduleName(fileAbsolute)),
+  setPropTypes({
+    cards: PropTypes.arrayOf(cardTypes.card).isRequired
+  }),
+  withStyles(styles)
+)(Cards);
 
 export default Component;

@@ -13,6 +13,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
+import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
@@ -122,13 +123,13 @@ const QuickEditCard = ({ classes, appState, ...rest }) => {
   );
 };
 
-const Component = withStyles(styles)(QuickEditCard);
-
-Component.displayName = modulePath;
-
-Component.propTypes = {
-  appState: PropTypes.object.isRequired
-};
+const Component = compose(
+  setDisplayName(modulePath),
+  setPropTypes({
+    appState: PropTypes.object.isRequired
+  }),
+  withStyles(styles)
+)(QuickEditCard);
 
 export const fixtures = makeFixtures(Component, {
   default: {
