@@ -8,7 +8,6 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 import { compose, setPropTypes, setDisplayName } from "recompose";
 
-import mockData from "../../mockData";
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
@@ -80,8 +79,8 @@ const Component = compose(
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
-      listId: mockData.lists[0].id,
-      listTitle: mockData.lists[0].title
+      listId: 1,
+      listTitle: "Repellat quisquam recusandae alias consequuntur corporis."
     },
     stores: {
       appState: new AppState()

@@ -4,7 +4,6 @@ import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
 
-import mockData from "../mockData";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
 import Sidebar from "./editCard/Sidebar";
@@ -84,7 +83,7 @@ export const fixtures = makeFixtures(Component, {
   default: {
     props: {
       appState: {
-        cardBeingEdited: { ...mockData.lists[0].cards[0] },
+        cardBeingEdited: { id: 1, title: "Ut sunt qui amet." },
         finishCardEdit: () => {}
       }
     }
