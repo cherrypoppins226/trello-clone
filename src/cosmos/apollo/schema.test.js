@@ -36,6 +36,13 @@ it("list", async () => {
   expect(result.data.list).toEqual(list);
 });
 
+it("card", async () => {
+  const result = await execute(makeResolver(store), queries.card, {
+    id: card.id
+  });
+  expect(result.data.card).toEqual(card);
+});
+
 it("addCard", async () => {
   const resolver = makeResolver(store);
   await execute(resolver, queries.addCard, {
@@ -55,4 +62,12 @@ it("updateList", async () => {
   await execute(resolver, queries.updateList, { id: list.id, update });
   const result = await execute(resolver, queries.list, { id: list.id });
   expect(result.data.list).toEqual({ ...list, ...update });
+});
+
+it("updateCard", async () => {
+  const update = { title: "Violets" };
+  const resolver = makeResolver(store);
+  await execute(resolver, queries.updateCard, { id: card.id, update });
+  const result = await execute(resolver, queries.card, { id: card.id });
+  expect(result.data.card).toEqual({ ...card, ...update });
 });

@@ -61,7 +61,8 @@ class EditCard extends React.Component {
         {renderLabels(labels)}
         <Header
           className={classes.header}
-          text={appState.cardBeingEdited.title}
+          cardId={appState.cardBeingEdited.id}
+          cardTitle={appState.cardBeingEdited.title}
         />
         <div className={classes.flex}>
           <Content className={classes.content} />

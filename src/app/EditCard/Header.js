@@ -7,10 +7,12 @@ import TextArea from "react-textarea-autosize";
 import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
 import { compose, setDisplayName, setPropTypes } from "recompose";
+import { graphql } from "react-apollo";
 
+import { queries } from "../../cosmos/apollo/schema";
 import { inject } from "mobx-react";
 import { buttonIcon, headerTextarea } from "../styles";
-import { moduleName } from "../../utils";
+import { makeFixtures, moduleName } from "../../utils";
 
 const styles = {
   root: {
@@ -33,7 +35,14 @@ const styles = {
   }
 };
 
-const Header = ({ classes, className = "", appState, text }) => {
+const Header = ({
+  classes,
+  className = "",
+  appState,
+  updateCard,
+  cardId,
+  cardTitle
+}) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <Inbox />
@@ -41,8 +50,18 @@ const Header = ({ classes, className = "", appState, text }) => {
         role="heading"
         variant="title"
         component={TextArea}
-        defaultValue={text}
+        defaultValue={cardTitle}
         spellCheck={false}
+        onBlur={e => {
+          updateCard({
+            variables: {
+              id: cardId,
+              update: {
+                title: e.target.value
+              }
+            }
+          });
+        }}
       />
       <button className={classes.close} onClick={appState.finishCardEdit}>
         <Close />
@@ -54,10 +73,26 @@ const Header = ({ classes, className = "", appState, text }) => {
 const Component = compose(
   setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
-    text: PropTypes.string.isRequired
+    cardId: PropTypes.number.isRequired,
+    cardTitle: PropTypes.string.isRequired
   }),
+  graphql(queries.updateCard, { name: "updateCard" }),
   inject("appState"),
   withStyles(styles)
 )(Header);
+
+export const fixtures = makeFixtures(Component, {
+  default: {
+    props: {
+      cardId: 1,
+      cardTitle: "Ut sunt qui amet."
+    },
+    stores: {
+      appState: {
+        finishCardEdit: () => {}
+      }
+    }
+  }
+});
 
 export default Component;

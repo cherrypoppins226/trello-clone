@@ -58,3 +58,16 @@ export const renderLabels = labelsObj => {
 
 export const labelId = (modulePath, id) =>
   `${modulePath.toLowerCase().replace(/\//g, "-")}-${id}`;
+
+export const flatten = arr => {
+  var array = [];
+  while (arr.length) {
+    var value = arr.shift();
+    if (Array.isArray(value)) {
+      arr = value.concat(arr);
+    } else {
+      array.push(value);
+    }
+  }
+  return array;
+};
