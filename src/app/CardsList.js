@@ -6,11 +6,11 @@ import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 import { graphql } from "react-apollo";
 import { compose, setDisplayName, setPropTypes } from "recompose";
-import gql from "graphql-tag";
 
 import AppState from "../App.state";
 import Header from "./cardsList/Header";
 import Cards from "./cardsList/Cards";
+import { queries } from "../cosmos/apollo/schema";
 import { button } from "./styles";
 import { makeFixtures, handleGraphQLResponse, moduleName } from "../utils";
 
@@ -30,28 +30,6 @@ const styles = {
   }
 };
 
-const ADD_CARD = gql`
-  mutation AddCard($listId: Int!, $title: String!) {
-    addCard(listId: $listId, title: $title) {
-      id
-      title
-    }
-  }
-`;
-
-const LIST = gql`
-  query List($id: Int!) {
-    list(id: $id) {
-      id
-      title
-      cards {
-        id
-        title
-      }
-    }
-  }
-`;
-
 const CardsList = ({ classes, id, addCard, data: { list, variables } }) => {
   return (
     <Paper
@@ -70,7 +48,7 @@ const CardsList = ({ classes, id, addCard, data: { list, variables } }) => {
       </div>
       <Button
         onClick={() => {
-          const listQuery = { query: LIST, variables };
+          const listQuery = { query: queries.list, variables };
           addCard({
             update: (proxy, { data: { addCard } }) => {
               const data = proxy.readQuery(listQuery);
@@ -91,11 +69,11 @@ const Component = compose(
   setPropTypes({
     id: PropTypes.number.isRequired
   }),
-  graphql(LIST, {
+  graphql(queries.list, {
     options: props => ({ variables: { id: props.id } })
   }),
   handleGraphQLResponse(),
-  graphql(ADD_CARD, {
+  graphql(queries.addCard, {
     name: "addCard",
     options: props => ({
       variables: { listId: props.id, title: "Title..." },

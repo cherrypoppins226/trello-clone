@@ -3,7 +3,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { SchemaLink } from "apollo-link-schema";
 
 import data from "./data";
-import { schema, makeRootValue } from "./schema";
+import { schema, makeResolver } from "./schema";
 
 export default new ApolloClient({
   cache: new InMemoryCache(),
@@ -15,5 +15,5 @@ export default new ApolloClient({
   It's better to not mock return values with cosmos since this link includes a
   full graphql execution environment which will validate our queries.
   */
-  link: new SchemaLink({ schema, rootValue: makeRootValue(data) })
+  link: new SchemaLink({ schema, rootValue: makeResolver(data) })
 });

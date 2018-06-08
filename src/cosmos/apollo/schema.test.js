@@ -1,36 +1,18 @@
-import { graphql as importedGraphql } from "graphql";
-import { schema, makeRootValue } from "./schema";
+import { execute as importedExecute } from "graphql";
 
-// Query helpers
+import { schema, makeResolver, queries } from "./schema";
 
-const cardQueries = {};
-cardQueries.fields = "id title";
-cardQueries.get = "";
-
-const listQueries = {};
-listQueries.fields = `id title cards { ${cardQueries.fields} }`;
-listQueries.get = id => `{ list(id: ${id}) { ${listQueries.fields} } }`;
-listQueries.addCard = (listId, title) => `
-  mutation {
-    addCard(listId: ${listId}, title: "${title}") {
-      ${cardQueries.fields}
-    }
-  }
-`;
-
-const listsQueries = {};
-listsQueries.fields = `lists { ${listQueries.fields} }`;
-listsQueries.get = `{ ${listsQueries.fields} }`;
-
-const graphql = async (...args) => {
-  const result = await importedGraphql(...args);
+const execute = async (resolver, query, variables = {}) => {
+  const result = await importedExecute(
+    schema,
+    query,
+    resolver,
+    null,
+    variables
+  );
   if (result.errors) throw Error(result.errors);
   return result;
 };
-
-it("makeRootValue doesn't throw with empty data", () => {
-  expect(() => makeRootValue()).not.toThrow();
-});
 
 // Fixtures
 const card = { id: 1, title: "Card" };
@@ -38,29 +20,39 @@ const list = { id: 1, title: "List", cards: [card] };
 const lists = [list];
 const store = { lists };
 
-it("gets lists", async () => {
-  const result = await graphql(schema, listsQueries.get, makeRootValue(store));
+it("makeResolver doesn't throw with empty data", () => {
+  expect(() => makeResolver()).not.toThrow();
+});
+
+it("lists", async () => {
+  const result = await execute(makeResolver(store), queries.lists);
   expect(result.data.lists).toEqual(lists);
 });
 
-it("gets list", async () => {
-  const result = await graphql(
-    schema,
-    listQueries.get(list.id),
-    makeRootValue(store)
-  );
+it("list", async () => {
+  const result = await execute(makeResolver(store), queries.list, {
+    id: list.id
+  });
   expect(result.data.list).toEqual(list);
 });
 
-it("adds a card", async () => {
-  const rootValue = makeRootValue(store);
-  await graphql(schema, listQueries.addCard(list.id, "Card2"), rootValue);
-  const result = await graphql(schema, listQueries.get(list.id), rootValue);
-
-  expect(result.data.list.cards).toHaveLength(list.cards.length + 1);
-  expect(result.data.list.cards[0]).toEqual(card);
-  expect(result.data.list.cards[1]).toEqual({
-    id: card.id + 1,
-    title: "Card2"
+it("addCard", async () => {
+  const resolver = makeResolver(store);
+  await execute(resolver, queries.addCard, {
+    listId: list.id,
+    title: "Roses"
   });
+  const result = await execute(resolver, queries.list, { id: list.id });
+  expect(result.data.list.cards).toEqual([
+    card,
+    { id: card.id + 1, title: "Roses" }
+  ]);
+});
+
+it("updateList", async () => {
+  const update = { title: "Violets" };
+  const resolver = makeResolver(store);
+  await execute(resolver, queries.updateList, { id: list.id, update });
+  const result = await execute(resolver, queries.list, { id: list.id });
+  expect(result.data.list).toEqual({ ...list, ...update });
 });

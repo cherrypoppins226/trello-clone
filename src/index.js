@@ -2,25 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ApolloProvider, ApolloConsumer } from "react-apollo";
-import gql from "graphql-tag";
 
 import "./index.css";
 import App from "./App";
 import client from "./cosmos/apollo/client";
+import { queries } from "./cosmos/apollo/schema";
 import registerServiceWorker from "./registerServiceWorker";
-
-const ALL_DATA = gql`
-  {
-    lists {
-      id
-      title
-      cards {
-        id
-        title
-      }
-    }
-  }
-`;
 
 class PopulateCache extends React.Component {
   constructor(props) {
@@ -35,7 +22,7 @@ class PopulateCache extends React.Component {
       <ApolloConsumer>
         {client => {
           client
-            .query({ query: ALL_DATA })
+            .query({ query: queries.lists })
             .then(() => this.setState({ cachePopulated: true }))
             .catch(error => console.error(error));
           return null;

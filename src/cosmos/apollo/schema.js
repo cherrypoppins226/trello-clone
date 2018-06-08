@@ -1,4 +1,5 @@
 import merge from "deepmerge";
+import gql from "graphql-tag";
 import { buildSchema } from "graphql";
 
 export const schema = buildSchema(`
@@ -18,12 +19,50 @@ export const schema = buildSchema(`
     lists: [CardsList!]!
   }
 
+  input CardsListInput {
+    title: String!
+  }
+
   type Mutation {
+    updateList(id: Int!, update: CardsListInput!): CardsList!
     addCard(listId: Int!, title: String!): Card!
   }
 `);
 
-export const makeRootValue = (initialStore = { lists: [] }) => {
+const cardFields = "id title";
+const listFields = `id title cards { ${cardFields} }`;
+const listsFields = `lists { ${listFields} }`;
+
+export const queries = {
+  lists: gql(`
+    query Lists{
+      ${listsFields}
+    }
+  `),
+  list: gql(`
+    query List($id: Int!) {
+      list(id: $id) {
+        ${listFields}
+      }
+    }
+  `),
+  updateList: gql(`
+    mutation UpdateList($id: Int!, $update: CardsListInput!){
+      updateList(id: $id, update: $update) {
+        ${listFields}
+      }
+    }
+  `),
+  addCard: gql(`
+    mutation AddCard($listId: Int!, $title: String!){
+      addCard(listId: $listId, title: $title) {
+        ${cardFields}
+      }
+    }
+  `)
+};
+
+export const makeResolver = (initialStore = { lists: [] }) => {
   const store = merge({}, initialStore);
 
   let lastCardId = store.lists
@@ -37,10 +76,10 @@ export const makeRootValue = (initialStore = { lists: [] }) => {
   return {
     lists: () => store.lists,
     list: ({ id }) => findList(id),
+    updateList: ({ id, update }) => Object.assign(findList(id), update),
     addCard: ({ listId, title }) => {
       const newCard = { id: ++lastCardId, title };
-      const list = findList(listId);
-      list.cards.push(newCard);
+      findList(listId).cards.push(newCard);
       return newCard;
     }
   };

@@ -111,14 +111,6 @@ const styles = {
 
 const state = new State();
 
-const LIST_IDS = gql`
-  query ListIds {
-    lists {
-      id
-    }
-  }
-`;
-
 const App = ({ classes, data: { lists } }) => {
   return (
     <Provider appState={state}>
@@ -136,7 +128,7 @@ const App = ({ classes, data: { lists } }) => {
 
 const Component = compose(
   setDisplayName(moduleName(fileAbsolute)),
-  graphql(LIST_IDS),
+  graphql(gql("query ListIds { lists { id } }")),
   handleGraphQLResponse(),
   withStyles(styles)
 )(App);
