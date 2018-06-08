@@ -1,14 +1,16 @@
-import { Simulate } from "react-testing-library";
+import { Simulate, renderIntoDocument } from "react-testing-library";
 
+import mount from "./cosmos/mount";
 import { fixtures } from "./App";
 import { labelledBy, describedBy, testId } from "./utils";
-import { renderIntoDocument } from "./utils/cosmos";
+import { labels as editCardLabels } from "./app/EditCard";
+import { labels as quickEditCardLabels } from "./app/QuickEditCard";
 import { labels as cardLabels } from "./app/cardsList/Card";
+import { labels as headerLabels } from "./app/cardsList/Header";
+import { labels as actionsMenuLabels } from "./app/cardsList/ActionsMenu";
 
 it("cards list actions menu opens", async () => {
-  const headerLabels = require("./app/cardsList/Header").labels;
-  const actionsMenuLabels = require("./app/cardsList/ActionsMenu").labels;
-  await renderIntoDocument(fixtures.default);
+  await mount(renderIntoDocument, fixtures.default);
   const getMenu = () =>
     document.querySelector(describedBy(actionsMenuLabels.description.id));
   expect(getMenu()).toBeNull();
@@ -21,7 +23,7 @@ const testModal = async ({
   modalSelector,
   modalTextSelector
 }) => {
-  await renderIntoDocument(fixtures.default);
+  await mount(renderIntoDocument, fixtures.default);
   const card = document.querySelector("[data-cardid='1']");
   const getModal = () => document.querySelector(modalSelector);
   const getModalText = () => getModal().querySelector(modalTextSelector);
@@ -34,7 +36,6 @@ const testModal = async ({
 };
 
 it("edit card modal opens", async () => {
-  const editCardLabels = require("./app/EditCard").labels;
   await testModal({
     getClickable: card => card,
     modalSelector: describedBy(editCardLabels.description.id),
@@ -43,7 +44,6 @@ it("edit card modal opens", async () => {
 });
 
 it("quick edit card modal opens", async () => {
-  const quickEditCardLabels = require("./app/QuickEditCard").labels;
   await testModal({
     getClickable: card =>
       card.querySelector(labelledBy(cardLabels.quickEditCard.id)),
