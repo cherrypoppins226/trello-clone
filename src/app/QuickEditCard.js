@@ -107,15 +107,17 @@ const QuickEditCard = ({ classes, appState, updateCard, ...rest }) => {
         <Button
           variant="raised"
           onClick={e => {
-            updateCard({
-              variables: {
-                id: appState.cardBeingQuickEdited.id,
-                update: {
-                  title: e.currentTarget.parentElement.querySelector("textarea")
-                    .value
+            const title = e.currentTarget.parentElement.querySelector(
+              "textarea"
+            ).value;
+            if (title !== appState.cardBeingQuickEdited.title) {
+              updateCard({
+                variables: {
+                  id: appState.cardBeingQuickEdited.id,
+                  update: { title }
                 }
-              }
-            });
+              });
+            }
             appState.finishQuickCardEdit();
           }}
         >

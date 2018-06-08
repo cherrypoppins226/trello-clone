@@ -53,12 +53,12 @@ const Header = ({
         defaultValue={cardTitle}
         spellCheck={false}
         onBlur={e => {
+          const title = e.target.value;
+          if (title === cardTitle) return;
           updateCard({
             variables: {
               id: cardId,
-              update: {
-                title: e.target.value
-              }
+              update: { title }
             }
           });
         }}

@@ -56,12 +56,12 @@ const Header = ({
         spellCheck={false}
         onFocus={e => e.target.select()}
         onBlur={e => {
+          const title = e.target.value;
+          if (title === listTitle) return;
           updateList({
             variables: {
               id: listId,
-              update: {
-                title: e.target.value
-              }
+              update: { title }
             }
           });
         }}
