@@ -14,7 +14,9 @@ import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { compose, setPropTypes, setDisplayName } from "recompose";
+import { graphql } from "react-apollo";
 
+import { queries } from "../cosmos/apollo/schema";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
 
@@ -75,7 +77,7 @@ const styles = {
   }
 };
 
-const QuickEditCard = ({ classes, appState, ...rest }) => {
+const QuickEditCard = ({ classes, appState, updateCard, ...rest }) => {
   const {
     top,
     left,
@@ -98,11 +100,27 @@ const QuickEditCard = ({ classes, appState, ...rest }) => {
           }}
           autoFocus
           component={TextArea}
-          value={appState.cardBeingQuickEdited.title}
+          defaultValue={appState.cardBeingQuickEdited.title}
           onFocus={e => e.target.select()}
         />
         {/* eslint-enable jsx-a11y/no-autofocus */}
-        <Button variant="raised"> Save </Button>
+        <Button
+          variant="raised"
+          onClick={e => {
+            updateCard({
+              variables: {
+                id: appState.cardBeingQuickEdited.id,
+                update: {
+                  title: e.currentTarget.parentElement.querySelector("textarea")
+                    .value
+                }
+              }
+            });
+            appState.finishQuickCardEdit();
+          }}
+        >
+          Save
+        </Button>
       </div>
       <div className={classes.sideButtons}>
         {[
@@ -128,6 +146,7 @@ const Component = compose(
   setPropTypes({
     appState: PropTypes.object.isRequired
   }),
+  graphql(queries.updateCard, { name: "updateCard" }),
   withStyles(styles)
 )(QuickEditCard);
 
