@@ -9,10 +9,10 @@ it("saves list title", async () => {
   const { container } = await mount(render, fixtures.default);
   const textarea = container.querySelector("textarea");
   textarea.value = "Title";
-  Simulate.change(textarea);
+  Simulate.blur(textarea);
   const result = await client.query({
     query: queries.list,
     variables: { id: fixtures.default.props.listId }
   });
-  // expect(result.data.list.title).toBe("Title");
+  expect(result.data.list.title).toBe("Title");
 });

@@ -10,13 +10,7 @@ import { compose, setPropTypes, setDisplayName } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../../cosmos/apollo/schema";
-import {
-  handleGraphQLResponse,
-  makeFixtures,
-  renderLabels,
-  labelId,
-  moduleName
-} from "../../utils";
+import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const modulePath = moduleName(fileAbsolute);
@@ -44,7 +38,14 @@ const styles = {
   }
 };
 
-const Header = ({ classes, className = "", appState, listId, listTitle }) => {
+const Header = ({
+  classes,
+  className = "",
+  appState,
+  updateList,
+  listId,
+  listTitle
+}) => {
   return (
     <div className={`${classes.root} ${className}`}>
       {renderLabels(labels)}
@@ -54,7 +55,16 @@ const Header = ({ classes, className = "", appState, listId, listTitle }) => {
         component={TextArea}
         spellCheck={false}
         onFocus={e => e.target.select()}
-        onChange={e => {}}
+        onBlur={e => {
+          updateList({
+            variables: {
+              id: listId,
+              update: {
+                title: e.target.value
+              }
+            }
+          });
+        }}
       />
       <button
         aria-haspopup={true}
@@ -80,10 +90,7 @@ const Component = compose(
     listId: PropTypes.number.isRequired,
     listTitle: PropTypes.string.isRequired
   }),
-  graphql(queries.list, {
-    options: props => ({ variables: { id: props.listId } })
-  }),
-  handleGraphQLResponse(),
+  graphql(queries.updateList, { name: "updateList" }),
   inject("appState"),
   withStyles(styles)
 )(Header);
