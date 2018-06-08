@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 
 import "./index.css";
 import App from "./App";
-import client from "./apollo/mockClient";
+import client from "./cosmos/apollo/client";
 import registerServiceWorker from "./registerServiceWorker";
 
 const ALL_DATA = gql`

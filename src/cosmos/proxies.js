@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import createApolloProxy from "react-cosmos-apollo-proxy";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import client from "../apollo/mockClient";
+import client from "./apollo/client";
 
 class MobxProxy extends React.Component {
   static childContextTypes = {
@@ -38,8 +38,4 @@ class StylesProxy extends React.Component {
   }
 }
 
-export default [
-  StylesProxy,
-  MobxProxy,
-  createApolloProxy({ client })
-];
+export default [StylesProxy, MobxProxy, createApolloProxy({ client })];

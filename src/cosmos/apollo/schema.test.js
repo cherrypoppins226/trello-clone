@@ -1,5 +1,5 @@
 import { graphql as importedGraphql } from "graphql";
-import { schema, makeRootValue } from "./mockGraphqlSchema";
+import { schema, makeRootValue } from "./schema";
 
 // Query helpers
 
