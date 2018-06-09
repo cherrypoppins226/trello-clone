@@ -54,16 +54,20 @@ const Header = ({
         defaultValue={listTitle}
         component={TextArea}
         spellCheck={false}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === "Escape") e.target.blur();
+        }}
         onFocus={e => e.target.select()}
         onBlur={e => {
           const title = e.target.value;
-          if (title === listTitle) return;
-          updateList({
-            variables: {
-              id: listId,
-              update: { title }
-            }
-          });
+          if (title !== listTitle) {
+            updateList({
+              variables: {
+                id: listId,
+                update: { title }
+              }
+            });
+          }
         }}
       />
       <button

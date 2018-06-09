@@ -52,6 +52,9 @@ const Header = ({
         component={TextArea}
         defaultValue={cardTitle}
         spellCheck={false}
+        onKeyDown={e => {
+          if (e.key === "Enter" || e.key === "Escape") e.target.blur();
+        }}
         onBlur={e => {
           const title = e.target.value;
           if (title === cardTitle) return;

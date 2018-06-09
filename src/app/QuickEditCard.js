@@ -77,13 +77,13 @@ const styles = {
   }
 };
 
-const QuickEditCard = ({ classes, appState, updateCard, ...rest }) => {
-  const {
-    top,
-    left,
-    bottom,
-    right
-  } = appState.cardBeingQuickEdited.anchorElementBox;
+const QuickEditCard = ({
+  classes,
+  appState: { cardBeingQuickEdited, finishQuickCardEdit },
+  updateCard,
+  ...rest
+}) => {
+  const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
   return (
     <div
       aria-describedby={labels.description.id}
@@ -91,7 +91,26 @@ const QuickEditCard = ({ classes, appState, updateCard, ...rest }) => {
       {...rest}
     >
       {renderLabels(labels)}
-      <div className={classes.description}>
+      <div
+        role="presentation"
+        className={classes.description}
+        onClick={e => {
+          if (!e.target.editCard) return;
+
+          const title = e.currentTarget.querySelector("textarea").value;
+
+          if (title !== cardBeingQuickEdited.title) {
+            updateCard({
+              variables: {
+                id: cardBeingQuickEdited.id,
+                update: { title }
+              }
+            });
+          }
+
+          finishQuickCardEdit();
+        }}
+      >
         {/* eslint-disable jsx-a11y/no-autofocus */}
         <Typography
           style={{
@@ -100,27 +119,19 @@ const QuickEditCard = ({ classes, appState, updateCard, ...rest }) => {
           }}
           autoFocus
           component={TextArea}
-          defaultValue={appState.cardBeingQuickEdited.title}
+          defaultValue={cardBeingQuickEdited.title}
+          onKeyDown={e => {
+            if (e.key === "Enter") {
+              e.target.editCard = true;
+              e.target.click();
+            } else if (e.key === "Escape") {
+              finishQuickCardEdit();
+            }
+          }}
           onFocus={e => e.target.select()}
         />
         {/* eslint-enable jsx-a11y/no-autofocus */}
-        <Button
-          variant="raised"
-          onClick={e => {
-            const title = e.currentTarget.parentElement.querySelector(
-              "textarea"
-            ).value;
-            if (title !== appState.cardBeingQuickEdited.title) {
-              updateCard({
-                variables: {
-                  id: appState.cardBeingQuickEdited.id,
-                  update: { title }
-                }
-              });
-            }
-            appState.finishQuickCardEdit();
-          }}
-        >
+        <Button variant="raised" onClick={e => (e.target.editCard = true)}>
           Save
         </Button>
       </div>
