@@ -2,17 +2,20 @@
   "name": "trello",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stellarhoof.github.io/trello-clone",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "^2.0.0-next.66cc7a90"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose",
     "test:browser": "jest -c jest/browser/config.js --verbose",
-    "test:ci": "CI=1 yarn test --ci && CI=1 yarn test:browser --ci",
+    "test:ci": "CI=1 npm run test --ci && CI=1 npm run test:browser --ci",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -23,6 +26,7 @@
     "apollo-link-schema": "^1.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "gh-pages": "^1.2.0",
     "graphql-tag": "^2.9.2",
     "husky": "^1.0.0-rc.4",
     "jest-image-snapshot": "^2.4.1",
