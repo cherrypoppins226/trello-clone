@@ -126,6 +126,8 @@ const App = ({ classes, data: { lists } }) => {
   );
 };
 
+// TODO: Provide state here. Right now it's shared across all App instances
+// because it gets instantiated once per module import instead of app instance.
 const Component = compose(
   setDisplayName(moduleName(fileAbsolute)),
   graphql(gql("query ListIds { lists { id } }")),

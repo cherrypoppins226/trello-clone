@@ -5,6 +5,7 @@ import { fileAbsolute } from "paths.macro";
 import { compose, setPropTypes, setDisplayName } from "recompose";
 
 import Card, { types as cardTypes } from "./Card";
+import NewCard from "./NewCard";
 import { moduleName } from "../../utils";
 
 const styles = {
@@ -23,7 +24,10 @@ const styles = {
 
 class Cards extends React.Component {
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.cards.length > prevProps.cards.length)
+    if (
+      this.props.cards.length > prevProps.cards.length ||
+      this.props.cardBeingAdded
+    )
       this.cardsListEnd.scrollIntoView();
   }
 
@@ -36,6 +40,14 @@ class Cards extends React.Component {
               <Card card={card} />
             </li>
           ))}
+          {this.props.cardBeingAdded && (
+            <li key={null} style={{ cursor: "auto" }}>
+              <NewCard
+                cardBeingAdded={this.props.cardBeingAdded}
+                finishAddCard={this.props.finishAddCard}
+              />
+            </li>
+          )}
         </ul>
         {/* The sole purpose of this div is to allow scrolling to bottom */}
         <div
@@ -50,7 +62,11 @@ class Cards extends React.Component {
 const Component = compose(
   setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
-    cards: PropTypes.arrayOf(cardTypes.card).isRequired
+    cards: PropTypes.arrayOf(cardTypes.card).isRequired,
+    cardBeingAdded: PropTypes.shape({
+      listId: PropTypes.number.isRequired
+    }),
+    finishAddCard: PropTypes.func.isRequired
   }),
   withStyles(styles)
 )(Cards);

@@ -1,16 +1,16 @@
 import { Simulate, render } from "react-testing-library";
-import { getByText } from "dom-testing-library";
 
+import { labelledBy, testId } from "../utils";
 import { fixtures } from "./CardsList";
+import { labels as newCardLabels } from "./cardsList/NewCard";
 import mount from "../cosmos/mount";
 
-it("adds a card", async () => {
-  const { container } = await mount(render, fixtures.default);
-  const liveList = container.querySelector("ul");
-  const countBefore = liveList.childElementCount;
-  const lastBefore = liveList.lastElementChild;
-  Simulate.click(getByText(container, "Add a card..."));
-  expect(liveList.childElementCount).toBe(countBefore + 1);
-  expect(liveList.lastElementChild).not.toBe(lastBefore);
-  expect(liveList.lastElementChild.tagName).toBe(lastBefore.tagName);
+it("new card dialog closes on clicking close", async () => {
+  const { container, getByText } = await mount(render, fixtures.default);
+  const newCard = () => Boolean(container.querySelector(testId("new-card")));
+  expect(newCard()).toBe(false);
+  Simulate.click(getByText("Add a card..."));
+  expect(newCard()).toBe(true);
+  Simulate.click(container.querySelector(labelledBy(newCardLabels.close.id)));
+  expect(newCard()).toBe(false);
 });

@@ -5,9 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 import { graphql } from "react-apollo";
-import { compose, setDisplayName, setPropTypes } from "recompose";
+import { compose, setDisplayName, setPropTypes, withState } from "recompose";
 
-import AppState from "../App.state";
 import Header from "./cardsList/Header";
 import Cards from "./cardsList/Cards";
 import { queries } from "../cosmos/apollo/schema";
@@ -30,7 +29,13 @@ const styles = {
   }
 };
 
-const CardsList = ({ classes, id, addCard, data: { list, variables } }) => {
+const CardsList = ({
+  classes,
+  id,
+  cardBeingAdded,
+  setCardBeingAdded,
+  data: { list }
+}) => {
   return (
     <Paper
       data-listid={id}
@@ -44,22 +49,22 @@ const CardsList = ({ classes, id, addCard, data: { list, variables } }) => {
         listTitle={list.title}
       />
       <div style={{ overflowY: "scroll" }}>
-        <Cards cards={list.cards} />
+        <Cards
+          cards={list.cards}
+          cardBeingAdded={cardBeingAdded}
+          finishAddCard={() => setCardBeingAdded(() => null)}
+        />
       </div>
-      <Button
-        onClick={() => {
-          const listQuery = { query: queries.list, variables };
-          addCard({
-            update: (proxy, { data: { addCard } }) => {
-              const data = proxy.readQuery(listQuery);
-              data.list.cards.push(addCard);
-              proxy.writeQuery({ ...listQuery, data });
-            }
-          });
-        }}
-      >
-        Add a card...
-      </Button>
+      {!cardBeingAdded && (
+        <Button
+          data-testid="add-card"
+          onClick={() => {
+            setCardBeingAdded(() => ({ listId: id }));
+          }}
+        >
+          Add a card...
+        </Button>
+      )}
     </Paper>
   );
 };
@@ -73,21 +78,8 @@ const Component = compose(
     options: props => ({ variables: { id: props.id } })
   }),
   handleGraphQLResponse(),
-  graphql(queries.addCard, {
-    name: "addCard",
-    options: props => ({
-      variables: { listId: props.id, title: "Title..." },
-      optimisticResponse: {
-        __typename: "Mutation",
-        addCard: {
-          __typename: "Card",
-          id: -1,
-          title: "Title..."
-        }
-      }
-    })
-  }),
-  withStyles(styles)
+  withStyles(styles),
+  withState("cardBeingAdded", "setCardBeingAdded", null)
 )(CardsList);
 
 export const fixtures = makeFixtures(Component, {
@@ -96,7 +88,10 @@ export const fixtures = makeFixtures(Component, {
       id: 1
     },
     stores: {
-      appState: new AppState()
+      appState: {
+        startEditCard: () => {},
+        startQuickEditCard: () => {}
+      }
     }
   }
 });

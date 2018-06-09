@@ -8,5 +8,9 @@ snapshotTest(it, fixtures.default, async (frame, snap) => {
     frame.focus(role("heading")),
     frame.hover(labelledBy(headerLabels.editList.id))
   ]);
-  await snap(`[data-listid="${fixtures.default.props.id}"]`);
+  const listSelector = `[data-listid="${fixtures.default.props.id}"]`;
+  await snap(listSelector);
+  const button = await frame.$(`${listSelector} [data-testid="add-card"]`);
+  button.click();
+  await snap(listSelector);
 });
