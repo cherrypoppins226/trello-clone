@@ -4,6 +4,7 @@
 import React from "react";
 import path from "path";
 import { npmRoot } from "paths.macro";
+import { Provider } from "mobx-react";
 
 export const testId = id => `[data-testid="${id}"]`;
 
@@ -31,6 +32,15 @@ export const handleGraphQLResponse = responseKey => WrappedComponent => props =>
     return null;
   }
   return <WrappedComponent {...props} />;
+};
+
+export const provideStore = (name, State) => WrappedComponent => props => {
+  const providerProps = { [name]: new State() };
+  return (
+    <Provider {...providerProps}>
+      <WrappedComponent {...props} />
+    </Provider>
+  );
 };
 
 export const makeFixtures = (component, namedFixtures) => {
