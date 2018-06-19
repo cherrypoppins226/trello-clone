@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ApolloProvider, ApolloConsumer } from "react-apollo";
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 import "./index.css";
 import App from "./App";
@@ -35,8 +37,10 @@ class PopulateCache extends React.Component {
 ReactDOM.render(
   <ApolloProvider client={client}>
     <PopulateCache>
-      <CssBaseline />
-      <App />
+      <DragDropContextProvider backend={HTML5Backend}>
+        <CssBaseline />
+        <App />
+      </DragDropContextProvider>
     </PopulateCache>
   </ApolloProvider>,
   document.getElementById("root")

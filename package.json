@@ -40,6 +40,8 @@
     "react-apollo": "^2.1.4",
     "react-cosmos": "^4.3.0",
     "react-cosmos-apollo-proxy": "^4.4.0",
+    "react-dnd": "^4.0.4",
+    "react-dnd-html5-backend": "^4.0.4",
     "react-testing-library": "^3.0.1",
     "react-textarea-autosize": "^6.1.0",
     "recompose": "^0.27.1"

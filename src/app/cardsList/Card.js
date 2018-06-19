@@ -8,7 +8,13 @@ import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import {
+  compose,
+  setPropTypes,
+  setDisplayName,
+  withHandlers,
+  defaultProps
+} from "recompose";
 
 import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
@@ -51,35 +57,28 @@ const styles = {
   }
 };
 
-const Card = ({ classes, appState, card }) => {
-  // TODO: Use <Card /> from Material UI
-  return (
-    <Paper
-      data-cardid={card.id}
-      elevation={1}
-      onClick={e => appState.startCardEdit(card)}
-      className={classes.root}
-      aria-labelledby={labels.editCard.id}
+const Card = ({ classes, style, card, startEditCard, startQuickEditCard }) => (
+  <Paper
+    style={style || {}}
+    data-cardid={card.id}
+    elevation={1}
+    onClick={startEditCard}
+    className={classes.root}
+    aria-labelledby={labels.editCard.id}
+  >
+    {renderLabels(labels)}
+    <Typography data-testid="card-title">{card.title}</Typography>
+    <button
+      aria-labelledby={labels.quickEditCard.id}
+      onClick={event => {
+        event.stopPropagation();
+        startQuickEditCard(event);
+      }}
     >
-      {renderLabels(labels)}
-      <Typography data-testid="card-title">{card.title}</Typography>
-      <button
-        aria-labelledby={labels.quickEditCard.id}
-        onClick={e => {
-          e.stopPropagation();
-          const box = e.currentTarget.parentElement.getBoundingClientRect();
-          const { top, left, bottom, right } = box;
-          appState.startQuickCardEdit({
-            ...card,
-            anchorElementBox: { top, left, bottom, right }
-          });
-        }}
-      >
-        <Create />
-      </button>
-    </Paper>
-  );
-};
+      <Create />
+    </button>
+  </Paper>
+);
 
 export const types = {
   card: PropTypes.shape({
@@ -88,16 +87,41 @@ export const types = {
   })
 };
 
-const Component = compose(
+const nop = () => {};
+
+export const View = compose(
   setDisplayName(modulePath),
-  setPropTypes({
-    card: types.card.isRequired
+  defaultProps({
+    startEditCard: nop,
+    startQuickEditCard: nop
   }),
-  inject("appState"),
+  setPropTypes({
+    card: types.card.isRequired,
+    startEditCard: PropTypes.func.isRequired,
+    startQuickEditCard: PropTypes.func.isRequired
+  }),
   withStyles(styles)
 )(Card);
 
-export const fixtures = makeFixtures(Component, {
+export const Container = compose(
+  setDisplayName(modulePath),
+  inject("appState"),
+  withHandlers({
+    startEditCard: props => _event => {
+      props.appState.startCardEdit(props.card);
+    },
+    startQuickEditCard: props => event => {
+      const box = event.currentTarget.parentElement.getBoundingClientRect();
+      const { top, left, bottom, right } = box;
+      props.appState.startQuickCardEdit({
+        ...props.card,
+        anchorElementBox: { top, left, bottom, right }
+      });
+    }
+  })
+)(View);
+
+export const fixtures = makeFixtures(Container, {
   default: {
     props: {
       card: { id: 1, title: "Ut sunt qui amet." }
@@ -107,5 +131,3 @@ export const fixtures = makeFixtures(Component, {
     }
   }
 });
-
-export default Component;
