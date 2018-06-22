@@ -32,9 +32,13 @@ class DraggableCard extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.isDragging && nextProps.isDragging)
-      this.props.onBeginDrag(this);
+      this.props.onBeginDrag(this.props.cardBeingDragged);
     else if (this.props.isDragging && !nextProps.isDragging)
-      this.props.onEndDrag(this);
+      this.props.onEndDrag(this.props.cardBeingDragged);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.card !== nextProps.card;
   }
 
   render() {
@@ -53,10 +57,12 @@ export default DragSource(
       card: props.card,
       height: component.rootNode.clientHeight,
       width: component.rootNode.clientWidth
-    })
+    }),
+    isDragging: (props, monitor) => props.card.id === monitor.getItem().card.id
   },
   (connect, monitor) => ({
     isDragging: monitor.isDragging(),
+    cardBeingDragged: monitor.getItem(),
     dragSource: connect.dragSource(),
     dragPreview: connect.dragPreview()
   })

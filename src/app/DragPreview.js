@@ -19,31 +19,51 @@ const renderComponent = (componentType, itemBeingDragged) => {
   }
 };
 
-const componentStyles = props => {
-  if (!props.currentOffset) return { display: "none" };
-  const { x, y } = props.currentOffset;
-  const transform = `translate(${x}px, ${y}px)`;
-  return {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    pointerEvents: "none",
-    transform,
-    WebkitTransform: transform
-  };
+let subscribedToOffsetChange = false;
+
+let dragPreviewRef = null;
+
+const onOffsetChange = monitor => () => {
+  if (!dragPreviewRef) return;
+
+  const offset = monitor.getSourceClientOffset();
+  if (!offset) return;
+
+  const transform = `translate(${offset.x}px, ${offset.y}px)`;
+  dragPreviewRef.style["transform"] = transform;
+  dragPreviewRef.style["-webkit-transform"] = transform;
 };
 
-export default DragLayer(monitor => ({
-  itemBeingDragged: monitor.getItem(),
-  componentType: monitor.getItemType(),
-  currentOffset: monitor.getSourceClientOffset(),
-  beingDragged: monitor.isDragging()
-}))(
-  class CustomDragLayer extends React.Component {
+export default DragLayer(monitor => {
+  if (!subscribedToOffsetChange) {
+    monitor.subscribeToOffsetChange(onOffsetChange(monitor));
+    subscribedToOffsetChange = true;
+  }
+
+  return {
+    itemBeingDragged: monitor.getItem(),
+    componentType: monitor.getItemType(),
+    beingDragged: monitor.isDragging()
+  };
+})(
+  class CustomDragLayer extends React.PureComponent {
+    componentDidUpdate(prevProps) {
+      dragPreviewRef = this.rootNode;
+    }
+
     render() {
       if (!this.props.beingDragged) return null;
       return (
-        <div style={componentStyles(this.props)}>
+        <div
+          role="presentation"
+          ref={el => (this.rootNode = el)}
+          style={{
+            position: "fixed",
+            pointerEvents: "none",
+            top: 0,
+            left: 0
+          }}
+        >
           {renderComponent(
             this.props.componentType,
             this.props.itemBeingDragged
