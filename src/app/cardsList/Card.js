@@ -35,6 +35,8 @@ export const labels = {
 
 const styles = {
   root: {
+    boxShadow: "0 1px 0 #CCC",
+    borderRadius: 3,
     padding: 4,
     paddingLeft: 8,
     display: "flex",
@@ -61,7 +63,6 @@ const Card = ({ classes, style, card, startEditCard, startQuickEditCard }) => (
   <Paper
     style={style || {}}
     data-cardid={card.id}
-    elevation={1}
     onClick={startEditCard}
     className={classes.root}
     aria-labelledby={labels.editCard.id}

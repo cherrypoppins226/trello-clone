@@ -14,6 +14,7 @@ export class CardDragPreview extends React.PureComponent {
         style={{
           height: this.props.height,
           width: this.props.width,
+          boxShadow: "0 0 0 1px rgba(0,0,0,.1), 4px 4px 8px rgba(0,0,0,.2)",
           transform,
           WebkitTransform: transform
         }}
