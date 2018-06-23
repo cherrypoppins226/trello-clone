@@ -4,10 +4,18 @@ import { fixtures } from "./App";
 import { labels as cardLabels } from "./app/cardsList/Card";
 import { labels as headerLabels } from "./app/cardsList/Header";
 
-// See
-// https://stackoverflow.com/questions/49979069/puppeteer-element-click-not-working-and-not-throwing-an-error
-// for a possible reason why using frame.click() won't work in some situations
-const evalClick = selector => `document.querySelector("${selector}").click()`;
+const fireMouseEvent = async (frame, selector, eventName) => {
+  const el = await frame.$(selector);
+  return frame.evaluate(
+    (el, eventName) => {
+      const event = document.createEvent("MouseEvents");
+      event.initEvent(eventName, true, true);
+      el.dispatchEvent(event);
+    },
+    el,
+    eventName
+  );
+};
 
 // Since jsdom doesn't do layout, it's not possible to know if an element is
 // visible on page using conventional tests. That's why we're testing that
@@ -18,13 +26,16 @@ snapshotTest(
   async (frame, snap) => {
     await frame.click(labelledBy(cardLabels.editCard.id));
     await snap();
-    await frame.evaluate(evalClick("#editCardBackdrop"));
+    await fireMouseEvent(frame, "#editCardBackdrop", "click");
+
     await frame.click(labelledBy(cardLabels.quickEditCard.id));
     await snap();
-    await frame.evaluate(evalClick("#quickEditCardBackdrop"));
+    await fireMouseEvent(frame, "#quickEditCardBackdrop", "click");
+
     await frame.click(labelledBy(headerLabels.editList.id));
     await frame.hover(role("menuitem"));
     await snap();
+    await fireMouseEvent(frame, "body", "mouseup");
   },
   10000
 );
