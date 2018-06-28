@@ -9,6 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
 import { compose, setPropTypes, setDisplayName } from "recompose";
+import { inject } from "mobx-react";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 
@@ -87,15 +88,14 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
 
 const Component = compose(
   setDisplayName(modulePath),
-  setPropTypes({
-    appState: PropTypes.object.isRequired
-  }),
+  inject("appState"),
   withStyles(styles)
 )(ActionsMenu);
 
 export const fixtures = makeFixtures(Component, {
   default: {
-    props: {
+    props: {},
+    stores: {
       appState: {
         listBeingEdited: {
           id: 1,

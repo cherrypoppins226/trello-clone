@@ -15,6 +15,7 @@ import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { compose, setPropTypes, setDisplayName, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
+import { inject } from "mobx-react";
 
 import { queries } from "../cosmos/apollo/schema";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
@@ -143,10 +144,8 @@ const QuickEditCard = ({
 
 const Component = compose(
   setDisplayName(modulePath),
-  setPropTypes({
-    appState: PropTypes.object.isRequired
-  }),
   graphql(queries.updateCard, { name: "updateCard" }),
+  inject("appState"),
   withHandlers({
     updateCard: props => title => {
       if (title !== props.appState.cardBeingQuickEdited.title) {
@@ -166,7 +165,9 @@ const Component = compose(
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
-      updateCard: () => {},
+      updateCard: () => {}
+    },
+    stores: {
       appState: {
         cardBeingQuickEdited: {
           id: 1,

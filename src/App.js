@@ -34,7 +34,6 @@ const renderOn = name =>
 const ActionsMenuPopover = renderOn("listBeingEdited")(props => (
   <ClickAwayListener onClickAway={props.appState.finishListEdit}>
     <ActionsMenu
-      {...props}
       style={{
         position: "absolute",
         top: `${props.appState.listBeingEdited.anchorElementBox.bottom}px`,
@@ -51,13 +50,7 @@ const EditCardModal = renderOn("cardBeingEdited")(props => (
     onClose={props.appState.finishCardEdit}
     BackdropProps={{ id: "editCardBackdrop" }}
   >
-    <EditCard
-      {...props}
-      style={{
-        position: "absolute",
-        top: "60px"
-      }}
-    />
+    <EditCard style={{ position: "absolute", top: "60px" }} />
   </Modal>
 ));
 
@@ -68,7 +61,6 @@ const QuickEditCardModal = renderOn("cardBeingQuickEdited")(props => (
     BackdropProps={{ id: "quickEditCardBackdrop" }}
   >
     <QuickEditCard
-      {...props}
       style={{
         position: "absolute",
         top: `${props.appState.cardBeingQuickEdited.anchorElementBox.top}px`,
