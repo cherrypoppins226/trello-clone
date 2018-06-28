@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -8,7 +7,7 @@ import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import grey from "@material-ui/core/colors/grey";
 import { fileAbsolute } from "paths.macro";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import { compose } from "recompose";
 import { inject } from "mobx-react";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
@@ -86,13 +85,9 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
   );
 };
 
-const Component = compose(
-  setDisplayName(modulePath),
-  inject("appState"),
-  withStyles(styles)
-)(ActionsMenu);
+const Component = compose(inject("appState"), withStyles(styles))(ActionsMenu);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {},
     stores: {

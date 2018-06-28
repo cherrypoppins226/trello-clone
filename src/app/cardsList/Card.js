@@ -8,13 +8,7 @@ import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
-import {
-  compose,
-  setPropTypes,
-  setDisplayName,
-  withHandlers,
-  defaultProps
-} from "recompose";
+import { compose, setPropTypes, withHandlers, defaultProps } from "recompose";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
@@ -90,7 +84,6 @@ export const types = {
 const nop = () => {};
 
 export const View = compose(
-  setDisplayName(modulePath),
   defaultProps({
     startEditCard: nop,
     startQuickEditCard: nop
@@ -104,7 +97,6 @@ export const View = compose(
 )(Card);
 
 export const Container = compose(
-  setDisplayName(modulePath),
   inject("appState"),
   withHandlers({
     startEditCard: props => _event => {
@@ -121,7 +113,7 @@ export const Container = compose(
   })
 )(View);
 
-export const fixtures = makeFixtures(Container, {
+export const fixtures = makeFixtures(modulePath, Container, {
   default: {
     props: {
       card: { id: 1, title: "Ut sunt qui amet." }

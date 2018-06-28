@@ -6,7 +6,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import { fileAbsolute } from "paths.macro";
 import { observer, inject } from "mobx-react";
 import { graphql } from "react-apollo";
-import { compose, setDisplayName, branch, renderNothing } from "recompose";
+import { compose, branch, renderNothing } from "recompose";
 import gql from "graphql-tag";
 
 import {
@@ -111,14 +111,13 @@ const App = ({ classes, data: { lists } }) => {
 };
 
 const Component = compose(
-  setDisplayName(moduleName(fileAbsolute)),
   graphql(gql("query ListIds { lists { id } }")),
   handleGraphQLResponse(),
   provideStore("appState", State),
   withStyles(styles)
 )(App);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
   default: {}
 });
 

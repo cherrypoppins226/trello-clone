@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import { fileAbsolute } from "paths.macro";
 import { graphql } from "react-apollo";
-import { compose, setDisplayName, setPropTypes, withState } from "recompose";
+import { compose, setPropTypes, withState } from "recompose";
 
 import Header from "./cardsList/Header";
 import Cards from "./cardsList/Cards";
@@ -70,7 +70,6 @@ const CardsList = ({
 };
 
 const Component = compose(
-  setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
     id: PropTypes.number.isRequired
   }),
@@ -82,7 +81,7 @@ const Component = compose(
   withState("cardBeingAdded", "setCardBeingAdded", null)
 )(CardsList);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
   default: {
     props: {
       id: 1

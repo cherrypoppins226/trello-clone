@@ -43,7 +43,8 @@ export const provideStore = (name, State) => WrappedComponent => props => {
   );
 };
 
-export const makeFixtures = (component, namedFixtures) => {
+export const makeFixtures = (namespace, component, namedFixtures) => {
+  component.displayName = namespace;
   Object.keys(namedFixtures).forEach(name => {
     namedFixtures[name] = {
       name,

@@ -6,16 +6,17 @@ it("moduleName", () => {
 });
 
 it("makeFixtures", () => {
-  const component = "Component";
-  const before = {
-    first: { otherKey: "Extra" },
-    second: { otherKey: "Extra" }
-  };
-  const after = {
-    first: { component, name: "first", ...before.first },
-    second: { component, name: "second", ...before.second }
-  };
-  expect(misc.makeFixtures(component, before)).toEqual(after);
+  const namespace = "Module/Component";
+  const component = () => <div />;
+  expect(
+    misc.makeFixtures(namespace, component, {
+      first: { otherKey: "extra" },
+      second: { otherKey: "extra" }
+    })
+  ).toEqual({
+    first: { component, name: "first", otherKey: "extra" },
+    second: { component, name: "second", otherKey: "extra" }
+  });
 });
 
 it("labelId", () => {

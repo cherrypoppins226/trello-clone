@@ -6,7 +6,7 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
-import { compose, setPropTypes, setDisplayName, withHandlers } from "recompose";
+import { compose, setPropTypes, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../../cosmos/apollo/schema";
@@ -79,7 +79,6 @@ const Header = ({
 };
 
 const Component = compose(
-  setDisplayName(modulePath),
   setPropTypes({
     listId: PropTypes.number.isRequired,
     listTitle: PropTypes.string.isRequired
@@ -101,7 +100,7 @@ const Component = compose(
   withStyles(styles)
 )(Header);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {
       listId: 1,

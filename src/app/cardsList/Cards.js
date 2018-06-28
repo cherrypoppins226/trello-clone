@@ -1,15 +1,14 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { fileAbsolute } from "paths.macro";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import { compose, setPropTypes } from "recompose";
 import grey from "@material-ui/core/colors/grey";
 import { DropTarget } from "react-dnd";
 import shallowEqual from "shallowequal";
 
 import { types as cardTypes } from "./Card";
 import NewCard from "./NewCard";
-import { moduleName, omitKeys } from "../../utils";
+import { omitKeys } from "../../utils";
 import DraggableCard from "./DraggableCard";
 
 const styles = {
@@ -171,7 +170,6 @@ class Cards extends React.Component {
 }
 
 const Component = compose(
-  setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
     cards: PropTypes.arrayOf(cardTypes.card).isRequired,
     cardBeingAdded: PropTypes.shape({

@@ -2,7 +2,7 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { fileAbsolute } from "paths.macro";
-import { compose, setDisplayName } from "recompose";
+import { compose } from "recompose";
 import { inject } from "mobx-react";
 
 import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
@@ -73,13 +73,9 @@ class EditCard extends React.Component {
   }
 }
 
-const Component = compose(
-  setDisplayName(modulePath),
-  inject("appState"),
-  withStyles(styles)
-)(EditCard);
+const Component = compose(inject("appState"), withStyles(styles))(EditCard);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {},
     stores: {

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -13,7 +12,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
-import { compose, setPropTypes, setDisplayName, withHandlers } from "recompose";
+import { compose, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
 import { inject } from "mobx-react";
 
@@ -143,7 +142,6 @@ const QuickEditCard = ({
 };
 
 const Component = compose(
-  setDisplayName(modulePath),
   graphql(queries.updateCard, { name: "updateCard" }),
   inject("appState"),
   withHandlers({
@@ -162,7 +160,7 @@ const Component = compose(
   withStyles(styles)
 )(QuickEditCard);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {
       updateCard: () => {}

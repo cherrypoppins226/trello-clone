@@ -6,7 +6,7 @@ import Close from "@material-ui/icons/Close";
 import TextArea from "react-textarea-autosize";
 import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
-import { compose, setDisplayName, setPropTypes } from "recompose";
+import { compose, setPropTypes } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../../cosmos/apollo/schema";
@@ -74,7 +74,6 @@ const Header = ({
 };
 
 const Component = compose(
-  setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
     cardId: PropTypes.number.isRequired,
     cardTitle: PropTypes.string.isRequired
@@ -84,7 +83,7 @@ const Component = compose(
   withStyles(styles)
 )(Header);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
   default: {
     props: {
       cardId: 1,

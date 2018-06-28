@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
-import { compose, setDisplayName, setPropTypes, withHandlers } from "recompose";
+import { compose, setPropTypes, withHandlers } from "recompose";
 import TextArea from "react-textarea-autosize";
 import Button from "@material-ui/core/Button";
 import green from "@material-ui/core/colors/green";
@@ -114,7 +114,6 @@ const NewCard = ({
 };
 
 const Component = compose(
-  setDisplayName(moduleName(fileAbsolute)),
   setPropTypes({
     cardBeingAdded: PropTypes.shape({
       listId: PropTypes.number.isRequired
@@ -154,7 +153,7 @@ const Component = compose(
   withStyles(styles)
 )(NewCard);
 
-export const fixtures = makeFixtures(Component, {
+export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
   default: {
     props: {
       cardBeingAdded: {
