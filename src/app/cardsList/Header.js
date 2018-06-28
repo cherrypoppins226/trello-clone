@@ -6,7 +6,7 @@ import MoreHoriz from "@material-ui/icons/MoreHoriz";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import { compose, setPropTypes, setDisplayName, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../../cosmos/apollo/schema";
@@ -58,17 +58,7 @@ const Header = ({
           if (e.key === "Enter" || e.key === "Escape") e.target.blur();
         }}
         onFocus={e => e.target.select()}
-        onBlur={e => {
-          const title = e.target.value;
-          if (title !== listTitle) {
-            updateList({
-              variables: {
-                id: listId,
-                update: { title }
-              }
-            });
-          }
-        }}
+        onBlur={e => updateList(e.target.value)}
       />
       <button
         aria-haspopup={true}
@@ -96,6 +86,18 @@ const Component = compose(
   }),
   graphql(queries.updateList, { name: "updateList" }),
   inject("appState"),
+  withHandlers({
+    updateList: props => title => {
+      if (title !== props.listTitle) {
+        props.updateList({
+          variables: {
+            id: props.listId,
+            update: { title }
+          }
+        });
+      }
+    }
+  }),
   withStyles(styles)
 )(Header);
 

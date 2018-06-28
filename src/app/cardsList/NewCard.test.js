@@ -32,9 +32,11 @@ it("saves new card on add button / enter key", async () => {
 
   container.querySelector("textarea").value = "Violets";
   Simulate.click(getByText(container, "Add"));
-  await expect(getCards().then(findCard("Violets"))).resolves.not.toBeNull();
+  await expect(
+    getCards().then(findCard("Violets"))
+  ).resolves.not.toBeUndefined();
 
   container.querySelector("textarea").value = "Roses";
   Simulate.keyDown(container.querySelector("textarea"), { key: "Enter" });
-  await expect(getCards().then(findCard("Roses"))).resolves.not.toBeNull();
+  await expect(getCards().then(findCard("Roses"))).resolves.not.toBeUndefined();
 });

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
-import { compose, setDisplayName, setPropTypes } from "recompose";
+import { compose, setDisplayName, setPropTypes, withHandlers } from "recompose";
 import TextArea from "react-textarea-autosize";
 import Button from "@material-ui/core/Button";
 import green from "@material-ui/core/colors/green";
@@ -71,46 +71,14 @@ const NewCard = ({
   return (
     <ClickAwayListener onClickAway={finishAddCard}>
       {/* https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-static-element-interactions.md#case-this-element-is-not-a-button-link-menuitem-etc-it-is-catching-bubbled-events-from-elements-that-it-contains */}
-      <div
-        role="presentation"
-        data-testid="new-card"
-        className={classes.root}
-        onClick={e => {
-          if (!e.target.newCard) return;
-          const title = e.currentTarget.querySelector("textarea").value;
-          if (title) {
-            const listQuery = {
-              query: queries.list,
-              variables: { id: listId }
-            };
-            newCard({
-              variables: { listId, title },
-              update: (proxy, { data: { newCard } }) => {
-                const data = proxy.readQuery(listQuery);
-                data.list.cards.push(newCard);
-                proxy.writeQuery({ ...listQuery, data });
-              },
-              optimisticResponse: {
-                __typename: "Mutation",
-                newCard: {
-                  __typename: "Card",
-                  id: -1,
-                  title
-                }
-              }
-            });
-          }
-          finishAddCard();
-        }}
-      >
+      <div role="presentation" data-testid="new-card" className={classes.root}>
         {/* eslint-disable jsx-a11y/no-autofocus */}
         <Typography
           autoFocus
           component={TextArea}
           onKeyDown={e => {
             if (e.key === "Enter") {
-              e.target.newCard = true;
-              e.target.click();
+              newCard(e.target.value);
             } else if (e.key === "Escape") {
               finishAddCard();
             }
@@ -122,7 +90,13 @@ const NewCard = ({
             className={classes.add}
             size="small"
             variant="raised"
-            onClick={e => (e.target.newCard = true)}
+            onClick={e =>
+              newCard(
+                e.currentTarget.parentElement.parentElement.querySelector(
+                  "textarea"
+                ).value
+              )
+            }
           >
             Add
           </Button>
@@ -148,6 +122,35 @@ const Component = compose(
     finishAddCard: PropTypes.func.isRequired
   }),
   graphql(queries.newCard, { name: "newCard" }),
+  withHandlers({
+    newCard: props => title => {
+      if (!title) props.finishAddCard();
+
+      const listQuery = {
+        query: queries.list,
+        variables: { id: props.cardBeingAdded.listId }
+      };
+
+      props.newCard({
+        variables: { listId: props.cardBeingAdded.listId, title },
+        update: (proxy, { data: { newCard } }) => {
+          const data = proxy.readQuery(listQuery);
+          data.list.cards.push(newCard);
+          proxy.writeQuery({ ...listQuery, data });
+        },
+        optimisticResponse: {
+          __typename: "Mutation",
+          newCard: {
+            __typename: "Card",
+            id: -1,
+            title
+          }
+        }
+      });
+
+      props.finishAddCard();
+    }
+  }),
   withStyles(styles)
 )(NewCard);
 

@@ -13,7 +13,7 @@ import ArrowForward from "@material-ui/icons/ArrowForward";
 import Person from "@material-ui/icons/Person";
 import TextArea from "react-textarea-autosize";
 import { fileAbsolute } from "paths.macro";
-import { compose, setPropTypes, setDisplayName } from "recompose";
+import { compose, setPropTypes, setDisplayName, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../cosmos/apollo/schema";
@@ -79,8 +79,8 @@ const styles = {
 
 const QuickEditCard = ({
   classes,
-  appState: { cardBeingQuickEdited, finishQuickCardEdit },
   updateCard,
+  appState: { cardBeingQuickEdited, finishQuickCardEdit },
   ...rest
 }) => {
   const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
@@ -91,26 +91,7 @@ const QuickEditCard = ({
       {...rest}
     >
       {renderLabels(labels)}
-      <div
-        role="presentation"
-        className={classes.description}
-        onClick={e => {
-          if (!e.target.editCard) return;
-
-          const title = e.currentTarget.querySelector("textarea").value;
-
-          if (title !== cardBeingQuickEdited.title) {
-            updateCard({
-              variables: {
-                id: cardBeingQuickEdited.id,
-                update: { title }
-              }
-            });
-          }
-
-          finishQuickCardEdit();
-        }}
-      >
+      <div role="presentation" className={classes.description}>
         {/* eslint-disable jsx-a11y/no-autofocus */}
         <Typography
           style={{
@@ -120,18 +101,24 @@ const QuickEditCard = ({
           autoFocus
           component={TextArea}
           defaultValue={cardBeingQuickEdited.title}
+          onFocus={e => e.target.select()}
           onKeyDown={e => {
             if (e.key === "Enter") {
-              e.target.editCard = true;
-              e.target.click();
+              updateCard(e.target.value);
             } else if (e.key === "Escape") {
               finishQuickCardEdit();
             }
           }}
-          onFocus={e => e.target.select()}
         />
         {/* eslint-enable jsx-a11y/no-autofocus */}
-        <Button variant="raised" onClick={e => (e.target.editCard = true)}>
+        <Button
+          variant="raised"
+          onClick={e =>
+            updateCard(
+              e.currentTarget.parentElement.querySelector("textarea").value
+            )
+          }
+        >
           Save
         </Button>
       </div>
@@ -160,12 +147,26 @@ const Component = compose(
     appState: PropTypes.object.isRequired
   }),
   graphql(queries.updateCard, { name: "updateCard" }),
+  withHandlers({
+    updateCard: props => title => {
+      if (title !== props.appState.cardBeingQuickEdited.title) {
+        props.updateCard({
+          variables: {
+            id: props.appState.cardBeingQuickEdited.id,
+            update: { title }
+          }
+        });
+      }
+      props.appState.finishQuickCardEdit();
+    }
+  }),
   withStyles(styles)
 )(QuickEditCard);
 
 export const fixtures = makeFixtures(Component, {
   default: {
     props: {
+      updateCard: () => {},
       appState: {
         cardBeingQuickEdited: {
           id: 1,
