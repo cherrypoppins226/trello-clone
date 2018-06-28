@@ -16,7 +16,6 @@ import {
   defaultProps
 } from "recompose";
 
-import AppState from "../../App.state";
 import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
 
@@ -128,7 +127,7 @@ export const fixtures = makeFixtures(Container, {
       card: { id: 1, title: "Ut sunt qui amet." }
     },
     stores: {
-      appState: new AppState()
+      appState: { startCardEdit: nop, startQuickCardEdit: nop }
     }
   }
 });
