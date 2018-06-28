@@ -10,7 +10,7 @@ import { fileAbsolute } from "paths.macro";
 import { compose } from "recompose";
 import { inject } from "mobx-react";
 
-import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
+import { makeFixtures, labelId, moduleName } from "../../utils";
 
 const modulePath = moduleName(fileAbsolute);
 
@@ -54,7 +54,6 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
       aria-describedby={labels.description.id}
       {...rest}
     >
-      {renderLabels(labels)}
       <Typography role="heading" align="center">
         List Actions
       </Typography>

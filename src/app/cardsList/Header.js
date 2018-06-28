@@ -10,7 +10,7 @@ import { compose, setPropTypes, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
 
 import { queries } from "../../cosmos/apollo/schema";
-import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
+import { makeFixtures, labelId, moduleName } from "../../utils";
 import { buttonIconSmall, headerTextarea } from "../styles";
 
 const modulePath = moduleName(fileAbsolute);
@@ -48,7 +48,6 @@ const Header = ({
 }) => {
   return (
     <div className={`${classes.root} ${className}`}>
-      {renderLabels(labels)}
       <Typography
         role="heading"
         defaultValue={listTitle}

@@ -5,7 +5,7 @@ import { fileAbsolute } from "paths.macro";
 import { compose } from "recompose";
 import { inject } from "mobx-react";
 
-import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
+import { makeFixtures, labelId, moduleName } from "../utils";
 import Header from "./editCard/Header";
 import Sidebar from "./editCard/Sidebar";
 import Content from "./editCard/Content";
@@ -58,7 +58,6 @@ class EditCard extends React.Component {
         tabIndex={-1}
         {...rest}
       >
-        {renderLabels(labels)}
         <Header
           className={classes.header}
           cardId={appState.cardBeingEdited.id}

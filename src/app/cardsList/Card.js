@@ -10,7 +10,7 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 import { compose, setPropTypes, withHandlers, defaultProps } from "recompose";
 
-import { makeFixtures, renderLabels, labelId, moduleName } from "../../utils";
+import { makeFixtures, labelId, moduleName } from "../../utils";
 import { buttonIconSmall } from "../styles";
 
 const modulePath = moduleName(fileAbsolute);
@@ -60,7 +60,6 @@ const Card = ({ classes, style, card, startEditCard, startQuickEditCard }) => (
     className={classes.root}
     aria-labelledby={labels.editCard.id}
   >
-    {renderLabels(labels)}
     <Typography data-testid="card-title">{card.title}</Typography>
     <button
       aria-labelledby={labels.quickEditCard.id}

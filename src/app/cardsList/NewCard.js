@@ -16,9 +16,11 @@ import { queries } from "../../cosmos/apollo/schema";
 import { makeFixtures, moduleName, labelId } from "../../utils";
 import { button, buttonIcon, textarea } from "../styles";
 
+const modulePath = moduleName(fileAbsolute);
+
 export const labels = {
   close: {
-    id: labelId("close"),
+    id: labelId(modulePath, "close"),
     text: "Discard changes and close new card creation"
   }
 };
@@ -153,7 +155,7 @@ const Component = compose(
   withStyles(styles)
 )(NewCard);
 
-export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
+export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {
       cardBeingAdded: {

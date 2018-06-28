@@ -21,6 +21,7 @@ import ActionsMenu from "./app/cardsList/ActionsMenu";
 import EditCard from "./app/EditCard";
 import QuickEditCard from "./app/QuickEditCard";
 import DragPreview from "./app/DragPreview";
+import Labels from "./app/Labels";
 
 ButtonBase.defaultProps = { ...ButtonBase.defaultProps, disableRipple: true };
 
@@ -106,6 +107,7 @@ const App = ({ classes, data: { lists } }) => {
       <EditCardModal />
       <QuickEditCardModal />
       <DragPreview />
+      <Labels />
     </div>
   );
 };

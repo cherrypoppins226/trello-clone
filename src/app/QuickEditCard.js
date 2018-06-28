@@ -17,7 +17,7 @@ import { graphql } from "react-apollo";
 import { inject } from "mobx-react";
 
 import { queries } from "../cosmos/apollo/schema";
-import { makeFixtures, renderLabels, labelId, moduleName } from "../utils";
+import { makeFixtures, labelId, moduleName } from "../utils";
 import { button, textarea, smallIcon } from "./styles";
 
 const modulePath = moduleName(fileAbsolute);
@@ -90,7 +90,6 @@ const QuickEditCard = ({
       className={classes.root}
       {...rest}
     >
-      {renderLabels(labels)}
       <div role="presentation" className={classes.description}>
         {/* eslint-disable jsx-a11y/no-autofocus */}
         <Typography
