@@ -9,7 +9,7 @@ import shallowEqual from "shallowequal";
 
 import { types as cardTypes } from "./Card";
 import NewCard from "./NewCard";
-import { moduleName } from "../../utils";
+import { moduleName, omitKeys } from "../../utils";
 import DraggableCard from "./DraggableCard";
 
 const styles = {
@@ -48,11 +48,6 @@ const DragOverListener = DropTarget(
   }
 );
 
-const omitKey = (omit, obj) =>
-  Object.entries(obj)
-    .filter(([key]) => !omit.includes(key))
-    .reduce((obj, [key, val]) => Object.assign(obj, { [key]: val }), {});
-
 class Cards extends React.Component {
   state = {
     cardPlaceholderIndex: null,
@@ -69,12 +64,12 @@ class Cards extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !shallowEqual(
-        omitKey(["dragDataId"], this.state),
-        omitKey(["dragDataId"], nextState)
+        omitKeys(["dragDataId"], this.state),
+        omitKeys(["dragDataId"], nextState)
       ) ||
       !shallowEqual(
-        omitKey(["dragData", "beingDraggedOver"], this.props),
-        omitKey(["dragData", "beingDraggedOver"], nextProps)
+        omitKeys(["dragData", "beingDraggedOver"], this.props),
+        omitKeys(["dragData", "beingDraggedOver"], nextProps)
       ) ||
       // Only render when we need to show the card at the end of a drag event.
       // There are plenty of renders at the beginning of a drag event.

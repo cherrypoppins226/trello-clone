@@ -81,3 +81,8 @@ export const flatten = arr => {
   }
   return array;
 };
+
+export const omitKeys = (omit, obj) =>
+  Object.entries(obj)
+    .filter(([key]) => !omit.includes(key))
+    .reduce((obj, [key, val]) => Object.assign(obj, { [key]: val }), {});
