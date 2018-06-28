@@ -64,7 +64,7 @@ const styles = {
 
 const NewCard = ({
   classes,
-  addCard,
+  newCard,
   cardBeingAdded: { listId },
   finishAddCard
 }) => {
@@ -76,23 +76,23 @@ const NewCard = ({
         data-testid="new-card"
         className={classes.root}
         onClick={e => {
-          if (!e.target.addCard) return;
+          if (!e.target.newCard) return;
           const title = e.currentTarget.querySelector("textarea").value;
           if (title) {
             const listQuery = {
               query: queries.list,
               variables: { id: listId }
             };
-            addCard({
+            newCard({
               variables: { listId, title },
-              update: (proxy, { data: { addCard } }) => {
+              update: (proxy, { data: { newCard } }) => {
                 const data = proxy.readQuery(listQuery);
-                data.list.cards.push(addCard);
+                data.list.cards.push(newCard);
                 proxy.writeQuery({ ...listQuery, data });
               },
               optimisticResponse: {
                 __typename: "Mutation",
-                addCard: {
+                newCard: {
                   __typename: "Card",
                   id: -1,
                   title
@@ -109,7 +109,7 @@ const NewCard = ({
           component={TextArea}
           onKeyDown={e => {
             if (e.key === "Enter") {
-              e.target.addCard = true;
+              e.target.newCard = true;
               e.target.click();
             } else if (e.key === "Escape") {
               finishAddCard();
@@ -122,7 +122,7 @@ const NewCard = ({
             className={classes.add}
             size="small"
             variant="raised"
-            onClick={e => (e.target.addCard = true)}
+            onClick={e => (e.target.newCard = true)}
           >
             Add
           </Button>
@@ -147,7 +147,7 @@ const Component = compose(
     }),
     finishAddCard: PropTypes.func.isRequired
   }),
-  graphql(queries.addCard, { name: "addCard" }),
+  graphql(queries.newCard, { name: "newCard" }),
   withStyles(styles)
 )(NewCard);
 

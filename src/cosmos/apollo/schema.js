@@ -30,10 +30,16 @@ export const schema = buildSchema(`
     title: String!
   }
 
+  type MoveCardResult {
+    listFrom: CardsList!
+    listTo: CardsList!
+  }
+
   type Mutation {
     updateCard(id: Int!, update: CardInput!): Card!
     updateList(id: Int!, update: CardsListInput!): CardsList!
-    addCard(listId: Int!, title: String!): Card!
+    newCard(listId: Int!, title: String!): Card!
+    moveCard(id: Int!, listId: Int!, index: Int!): MoveCardResult!
   }
 `);
 
@@ -61,9 +67,9 @@ export const queries = {
       }
     }
   `),
-  addCard: gql(`
+  newCard: gql(`
     mutation AddCard($listId: Int!, $title: String!) {
-      addCard(listId: $listId, title: $title) {
+      newCard(listId: $listId, title: $title) {
         ${cardFields}
       }
     }
@@ -79,6 +85,14 @@ export const queries = {
     mutation UpdateCard($id: Int!, $update: CardInput!) {
       updateCard(id: $id, update: $update) {
         ${cardFields}
+      }
+    }
+  `),
+  moveCard: gql(`
+    mutation MoveCard($id: Int!, $listId: Int!, $index: Int!) {
+      moveCard(id: $id, listId: $listId, index: $index) {
+        listFrom { ${listFields} }
+        listTo { ${listFields} }
       }
     }
   `)
@@ -103,11 +117,26 @@ export const makeResolver = (initialStore = { lists: [] }) => {
     list: ({ id }) => findList(id),
     card: ({ id }) => findCard(id),
     updateList: ({ id, update }) => Object.assign(findList(id), update),
-    addCard: ({ listId, title }) => {
+    newCard: ({ listId, title }) => {
       const newCard = { id: ++lastCardId, title };
       findList(listId).cards.push(newCard);
       return newCard;
     },
-    updateCard: ({ id, update }) => Object.assign(findCard(id), update)
+    updateCard: ({ id, update }) => Object.assign(findCard(id), update),
+    moveCard: ({ id, listId, index }) => {
+      let fromIndex = null;
+      let listFrom = null;
+      for (let i = 0; i < store.lists.length; i++) {
+        fromIndex = store.lists[i].cards.findIndex(card => card.id === id);
+        if (fromIndex !== -1) {
+          listFrom = store.lists[i];
+          break;
+        }
+      }
+      const listTo = findList(listId);
+      const card = listFrom.cards.splice(fromIndex, 1)[0];
+      listTo.cards.splice(index, 0, card);
+      return { listFrom, listTo };
+    }
   };
 };
