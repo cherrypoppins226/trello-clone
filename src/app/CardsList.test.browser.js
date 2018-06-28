@@ -12,5 +12,6 @@ snapshotTest(it, fixtures.default, async (frame, snap) => {
   await snap(listSelector);
   const button = await frame.$(`${listSelector} [data-testid="add-card"]`);
   button.click();
-  await snap(listSelector);
+  // Non-deterministic cursor blink can make tests fail
+  await snap(listSelector, { imageOptions: { failureThreshold: 20 } });
 });

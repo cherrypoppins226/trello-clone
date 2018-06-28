@@ -46,7 +46,7 @@ const ActionsMenuPopover = renderOn("listBeingEdited")(props => (
 
 const EditCardModal = renderOn("cardBeingEdited")(props => (
   <Modal
-    style={{ overflow: "auto" }}
+    style={{ display: "flex", justifyContent: "center", overflowY: "auto" }}
     open={true}
     onClose={props.appState.finishCardEdit}
     BackdropProps={{ id: "editCardBackdrop" }}

@@ -15,8 +15,10 @@ import { fileAbsolute } from "paths.macro";
 import { icon, lightColor } from "../styles";
 
 const styles = {
-  section: {
-    marginBottom: 25
+  root: {
+    "& section": {
+      marginBottom: 25
+    }
   },
   subheading: {
     marginBottom: 10,
@@ -32,9 +34,9 @@ const styles = {
 
 const Activity = () => <div />;
 
-const Content = ({ classes, className = "" }) => {
+const Content = ({ classes, className = "", style = {} }) => {
   return (
-    <div className={className}>
+    <div className={`${classes.root} ${className}`} style={style}>
       {[
         ["Description", Description, ViewHeadline],
         ["Attachments", Attachments, Attachment],
@@ -42,7 +44,7 @@ const Content = ({ classes, className = "" }) => {
         ["Add Comment", Comments, Comment],
         ["Activity", Activity, FormatListBulleted]
       ].map(([title, Component, Icon], idx) => (
-        <section key={idx} className={classes.section}>
+        <section key={idx}>
           <Typography
             className={classes.subheading}
             variant="subheading"

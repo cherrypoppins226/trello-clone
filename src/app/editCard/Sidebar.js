@@ -61,9 +61,9 @@ const buttonsList = buttons => {
   );
 };
 
-const Sidebar = ({ classes, className = "" }) => {
+const Sidebar = ({ classes, className = "", style = {} }) => {
   return (
-    <div className={`${classes.root} ${className}`}>
+    <div className={`${classes.root} ${className}`} style={style}>
       <Typography variant="subheading"> Add </Typography>
       {buttonsList([
         [Person, "Members"],
