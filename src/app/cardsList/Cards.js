@@ -57,14 +57,21 @@ class Cards extends React.Component {
     // until after, when the draggable card gets notified that it's being
     // dragged, which happens after breakable library code has already been
     // executed.
-    dragDataId: null
+    dragDataId: null,
+    beingDraggedOver: false
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.beingDraggedOver && !nextProps.beingDraggedOver)
+      return { cardPlaceholderIndex: null, beingDraggedOver: false };
+    else return null;
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       !shallowEqual(
-        omitKeys(["dragDataId"], this.state),
-        omitKeys(["dragDataId"], nextState)
+        omitKeys(["dragDataId", "beingDraggedOver"], this.state),
+        omitKeys(["dragDataId", "beingDraggedOver"], nextState)
       ) ||
       !shallowEqual(
         omitKeys(["dragData", "beingDraggedOver"], this.props),
@@ -80,11 +87,6 @@ class Cards extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.beingDraggedOver && !nextProps.beingDraggedOver)
-      this.setState({ cardPlaceholderIndex: null });
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (this.props.cardBeingAdded) this.cardsListEnd.scrollIntoView();
   }
@@ -96,7 +98,7 @@ class Cards extends React.Component {
     const cardIndex = cardNodes.indexOf(node);
     const { top, bottom } = node.getBoundingClientRect();
     const index = cursor.y < (top + bottom) / 2 ? cardIndex : cardIndex + 1;
-    this.setState({ cardPlaceholderIndex: index });
+    this.setState({ cardPlaceholderIndex: index, beingDraggedOver: true });
   }
 
   render() {

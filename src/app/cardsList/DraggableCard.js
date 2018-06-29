@@ -25,17 +25,23 @@ export class CardDragPreview extends React.PureComponent {
 }
 
 class DraggableCard extends React.Component {
+  state = { isDragging: false };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.isDragging && nextProps.isDragging) {
+      nextProps.onBeginDrag(nextProps.cardBeingDragged);
+      return { isDragging: true };
+    } else if (prevState.isDragging && !nextProps.isDragging) {
+      nextProps.onEndDrag(nextProps.cardBeingDragged);
+      return { isDragging: false };
+    }
+    return null;
+  }
+
   componentDidMount() {
     // Override HTML5's default behavior of capturing a screenshot of the
     // element being dragged. We will render our own drag preview.
     this.props.dragPreview(getEmptyImage());
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.isDragging && nextProps.isDragging)
-      this.props.onBeginDrag(this.props.cardBeingDragged);
-    else if (this.props.isDragging && !nextProps.isDragging)
-      this.props.onEndDrag(this.props.cardBeingDragged);
   }
 
   shouldComponentUpdate(nextProps) {
