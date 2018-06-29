@@ -5,6 +5,10 @@ import { buildSchema } from "graphql";
 import { flatten } from "../../utils";
 
 export const schema = buildSchema(`
+  type Success {
+    success: Boolean!
+  }
+
   type Card {
     id: Int!
     title: String!
@@ -30,16 +34,11 @@ export const schema = buildSchema(`
     title: String!
   }
 
-  type MoveCardResult {
-    listFrom: CardsList!
-    listTo: CardsList!
-  }
-
   type Mutation {
     updateCard(id: Int!, update: CardInput!): Card!
     updateList(id: Int!, update: CardsListInput!): CardsList!
     newCard(listId: Int!, title: String!): Card!
-    moveCard(id: Int!, listId: Int!, index: Int!): MoveCardResult!
+    moveCard(id: Int!, listId: Int!, index: Int!): Success!
   }
 `);
 
@@ -91,8 +90,7 @@ export const queries = {
   moveCard: gql(`
     mutation MoveCard($id: Int!, $listId: Int!, $index: Int!) {
       moveCard(id: $id, listId: $listId, index: $index) {
-        listFrom { ${listFields} }
-        listTo { ${listFields} }
+        success
       }
     }
   `)
@@ -126,17 +124,21 @@ export const makeResolver = (initialStore = { lists: [] }) => {
     moveCard: ({ id, listId, index }) => {
       let fromIndex = null;
       let listFrom = null;
-      for (let i = 0; i < store.lists.length; i++) {
-        fromIndex = store.lists[i].cards.findIndex(card => card.id === id);
-        if (fromIndex !== -1) {
-          listFrom = store.lists[i];
-          break;
+      try {
+        for (let i = 0; i < store.lists.length; i++) {
+          fromIndex = store.lists[i].cards.findIndex(card => card.id === id);
+          if (fromIndex !== -1) {
+            listFrom = store.lists[i];
+            break;
+          }
         }
+        const listTo = findList(listId);
+        const card = listFrom.cards.splice(fromIndex, 1)[0];
+        listTo.cards.splice(index, 0, card);
+      } catch (error) {
+        return { success: false };
       }
-      const listTo = findList(listId);
-      const card = listFrom.cards.splice(fromIndex, 1)[0];
-      listTo.cards.splice(index, 0, card);
-      return { listFrom, listTo };
+      return { success: true };
     }
   };
 };

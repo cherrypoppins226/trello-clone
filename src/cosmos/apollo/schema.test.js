@@ -78,19 +78,20 @@ describe("moveCard", async () => {
   it("moves card from one list to another", async () => {
     const card2 = { id: 10, title: "Card2" };
     const list2 = { id: 10, title: "List2", cards: [card2] };
-    const resolver = makeResolver({ lists: [list, list2] });
-    const listFrom = { ...list, cards: [] };
-    const listTo = { ...list2, cards: [card2, card] };
-
-    const result = await execute(resolver, queries.moveCard, {
+    const before = [list, list2];
+    const moveCardVariables = {
       id: 1,
       listId: 10,
       index: 1
-    });
+    };
+    const after = [{ ...list, cards: [] }, { ...list2, cards: [card2, card] }];
+    const resolver = makeResolver({ lists: before });
 
-    expect(result.data.moveCard).toEqual({ listFrom, listTo });
-    await expect(getList(resolver, list.id)).resolves.toEqual(listFrom);
-    await expect(getList(resolver, list2.id)).resolves.toEqual(listTo);
+    const result = await execute(resolver, queries.moveCard, moveCardVariables);
+    expect(result.data.moveCard).toEqual({ success: true });
+
+    const lists = await execute(resolver, queries.lists);
+    expect(lists.data.lists).toEqual(after);
   });
 
   it("doesn't move card from same position", async () => {
@@ -103,15 +104,29 @@ describe("moveCard", async () => {
         { id: 3, title: "Card3" }
       ]
     };
-    const resolver = makeResolver({ lists: [list2] });
-
-    const result = await execute(resolver, queries.moveCard, {
+    const moveCardVariables = {
       id: 2,
       listId: 1,
       index: 1
-    });
+    };
+    const resolver = makeResolver({ lists: [list2] });
 
-    expect(result.data.moveCard).toEqual({ listFrom: list2, listTo: list2 });
-    await expect(getList(resolver, list2.id)).resolves.toEqual(list2);
+    const result = await execute(resolver, queries.moveCard, moveCardVariables);
+    expect(result.data.moveCard).toEqual({ success: true });
+
+    const lists = await execute(resolver, queries.lists);
+    expect(lists.data.lists).toEqual([list2]);
+  });
+
+  it("fails on invalid parameters", async () => {
+    const invalidVariables = {
+      id: 10,
+      listId: 100,
+      index: 100
+    };
+    const resolver = makeResolver(store);
+
+    const result = await execute(resolver, queries.moveCard, invalidVariables);
+    expect(result.data.moveCard).toEqual({ success: false });
   });
 });
