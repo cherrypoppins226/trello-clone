@@ -57,33 +57,23 @@ class Cards extends React.Component {
     // until after, when the draggable card gets notified that it's being
     // dragged, which happens after breakable library code has already been
     // executed.
-    dragDataId: null,
-    beingDraggedOver: false
+    dragDataId: null
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.beingDraggedOver && !nextProps.beingDraggedOver)
-      return { cardPlaceholderIndex: null, beingDraggedOver: false };
-    else return null;
+    if (!nextProps.beingDraggedOver) {
+      return { cardPlaceholderIndex: null };
+    }
+    return null;
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
-      !shallowEqual(
-        omitKeys(["dragDataId", "beingDraggedOver"], this.state),
-        omitKeys(["dragDataId", "beingDraggedOver"], nextState)
-      ) ||
+      !shallowEqual(this.state, nextState) ||
       !shallowEqual(
         omitKeys(["dragData", "beingDraggedOver"], this.props),
         omitKeys(["dragData", "beingDraggedOver"], nextProps)
-      ) ||
-      // Only render when we need to show the card at the end of a drag event.
-      // There are plenty of renders at the beginning of a drag event.
-      (this.state.dragDataId !== null && nextState.dragDataId === null) ||
-      // Only render when the dragged card leaves the list. Other cards will
-      // pick up the drag event when it enters the list.
-      (this.props.beingDraggedOver === true &&
-        nextProps.beingDraggedOver === false)
+      )
     );
   }
 
@@ -98,7 +88,11 @@ class Cards extends React.Component {
     const cardIndex = cardNodes.indexOf(node);
     const { top, bottom } = node.getBoundingClientRect();
     const index = cursor.y < (top + bottom) / 2 ? cardIndex : cardIndex + 1;
-    this.setState({ cardPlaceholderIndex: index, beingDraggedOver: true });
+    this.setState({ cardPlaceholderIndex: index });
+  }
+
+  cardIndex(cardId) {
+    return this.props.cards.findIndex(card => card.id === cardId);
   }
 
   render() {
@@ -109,19 +103,20 @@ class Cards extends React.Component {
       >
         <DraggableCard
           card={card}
-          onBeginDrag={data => this.setState({ dragDataId: data.card.id })}
+          onBeginDrag={data =>
+            this.setState({
+              dragDataId: data.card.id,
+              cardPlaceholderIndex: this.cardIndex(data.card.id)
+            })
+          }
           onEndDrag={data => this.setState({ dragDataId: null })}
         />
       </DragOverListener>
     ));
 
-    let cardBeingDragged = null;
-    if (this.state.dragDataId) {
-      const cardIndex = this.props.cards.findIndex(
-        card => card.id === this.state.dragDataId
-      );
-      cardBeingDragged = componentList.splice(cardIndex, 1)[0];
-    }
+    const cardIndex = this.cardIndex(this.state.dragDataId);
+    const cardBeingDragged =
+      cardIndex !== -1 ? componentList.splice(cardIndex, 1)[0] : null;
 
     if (this.state.cardPlaceholderIndex !== null) {
       const placeholder = (
@@ -182,7 +177,7 @@ const Component = compose(
   withStyles(styles),
   DropTarget("Card", {}, (connect, monitor) => ({
     dragData: monitor.getItem(),
-    beingDraggedOver: monitor.isOver(),
+    beingDraggedOver: monitor.isOver({ shallow: true }),
     dropTarget: connect.dropTarget()
   }))
 )(Cards);
