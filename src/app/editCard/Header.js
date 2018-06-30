@@ -38,7 +38,7 @@ const styles = {
 const Header = ({
   classes,
   className = "",
-  appState,
+  boardState,
   updateCard,
   cardId,
   cardTitle
@@ -66,7 +66,7 @@ const Header = ({
           });
         }}
       />
-      <button className={classes.close} onClick={appState.finishCardEdit}>
+      <button className={classes.close} onClick={boardState.finishCardEdit}>
         <Close />
       </button>
     </div>
@@ -79,7 +79,7 @@ const Component = compose(
     cardTitle: PropTypes.string.isRequired
   }),
   graphql(queries.updateCard, { name: "updateCard" }),
-  inject("appState"),
+  inject("boardState"),
   withStyles(styles)
 )(Header);
 
@@ -90,7 +90,7 @@ export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
       cardTitle: "Ut sunt qui amet."
     },
     stores: {
-      appState: {
+      boardState: {
         finishCardEdit: () => {}
       }
     }

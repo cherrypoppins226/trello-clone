@@ -12,6 +12,7 @@ module.exports = {
   proxiesPath: "src/cosmos/proxies",
   outputPath: "src/cosmos/export",
   watchDirs: ["src"],
+  globalImports: ["./src/index.css"],
   containerQuerySelector: "#root",
   webpackConfigPath: "react-scripts/config/webpack.config.dev",
   hot: !CI,

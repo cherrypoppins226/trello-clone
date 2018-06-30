@@ -87,7 +87,7 @@ export const fixtures = makeFixtures(moduleName(fileAbsolute), Component, {
       id: 1
     },
     stores: {
-      appState: {
+      boardState: {
         startEditCard: () => {},
         startQuickEditCard: () => {}
       }

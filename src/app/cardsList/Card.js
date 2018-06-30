@@ -96,15 +96,15 @@ export const View = compose(
 )(Card);
 
 export const Container = compose(
-  inject("appState"),
+  inject("boardState"),
   withHandlers({
     startEditCard: props => _event => {
-      props.appState.startCardEdit(props.card);
+      props.boardState.startCardEdit(props.card);
     },
     startQuickEditCard: props => event => {
       const box = event.currentTarget.parentElement.getBoundingClientRect();
       const { top, left, bottom, right } = box;
-      props.appState.startQuickCardEdit({
+      props.boardState.startQuickCardEdit({
         ...props.card,
         anchorElementBox: { top, left, bottom, right }
       });
@@ -118,7 +118,7 @@ export const fixtures = makeFixtures(modulePath, Container, {
       card: { id: 1, title: "Ut sunt qui amet." }
     },
     stores: {
-      appState: { startCardEdit: nop, startQuickCardEdit: nop }
+      boardState: { startCardEdit: nop, startQuickCardEdit: nop }
     }
   }
 });

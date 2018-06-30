@@ -2,7 +2,7 @@ import React from "react";
 import * as misc from "./misc";
 
 it("moduleName", () => {
-  expect(misc.moduleName(__filename)).toBe("utils/misc.test");
+  expect(misc.moduleName("src/app/Foo/Bar.js")).toBe("Foo/Bar");
 });
 
 it("makeFixtures", () => {

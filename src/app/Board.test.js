@@ -1,13 +1,13 @@
 import { Simulate, renderIntoDocument } from "react-testing-library";
 
-import mount from "./cosmos/mount";
-import { fixtures } from "./App";
-import { labelledBy, describedBy, testId } from "./utils";
-import { labels as editCardLabels } from "./app/EditCard";
-import { labels as quickEditCardLabels } from "./app/QuickEditCard";
-import { labels as cardLabels } from "./app/cardsList/Card";
-import { labels as headerLabels } from "./app/cardsList/Header";
-import { labels as actionsMenuLabels } from "./app/cardsList/ActionsMenu";
+import mount from "../cosmos/mount";
+import { labelledBy, describedBy, testId } from "../utils";
+import { fixtures } from "./Board";
+import { labels as editCardLabels } from "./EditCard";
+import { labels as quickEditCardLabels } from "./QuickEditCard";
+import { labels as cardLabels } from "./cardsList/Card";
+import { labels as headerLabels } from "./cardsList/Header";
+import { labels as actionsMenuLabels } from "./cardsList/ActionsMenu";
 
 it("cards list actions menu opens", async () => {
   await mount(renderIntoDocument, fixtures.default);

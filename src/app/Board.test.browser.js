@@ -1,8 +1,8 @@
-import { snapshotTest } from "./utils/puppeteer";
-import { labelledBy, role } from "./utils";
-import { fixtures } from "./App";
-import { labels as cardLabels } from "./app/cardsList/Card";
-import { labels as headerLabels } from "./app/cardsList/Header";
+import { labelledBy, role } from "../utils";
+import { snapshotTest } from "../utils/puppeteer";
+import { fixtures } from "./Board";
+import { labels as cardLabels } from "./cardsList/Card";
+import { labels as headerLabels } from "./cardsList/Header";
 
 const fireMouseEvent = async (frame, selector, eventName) => {
   const el = await frame.$(selector);

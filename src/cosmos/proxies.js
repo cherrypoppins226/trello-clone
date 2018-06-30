@@ -11,7 +11,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import client from "./apollo/client";
 
-class MobxProxy extends React.Component {
+class AppProxy extends React.Component {
   static childContextTypes = {
     mobxStores: PropTypes.object.isRequired
   };
@@ -21,24 +21,17 @@ class MobxProxy extends React.Component {
   }
 
   render() {
-    // Boilerplate. Always the same.
-    const { nextProxy, ...rest } = this.props;
-    const { value: NextProxy, next } = nextProxy;
-    return <NextProxy {...rest} nextProxy={next()} />;
-  }
-}
-
-class AppProxy extends React.Component {
-  render() {
     const { nextProxy, ...rest } = this.props;
     const { value: NextProxy, next } = nextProxy;
     return (
       <DragDropContextProvider backend={HTML5Backend}>
-        <CssBaseline />
-        <NextProxy {...rest} nextProxy={next()} />
+        <div style={{ height: "100%", overflow: "auto" }}>
+          <CssBaseline />
+          <NextProxy {...rest} nextProxy={next()} />
+        </div>
       </DragDropContextProvider>
     );
   }
 }
 
-export default [AppProxy, MobxProxy, createApolloProxy({ client })];
+export default [createApolloProxy({ client }), AppProxy];

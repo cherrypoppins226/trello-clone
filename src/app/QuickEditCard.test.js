@@ -11,7 +11,7 @@ it("saves card title", async () => {
   Simulate.click(getByText("Save"));
   const result = await client.query({
     query: queries.card,
-    variables: { id: fixtures.default.stores.appState.cardBeingQuickEdited.id }
+    variables: { id: fixtures.default.stores.boardState.cardBeingQuickEdited.id }
   });
   expect(result.data.card.title).toBe("Title");
 });

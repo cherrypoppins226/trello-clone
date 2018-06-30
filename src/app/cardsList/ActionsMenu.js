@@ -47,7 +47,7 @@ const styles = {
   }
 };
 
-const ActionsMenu = ({ classes, appState, ...rest }) => {
+const ActionsMenu = ({ classes, boardState, ...rest }) => {
   return (
     <Paper
       className={classes.root}
@@ -57,7 +57,7 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
       <Typography role="heading" align="center">
         List Actions
       </Typography>
-      <MenuList dense={true} onClick={() => appState.finishListEdit()}>
+      <MenuList dense={true} onClick={() => boardState.finishListEdit()}>
         {[
           "",
           "Add Card...",
@@ -84,13 +84,13 @@ const ActionsMenu = ({ classes, appState, ...rest }) => {
   );
 };
 
-const Component = compose(inject("appState"), withStyles(styles))(ActionsMenu);
+const Component = compose(inject("boardState"), withStyles(styles))(ActionsMenu);
 
 export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {},
     stores: {
-      appState: {
+      boardState: {
         listBeingEdited: {
           id: 1,
           anchorElementBox: { top: 0, left: 0, bottom: 0, right: 0 }

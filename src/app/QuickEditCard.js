@@ -80,7 +80,7 @@ const styles = {
 const QuickEditCard = ({
   classes,
   updateCard,
-  appState: { cardBeingQuickEdited, finishQuickCardEdit },
+  boardState: { cardBeingQuickEdited, finishQuickCardEdit },
   ...rest
 }) => {
   const { top, left, bottom, right } = cardBeingQuickEdited.anchorElementBox;
@@ -142,18 +142,18 @@ const QuickEditCard = ({
 
 const Component = compose(
   graphql(queries.updateCard, { name: "updateCard" }),
-  inject("appState"),
+  inject("boardState"),
   withHandlers({
     updateCard: props => title => {
-      if (title !== props.appState.cardBeingQuickEdited.title) {
+      if (title !== props.boardState.cardBeingQuickEdited.title) {
         props.updateCard({
           variables: {
-            id: props.appState.cardBeingQuickEdited.id,
+            id: props.boardState.cardBeingQuickEdited.id,
             update: { title }
           }
         });
       }
-      props.appState.finishQuickCardEdit();
+      props.boardState.finishQuickCardEdit();
     }
   }),
   withStyles(styles)
@@ -165,7 +165,7 @@ export const fixtures = makeFixtures(modulePath, Component, {
       updateCard: () => {}
     },
     stores: {
-      appState: {
+      boardState: {
         cardBeingQuickEdited: {
           id: 1,
           title: "Ut sunt qui amet.",

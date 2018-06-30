@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-const EditCard = ({ classes, appState, style = {} }) => (
+const EditCard = ({ classes, boardState, style = {} }) => (
   <div
     style={style}
     aria-describedby={labels.description.id}
@@ -36,8 +36,8 @@ const EditCard = ({ classes, appState, style = {} }) => (
   >
     <Header
       className={classes.header}
-      cardId={appState.cardBeingEdited.id}
-      cardTitle={appState.cardBeingEdited.title}
+      cardId={boardState.cardBeingEdited.id}
+      cardTitle={boardState.cardBeingEdited.title}
     />
     <div style={{ display: "flex" }}>
       <Content style={{ width: "100%", padding: "0px 10px" }} />
@@ -46,13 +46,13 @@ const EditCard = ({ classes, appState, style = {} }) => (
   </div>
 );
 
-const Component = compose(inject("appState"), withStyles(styles))(EditCard);
+const Component = compose(inject("boardState"), withStyles(styles))(EditCard);
 
 export const fixtures = makeFixtures(modulePath, Component, {
   default: {
     props: {},
     stores: {
-      appState: {
+      boardState: {
         cardBeingEdited: { id: 1, title: "Ut sunt qui amet." }
       }
     }

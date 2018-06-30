@@ -19,7 +19,7 @@ export const moduleName = filename => {
   // run in the browser, so we have to:
   // 1. Use macros from "paths.macro" which will get substituted at compile time
   // 2. Do somehow lengthy path manipulation ourselves
-  const p = path.relative(path.join(npmRoot, "src"), filename);
+  const p = path.relative(path.join(npmRoot, "src", "app"), filename);
   return path.join(path.dirname(p), path.basename(p, path.extname(p)));
 };
 

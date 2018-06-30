@@ -2,7 +2,7 @@ import { flatten } from "../utils";
 
 export default flatten(
   [
-    require("../App"),
+    require("../app/Board"),
     require("../app/EditCard"),
     require("../app/QuickEditCard"),
     require("../app/CardsList"),

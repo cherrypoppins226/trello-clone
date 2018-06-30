@@ -41,7 +41,7 @@ const styles = {
 const Header = ({
   classes,
   className = "",
-  appState,
+  boardState,
   updateList,
   listId,
   listTitle
@@ -65,7 +65,7 @@ const Header = ({
         onClick={e => {
           const box = e.currentTarget.getBoundingClientRect();
           const { top, left, bottom, right } = box;
-          appState.startListEdit({
+          boardState.startListEdit({
             id: listId,
             anchorElementBox: { top, left, bottom, right }
           });
@@ -83,7 +83,7 @@ const Component = compose(
     listTitle: PropTypes.string.isRequired
   }),
   graphql(queries.updateList, { name: "updateList" }),
-  inject("appState"),
+  inject("boardState"),
   withHandlers({
     updateList: props => title => {
       if (title !== props.listTitle) {
@@ -106,7 +106,7 @@ export const fixtures = makeFixtures(modulePath, Component, {
       listTitle: "Repellat quisquam recusandae alias consequuntur corporis."
     },
     stores: {
-      appState: {
+      boardState: {
         startEditList: () => {}
       }
     }
