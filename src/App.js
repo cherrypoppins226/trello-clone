@@ -9,6 +9,7 @@ import "./index.css";
 import DragPreview from "./app/DragPreview";
 import Labels from "./app/Labels";
 import Board from "./app/Board";
+import Header from "./app/Header";
 import client from "./cosmos/apollo/client";
 import { queries } from "./cosmos/apollo/schema";
 
@@ -39,7 +40,12 @@ export default (
     <PopulateCache>
       <DragDropContextProvider backend={HTML5Backend}>
         <CssBaseline />
-        <Board />
+        <div
+          style={{ height: "100%", display: "flex", flexDirection: "column" }}
+        >
+          <Header />
+          <Board />
+        </div>
         <DragPreview />
         <Labels />
       </DragDropContextProvider>
