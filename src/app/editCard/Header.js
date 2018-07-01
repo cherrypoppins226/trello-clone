@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { fileAbsolute } from "paths.macro";
 import { compose, setPropTypes } from "recompose";
 import { graphql } from "react-apollo";
+import merge from "deepmerge";
 
 import { queries } from "../../cosmos/apollo/schema";
 import { inject } from "mobx-react";
@@ -16,23 +17,28 @@ import { makeFixtures, moduleName } from "../../utils";
 
 const styles = {
   root: {
-    padding: "20px 20px 30px 15px",
+    position: "relative",
+    margin: "15px 45px 30px 15px",
     display: "flex",
     alignItems: "flex-start",
-    "& svg": { color: "rgb(153, 153, 153)" },
-    "& h2": { width: "100%" },
+    "& h2": {
+      width: "100%"
+    },
     "& textarea": {
       ...headerTextarea,
-      marginRight: 15
+      marginLeft: 4,
+      paddingLeft: 0
     }
   },
-  close: {
-    ...buttonIcon,
+  close: merge(buttonIcon, {
+    position: "absolute",
+    top: -5,
+    right: -37,
     margin: 0,
     "&:hover": {
       color: "black"
     }
-  }
+  })
 };
 
 const Header = ({

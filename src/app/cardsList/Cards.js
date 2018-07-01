@@ -18,7 +18,7 @@ const styles = {
     height: "100%",
     listStyleType: "none",
     "& li": {
-      padding: "0px 8px 8px 8px"
+      padding: "4px 8px 4px 8px"
     }
   }
 };
@@ -136,7 +136,7 @@ class Cards extends React.Component {
 
     if (this.props.cardBeingAdded) {
       const newCard = (
-        <li key={-2}>
+        <li key={-2} style={{ paddingBottom: 8 }}>
           <NewCard
             cardBeingAdded={this.props.cardBeingAdded}
             finishAddCard={this.props.finishAddCard}

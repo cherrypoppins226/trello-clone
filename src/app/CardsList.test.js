@@ -9,7 +9,7 @@ it("new card dialog closes on clicking close", async () => {
   const { container, getByText } = await mount(render, fixtures.default);
   const newCard = () => Boolean(container.querySelector(testId("new-card")));
   expect(newCard()).toBe(false);
-  Simulate.click(getByText("Add a card..."));
+  Simulate.click(getByText("+ Add a card"));
   expect(newCard()).toBe(true);
   Simulate.click(container.querySelector(labelledBy(newCardLabels.close.id)));
   expect(newCard()).toBe(false);

@@ -1,5 +1,4 @@
 import merge from "deepmerge";
-import grey from "@material-ui/core/colors/grey";
 
 export const textarea = {
   border: 0,
@@ -40,28 +39,21 @@ export const lightColor = {
 export const button = {
   textTransform: "none",
   fontWeight: 700,
+  lineHeight: "1em",
   borderRadius: 3,
   borderWidth: 0,
   outline: "none",
-  cursor: "pointer"
+  cursor: "pointer",
+  color: "#999999",
+  transition: "",
+  "&:hover": {
+    color: "#4D4D4D"
+  }
 };
 
 export const buttonIcon = {
   ...button,
-  background: "none",
-  padding: 0
-};
-
-export const buttonIconSmall = {
-  ...buttonIcon,
   padding: 3,
-  "& svg": {
-    padding: 3,
-    width: "0.8em",
-    height: "0.8em",
-    color: grey[700]
-  },
-  "&:hover": {
-    background: "#D6D6D6"
-  }
+  paddingBottom: 2,
+  background: "transparent"
 };

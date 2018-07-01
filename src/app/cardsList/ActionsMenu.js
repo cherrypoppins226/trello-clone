@@ -36,6 +36,7 @@ const styles = {
         margin: "5px 10px"
       },
       "& [role='menuitem']": {
+        transition: "",
         padding: 3,
         paddingLeft: 10,
         "&:hover": {
@@ -84,7 +85,9 @@ const ActionsMenu = ({ classes, boardState, ...rest }) => {
   );
 };
 
-const Component = compose(inject("boardState"), withStyles(styles))(ActionsMenu);
+const Component = compose(inject("boardState"), withStyles(styles))(
+  ActionsMenu
+);
 
 export const fixtures = makeFixtures(modulePath, Component, {
   default: {

@@ -16,12 +16,12 @@ import { makeFixtures, handleGraphQLResponse, moduleName } from "../utils";
 const styles = {
   root: {
     display: "flex",
+    borderRadius: 3,
     flexDirection: "column",
     background: "rgb(226, 228, 230)",
     "& > button": {
       ...button,
-      justifyContent: "left",
-      fontWeight: 400
+      justifyContent: "left"
     }
   },
   header: {
@@ -62,7 +62,7 @@ const CardsList = ({
             setCardBeingAdded(() => ({ listId: id }));
           }}
         >
-          Add a card...
+          + Add a card
         </Button>
       )}
     </Paper>

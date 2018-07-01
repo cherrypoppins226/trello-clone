@@ -3,7 +3,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import grey from "@material-ui/core/colors/grey";
 import Create from "@material-ui/icons/Create";
 import merge from "deepmerge";
 import { fileAbsolute } from "paths.macro";
@@ -11,7 +10,7 @@ import { inject } from "mobx-react";
 import { compose, setPropTypes, withHandlers, defaultProps } from "recompose";
 
 import { makeFixtures, labelId, moduleName } from "../../utils";
-import { buttonIconSmall } from "../styles";
+import { buttonIcon } from "../styles";
 
 const modulePath = moduleName(fileAbsolute);
 
@@ -28,25 +27,37 @@ export const labels = {
 
 const styles = {
   root: {
+    position: "relative",
     boxShadow: "0 1px 0 #CCC",
     borderRadius: 3,
-    padding: 4,
-    paddingLeft: 8,
+    padding: "6px 8px 6px",
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "space-between",
     cursor: "pointer",
     "&:hover": {
-      background: grey[200],
+      background: "#EDEFF0",
       "& button": {
-        visibility: "visible"
+        visibility: "visible",
+        opacity: 0.8,
+        "&:hover": {
+          opacity: 1,
+          background: "#D6DADC"
+        }
       }
     },
-    "& button": merge(buttonIconSmall, {
+    "& button": merge(buttonIcon, {
+      position: "absolute",
+      top: 2,
+      right: 2,
+      padding: 4,
+      paddingBottom: 3,
+      background: "#EDEFF0",
       visibility: "hidden",
-      paddingBottom: 0,
-      "&:hover": {
-        visibility: "visible"
+      "& svg": {
+        padding: 3,
+        width: "0.8em",
+        height: "0.8em"
       }
     })
   }

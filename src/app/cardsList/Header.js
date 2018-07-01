@@ -8,10 +8,11 @@ import { fileAbsolute } from "paths.macro";
 import { inject } from "mobx-react";
 import { compose, setPropTypes, withHandlers } from "recompose";
 import { graphql } from "react-apollo";
+import merge from "deepmerge";
 
 import { queries } from "../../cosmos/apollo/schema";
 import { makeFixtures, labelId, moduleName } from "../../utils";
-import { buttonIconSmall, headerTextarea } from "../styles";
+import { buttonIcon, headerTextarea } from "../styles";
 
 const modulePath = moduleName(fileAbsolute);
 
@@ -29,12 +30,14 @@ const styles = {
     "& [role='heading']": {
       ...headerTextarea,
       margin: 3,
-      marginRight: 8
+      marginTop: 5
     },
-    "& button": {
-      ...buttonIconSmall,
-      alignSelf: "flex-start"
-    }
+    "& button": merge(buttonIcon, {
+      alignSelf: "flex-start",
+      "&:hover": {
+        background: "#CDD2D4"
+      }
+    })
   }
 };
 
