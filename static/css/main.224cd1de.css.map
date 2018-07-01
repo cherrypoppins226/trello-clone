@@ -1,0 +1,1 @@
+{"version":3,"sources":["../index.css"],"names":[],"mappings":"AAAA,UACE,YACA,eAAiB,CAEnB,MACE,kBACA,WAAa","file":"static/css/main.224cd1de.css","sourcesContent":["html, body {\n  height: 100%;\n  overflow: hidden;\n}\n#root {\n  position: relative;\n  height: 100%;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./index.css"],"sourceRoot":""}
